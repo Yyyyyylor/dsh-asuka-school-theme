@@ -3,7 +3,7 @@ import { createAsukaThemeController } from '../src/client/controller.js'
 import type { AsukaThemeSettings } from '../src/shared/settings.js'
 
 describe('Asuka theme controller', () => {
-  it('activates the selected theme but yields to an external DSH appearance change', async () => {
+  it('keeps the selected mode when its own delayed theme event arrives, then yields to an external DSH appearance change', async () => {
     const themeListeners = new Set<(snapshot: { preference: string }) => void>()
     let value: AsukaThemeSettings = {
       mode: 'after-class', wallpaperEnabled: true, wallpaperPeriod: 'auto', wallpaperOpacity: 0.2, wallpaperBlurPx: 0, decorativeDetails: true, reduceMotion: false,
@@ -11,6 +11,8 @@ describe('Asuka theme controller', () => {
     const watchers = new Set<() => void>()
     const writes: Array<[string, unknown]> = []
     let preference = 'light'
+    let revision = 0
+    const delayedThemeEvents: Array<{ preference: string, revision: number }> = []
 
     const context = {
       on: (_event: string, listener: (snapshot: { preference: string }) => void) => {
@@ -29,10 +31,14 @@ describe('Asuka theme controller', () => {
       unset: async () => undefined,
     }
     const theme = {
-      getTheme: () => ({ preference }),
-      setTheme: (next: string) => {
-        preference = next
-        themeListeners.forEach(listener => listener({ preference: next }))
+      getTheme: () => ({ preference, revision }),
+      overrideTokens: () => {
+        revision += 1
+        delayedThemeEvents.push({ preference, revision })
+        return () => {
+          revision += 1
+          delayedThemeEvents.push({ preference, revision })
+        }
       },
     }
     const views: unknown[] = []
@@ -43,10 +49,16 @@ describe('Asuka theme controller', () => {
       syncView: view => views.push(view),
     })
 
-    expect(preference).toBe('asuka-school-light')
     expect(views).toHaveLength(1)
 
-    themeListeners.forEach(listener => listener({ preference: 'dark' }))
+    delayedThemeEvents.forEach(snapshot => themeListeners.forEach(listener => listener(snapshot)))
+    await Promise.resolve()
+
+    expect(writes).not.toContainEqual(['mode', 'off'])
+
+    preference = 'dark'
+    revision += 1
+    themeListeners.forEach(listener => listener({ preference, revision }))
     await Promise.resolve()
 
     expect(writes).toContainEqual(['mode', 'off'])

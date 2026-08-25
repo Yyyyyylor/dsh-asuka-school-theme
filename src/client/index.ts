@@ -11,14 +11,11 @@ import { AsukaQuickRow } from './settings/AsukaQuickRow.js'
 import { AsukaSection } from './settings/AsukaSection.js'
 import { createAsukaSettingsStore } from './settings/settings-store.js'
 import { installAsukaStyles } from './styles.js'
-import { asukaDarkTheme, asukaLightTheme } from './themes/index.js'
 
 export const inject = ['theme', 'slots', 'locale', 'connection', 'remote', 'settingsScope']
 
 export function apply(ctx: ClientContext): void {
   ctx.effect(() => installAsukaStyles(), 'asuka-school-theme: owned styles')
-  ctx.effect(() => ctx.theme.register(asukaLightTheme), 'asuka-school-theme: light theme')
-  ctx.effect(() => ctx.theme.register(asukaDarkTheme), 'asuka-school-theme: dark theme')
   ctx.effect(() => ctx.locale.register(ASUKA_LOCALE_NAMESPACE, asukaLocales), 'asuka-school-theme: locales')
 
   const scope = ctx.settingsScope.bind<AsukaThemeSettings>({ namespace: ASUKA_SETTINGS_NAMESPACE_ID })

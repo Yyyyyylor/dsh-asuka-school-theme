@@ -14,7 +14,7 @@ verified against those packages:
 - `@deepseek-ai/cordis` is `4.0.1` (not `0.1.1-rc.2`).
 - Host settings use `ctx.settings.register(settingsNamespace(...), schema, { applies: 'live' })`.
 - Browser settings use `ctx.settingsScope.bind({ namespace })`.
-- Theme registration uses `ctx.theme.register(definition)` and exposes `theme/change`.
+- Theme token overrides use `ctx.theme.overrideTokens(source, tokens)` and expose `theme/change`.
 - `settings.general.item` and `settings.section` are additive list slots and must be registered through `ctx.slots.inject(...)`.
 - `ctx.webServer.register({ kind: 'exact', path, handler })` supplies a lifecycle-owned static asset route.
 - Third-party client artifacts must register a lazy CommonJS factory through `window.__ModuleLoader__.load(...)`.

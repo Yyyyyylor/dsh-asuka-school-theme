@@ -1,6 +1,6 @@
 {
   "name": "dsh-asuka-school-theme",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Asuka School // 02 theme for the DeepSeek Harness web UI.",
   "type": "module",
   "packageManager": "pnpm@11.19.0",

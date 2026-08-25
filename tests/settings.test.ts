@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
-  asukaThemeId,
   clampBlur,
   clampOpacity,
   DEFAULT_ASUKA_SETTINGS,
+  isActiveAsukaMode,
   isAsukaMode,
   isWallpaperPeriodPreference,
   millisecondsUntilNextWallpaperPeriod,
@@ -12,11 +12,11 @@ import {
 } from '../src/shared/settings.js'
 
 describe('Asuka settings invariants', () => {
-  it('starts turned off and maps the two active modes to registered themes', () => {
+  it('starts turned off and recognizes the two active Asuka modes', () => {
     expect(DEFAULT_ASUKA_SETTINGS.mode).toBe('off')
-    expect(asukaThemeId('off')).toBeUndefined()
-    expect(asukaThemeId('after-class')).toBe('asuka-school-light')
-    expect(asukaThemeId('tokyo3-night')).toBe('asuka-school-dark')
+    expect(isActiveAsukaMode('off')).toBe(false)
+    expect(isActiveAsukaMode('after-class')).toBe(true)
+    expect(isActiveAsukaMode('tokyo3-night')).toBe(true)
   })
 
   it('keeps numeric user input inside the Host schema limits', () => {

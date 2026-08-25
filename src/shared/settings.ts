@@ -65,6 +65,13 @@ export function isActiveAsukaMode(mode: AsukaMode): mode is Exclude<AsukaMode, '
   return mode !== 'off'
 }
 
+/** The registered DSH theme associated with an enabled Asuka presentation. */
+export function asukaThemeId(mode: AsukaMode): 'asuka-school-light' | 'asuka-school-dark' | undefined {
+  if (mode === 'after-class') return 'asuka-school-light'
+  if (mode === 'tokyo3-night') return 'asuka-school-dark'
+  return undefined
+}
+
 export function clampOpacity(value: number): number {
   return Math.min(0.4, Math.max(0, Math.round(value * 100) / 100))
 }

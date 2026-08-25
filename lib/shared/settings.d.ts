@@ -22,6 +22,8 @@ export declare function resolveWallpaperPeriod(preference: WallpaperPeriodPrefer
 /** Delay until the next 06:00, 11:00, or 17:00 local-time wallpaper boundary. */
 export declare function millisecondsUntilNextWallpaperPeriod(now?: Date): number;
 export declare function isActiveAsukaMode(mode: AsukaMode): mode is Exclude<AsukaMode, 'off'>;
+/** The registered DSH theme associated with an enabled Asuka presentation. */
+export declare function asukaThemeId(mode: AsukaMode): 'asuka-school-light' | 'asuka-school-dark' | undefined;
 export declare function clampOpacity(value: number): number;
 export declare function clampBlur(value: number): number;
 //# sourceMappingURL=settings.d.ts.map

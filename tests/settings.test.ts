@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  asukaThemeId,
   clampBlur,
   clampOpacity,
   DEFAULT_ASUKA_SETTINGS,
@@ -18,6 +19,9 @@ describe('Asuka settings invariants', () => {
     expect(isActiveAsukaMode('off')).toBe(false)
     expect(isActiveAsukaMode('after-class')).toBe(true)
     expect(isActiveAsukaMode('tokyo3-night')).toBe(true)
+    expect(asukaThemeId('off')).toBeUndefined()
+    expect(asukaThemeId('after-class')).toBe('asuka-school-light')
+    expect(asukaThemeId('tokyo3-night')).toBe('asuka-school-dark')
   })
 
   it('keeps numeric user input inside the Host schema limits', () => {

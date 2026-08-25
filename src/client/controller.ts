@@ -1,8 +1,12 @@
+import type { Context } from '@deepseek-ai/cordis'
 import type { SettingsScope } from '@deepseek-ai/dsh-client-runtime/client'
+import type { ThemeRuntime, ThemeSnapshot } from '@deepseek-ai/dsh-client-ui-theme/client'
 import {
+  asukaThemeId,
   clampBlur,
   clampOpacity,
   DEFAULT_ASUKA_SETTINGS,
+  isActiveAsukaMode,
   isAsukaMode,
   millisecondsUntilNextWallpaperPeriod,
   resolveWallpaperPeriod,
@@ -28,15 +32,68 @@ export interface AsukaThemeController {
 }
 
 interface AsukaThemeControllerOptions {
+  ctx: Context
+  theme: ThemeRuntime
   settings: SettingsScope<AsukaThemeSettings>
   syncView: (next: AsukaSettingsViewState) => void
 }
 
-/** Single source of truth for the Quick Row, Settings page, and wallpaper layer. */
+function isBuiltInThemePreference(value: string): value is 'light' | 'dark' | 'system' {
+  return value === 'light' || value === 'dark' || value === 'system'
+}
+
+function fallbackThemePreference(snapshot: ThemeSnapshot): 'light' | 'dark' | 'system' {
+  const preference = String(snapshot.preference)
+  return isBuiltInThemePreference(preference) ? preference : snapshot.active.colorScheme
+}
+
+/** Single source of truth for the Quick Row, Settings page, ThemeRuntime, and wallpaper layer. */
 export function createAsukaThemeController(options: AsukaThemeControllerOptions): AsukaThemeController {
-  const { settings, syncView } = options
+  const { ctx, theme, settings, syncView } = options
   let current = DEFAULT_ASUKA_SETTINGS
   let wallpaperTimer: ReturnType<typeof setTimeout> | undefined
+  let appliedMode: AsukaMode = 'off'
+  let applyingOwnTheme = false
+  let synchronouslyObservedOwnRevision: number | undefined
+  const deferredOwnThemeRevisions = new Set<number>()
+  let baseThemePreference = fallbackThemePreference(theme.getTheme())
+
+  const mutateOwnTheme = (change: () => void): void => {
+    const previousRevision = theme.getTheme().revision
+    synchronouslyObservedOwnRevision = undefined
+    applyingOwnTheme = true
+    try {
+      change()
+    } finally {
+      applyingOwnTheme = false
+    }
+
+    const revision = theme.getTheme().revision
+    if (revision !== previousRevision && synchronouslyObservedOwnRevision !== revision) {
+      deferredOwnThemeRevisions.add(revision)
+    }
+  }
+
+  const syncTheme = (): void => {
+    const target = asukaThemeId(current.mode)
+    const snapshot = theme.getTheme()
+    const preference = String(snapshot.preference)
+
+    if (target === undefined) {
+      const previousTarget = asukaThemeId(appliedMode)
+      if (previousTarget !== undefined && preference === previousTarget) {
+        mutateOwnTheme(() => theme.setTheme(baseThemePreference))
+      } else if (isBuiltInThemePreference(preference)) {
+        baseThemePreference = preference
+      }
+      appliedMode = 'off'
+      return
+    }
+
+    if (isBuiltInThemePreference(preference)) baseThemePreference = preference
+    if (preference !== target) mutateOwnTheme(() => theme.setTheme(target))
+    appliedMode = current.mode
+  }
 
   const syncWallpaper = (): void => {
     if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
@@ -56,10 +113,30 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     })
 
     if (snapshot.status !== 'ready') return
+    syncTheme()
     syncWallpaper()
   }
 
+  const onThemeChange = (snapshot: ThemeSnapshot): void => {
+    if (applyingOwnTheme) {
+      synchronouslyObservedOwnRevision = snapshot.revision
+      return
+    }
+    if (deferredOwnThemeRevisions.delete(snapshot.revision)) return
+
+    const preference = String(snapshot.preference)
+    if (!isActiveAsukaMode(current.mode)) {
+      if (isBuiltInThemePreference(preference)) baseThemePreference = preference
+      return
+    }
+
+    if (preference === asukaThemeId(current.mode)) return
+    if (isBuiltInThemePreference(preference)) baseThemePreference = preference
+    void settings.set('mode', 'off')
+  }
+
   const unsubscribe = settings.subscribe(syncFromSettings)
+  const removeThemeListener = ctx.on('theme/change', onThemeChange)
   syncFromSettings()
 
   return {
@@ -81,6 +158,7 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     },
     dispose: () => {
       unsubscribe()
+      removeThemeListener()
       if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
       clearWallpaper()
     },

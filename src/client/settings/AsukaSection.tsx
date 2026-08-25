@@ -66,7 +66,7 @@ export function AsukaSection({
           onChange={setWallpaperPeriod}
           options={{ auto: t('timing.auto'), morning: t('timing.morning'), noon: t('timing.noon'), night: t('timing.night') }}
         />
-        <RangeRow label={t('section.opacityLabel')} value={percentage} min={0} max={40} suffix="%" onChange={event => setOpacity(Number(event.currentTarget.value) / 100)} />
+        <RangeRow label={t('section.opacityLabel')} value={percentage} min={0} max={100} suffix="%" onChange={event => setOpacity(Number(event.currentTarget.value) / 100)} />
         <RangeRow label={t('section.blurLabel')} value={settings.wallpaperBlurPx} min={0} max={20} suffix="px" onChange={event => setBlur(Number(event.currentTarget.value))} />
       </fieldset>
 

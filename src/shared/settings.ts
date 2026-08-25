@@ -73,7 +73,7 @@ export function asukaThemeId(mode: AsukaMode): 'asuka-school-light' | 'asuka-sch
 }
 
 export function clampOpacity(value: number): number {
-  return Math.min(0.4, Math.max(0, Math.round(value * 100) / 100))
+  return Math.min(1, Math.max(0, Math.round(value * 100) / 100))
 }
 
 export function clampBlur(value: number): number {

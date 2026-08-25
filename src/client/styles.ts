@@ -21,11 +21,33 @@ const ASUKA_STYLES = String.raw`
   background-size: cover, cover;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  filter: saturate(0.88) contrast(0.98);
+  transform: scale(1.035);
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 900ms ease, transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; }
+.asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; filter: saturate(1) contrast(1); transform: scale(1); }
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer { transition: none; }
+/* Stable semantic details: the palette is applied by presentation.ts, while these make its school motif tangible. */
+body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']) {
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 0 rgb(20 32 40 / 0.08);
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']):not(:disabled):hover {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 5px 15px rgb(37 57 69 / 0.14);
+  transform: translateY(-1px);
+}
+body[data-asuka-school-theme][data-asuka-school-details='true'] aside {
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--dsw-specific-sidebar-fill) 92%, transparent), var(--dsw-specific-sidebar-fill));
+  border-right-color: var(--dsw-alias-border-l2);
+}
+body[data-asuka-school-theme][data-asuka-school-details='true'] pre {
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-left: 3px solid var(--dsw-alias-brand-primary);
+  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 8px 24px rgb(19 30 41 / 0.12);
+}
 .asuka-quick-row, .asuka-section { color: var(--dsw-alias-label-primary); }
 .asuka-quick-row {
   display: grid;

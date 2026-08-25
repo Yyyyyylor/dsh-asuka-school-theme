@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { asukaThemeForMode } from '../src/client/presentation.js'
 import { asukaDarkTheme } from '../src/client/themes/dark.js'
 import { asukaLightTheme } from '../src/client/themes/light.js'
 
@@ -14,5 +15,11 @@ describe('Asuka theme definitions', () => {
       expect(theme.tokens['--dsw-alias-markdown-code-block']).toMatch(/^#/)
       expect(theme.tokens['--shiki-background']).toMatch(/^#/)
     }
+  })
+
+  it('maps each enabled preset to a complete directly-presented palette', () => {
+    expect(asukaThemeForMode('off')).toBeUndefined()
+    expect(asukaThemeForMode('after-class')).toBe(asukaLightTheme)
+    expect(asukaThemeForMode('tokyo3-night')).toBe(asukaDarkTheme)
   })
 })

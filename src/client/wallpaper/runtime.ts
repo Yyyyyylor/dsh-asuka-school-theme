@@ -26,18 +26,32 @@ export function applyWallpaper(settings: AsukaThemeSettings, period: WallpaperPe
     return
   }
 
+  const created = root === null
   const layers = getWallpaperLayers(root ?? createWallpaperRoot())
   const wallpaperRoot = layers[0].parentElement as HTMLElement
-  wallpaperRoot.dataset.enabled = 'true'
+  const wasEnabled = wallpaperRoot.dataset.enabled === 'true'
   wallpaperRoot.style.setProperty('--asuka-wallpaper-opacity', String(wallpaperOpacityForPeriod(settings.wallpaperOpacity, period)))
   wallpaperRoot.style.setProperty('--asuka-wallpaper-blur', `${settings.wallpaperBlurPx}px`)
 
-  if (period === activePeriod) return
+  if (period === activePeriod) {
+    if (!wasEnabled) {
+      wallpaperRoot.dataset.enabled = 'false'
+      void wallpaperRoot.offsetWidth
+      wallpaperRoot.dataset.enabled = 'true'
+    }
+    return
+  }
   const nextIndex = activePeriod === undefined ? activeLayerIndex : 1 - activeLayerIndex
   const nextLayer = layers[nextIndex]
+  const previousLayer = layers[1 - nextIndex]
   nextLayer.style.setProperty('--asuka-wallpaper-image', `url("${wallpaperAssetUrl(period)}")`)
+  nextLayer.dataset.active = 'false'
+  if (created) wallpaperRoot.dataset.enabled = 'false'
+  // Force the initial 0-opacity state to be committed before entering it.
+  void nextLayer.offsetWidth
+  wallpaperRoot.dataset.enabled = 'true'
   nextLayer.dataset.active = 'true'
-  layers[1 - nextIndex].dataset.active = 'false'
+  previousLayer.dataset.active = 'false'
   activeLayerIndex = nextIndex
   activePeriod = period
 }

@@ -1,9 +1,10 @@
 import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type { AsukaMode } from '../../shared/settings.js'
+import { resolveWallpaperPeriod, type AsukaMode, type WallpaperPeriod } from '../../shared/settings.js'
 import type { createAsukaSettingsStore } from './settings-store.js'
 
 interface AsukaQuickRowInjected {
   setMode: (mode: AsukaMode) => void
+  setScene: (period: WallpaperPeriod) => void
 }
 
 type AsukaQuickRowProps = PropsRuntime<'settings.general.item'>
@@ -11,11 +12,15 @@ type AsukaQuickRowProps = PropsRuntime<'settings.general.item'>
   & PropsLocale<'settings.asuka-school'>
   & AsukaQuickRowInjected
 
-const MODES: readonly AsukaMode[] = ['off', 'after-class', 'tokyo3-night']
+const SCENES = ['off', 'morning', 'noon', 'night'] as const
+type Scene = (typeof SCENES)[number]
 
-export function AsukaQuickRow({ t, useStore, setMode }: AsukaQuickRowProps) {
+export function AsukaQuickRow({ t, useStore, setMode, setScene }: AsukaQuickRowProps) {
   const { settings, status } = useStore(state => state)
   const disabled = status !== 'ready'
+  const selectedScene: Scene = settings.mode === 'off'
+    ? 'off'
+    : resolveWallpaperPeriod(settings.wallpaperPeriod)
 
   return (
     <section className="asuka-quick-row" aria-label={t('quick.label')}>
@@ -25,16 +30,16 @@ export function AsukaQuickRow({ t, useStore, setMode }: AsukaQuickRowProps) {
         <p>{disabled ? t('section.loading') : t('quick.description')}</p>
       </div>
       <div className="asuka-mode-switch" role="group" aria-label={t('quick.label')}>
-        {MODES.map(mode => (
+        {SCENES.map(scene => (
           <button
-            key={mode}
+            key={scene}
             className="asuka-mode-button"
             type="button"
-            aria-pressed={settings.mode === mode}
+            aria-pressed={selectedScene === scene}
             disabled={disabled}
-            onClick={() => setMode(mode)}
+            onClick={() => scene === 'off' ? setMode('off') : setScene(scene)}
           >
-            {mode === 'off' ? t('mode.off') : mode === 'after-class' ? t('mode.afterClass') : t('mode.tokyo3Night')}
+            {scene === 'off' ? t('mode.off') : t(`scene.${scene}`)}
           </button>
         ))}
       </div>

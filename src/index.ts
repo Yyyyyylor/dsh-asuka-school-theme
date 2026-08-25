@@ -8,17 +8,18 @@ import {
   ASUKA_SETTINGS_NAMESPACE,
   AsukaThemeSettingsSchema,
 } from './settings.js'
+import { WALLPAPER_ASSET_NAMES, WALLPAPER_ROUTE_PREFIX } from './shared/wallpapers.js'
 
 export const name = 'dsh-asuka-school-theme'
 export const inject = ['settings', 'webServer']
 
-export const ASSET_ROUTE_PREFIX = '/asuka-school/assets'
+export const ASSET_ROUTE_PREFIX = WALLPAPER_ROUTE_PREFIX
 const ASSET_CACHE_CONTROL = 'public, max-age=31536000, immutable'
 
-const PUBLIC_ASSETS = Object.freeze([
-  { name: 'asuka-after-class.webp', contentType: 'image/webp' },
-  { name: 'asuka-noon.webp', contentType: 'image/webp' },
-  { name: 'asuka-tokyo3-night.webp', contentType: 'image/webp' },
+export const PUBLIC_ASSETS = Object.freeze([
+  { name: WALLPAPER_ASSET_NAMES.morning, contentType: 'image/webp' },
+  { name: WALLPAPER_ASSET_NAMES.noon, contentType: 'image/webp' },
+  { name: WALLPAPER_ASSET_NAMES.night, contentType: 'image/webp' },
 ] as const)
 
 /** Register one settings namespace and immutable, fixed-name image routes. */

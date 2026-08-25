@@ -3,6 +3,16 @@ import type { ServerResponse } from 'node:http';
 export declare const name = "dsh-asuka-school-theme";
 export declare const inject: string[];
 export declare const ASSET_ROUTE_PREFIX = "/asuka-school/assets";
+export declare const PUBLIC_ASSETS: readonly [{
+    readonly name: string;
+    readonly contentType: "image/webp";
+}, {
+    readonly name: string;
+    readonly contentType: "image/webp";
+}, {
+    readonly name: string;
+    readonly contentType: "image/webp";
+}];
 /** Register one settings namespace and immutable, fixed-name image routes. */
 export declare function apply(ctx: Context): void;
 /**

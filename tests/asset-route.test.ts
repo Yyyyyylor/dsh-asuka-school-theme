@@ -2,9 +2,22 @@ import { createServer } from 'node:http'
 import { once } from 'node:events'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { createAssetHandler } from '../src/index.js'
+import { PUBLIC_ASSETS, createAssetHandler } from '../src/index.js'
+import { wallpaperAssetUrl } from '../src/shared/wallpapers.js'
 
 describe('public wallpaper route', () => {
+  it('publishes a distinct morning, noon, and night asset URL', () => {
+    expect(PUBLIC_ASSETS).toHaveLength(3)
+    expect(PUBLIC_ASSETS.map(asset => asset.name)).toEqual([
+      'asuka-after-class.webp',
+      'asuka-noon.webp',
+      'asuka-tokyo3-night.webp',
+    ])
+    expect(wallpaperAssetUrl('morning')).toContain('asuka-after-class.webp')
+    expect(wallpaperAssetUrl('noon')).toContain('asuka-noon.webp')
+    expect(wallpaperAssetUrl('night')).toContain('asuka-tokyo3-night.webp')
+  })
+
   it('serves only GET and HEAD, with a valid WebP response', async () => {
     const handler = createAssetHandler(join(process.cwd(), 'assets', 'public', 'asuka-after-class.webp'), 'image/webp')
     const server = createServer((request, response) => {

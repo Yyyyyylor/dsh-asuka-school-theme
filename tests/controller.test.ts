@@ -56,6 +56,13 @@ describe('Asuka theme controller', () => {
 
     expect(writes).not.toContainEqual(['mode', 'off'])
 
+    controller.setScene('noon')
+    await Promise.resolve()
+
+    expect(writes).toContainEqual(['mode', 'after-class'])
+    expect(writes).toContainEqual(['wallpaperEnabled', true])
+    expect(writes).toContainEqual(['wallpaperPeriod', 'noon'])
+
     preference = 'dark'
     revision += 1
     themeListeners.forEach(listener => listener({ preference, revision }))

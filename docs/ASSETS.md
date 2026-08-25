@@ -5,7 +5,7 @@ All use a right-side subject and left-side negative space so the conversation
 column remains legible. The early and night variants were relit on 2026-08-25
 to match their environments; the noon variant uses neutral daylight.
 
-- `asuka-after-class.webp`: early corridor, with Asuka's three-quarter profile naturally looking through the window; warm window light and matched bounce light.
+- `asuka-after-class.webp`: morning commute street, with Asuka placed at the right and generous left-side negative space for the UI.
 - `asuka-noon.webp`: noon classroom, seated side profile by the window with a pale left-side UI area and physically plausible neutral daylight.
 - `asuka-tokyo3-night.webp`: night rooftop, cool blue ambient light with a restrained beacon red.
 

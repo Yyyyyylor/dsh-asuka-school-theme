@@ -21,7 +21,7 @@ time of day.
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.2/dsh-asuka-school-theme-0.2.2.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.3/dsh-asuka-school-theme-0.2.3.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -30,7 +30,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.2
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.3
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -42,7 +42,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.2.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.3.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the
@@ -50,8 +50,8 @@ plugin. The final filename should match the `.tgz` emitted by `npm pack`.
 
 ## Use
 
-- Open **Settings → General → Asuka School** for the quick Off / After Class /
-  Tokyo-3 Night switch.
+- Open **Settings → General → Asuka School** for the quick Off / On the Way to
+  School / Noon Classroom / Tokyo-3 Night scene switch.
 - Open **Settings → Asuka School** for wallpaper period, opacity, blur,
   decorative details, reduced motion, and reset. In the default automatic
   setting, Early is 06:00–11:00, Noon is 11:00–17:00, and Night is 17:00–06:00;

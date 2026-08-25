@@ -11,6 +11,7 @@ import {
   resolveWallpaperPeriod,
   type AsukaMode,
   type AsukaThemeSettings,
+  type WallpaperPeriod,
   type WallpaperPeriodPreference,
 } from '../shared/settings.js'
 import { applyWallpaper, clearWallpaper } from './wallpaper/runtime.js'
@@ -28,6 +29,7 @@ function asukaThemeOverrides(mode: Exclude<AsukaMode, 'off'>): ThemeTokenOverrid
 
 export interface AsukaThemeController {
   setMode(mode: AsukaMode): void
+  setScene(period: WallpaperPeriod): void
   setWallpaperEnabled(value: boolean): void
   setWallpaperPeriod(value: WallpaperPeriodPreference): void
   setOpacity(value: number): void
@@ -123,6 +125,12 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
 
   return {
     setMode: (mode) => { if (isAsukaMode(mode)) void settings.set('mode', mode) },
+    setScene: (period) => {
+      const mode: AsukaMode = period === 'night' ? 'tokyo3-night' : 'after-class'
+      void settings.set('mode', mode)
+      void settings.set('wallpaperEnabled', true)
+      void settings.set('wallpaperPeriod', period)
+    },
     setWallpaperEnabled: (value) => { void settings.set('wallpaperEnabled', Boolean(value)) },
     setWallpaperPeriod: (value) => { if (['auto', 'morning', 'noon', 'night'].includes(value)) void settings.set('wallpaperPeriod', value) },
     setOpacity: (value) => { void settings.set('wallpaperOpacity', clampOpacity(value)) },

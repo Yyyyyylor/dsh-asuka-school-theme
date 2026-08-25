@@ -9,6 +9,12 @@ export type AsukaLocaleKey =
   | 'mode.off'
   | 'mode.afterClass'
   | 'mode.tokyo3Night'
+  | 'scene.morning'
+  | 'scene.noon'
+  | 'scene.night'
+  | 'scene.morningDetail'
+  | 'scene.noonDetail'
+  | 'scene.nightDetail'
   | 'section.title'
   | 'section.kicker'
   | 'section.heading'
@@ -49,15 +55,21 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
   zh: {
     'quick.kicker': 'ASUKA // 02',
     'quick.label': '明日香学园',
-    'quick.description': '选择一个主题，或让 DeepSeek Harness 保持原有外观。',
+    'quick.description': '选择早、中、晚场景，或让 DeepSeek Harness 保持原有外观。',
     'mode.off': '关闭',
-    'mode.afterClass': '放学后',
+    'mode.afterClass': '上学路上',
     'mode.tokyo3Night': '东京-3 夜',
+    'scene.morning': '上学路上',
+    'scene.noon': '午间教室',
+    'scene.night': '东京-3 夜',
+    'scene.morningDetail': '清晨街道 · 校服蓝 · 领结红',
+    'scene.noonDetail': '明亮教室 · 中性日光 · 窗外城市',
+    'scene.nightDetail': '夜蓝 · 城市灯光 · EVA-02 余烬',
     'section.title': '明日香学园',
     'section.kicker': 'ASUKA // 02',
-    'section.heading': '放学后的工作台',
-    'section.description': '校服蓝、领结红和克制的 EVA-02 暗示；视觉上鲜明，工作时依旧安静。',
-    'section.themeLabel': '主题',
+    'section.heading': '早中晚的工作台',
+    'section.description': '上学路上、午间教室与东京-3 夜；视觉上鲜明，工作时依旧安静。',
+    'section.themeLabel': '场景预设',
     'section.wallpaperLabel': '壁纸',
     'section.wallpaperHint': '仅在启用明日香主题时显示，并始终保持在工作内容之后。',
     'section.periodLabel': '壁纸时段',
@@ -71,9 +83,9 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
     'section.motionLabel': '减少动态效果',
     'section.motionHint': '关闭壁纸淡入和主题过渡。',
     'section.assetsLabel': '公开壁纸资产',
-    'section.assetsValue': '2 张原创生成 WebP（随插件发布）',
+    'section.assetsValue': '3 张原创生成 WebP（早 / 午 / 晚，随插件发布）',
     'section.interface': '界面',
-    'section.afterClassDetail': '暖白 · 校服蓝 · 领结红',
+    'section.afterClassDetail': '清晨街道 · 校服蓝 · 领结红',
     'section.tokyo3NightDetail': '夜蓝 · 城市灯光 · EVA-02 余烬',
     'section.offDetail': '恢复当前 DSH 外观',
     'section.reset': '重置明日香设置',
@@ -86,15 +98,21 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
   en: {
     'quick.kicker': 'ASUKA // 02',
     'quick.label': 'Asuka School',
-    'quick.description': 'Pick a theme, or leave DeepSeek Harness exactly as it is.',
+    'quick.description': 'Pick a morning, noon, or night scene, or leave DeepSeek Harness exactly as it is.',
     'mode.off': 'Off',
-    'mode.afterClass': 'After Class',
+    'mode.afterClass': 'On the Way to School',
     'mode.tokyo3Night': 'Tokyo-3 Night',
+    'scene.morning': 'On the Way to School',
+    'scene.noon': 'Noon Classroom',
+    'scene.night': 'Tokyo-3 Night',
+    'scene.morningDetail': 'Morning street · school blue · ribbon red',
+    'scene.noonDetail': 'Bright classroom · neutral daylight · city window',
+    'scene.nightDetail': 'Night navy · city light · EVA-02 ember',
     'section.title': 'Asuka School',
     'section.kicker': 'ASUKA // 02',
-    'section.heading': 'A desk after class',
-    'section.description': 'School blue, ribbon red, and a restrained EVA-02 reference: lively to look at, quiet to work in.',
-    'section.themeLabel': 'Theme',
+    'section.heading': 'A desk through the day',
+    'section.description': 'Morning commute, noon classroom, and Tokyo-3 night: lively to look at, quiet to work in.',
+    'section.themeLabel': 'Scene presets',
     'section.wallpaperLabel': 'Wallpaper',
     'section.wallpaperHint': 'Only appears while an Asuka theme is active and always stays behind your work.',
     'section.periodLabel': 'Wallpaper time',
@@ -108,9 +126,9 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
     'section.motionLabel': 'Reduce motion',
     'section.motionHint': 'Disable wallpaper fades and theme transitions.',
     'section.assetsLabel': 'Public wallpaper assets',
-    'section.assetsValue': '2 original generated WebPs, shipped with the plugin',
+    'section.assetsValue': '3 original generated WebPs for morning, noon, and night, shipped with the plugin',
     'section.interface': 'Interface',
-    'section.afterClassDetail': 'Warm cream · school blue · ribbon red',
+    'section.afterClassDetail': 'Morning street · school blue · ribbon red',
     'section.tokyo3NightDetail': 'Night navy · city light · EVA-02 ember',
     'section.offDetail': 'Return to the current DSH appearance',
     'section.reset': 'Reset Asuka settings',

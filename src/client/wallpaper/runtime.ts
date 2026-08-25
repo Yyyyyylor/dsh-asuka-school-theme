@@ -1,4 +1,5 @@
 import type { AsukaThemeSettings, WallpaperPeriod } from '../../shared/settings.js'
+import { wallpaperAssetUrl } from '../../shared/wallpapers.js'
 
 const ATTRIBUTE_ENABLED = 'data-asuka-school-wallpaper'
 const ATTRIBUTE_MODE = 'data-asuka-school-mode'
@@ -6,12 +7,6 @@ const ATTRIBUTE_DETAILS = 'data-asuka-school-details'
 const ATTRIBUTE_REDUCED_MOTION = 'data-asuka-school-reduce-motion'
 const WALLPAPER_ROOT_ID = 'asuka-school-wallpaper-root'
 const WALLPAPER_LAYER_CLASS = 'asuka-school-wallpaper-layer'
-
-const WALLPAPER_URLS: Readonly<Record<WallpaperPeriod, string>> = Object.freeze({
-  morning: "/asuka-school/assets/asuka-after-class.webp?v=0.2.1",
-  noon: "/asuka-school/assets/asuka-noon.webp?v=0.2.1",
-  night: "/asuka-school/assets/asuka-tokyo3-night.webp?v=0.2.1",
-})
 
 let activeLayerIndex = 0
 let activePeriod: WallpaperPeriod | undefined
@@ -40,7 +35,7 @@ export function applyWallpaper(settings: AsukaThemeSettings, period: WallpaperPe
   if (period === activePeriod) return
   const nextIndex = activePeriod === undefined ? activeLayerIndex : 1 - activeLayerIndex
   const nextLayer = layers[nextIndex]
-  nextLayer.style.setProperty('--asuka-wallpaper-image', `url("${WALLPAPER_URLS[period]}")`)
+  nextLayer.style.setProperty('--asuka-wallpaper-image', `url("${wallpaperAssetUrl(period)}")`)
   nextLayer.dataset.active = 'true'
   layers[1 - nextIndex].dataset.active = 'false'
   activeLayerIndex = nextIndex

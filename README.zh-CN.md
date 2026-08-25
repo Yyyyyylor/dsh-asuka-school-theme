@@ -20,7 +20,7 @@ Ubuntu 是本项目的目标运行平台，**应可使用**；不过当前只完
 ### 从 GitHub Release 安装（推荐）
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.2/dsh-asuka-school-theme-0.2.2.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.3/dsh-asuka-school-theme-0.2.3.tgz
 ```
 
 本项目暂未发布到 npm。GitHub Release 中的 `.tgz` 是已构建、带版本号的发布包，推荐直接使用。
@@ -28,7 +28,7 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 ### 从 GitHub 源码安装
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.2
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.3
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -41,7 +41,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.2
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.2.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.3.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 文件一致。
@@ -50,7 +50,7 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.2.tgz
 
 ## 使用方式
 
-1. 在 **设置 → 通用 → Asuka School** 中快速切换“关闭 / 放学后 / 东京-3 夜”。
+1. 在 **设置 → 通用 → Asuka School** 中快速切换“关闭 / 上学路上 / 午间教室 / 东京-3 夜”。
 2. 在 **设置 → Asuka School** 中调整壁纸时段、透明度、模糊、装饰细节、减少动态效果，并可重置插件设置。
 3. 默认“壁纸时段”为自动模式，按本机时间切换：
    - 早：06:00–11:00

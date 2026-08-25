@@ -4,7 +4,7 @@ const ASUKA_STYLES = String.raw`
 #asuka-school-wallpaper-root {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
@@ -13,6 +13,7 @@ const ASUKA_STYLES = String.raw`
   transition: opacity 320ms ease, filter 320ms ease;
 }
 #asuka-school-wallpaper-root[data-enabled='true'] { opacity: var(--asuka-wallpaper-opacity, 0.2); }
+body[data-asuka-school-wallpaper='true'] > :not(#asuka-school-wallpaper-root) { position: relative; z-index: 1; }
 .asuka-school-wallpaper-layer {
   position: absolute;
   inset: 0;
@@ -56,15 +57,16 @@ body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer { tra
 .asuka-section-header h2 { margin: 0; font-family: Georgia, 'Noto Serif SC', serif; font-size: 26px; letter-spacing: -0.02em; }
 .asuka-setting-group { display: grid; gap: 14px; margin: 24px 0 0; padding: 0; border: 0; }
 .asuka-setting-group legend { padding: 0; color: var(--dsw-alias-label-primary); font-size: 14px; font-weight: 700; }
-.asuka-theme-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.asuka-theme-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
 .asuka-theme-card { display: grid; gap: 10px; padding: 10px; border: 1px solid var(--dsw-alias-border-l1); border-radius: 10px; color: var(--dsw-alias-label-primary); text-align: left; background: var(--dsw-alias-bg-layer-1); }
 .asuka-theme-card[aria-pressed='true'] { border-color: var(--dsw-alias-brand-primary); box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary); }
 .asuka-theme-card span:last-child { display: grid; gap: 3px; }
 .asuka-theme-card b { font-size: 13px; }
 .asuka-theme-card small, .asuka-toggle-row small, .asuka-range-row small, .asuka-select-row small { color: var(--dsw-alias-label-tertiary); font-size: 11px; line-height: 1.4; }
 .asuka-theme-swatch { display: block; height: 42px; border-radius: 6px; }
-.asuka-theme-swatch-after-class { background: linear-gradient(120deg, #F4F0E9 0%, #DCE6E8 52%, #C7474F 100%); }
-.asuka-theme-swatch-tokyo3-night { background: linear-gradient(120deg, #171C24 0%, #30485D 55%, #D96A36 100%); }
+.asuka-theme-swatch-morning { background: linear-gradient(120deg, #F4F0E9 0%, #DCE6E8 52%, #C7474F 100%); }
+.asuka-theme-swatch-noon { background: linear-gradient(120deg, #E8EDF0 0%, #9FC2E2 54%, #6D93B8 100%); }
+.asuka-theme-swatch-night { background: linear-gradient(120deg, #171C24 0%, #30485D 55%, #D96A36 100%); }
 .asuka-theme-swatch-off { background: repeating-linear-gradient(-45deg, var(--dsw-alias-bg-layer-2), var(--dsw-alias-bg-layer-2) 8px, var(--dsw-alias-bg-layer-1) 8px, var(--dsw-alias-bg-layer-1) 16px); }
 .asuka-toggle-row, .asuka-range-row, .asuka-select-row { display: grid; gap: 8px; padding: 14px 0; border-top: 1px solid var(--dsw-alias-border-l1); }
 .asuka-toggle-row, .asuka-select-row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }

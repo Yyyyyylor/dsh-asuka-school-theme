@@ -1,10 +1,11 @@
 import type { ChangeEvent } from 'react'
 import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type { AsukaMode, WallpaperPeriodPreference } from '../../shared/settings.js'
+import { resolveWallpaperPeriod, type AsukaMode, type WallpaperPeriod, type WallpaperPeriodPreference } from '../../shared/settings.js'
 import type { createAsukaSettingsStore } from './settings-store.js'
 
 interface AsukaSectionInjected {
   setMode: (mode: AsukaMode) => void
+  setScene: (period: WallpaperPeriod) => void
   setWallpaperEnabled: (value: boolean) => void
   setWallpaperPeriod: (value: WallpaperPeriodPreference) => void
   setOpacity: (value: number) => void
@@ -23,6 +24,7 @@ export function AsukaSection({
   t,
   useStore,
   setMode,
+  setScene,
   setWallpaperEnabled,
   setWallpaperPeriod,
   setOpacity,
@@ -34,6 +36,7 @@ export function AsukaSection({
   const { settings, status } = useStore(state => state)
   const disabled = status !== 'ready'
   const percentage = Math.round(settings.wallpaperOpacity * 100)
+  const selectedScene = settings.mode === 'off' ? 'off' : resolveWallpaperPeriod(settings.wallpaperPeriod)
 
   return (
     <section className="asuka-section" aria-labelledby="asuka-school-title">
@@ -46,8 +49,9 @@ export function AsukaSection({
       <fieldset className="asuka-setting-group" disabled={disabled}>
         <legend>{t('section.themeLabel')}</legend>
         <div className="asuka-theme-cards">
-          <ThemeCard mode="after-class" selected={settings.mode === 'after-class'} onSelect={setMode} title={t('mode.afterClass')} detail={t('section.afterClassDetail')} />
-          <ThemeCard mode="tokyo3-night" selected={settings.mode === 'tokyo3-night'} onSelect={setMode} title={t('mode.tokyo3Night')} detail={t('section.tokyo3NightDetail')} />
+          <SceneCard scene="morning" selected={selectedScene === 'morning'} onSelect={setScene} title={t('scene.morning')} detail={t('scene.morningDetail')} />
+          <SceneCard scene="noon" selected={selectedScene === 'noon'} onSelect={setScene} title={t('scene.noon')} detail={t('scene.noonDetail')} />
+          <SceneCard scene="night" selected={selectedScene === 'night'} onSelect={setScene} title={t('scene.night')} detail={t('scene.nightDetail')} />
           <ThemeCard mode="off" selected={settings.mode === 'off'} onSelect={setMode} title={t('mode.off')} detail={t('section.offDetail')} />
         </div>
       </fieldset>
@@ -97,6 +101,15 @@ function TimingRow({ label, hint, value, onChange, options }: {
         <option value="night">{options.night}</option>
       </select>
     </label>
+  )
+}
+
+function SceneCard({ scene, selected, onSelect, title, detail }: { scene: WallpaperPeriod, selected: boolean, onSelect: (scene: WallpaperPeriod) => void, title: string, detail: string }) {
+  return (
+    <button type="button" className="asuka-theme-card" aria-pressed={selected} onClick={() => onSelect(scene)}>
+      <span className={`asuka-theme-swatch asuka-theme-swatch-${scene}`} aria-hidden="true" />
+      <span><b>{title}</b><small>{detail}</small></span>
+    </button>
   )
 }
 

@@ -1,5 +1,7 @@
 # Asuka School // 02
 
+[简体中文](README.zh-CN.md)
+
 An unofficial fan-made Light/Dark appearance plugin for the DeepSeek Harness
 Web UI. It pairs restrained school blue, ribbon red, warm paper, and quiet
 Tokyo-3 night tones with three right-composed wallpapers that follow the local
@@ -16,13 +18,35 @@ time of day.
 
 ## Install
 
+### From GitHub Release (recommended)
+
 ```bash
-dsh plugin --profile web add dsh-asuka-school-theme@latest
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.1/dsh-asuka-school-theme-0.2.1.tgz
+```
+
+This project is not published to npm. The GitHub Release asset is a prebuilt,
+versioned package and is the preferred installation source.
+
+### From GitHub source
+
+```bash
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.1
+```
+
+This requires Git to be available on the host. Pin the tag instead of using
+`main` so updates remain predictable.
+
+### From a local checkout
+
+```bash
+pnpm install
+pnpm build
+npm pack
+dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.1.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the
-plugin. For a local release candidate, pack the project first and install its
-`.tgz` with the same command.
+plugin. The final filename should match the `.tgz` emitted by `npm pack`.
 
 ## Use
 

@@ -1,5 +1,5 @@
 import type { AsukaThemeSettings, WallpaperPeriod } from '../../shared/settings.js'
-import { wallpaperAssetUrl } from '../../shared/wallpapers.js'
+import { wallpaperAssetUrl, wallpaperOpacityForPeriod } from '../../shared/wallpapers.js'
 
 const ATTRIBUTE_ENABLED = 'data-asuka-school-wallpaper'
 const ATTRIBUTE_MODE = 'data-asuka-school-mode'
@@ -29,7 +29,7 @@ export function applyWallpaper(settings: AsukaThemeSettings, period: WallpaperPe
   const layers = getWallpaperLayers(root ?? createWallpaperRoot())
   const wallpaperRoot = layers[0].parentElement as HTMLElement
   wallpaperRoot.dataset.enabled = 'true'
-  wallpaperRoot.style.setProperty('--asuka-wallpaper-opacity', String(settings.wallpaperOpacity))
+  wallpaperRoot.style.setProperty('--asuka-wallpaper-opacity', String(wallpaperOpacityForPeriod(settings.wallpaperOpacity, period)))
   wallpaperRoot.style.setProperty('--asuka-wallpaper-blur', `${settings.wallpaperBlurPx}px`)
 
   if (period === activePeriod) return

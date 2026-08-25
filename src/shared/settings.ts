@@ -21,7 +21,7 @@ export const DEFAULT_ASUKA_SETTINGS: Readonly<AsukaThemeSettings> = Object.freez
   mode: 'off',
   wallpaperEnabled: true,
   wallpaperPeriod: 'auto',
-  wallpaperOpacity: 0.2,
+  wallpaperOpacity: 0.12,
   wallpaperBlurPx: 0,
   decorativeDetails: true,
   reduceMotion: false,

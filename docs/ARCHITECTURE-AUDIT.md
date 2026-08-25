@@ -7,7 +7,6 @@ Host settings namespace
               │ settingsScope.bind()
               ▼
        Asuka theme controller
-       ├── ThemeRuntime overrideTokens
        ├── General Quick Row
        ├── Asuka School section
        └── owned wallpaper document layer
@@ -20,18 +19,17 @@ Host webServer
 
 ## Lifecycle
 
-The locale dictionaries, owned style element, controller, theme-token override,
-and every settings registration are owned by Cordis effects. Slot contributions
-wait for their declared slots with `ctx.slots.inject`, so they are removed with
-their contributor and never claim a shell-owned seat.
+The locale dictionaries, owned style element, controller, and every settings
+registration are owned by Cordis effects. Slot contributions wait for their
+declared slots with `ctx.slots.inject`, so they are removed with their
+contributor and never claim a shell-owned seat.
 
-## Theme hand-off
+## Appearance isolation
 
-The controller renders its selected mode with a plugin-owned `overrideTokens()`
-layer and never writes a third-party value to DSH's persisted Light / Dark /
-System preference. Its own `theme/change` revision is ignored; a later change
-to the official appearance preference writes `mode: off`, so the official
-Appearance control wins without an event loop.
+The controller never writes DSH's Light / Dark / System preference or injects
+global theme-token overrides. This prevents a wallpaper scene from changing the
+official controls' color-scheme branch; the plugin owns only its settings UI
+and non-interactive wallpaper layer.
 
 ## Wallpaper safety
 

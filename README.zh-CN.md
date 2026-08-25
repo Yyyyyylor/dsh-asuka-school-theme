@@ -20,7 +20,7 @@ Ubuntu 是本项目的目标运行平台，**应可使用**；不过当前只完
 ### 从 GitHub Release 安装（推荐）
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.3/dsh-asuka-school-theme-0.2.3.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.4/dsh-asuka-school-theme-0.2.4.tgz
 ```
 
 本项目暂未发布到 npm。GitHub Release 中的 `.tgz` 是已构建、带版本号的发布包，推荐直接使用。
@@ -28,7 +28,7 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 ### 从 GitHub 源码安装
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.3
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.4
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -41,7 +41,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.3
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.3.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.4.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 文件一致。
@@ -57,7 +57,7 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.3.tgz
    - 午：11:00–17:00
    - 晚：17:00–次日 06:00
 
-自动切换使用交叉淡入效果；启用“减少动态效果”后会关闭该动画。选择官方的浅色、深色或系统外观时，插件会自动关闭，让 DSH 内置外观始终优先。
+自动切换使用交叉淡入效果；启用“减少动态效果”后会关闭该动画。插件不会改写 DSH 官方的浅色、深色或系统外观，只叠加所选的壁纸场景。
 
 ## 隐私与资源
 

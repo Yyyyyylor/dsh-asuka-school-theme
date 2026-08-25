@@ -1,11 +1,8 @@
-import type { Context } from '@deepseek-ai/cordis'
 import type { SettingsScope } from '@deepseek-ai/dsh-client-runtime/client'
-import type { ThemeRuntime, ThemeSnapshot, ThemeTokenOverrides } from '@deepseek-ai/dsh-client-ui-theme/client'
 import {
   clampBlur,
   clampOpacity,
   DEFAULT_ASUKA_SETTINGS,
-  isActiveAsukaMode,
   isAsukaMode,
   millisecondsUntilNextWallpaperPeriod,
   resolveWallpaperPeriod,
@@ -16,16 +13,6 @@ import {
 } from '../shared/settings.js'
 import { applyWallpaper, clearWallpaper } from './wallpaper/runtime.js'
 import type { AsukaSettingsViewState } from './settings/settings-store.js'
-import { asukaDarkTheme, asukaLightTheme } from './themes/index.js'
-
-const ASUKA_THEME_OVERRIDE_SOURCE = 'asuka-school-theme'
-
-function asukaThemeOverrides(mode: Exclude<AsukaMode, 'off'>): ThemeTokenOverrides {
-  const definition = mode === 'after-class' ? asukaLightTheme : asukaDarkTheme
-  return Object.fromEntries(
-    Object.entries(definition.tokens).map(([name, value]) => [name, { light: value, dark: value }]),
-  )
-}
 
 export interface AsukaThemeController {
   setMode(mode: AsukaMode): void
@@ -41,48 +28,15 @@ export interface AsukaThemeController {
 }
 
 interface AsukaThemeControllerOptions {
-  ctx: Context
-  theme: ThemeRuntime
   settings: SettingsScope<AsukaThemeSettings>
   syncView: (next: AsukaSettingsViewState) => void
 }
 
-/** Single source of truth for the Quick Row, Settings page, ThemeRuntime and wallpaper. */
+/** Single source of truth for the Quick Row, Settings page, and wallpaper layer. */
 export function createAsukaThemeController(options: AsukaThemeControllerOptions): AsukaThemeController {
-  const { ctx, theme, settings, syncView } = options
-  let applyingOwnTheme = false
+  const { settings, syncView } = options
   let current = DEFAULT_ASUKA_SETTINGS
   let wallpaperTimer: ReturnType<typeof setTimeout> | undefined
-  let clearThemeOverride: (() => void) | undefined
-  let appliedMode: AsukaMode = 'off'
-  let baseThemePreference = String(theme.getTheme().preference)
-  const ownThemeRevisions = new Set<number>()
-
-  const mutateOwnTheme = (change: () => void): void => {
-    applyingOwnTheme = true
-    try {
-      change()
-      ownThemeRevisions.add(theme.getTheme().revision)
-    } finally {
-      applyingOwnTheme = false
-    }
-  }
-
-  const syncThemeOverride = (): void => {
-    if (current.mode === appliedMode) return
-
-    if (isActiveAsukaMode(current.mode) && !isActiveAsukaMode(appliedMode)) {
-      baseThemePreference = String(theme.getTheme().preference)
-    }
-
-    mutateOwnTheme(() => {
-      clearThemeOverride?.()
-      clearThemeOverride = isActiveAsukaMode(current.mode)
-        ? theme.overrideTokens(ASUKA_THEME_OVERRIDE_SOURCE, asukaThemeOverrides(current.mode))
-        : undefined
-    })
-    appliedMode = current.mode
-  }
 
   const syncWallpaper = (): void => {
     if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
@@ -102,25 +56,10 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     })
 
     if (snapshot.status !== 'ready') return
-    syncThemeOverride()
     syncWallpaper()
   }
 
-  const onThemeChange = (snapshot: ThemeSnapshot): void => {
-    if (applyingOwnTheme || ownThemeRevisions.delete(snapshot.revision)) return
-    const preference = String(snapshot.preference)
-    if (!isActiveAsukaMode(current.mode)) {
-      baseThemePreference = preference
-      return
-    }
-    if (preference === baseThemePreference) return
-
-    baseThemePreference = preference
-    void settings.set('mode', 'off')
-  }
-
   const unsubscribe = settings.subscribe(syncFromSettings)
-  const removeThemeListener = ctx.on('theme/change', onThemeChange)
   syncFromSettings()
 
   return {
@@ -142,9 +81,7 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     },
     dispose: () => {
       unsubscribe()
-      removeThemeListener()
       if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
-      clearThemeOverride?.()
       clearWallpaper()
     },
   }

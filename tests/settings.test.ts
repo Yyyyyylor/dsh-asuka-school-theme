@@ -10,9 +10,10 @@ import {
   resolveWallpaperPeriod,
   wallpaperPeriodAt,
 } from '../src/shared/settings.js'
+import { wallpaperOpacityForPeriod } from '../src/shared/wallpapers.js'
 
 describe('Asuka settings invariants', () => {
-  it('starts turned off and recognizes the two active Asuka modes', () => {
+  it('starts turned off and recognizes the active Asuka display modes', () => {
     expect(DEFAULT_ASUKA_SETTINGS.mode).toBe('off')
     expect(isActiveAsukaMode('off')).toBe(false)
     expect(isActiveAsukaMode('after-class')).toBe(true)
@@ -20,12 +21,16 @@ describe('Asuka settings invariants', () => {
   })
 
   it('keeps numeric user input inside the Host schema limits', () => {
+    expect(DEFAULT_ASUKA_SETTINGS.wallpaperOpacity).toBe(0.12)
     expect(clampOpacity(-2)).toBe(0)
     expect(clampOpacity(0.276)).toBe(0.28)
     expect(clampOpacity(2)).toBe(0.4)
     expect(clampBlur(-2)).toBe(0)
     expect(clampBlur(7.6)).toBe(8)
     expect(clampBlur(25)).toBe(20)
+    expect(wallpaperOpacityForPeriod(0.2, 'morning')).toBe(0.11)
+    expect(wallpaperOpacityForPeriod(0.2, 'noon')).toBe(0.11)
+    expect(wallpaperOpacityForPeriod(0.2, 'night')).toBe(0.16)
   })
 
   it('accepts no unknown theme mode', () => {

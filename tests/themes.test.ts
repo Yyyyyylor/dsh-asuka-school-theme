@@ -16,7 +16,13 @@ describe('Asuka theme definitions', () => {
       expect(theme.tokens['--dsw-specific-sidebar-fill']).toMatch(/^#|^rgba/)
       expect(theme.tokens['--dsw-alias-markdown-code-block']).toMatch(/^#/)
       expect(theme.tokens['--shiki-background']).toMatch(/^#/)
+      expect(theme.tokens['--dsw-alias-button-info-fill']).toMatch(/^#/)
+      expect(theme.tokens['--dsw-static-deepseek-500']).toMatch(/^#/)
     }
+
+    expect(asukaMorningTheme.tokens['--dsw-alias-markdown-code-block-banner']).not.toBe(asukaMorningTheme.tokens['--dsw-alias-markdown-code-block'])
+    expect(asukaNoonTheme.tokens['--dsw-alias-markdown-code-block-banner']).not.toBe(asukaNoonTheme.tokens['--dsw-alias-markdown-code-block'])
+    expect(asukaMorningTheme.tokens['--dsw-alias-bg-base']).not.toBe(asukaNoonTheme.tokens['--dsw-alias-bg-base'])
   })
 
   it('maps each enabled preset to a complete directly-presented palette', () => {

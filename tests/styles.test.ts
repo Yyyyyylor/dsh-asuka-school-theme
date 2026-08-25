@@ -13,5 +13,8 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] aside')
     expect(ASUKA_STYLES).toContain('z-index: 2;')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-transitioning='true']")
+    expect(ASUKA_STYLES).toContain('@property --dsw-alias-bg-base')
+    expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block-banner 760ms')
+    expect(ASUKA_STYLES).toContain('--dsw-specific-sidebar-fill 760ms')
   })
 })

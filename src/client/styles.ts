@@ -1,6 +1,79 @@
 const STYLE_ID = 'dsh-asuka-school-theme-styles'
 
 export const ASUKA_STYLES = String.raw`
+@property --dsw-alias-bg-base { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-layer-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-layer-2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-layer-3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-overlay { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-mask-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-mask-2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-bg-mask-3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-border-l1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-border-l2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-border-l3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-border-l4 { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-brand-primary { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-brand-text { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-primary { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-primary-bluish { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-secondary { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-tertiary { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-caption { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-label-dimmed { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-button-primary-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-button-primary-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-button-info-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-button-info-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-interactive-bg-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-interactive-bg-active { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-markdown-code-block { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-alias-markdown-code-block-banner { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-sidebar-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-sidebar-nav-item-active { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-sidebar-nav-item-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-bubble { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-bubble-highlight { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --dsw-specific-input-major { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --shiki-background { syntax: '<color>'; inherits: true; initial-value: transparent; }
+body[data-asuka-school-transitioning='true'] {
+  transition:
+    --dsw-alias-bg-base 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-1 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-2 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-3 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-overlay 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-1 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-2 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-3 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l1 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l2 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l3 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l4 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-brand-primary 620ms ease,
+    --dsw-alias-brand-text 620ms ease,
+    --dsw-alias-label-primary 620ms ease,
+    --dsw-alias-label-primary-bluish 620ms ease,
+    --dsw-alias-label-secondary 620ms ease,
+    --dsw-alias-label-tertiary 620ms ease,
+    --dsw-alias-label-caption 620ms ease,
+    --dsw-alias-label-dimmed 620ms ease,
+    --dsw-alias-button-primary-fill 620ms ease,
+    --dsw-alias-button-primary-hover 620ms ease,
+    --dsw-alias-button-info-fill 620ms ease,
+    --dsw-alias-button-info-hover 620ms ease,
+    --dsw-alias-interactive-bg-hover 620ms ease,
+    --dsw-alias-interactive-bg-active 620ms ease,
+    --dsw-alias-markdown-code-block 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-markdown-code-block-banner 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-fill 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-nav-item-active 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-nav-item-hover 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-bubble 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-bubble-highlight 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-input-major 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    --shiki-background 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 #asuka-school-wallpaper-root {
   position: fixed;
   inset: 0;
@@ -27,7 +100,8 @@ export const ASUKA_STYLES = String.raw`
 }
 .asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; transform: scale(1); }
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
-body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer { transition: none; }
+body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer,
+body[data-asuka-school-reduce-motion='true'][data-asuka-school-transitioning='true'] { transition: none; }
 body[data-asuka-school-theme] aside {
   position: relative;
   z-index: 2;

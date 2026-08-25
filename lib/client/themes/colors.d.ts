@@ -4,6 +4,9 @@ export declare const ASUKA_COLORS: Readonly<{
     readonly ribbonRed: "#C7474F";
     readonly ribbonRedDeep: "#A42F3A";
     readonly hairOrange: "#D96A36";
+    readonly hairOrangeAction: "#B8522B";
+    readonly hairOrangeHover: "#CC6337";
+    readonly hairOrangeDeep: "#8E3C21";
     readonly warmCream: "#F4F0E9";
     readonly warmPaper: "#FCFAF4";
     readonly tokyoSky: "#91B9D2";

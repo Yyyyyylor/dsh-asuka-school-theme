@@ -4,7 +4,7 @@ export const ASUKA_STYLES = String.raw`
 #asuka-school-wallpaper-root {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
@@ -12,7 +12,6 @@ export const ASUKA_STYLES = String.raw`
   transform: scale(1.015);
   transition: opacity 420ms ease, filter 420ms ease;
 }
-body > :not(#asuka-school-wallpaper-root) { position: relative; z-index: 1; }
 #asuka-school-wallpaper-root[data-enabled='true'] { opacity: var(--asuka-wallpaper-opacity, 0.12); }
 .asuka-school-wallpaper-layer {
   position: absolute;

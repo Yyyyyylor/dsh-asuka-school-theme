@@ -1,0 +1,17 @@
+export const ASUKA_COLORS = Object.freeze({
+  schoolBlue: '#55758C',
+  schoolBlueDark: '#30485D',
+  ribbonRed: '#C7474F',
+  ribbonRedDeep: '#A42F3A',
+  hairOrange: '#D96A36',
+  warmCream: '#F4F0E9',
+  warmPaper: '#FCFAF4',
+  tokyoSky: '#91B9D2',
+  nightNavy: '#171C24',
+  panelNavy: '#202934',
+  ink: '#24313D',
+  cloud: '#DDE6EC',
+  success: '#4C8465',
+  warning: '#B67825',
+  error: '#B93845',
+} as const)

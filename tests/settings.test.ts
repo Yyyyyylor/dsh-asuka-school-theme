@@ -11,7 +11,7 @@ import {
   resolveWallpaperPeriod,
   wallpaperPeriodAt,
 } from '../src/shared/settings.js'
-import { wallpaperOpacityForPeriod } from '../src/shared/wallpapers.js'
+import { wallpaperLayerProfileForPeriod, wallpaperOpacityForPeriod } from '../src/shared/wallpapers.js'
 
 describe('Asuka settings invariants', () => {
   it('starts turned off and recognizes the active Asuka display modes', () => {
@@ -38,6 +38,9 @@ describe('Asuka settings invariants', () => {
     expect(wallpaperOpacityForPeriod(1, 'morning')).toBe(1)
     expect(wallpaperOpacityForPeriod(1, 'noon')).toBe(1)
     expect(wallpaperOpacityForPeriod(1, 'night')).toBe(1)
+    expect(wallpaperLayerProfileForPeriod('morning').filter).toContain('sepia')
+    expect(wallpaperLayerProfileForPeriod('noon').filter).toContain('brightness')
+    expect(wallpaperLayerProfileForPeriod('night').maskStart).toContain('23, 28, 36')
   })
 
   it('accepts no unknown theme mode', () => {

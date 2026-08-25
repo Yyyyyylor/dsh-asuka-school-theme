@@ -1,10 +1,11 @@
 import type { AsukaThemeSettings, WallpaperPeriod } from '../../shared/settings.js'
-import { wallpaperAssetUrl, wallpaperOpacityForPeriod } from '../../shared/wallpapers.js'
+import { wallpaperAssetUrl, wallpaperLayerProfileForPeriod, wallpaperOpacityForPeriod } from '../../shared/wallpapers.js'
 
 const ATTRIBUTE_ENABLED = 'data-asuka-school-wallpaper'
 const ATTRIBUTE_MODE = 'data-asuka-school-mode'
 const ATTRIBUTE_DETAILS = 'data-asuka-school-details'
 const ATTRIBUTE_REDUCED_MOTION = 'data-asuka-school-reduce-motion'
+const ATTRIBUTE_SCENE = 'data-asuka-school-scene'
 const WALLPAPER_ROOT_ID = 'asuka-school-wallpaper-root'
 const WALLPAPER_LAYER_CLASS = 'asuka-school-wallpaper-layer'
 
@@ -20,6 +21,7 @@ export function applyWallpaper(settings: AsukaThemeSettings, period: WallpaperPe
   body.setAttribute(ATTRIBUTE_MODE, settings.mode)
   body.setAttribute(ATTRIBUTE_DETAILS, settings.decorativeDetails ? 'true' : 'false')
   body.setAttribute(ATTRIBUTE_REDUCED_MOTION, settings.reduceMotion ? 'true' : 'false')
+  body.setAttribute(ATTRIBUTE_SCENE, period)
   const root = document.getElementById(WALLPAPER_ROOT_ID) as HTMLElement | null
   if (!enabled) {
     if (root !== null) root.dataset.enabled = 'false'
@@ -44,7 +46,12 @@ export function applyWallpaper(settings: AsukaThemeSettings, period: WallpaperPe
   const nextIndex = activePeriod === undefined ? activeLayerIndex : 1 - activeLayerIndex
   const nextLayer = layers[nextIndex]
   const previousLayer = layers[1 - nextIndex]
+  const profile = wallpaperLayerProfileForPeriod(period)
   nextLayer.style.setProperty('--asuka-wallpaper-image', `url("${wallpaperAssetUrl(period)}")`)
+  nextLayer.style.setProperty('--asuka-wallpaper-mask-start', profile.maskStart)
+  nextLayer.style.setProperty('--asuka-wallpaper-mask-middle', profile.maskMiddle)
+  nextLayer.style.setProperty('--asuka-wallpaper-mask-end', profile.maskEnd)
+  nextLayer.style.setProperty('--asuka-wallpaper-filter', profile.filter)
   nextLayer.dataset.active = 'false'
   if (created) wallpaperRoot.dataset.enabled = 'false'
   // Force the initial 0-opacity state to be committed before entering it.
@@ -64,6 +71,7 @@ export function clearWallpaper(): void {
   body.removeAttribute(ATTRIBUTE_MODE)
   body.removeAttribute(ATTRIBUTE_DETAILS)
   body.removeAttribute(ATTRIBUTE_REDUCED_MOTION)
+  body.removeAttribute(ATTRIBUTE_SCENE)
   document.getElementById(WALLPAPER_ROOT_ID)?.remove()
   activeLayerIndex = 0
   activePeriod = undefined

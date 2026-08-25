@@ -1,18 +1,15 @@
 import type { ThemeDefinition } from '@deepseek-ai/dsh-client-ui-theme/client'
 import { ASUKA_COLORS as c } from './colors.js'
 
-export const asukaLightTheme: ThemeDefinition = {
-  id: 'asuka-school-light',
-  colorScheme: 'light',
-  tokens: {
-    '--dsw-alias-bg-base': c.warmCream,
-    '--dsw-alias-bg-layer-1': c.warmPaper,
-    '--dsw-alias-bg-layer-2': '#F8F4EB',
-    '--dsw-alias-bg-layer-3': '#EFE8DB',
-    '--dsw-alias-bg-overlay': '#FFFDF8',
-    '--dsw-alias-bg-mask-1': 'rgba(244, 240, 233, 0.76)',
-    '--dsw-alias-bg-mask-2': 'rgba(244, 240, 233, 0.64)',
-    '--dsw-alias-bg-mask-3': 'rgba(244, 240, 233, 0.48)',
+const noonTokens = {
+    '--dsw-alias-bg-base': 'rgba(232, 233, 228, 0.84)',
+    '--dsw-alias-bg-layer-1': 'rgba(244, 243, 237, 0.92)',
+    '--dsw-alias-bg-layer-2': 'rgba(236, 237, 232, 0.9)',
+    '--dsw-alias-bg-layer-3': 'rgba(224, 225, 218, 0.92)',
+    '--dsw-alias-bg-overlay': 'rgba(248, 247, 241, 0.94)',
+    '--dsw-alias-bg-mask-1': 'rgba(224, 228, 224, 0.92)',
+    '--dsw-alias-bg-mask-2': 'rgba(230, 233, 229, 0.7)',
+    '--dsw-alias-bg-mask-3': 'rgba(238, 240, 235, 0.36)',
     '--dsw-alias-border-l1': '#D7D1C5',
     '--dsw-alias-border-l2': '#B9C7D0',
     '--dsw-alias-border-l3': '#98ADBA',
@@ -53,13 +50,13 @@ export const asukaLightTheme: ThemeDefinition = {
     '--dsw-alias-scrollbar-bg-l2': '#D4D0C8',
     '--dsw-alias-scrollbar-hover-l1': c.schoolBlue,
     '--dsw-alias-scrollbar-hover-l2': c.schoolBlueDark,
-    '--dsw-specific-sidebar-fill': '#DCE6E8',
-    '--dsw-specific-sidebar-nav-item-active': '#C8D8DF',
+    '--dsw-specific-sidebar-fill': 'rgba(220, 228, 228, 0.97)',
+    '--dsw-specific-sidebar-nav-item-active': 'rgba(200, 216, 223, 0.98)',
     '--dsw-specific-sidebar-nav-item-active-accent': c.hairOrange,
-    '--dsw-specific-sidebar-nav-item-hover': '#EAF0F0',
-    '--dsw-specific-bubble': '#FFFDF8',
-    '--dsw-specific-bubble-highlight': '#F4EADE',
-    '--dsw-specific-input-major': '#FFFDF8',
+    '--dsw-specific-sidebar-nav-item-hover': 'rgba(234, 240, 240, 0.98)',
+    '--dsw-specific-bubble': 'rgba(255, 253, 248, 0.94)',
+    '--dsw-specific-bubble-highlight': 'rgba(244, 234, 222, 0.94)',
+    '--dsw-specific-input-major': 'rgba(255, 253, 248, 0.96)',
     '--shiki-background': '#24313D',
     '--shiki-foreground': '#E7EDF0',
     '--shiki-token-comment': '#91B9D2',
@@ -69,5 +66,39 @@ export const asukaLightTheme: ThemeDefinition = {
     '--shiki-token-constant': '#D9A5C7',
     '--shiki-token-parameter': '#DDE6EC',
     '--shiki-token-punctuation': '#B7C7D0',
+}
+
+/** Noon: quiet chalk-white rather than a bright blank canvas. */
+export const asukaNoonTheme: ThemeDefinition = {
+  id: 'asuka-school-noon',
+  colorScheme: 'light',
+  tokens: noonTokens,
+}
+
+/** Morning: muted orange paper that harmonizes with the commute scene. */
+export const asukaMorningTheme: ThemeDefinition = {
+  id: 'asuka-school-morning',
+  colorScheme: 'light',
+  tokens: {
+    ...noonTokens,
+    '--dsw-alias-bg-base': 'rgba(235, 215, 196, 0.82)',
+    '--dsw-alias-bg-layer-1': 'rgba(248, 234, 220, 0.92)',
+    '--dsw-alias-bg-layer-2': 'rgba(241, 220, 201, 0.9)',
+    '--dsw-alias-bg-layer-3': 'rgba(229, 199, 176, 0.92)',
+    '--dsw-alias-bg-overlay': 'rgba(251, 240, 229, 0.94)',
+    '--dsw-alias-bg-mask-1': 'rgba(104, 59, 36, 0.9)',
+    '--dsw-alias-bg-mask-2': 'rgba(188, 118, 74, 0.68)',
+    '--dsw-alias-bg-mask-3': 'rgba(239, 197, 151, 0.34)',
+    '--dsw-specific-sidebar-fill': 'rgba(235, 222, 207, 0.97)',
+    '--dsw-specific-sidebar-nav-item-active': 'rgba(224, 199, 180, 0.98)',
+    '--dsw-specific-sidebar-nav-item-hover': 'rgba(246, 232, 218, 0.98)',
+    '--dsw-specific-bubble': 'rgba(255, 249, 242, 0.94)',
+    '--dsw-specific-bubble-highlight': 'rgba(246, 226, 208, 0.94)',
+    '--dsw-specific-input-major': 'rgba(255, 249, 242, 0.96)',
+    '--dsw-alias-markdown-code-block': '#3D302C',
+    '--dsw-alias-markdown-code-block-banner': '#5A3A32',
   },
 }
+
+/** Backwards-compatible daytime export for consumers that do not select a period. */
+export const asukaLightTheme = asukaNoonTheme

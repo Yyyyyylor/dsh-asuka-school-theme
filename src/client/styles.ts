@@ -1,33 +1,45 @@
 const STYLE_ID = 'dsh-asuka-school-theme-styles'
 
-const ASUKA_STYLES = String.raw`
+export const ASUKA_STYLES = String.raw`
 #asuka-school-wallpaper-root {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
   filter: blur(var(--asuka-wallpaper-blur, 0px));
   transform: scale(1.015);
-  transition: opacity 320ms ease, filter 320ms ease;
+  transition: opacity 420ms ease, filter 420ms ease;
 }
+body > :not(#asuka-school-wallpaper-root) { position: relative; z-index: 1; }
 #asuka-school-wallpaper-root[data-enabled='true'] { opacity: var(--asuka-wallpaper-opacity, 0.12); }
 .asuka-school-wallpaper-layer {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(90deg, var(--dsw-alias-bg-mask-1) 0%, var(--dsw-alias-bg-mask-2) 44%, var(--dsw-alias-bg-mask-3) 72%, transparent 100%), var(--asuka-wallpaper-image);
+  background-image: linear-gradient(90deg, var(--asuka-wallpaper-mask-start) 0%, var(--asuka-wallpaper-mask-middle) 44%, var(--asuka-wallpaper-mask-end) 72%, transparent 100%), var(--asuka-wallpaper-image);
   background-position: center, right center;
   background-size: cover, cover;
   background-repeat: no-repeat;
   opacity: 0;
-  filter: saturate(0.88) contrast(0.98);
+  filter: var(--asuka-wallpaper-filter, saturate(0.88) contrast(0.98));
   transform: scale(1.035);
-  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 900ms ease, transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), filter 1s ease, transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; filter: saturate(1) contrast(1); transform: scale(1); }
+.asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; transform: scale(1); }
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer { transition: none; }
+body[data-asuka-school-theme] aside {
+  position: relative;
+  z-index: 2;
+  background-color: var(--dsw-specific-sidebar-fill);
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--dsw-specific-sidebar-fill) 98%, white), var(--dsw-specific-sidebar-fill));
+  border-right-color: var(--dsw-alias-border-l2);
+}
+body[data-asuka-school-transitioning='true'] :is(aside, main, header, nav, section, article, footer, form, pre, textarea, select, button, [role='main'], [role='navigation']) {
+  transition: background-color 760ms cubic-bezier(0.22, 1, 0.36, 1), color 620ms ease, border-color 760ms ease, box-shadow 760ms ease;
+}
+body[data-asuka-school-reduce-motion='true'][data-asuka-school-transitioning='true'] :is(aside, main, header, nav, section, article, footer, form, pre, textarea, select, button, [role='main'], [role='navigation']) { transition: none; }
 /* Stable semantic details: the palette is applied by presentation.ts, while these make its school motif tangible. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']) {
   border-radius: 8px;
@@ -37,10 +49,6 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [rol
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']):not(:disabled):hover {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 5px 15px rgb(37 57 69 / 0.14);
   transform: translateY(-1px);
-}
-body[data-asuka-school-theme][data-asuka-school-details='true'] aside {
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--dsw-specific-sidebar-fill) 92%, transparent), var(--dsw-specific-sidebar-fill));
-  border-right-color: var(--dsw-alias-border-l2);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] pre {
   border: 1px solid var(--dsw-alias-border-l2);

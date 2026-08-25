@@ -40,19 +40,20 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
   let wallpaperTimer: ReturnType<typeof setTimeout> | undefined
   let pendingScene: AsukaThemeSettings | undefined
 
-  const syncWallpaper = (): void => {
+  const syncScene = (): void => {
     if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
-    applyWallpaper(current, resolveWallpaperPeriod(current.wallpaperPeriod))
+    const period = resolveWallpaperPeriod(current.wallpaperPeriod)
+    applyAsukaPresentation(current.mode, period, current.reduceMotion)
+    applyWallpaper(current, period)
 
     if (current.mode === 'off' || !current.wallpaperEnabled || current.wallpaperPeriod !== 'auto') return
-    wallpaperTimer = setTimeout(syncWallpaper, millisecondsUntilNextWallpaperPeriod())
+    wallpaperTimer = setTimeout(syncScene, millisecondsUntilNextWallpaperPeriod())
   }
 
   const present = (status: AsukaSettingsViewState['status'], revision: number): void => {
     syncView({ status, settings: current, revision })
     if (status !== 'ready') return
-    applyAsukaPresentation(current.mode)
-    syncWallpaper()
+    syncScene()
   }
 
   const syncFromSettings = (): void => {

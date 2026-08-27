@@ -19,6 +19,15 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).not.toContain("body[data-asuka-school-transitioning='true'] :is(")
   })
 
+  it('contains DSH code-block surfaces in one rounded wrapper without changing pre scrolling', () => {
+    expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] .md-code-block {')
+    expect(ASUKA_STYLES).toContain('overflow: hidden;\n  border: 1px solid var(--dsw-alias-border-l2);')
+    expect(ASUKA_STYLES).toContain('.md-code-block > :first-child {\n  position: sticky;\n  top: 0;\n  z-index: 2;')
+    expect(ASUKA_STYLES).toContain('background: var(--dsw-alias-markdown-code-block-banner);')
+    expect(ASUKA_STYLES).toContain('.md-code-block :where(pre) {')
+    expect(ASUKA_STYLES).toContain('overflow: auto;\n  border: 0;\n  border-radius: var(--asuka-code-block-radius);')
+  })
+
   it('renders each quick scene choice as an independent button', () => {
     expect(ASUKA_STYLES).toContain('.asuka-mode-switch { display: flex; flex-wrap: wrap; gap: 8px; }')
     expect(ASUKA_STYLES).toContain('.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px;')

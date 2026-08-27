@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-08-27
+
+### Fixed
+
+- Contain DSH Markdown code-block title and content surfaces inside one rounded
+  outer frame, preventing corner background leaks without changing highlighting,
+  copy controls, scrolling, or theme tokens.
+
 ## [2.0.0] - 2026-08-27
 
 ### Changed
@@ -48,7 +56,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/tag/v1.0.0

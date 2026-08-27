@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-08-27
+
+### Changed
+
+- Applied theme tokens only when theme-affecting settings change, while wallpaper opacity and blur now update independently.
+- Coalesced range-control previews into animation frames and debounced persisted writes without changing the existing visual transitions.
+- Decoded wallpapers before crossfading, preloaded likely next scenes during idle time, and added stale-request cancellation plus safe fallback behavior for failed image loads.
+
+### Tests
+
+- Added regression coverage for differential controller updates, range-control scheduling, wallpaper decoding, preloading, race handling, and fallback behavior.
+
 ## [1.0.1] - 2026-08-27
 
 ### Fixed
@@ -36,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/tag/v1.0.0

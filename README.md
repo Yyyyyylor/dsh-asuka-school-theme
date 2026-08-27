@@ -1,6 +1,6 @@
 # Asuka School // 02
 
-[简体中文](README.zh-CN.md)
+[简体中文](README-zh-CN.md)
 
 An unofficial fan-made Light/Dark appearance plugin for the DeepSeek Harness
 Web UI. It pairs restrained school blue, ribbon red, warm paper, and quiet
@@ -25,7 +25,7 @@ time of day.
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v1.0.1/dsh-asuka-school-theme-1.0.1.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v2.0.0/dsh-asuka-school-theme-2.0.0.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -34,7 +34,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v1.0.1
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v2.0.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -46,7 +46,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-1.0.1.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-2.0.0.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the
@@ -63,6 +63,11 @@ plugin. The final filename should match the `.tgz` emitted by `npm pack`.
 
 The default mode is **Off**. This plugin leaves the official Light, Dark, and
 System appearance unchanged; it only adds the selected wallpaper scene.
+
+Wallpaper images are decoded before the existing crossfade starts, and likely
+next scenes are preloaded while the browser is idle. Range-control previews are
+frame-coalesced, so opacity and blur adjustments remain responsive without
+reapplying unrelated theme tokens.
 
 ## Privacy and assets
 

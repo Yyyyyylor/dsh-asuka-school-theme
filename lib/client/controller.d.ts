@@ -8,6 +8,8 @@ export interface AsukaThemeController {
     setWallpaperPeriod(value: WallpaperPeriodPreference): void;
     setOpacity(value: number): void;
     setBlur(value: number): void;
+    previewOpacity(value: number): void;
+    previewBlur(value: number): void;
     setDecorativeDetails(value: boolean): void;
     setReduceMotion(value: boolean): void;
     reset(): void;

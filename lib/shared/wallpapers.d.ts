@@ -1,6 +1,6 @@
 import type { WallpaperPeriod } from './settings.js';
 export declare const WALLPAPER_ROUTE_PREFIX = "/asuka-school/assets";
-export declare const WALLPAPER_ASSET_VERSION = "1.0.1";
+export declare const WALLPAPER_ASSET_VERSION = "2.0.0";
 export declare const WALLPAPER_ASSET_NAMES: Readonly<Record<WallpaperPeriod, string>>;
 export interface WallpaperLayerProfile {
     maskStart: string;

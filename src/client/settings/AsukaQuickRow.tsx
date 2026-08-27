@@ -16,11 +16,13 @@ const SCENES = ['off', 'morning', 'noon', 'night'] as const
 type Scene = (typeof SCENES)[number]
 
 export function AsukaQuickRow({ t, useStore, setMode, setScene }: AsukaQuickRowProps) {
-  const { settings, status } = useStore(state => state)
+  const status = useStore(state => state.status)
+  const mode = useStore(state => state.settings.mode)
+  const wallpaperPeriod = useStore(state => state.settings.wallpaperPeriod)
   const disabled = status !== 'ready'
-  const selectedScene: Scene = settings.mode === 'off'
+  const selectedScene: Scene = mode === 'off'
     ? 'off'
-    : resolveWallpaperPeriod(settings.wallpaperPeriod)
+    : resolveWallpaperPeriod(wallpaperPeriod)
 
   return (
     <section className="asuka-quick-row" aria-label={t('quick.label')}>

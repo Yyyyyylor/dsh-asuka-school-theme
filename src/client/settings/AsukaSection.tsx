@@ -1,7 +1,8 @@
-import type { ChangeEvent } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
 import { resolveWallpaperPeriod, type AsukaMode, type WallpaperPeriod, type WallpaperPeriodPreference } from '../../shared/settings.js'
 import type { createAsukaSettingsStore } from './settings-store.js'
+import { reconcileRangeDraft } from './range-draft.js'
 
 interface AsukaSectionInjected {
   setMode: (mode: AsukaMode) => void
@@ -10,6 +11,8 @@ interface AsukaSectionInjected {
   setWallpaperPeriod: (value: WallpaperPeriodPreference) => void
   setOpacity: (value: number) => void
   setBlur: (value: number) => void
+  previewOpacity: (value: number) => void
+  previewBlur: (value: number) => void
   setDecorativeDetails: (value: boolean) => void
   setReduceMotion: (value: boolean) => void
   reset: () => void
@@ -29,6 +32,8 @@ export function AsukaSection({
   setWallpaperPeriod,
   setOpacity,
   setBlur,
+  previewOpacity,
+  previewBlur,
   setDecorativeDetails,
   setReduceMotion,
   reset,
@@ -66,8 +71,8 @@ export function AsukaSection({
           onChange={setWallpaperPeriod}
           options={{ auto: t('timing.auto'), morning: t('timing.morning'), noon: t('timing.noon'), night: t('timing.night') }}
         />
-        <RangeRow label={t('section.opacityLabel')} value={percentage} min={0} max={100} suffix="%" onChange={event => setOpacity(Number(event.currentTarget.value) / 100)} />
-        <RangeRow label={t('section.blurLabel')} value={settings.wallpaperBlurPx} min={0} max={20} suffix="px" onChange={event => setBlur(Number(event.currentTarget.value))} />
+        <RangeRow label={t('section.opacityLabel')} value={percentage} min={0} max={100} suffix="%" onPreview={value => previewOpacity(value / 100)} onCommit={value => setOpacity(value / 100)} />
+        <RangeRow label={t('section.blurLabel')} value={settings.wallpaperBlurPx} min={0} max={20} suffix="px" onPreview={previewBlur} onCommit={setBlur} />
       </fieldset>
 
       <fieldset className="asuka-setting-group" disabled={disabled}>
@@ -131,11 +136,60 @@ function ToggleRow({ label, hint, checked, onChange }: { label: string, hint: st
   )
 }
 
-function RangeRow({ label, value, min, max, suffix, onChange }: { label: string, value: number, min: number, max: number, suffix: string, onChange: (event: ChangeEvent<HTMLInputElement>) => void }) {
+export function RangeRow({ label, value, min, max, suffix, onPreview, onCommit }: { label: string, value: number, min: number, max: number, suffix: string, onPreview: (value: number) => void, onCommit: (value: number) => void }) {
+  const [draft, setDraft] = useState(value)
+  const frameRef = useRef<number | undefined>()
+  const commitTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>()
+  const latestRef = useRef(value)
+  const dirtyRef = useRef(false)
+  const persistedRef = useRef(value)
+  const previewRef = useRef(onPreview)
+
+  previewRef.current = onPreview
+
+  useEffect(() => {
+    persistedRef.current = value
+    const reconciled = reconcileRangeDraft(value, draft, dirtyRef.current)
+    if (!dirtyRef.current) {
+      setDraft(reconciled.draft)
+      latestRef.current = reconciled.latest
+    }
+  }, [value])
+
+  useEffect(() => () => {
+    if (frameRef.current !== undefined) cancelAnimationFrame(frameRef.current)
+    if (commitTimerRef.current !== undefined) clearTimeout(commitTimerRef.current)
+    // Do not persist from a React unmount cleanup. Restore the latest
+    // persisted appearance so an uncommitted preview cannot leak after exit.
+    if (dirtyRef.current) previewRef.current(persistedRef.current)
+  }, [])
+
+  const flushCommit = () => {
+    if (commitTimerRef.current !== undefined) clearTimeout(commitTimerRef.current)
+    commitTimerRef.current = undefined
+    if (!dirtyRef.current) return
+    dirtyRef.current = false
+    onCommit(latestRef.current)
+  }
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const next = Number(event.currentTarget.value)
+    latestRef.current = next
+    dirtyRef.current = true
+    setDraft(next)
+    if (frameRef.current !== undefined) cancelAnimationFrame(frameRef.current)
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = undefined
+      onPreview(latestRef.current)
+    })
+    if (commitTimerRef.current !== undefined) clearTimeout(commitTimerRef.current)
+    commitTimerRef.current = setTimeout(flushCommit, 140)
+  }
+
   return (
     <label className="asuka-range-row">
-      <span><b>{label}</b><small>{value}{suffix}</small></span>
-      <input type="range" min={min} max={max} value={value} onChange={onChange} />
+      <span><b>{label}</b><small>{draft}{suffix}</small></span>
+      <input type="range" min={min} max={max} value={draft} onChange={handleChange} onPointerUp={flushCommit} onKeyUp={flushCommit} onBlur={flushCommit} />
     </label>
   )
 }

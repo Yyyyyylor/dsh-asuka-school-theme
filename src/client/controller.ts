@@ -13,7 +13,7 @@ import {
   type WallpaperPeriodPreference,
 } from '../shared/settings.js'
 import { applyAsukaPresentation, clearAsukaPresentation } from './presentation.js'
-import { applyWallpaper, clearWallpaper } from './wallpaper/runtime.js'
+import { applyWallpaper, clearWallpaper, updateWallpaperAppearance } from './wallpaper/runtime.js'
 import type { AsukaSettingsViewState } from './settings/settings-store.js'
 
 export interface AsukaThemeController {
@@ -23,6 +23,8 @@ export interface AsukaThemeController {
   setWallpaperPeriod(value: WallpaperPeriodPreference): void
   setOpacity(value: number): void
   setBlur(value: number): void
+  previewOpacity(value: number): void
+  previewBlur(value: number): void
   setDecorativeDetails(value: boolean): void
   setReduceMotion(value: boolean): void
   reset(): void
@@ -40,25 +42,55 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
   let current = DEFAULT_ASUKA_SETTINGS
   let wallpaperTimer: ReturnType<typeof setTimeout> | undefined
   let pendingScene: AsukaThemeSettings | undefined
+  let applied: { settings: AsukaThemeSettings, period: WallpaperPeriod, presentationMode: AsukaMode } | undefined
+  let disposed = false
 
-  const syncScene = (): void => {
-    if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
+  const syncScene = (fromTimer = false): void => {
+    if (disposed) return
     const period = resolveWallpaperPeriod(current.wallpaperPeriod)
     const presentationMode = resolveAsukaPresentationMode(current.mode, current.wallpaperPeriod, period)
-    applyAsukaPresentation(presentationMode, period, current.reduceMotion)
-    applyWallpaper(current, period)
+    const previous = applied
+    if (previous === undefined
+      || previous.presentationMode !== presentationMode
+      || previous.period !== period
+      || previous.settings.reduceMotion !== current.reduceMotion) {
+      applyAsukaPresentation(presentationMode, period, current.reduceMotion)
+    }
 
+    const wallpaperStructureChanged = previous === undefined
+      || previous.period !== period
+      || previous.settings.mode !== current.mode
+      || previous.settings.wallpaperEnabled !== current.wallpaperEnabled
+      || previous.settings.wallpaperPeriod !== current.wallpaperPeriod
+      || previous.settings.decorativeDetails !== current.decorativeDetails
+      || previous.settings.reduceMotion !== current.reduceMotion
+    if (wallpaperStructureChanged) applyWallpaper(current, period)
+    else if (previous.settings.wallpaperOpacity !== current.wallpaperOpacity
+      || previous.settings.wallpaperBlurPx !== current.wallpaperBlurPx) {
+      updateWallpaperAppearance(current.wallpaperOpacity, current.wallpaperBlurPx, period)
+    }
+    applied = { settings: { ...current }, period, presentationMode }
+
+    const timerInputsChanged = fromTimer || previous === undefined
+      || previous.settings.mode !== current.mode
+      || previous.settings.wallpaperEnabled !== current.wallpaperEnabled
+      || previous.settings.wallpaperPeriod !== current.wallpaperPeriod
+    if (!timerInputsChanged) return
+    if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
+    wallpaperTimer = undefined
     if (current.mode === 'off' || !current.wallpaperEnabled || current.wallpaperPeriod !== 'auto') return
-    wallpaperTimer = setTimeout(syncScene, millisecondsUntilNextWallpaperPeriod())
+    wallpaperTimer = setTimeout(() => syncScene(true), millisecondsUntilNextWallpaperPeriod())
   }
 
   const present = (status: AsukaSettingsViewState['status'], revision: number): void => {
+    if (disposed) return
     syncView({ status, settings: current, revision })
     if (status !== 'ready') return
     syncScene()
   }
 
   const syncFromSettings = (): void => {
+    if (disposed) return
     const snapshot = settings.getSnapshot()
     const persisted = snapshot.value ?? DEFAULT_ASUKA_SETTINGS
     if (pendingScene !== undefined) {
@@ -81,11 +113,12 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
 
   return {
     setMode: (mode) => {
-      if (!isAsukaMode(mode)) return
+      if (disposed || !isAsukaMode(mode)) return
       pendingScene = undefined
       void settings.set('mode', mode)
     },
     setScene: (period) => {
+      if (disposed) return
       const mode: AsukaMode = period === 'night' ? 'tokyo3-night' : 'after-class'
       const snapshot = settings.getSnapshot()
       pendingScene = {
@@ -101,24 +134,37 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
         settings.set('wallpaperEnabled', true),
         settings.set('wallpaperPeriod', period),
       ]).catch(() => {
+        if (disposed) return
         pendingScene = undefined
         syncFromSettings()
       })
     },
-    setWallpaperEnabled: (value) => { void settings.set('wallpaperEnabled', Boolean(value)) },
-    setWallpaperPeriod: (value) => { if (['auto', 'morning', 'noon', 'night'].includes(value)) void settings.set('wallpaperPeriod', value) },
-    setOpacity: (value) => { void settings.set('wallpaperOpacity', clampOpacity(value)) },
-    setBlur: (value) => { void settings.set('wallpaperBlurPx', clampBlur(value)) },
-    setDecorativeDetails: (value) => { void settings.set('decorativeDetails', Boolean(value)) },
-    setReduceMotion: (value) => { void settings.set('reduceMotion', Boolean(value)) },
+    setWallpaperEnabled: (value) => { if (!disposed) void settings.set('wallpaperEnabled', Boolean(value)) },
+    setWallpaperPeriod: (value) => { if (!disposed && ['auto', 'morning', 'noon', 'night'].includes(value)) void settings.set('wallpaperPeriod', value) },
+    setOpacity: (value) => { if (!disposed) void settings.set('wallpaperOpacity', clampOpacity(value)) },
+    setBlur: (value) => { if (!disposed) void settings.set('wallpaperBlurPx', clampBlur(value)) },
+    previewOpacity: (value) => {
+      if (disposed) return
+      updateWallpaperAppearance(clampOpacity(value), current.wallpaperBlurPx, resolveWallpaperPeriod(current.wallpaperPeriod))
+    },
+    previewBlur: (value) => {
+      if (disposed) return
+      updateWallpaperAppearance(current.wallpaperOpacity, clampBlur(value), resolveWallpaperPeriod(current.wallpaperPeriod))
+    },
+    setDecorativeDetails: (value) => { if (!disposed) void settings.set('decorativeDetails', Boolean(value)) },
+    setReduceMotion: (value) => { if (!disposed) void settings.set('reduceMotion', Boolean(value)) },
     reset: () => {
+      if (disposed) return
       for (const field of Object.keys(DEFAULT_ASUKA_SETTINGS)) void settings.unset(field)
     },
     dispose: () => {
+      if (disposed) return
+      disposed = true
       unsubscribe()
       if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
       clearAsukaPresentation()
       clearWallpaper()
+      applied = undefined
     },
   }
 }

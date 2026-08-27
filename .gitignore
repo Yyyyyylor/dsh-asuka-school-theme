@@ -2,5 +2,6 @@ node_modules/
 .pnpm-store/
 coverage/
 *.tgz
+/tgz/
 assets/private/*
 !assets/private/.gitkeep

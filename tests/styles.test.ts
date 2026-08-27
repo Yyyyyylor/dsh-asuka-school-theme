@@ -6,15 +6,16 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('#asuka-school-wallpaper-root {\n  position: fixed;\n  inset: 0;\n  z-index: 1;')
     expect(ASUKA_STYLES).not.toContain('body > :not(#asuka-school-wallpaper-root)')
     expect(ASUKA_STYLES).toContain('var(--asuka-wallpaper-mask-start)')
-    expect(ASUKA_STYLES).toContain('opacity 1s cubic-bezier')
+    expect(ASUKA_STYLES).toContain('opacity 560ms cubic-bezier')
   })
 
-  it('protects the sidebar and animates palette-bearing UI surfaces across scenes', () => {
+  it('protects the sidebar and animates theme tokens without per-element paint churn', () => {
     expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] aside')
     expect(ASUKA_STYLES).toContain('z-index: 2;')
-    expect(ASUKA_STYLES).toContain("body[data-asuka-school-transitioning='true']")
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true'])")
     expect(ASUKA_STYLES).toContain('@property --dsw-alias-bg-base')
-    expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block-banner 760ms')
-    expect(ASUKA_STYLES).toContain('--dsw-specific-sidebar-fill 760ms')
+    expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block-banner 520ms')
+    expect(ASUKA_STYLES).toContain('--dsw-specific-sidebar-fill 520ms')
+    expect(ASUKA_STYLES).not.toContain("body[data-asuka-school-transitioning='true'] :is(")
   })
 })

@@ -3,7 +3,7 @@ import type { AsukaMode, WallpaperPeriod } from '../shared/settings.js'
 import { asukaDarkTheme, asukaMorningTheme, asukaNoonTheme } from './themes/index.js'
 
 const THEME_ATTRIBUTE = 'data-asuka-school-theme'
-const TRANSITION_ATTRIBUTE = 'data-asuka-school-transitioning'
+const REDUCED_MOTION_ATTRIBUTE = 'data-asuka-school-reduce-motion'
 
 interface InlineProperty {
   value: string
@@ -17,8 +17,6 @@ interface BaselineAppearance {
 }
 
 let baseline: BaselineAppearance | undefined
-let activeThemeId: string | undefined
-let transitionTimer: ReturnType<typeof setTimeout> | undefined
 
 /** Resolve the complete token palette that is presented directly by this plugin. */
 export function asukaThemeForMode(mode: AsukaMode, period: WallpaperPeriod = 'noon'): ThemeDefinition | undefined {
@@ -53,16 +51,8 @@ export function applyAsukaPresentation(mode: AsukaMode, period: WallpaperPeriod 
     }
   }
 
-  const shouldTransition = !reduceMotion && activeThemeId !== undefined && activeThemeId !== definition.id
-  if (shouldTransition) {
-    body.setAttribute(TRANSITION_ATTRIBUTE, 'true')
-    // Commit transition rules before tokens change so light and dark surfaces interpolate.
-    void body.offsetWidth
-  } else {
-    body.removeAttribute(TRANSITION_ATTRIBUTE)
-  }
-
   body.setAttribute(THEME_ATTRIBUTE, definition.colorScheme)
+  body.setAttribute(REDUCED_MOTION_ATTRIBUTE, String(reduceMotion))
   body.toggleAttribute('data-ds-dark-theme', definition.colorScheme === 'dark')
   root.style.setProperty('color-scheme', definition.colorScheme, 'important')
 
@@ -71,14 +61,6 @@ export function applyAsukaPresentation(mode: AsukaMode, period: WallpaperPeriod 
     body.style.setProperty(name, value, 'important')
   }
 
-  activeThemeId = definition.id
-  if (shouldTransition) {
-    if (transitionTimer !== undefined) clearTimeout(transitionTimer)
-    transitionTimer = setTimeout(() => {
-      if (document.body !== null) document.body.removeAttribute(TRANSITION_ATTRIBUTE)
-      transitionTimer = undefined
-    }, 1_050)
-  }
 }
 
 /** Restore only values and attributes that this plugin captured before activation. */
@@ -88,14 +70,11 @@ export function clearAsukaPresentation(): void {
   const root = document.documentElement
 
   body.removeAttribute(THEME_ATTRIBUTE)
-  body.removeAttribute(TRANSITION_ATTRIBUTE)
+  body.removeAttribute(REDUCED_MOTION_ATTRIBUTE)
   body.toggleAttribute('data-ds-dark-theme', baseline.darkTheme)
   writeInlineProperty(root, 'color-scheme', baseline.colorScheme)
   for (const [name, property] of baseline.tokens) writeInlineProperty(body, name, property)
   baseline = undefined
-  activeThemeId = undefined
-  if (transitionTimer !== undefined) clearTimeout(transitionTimer)
-  transitionTimer = undefined
 }
 
 function readInlineProperty(element: HTMLElement, name: string): InlineProperty {

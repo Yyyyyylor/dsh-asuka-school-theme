@@ -19,6 +19,12 @@ export declare function isWallpaperPeriodPreference(value: unknown): value is Wa
 /** Resolve the requested wallpaper period from the user's local clock. */
 export declare function wallpaperPeriodAt(now: Date): WallpaperPeriod;
 export declare function resolveWallpaperPeriod(preference: WallpaperPeriodPreference, now?: Date): WallpaperPeriod;
+/**
+ * Keep the color palette and wallpaper on the same clock when automatic timing
+ * is enabled. The persisted mode records the last selected scene, so it must
+ * not override the current period after a restart.
+ */
+export declare function resolveAsukaPresentationMode(mode: AsukaMode, preference: WallpaperPeriodPreference, period: WallpaperPeriod): AsukaMode;
 /** Delay until the next 06:00, 11:00, or 17:00 local-time wallpaper boundary. */
 export declare function millisecondsUntilNextWallpaperPeriod(now?: Date): number;
 export declare function isActiveAsukaMode(mode: AsukaMode): mode is Exclude<AsukaMode, 'off'>;

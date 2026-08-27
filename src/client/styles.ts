@@ -36,43 +36,43 @@ export const ASUKA_STYLES = String.raw`
 @property --dsw-specific-bubble-highlight { syntax: '<color>'; inherits: true; initial-value: transparent; }
 @property --dsw-specific-input-major { syntax: '<color>'; inherits: true; initial-value: transparent; }
 @property --shiki-background { syntax: '<color>'; inherits: true; initial-value: transparent; }
-body[data-asuka-school-transitioning='true'] {
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
   transition:
-    --dsw-alias-bg-base 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-1 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-2 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-3 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-overlay 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-1 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-2 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-3 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l1 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l2 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l3 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l4 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-brand-primary 620ms ease,
-    --dsw-alias-brand-text 620ms ease,
-    --dsw-alias-label-primary 620ms ease,
-    --dsw-alias-label-primary-bluish 620ms ease,
-    --dsw-alias-label-secondary 620ms ease,
-    --dsw-alias-label-tertiary 620ms ease,
-    --dsw-alias-label-caption 620ms ease,
-    --dsw-alias-label-dimmed 620ms ease,
-    --dsw-alias-button-primary-fill 620ms ease,
-    --dsw-alias-button-primary-hover 620ms ease,
-    --dsw-alias-button-info-fill 620ms ease,
-    --dsw-alias-button-info-hover 620ms ease,
-    --dsw-alias-interactive-bg-hover 620ms ease,
-    --dsw-alias-interactive-bg-active 620ms ease,
-    --dsw-alias-markdown-code-block 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-markdown-code-block-banner 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-fill 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-nav-item-active 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-nav-item-hover 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-bubble 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-bubble-highlight 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-input-major 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    --shiki-background 760ms cubic-bezier(0.22, 1, 0.36, 1);
+    --dsw-alias-bg-base 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-1 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-2 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-layer-3 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-overlay 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-1 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-2 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-bg-mask-3 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l1 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l2 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l3 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-border-l4 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-brand-primary 420ms ease,
+    --dsw-alias-brand-text 420ms ease,
+    --dsw-alias-label-primary 420ms ease,
+    --dsw-alias-label-primary-bluish 420ms ease,
+    --dsw-alias-label-secondary 420ms ease,
+    --dsw-alias-label-tertiary 420ms ease,
+    --dsw-alias-label-caption 420ms ease,
+    --dsw-alias-label-dimmed 420ms ease,
+    --dsw-alias-button-primary-fill 420ms ease,
+    --dsw-alias-button-primary-hover 420ms ease,
+    --dsw-alias-button-info-fill 420ms ease,
+    --dsw-alias-button-info-hover 420ms ease,
+    --dsw-alias-interactive-bg-hover 420ms ease,
+    --dsw-alias-interactive-bg-active 420ms ease,
+    --dsw-alias-markdown-code-block 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-alias-markdown-code-block-banner 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-fill 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-nav-item-active 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-sidebar-nav-item-hover 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-bubble 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-bubble-highlight 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --dsw-specific-input-major 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    --shiki-background 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 #asuka-school-wallpaper-root {
   position: fixed;
@@ -80,6 +80,7 @@ body[data-asuka-school-transitioning='true'] {
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  contain: paint;
   opacity: 0;
   filter: blur(var(--asuka-wallpaper-blur, 0px));
   transform: scale(1.015);
@@ -95,13 +96,13 @@ body[data-asuka-school-transitioning='true'] {
   background-repeat: no-repeat;
   opacity: 0;
   filter: var(--asuka-wallpaper-filter, saturate(0.88) contrast(0.98));
-  transform: scale(1.035);
-  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), filter 1s ease, transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1.015);
+  transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; transform: scale(1); }
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer,
-body[data-asuka-school-reduce-motion='true'][data-asuka-school-transitioning='true'] { transition: none; }
+body[data-asuka-school-reduce-motion='true'][data-asuka-school-theme] { transition: none; }
 body[data-asuka-school-theme] aside {
   position: relative;
   z-index: 2;
@@ -109,15 +110,11 @@ body[data-asuka-school-theme] aside {
   background-image: linear-gradient(180deg, color-mix(in srgb, var(--dsw-specific-sidebar-fill) 98%, white), var(--dsw-specific-sidebar-fill));
   border-right-color: var(--dsw-alias-border-l2);
 }
-body[data-asuka-school-transitioning='true'] :is(aside, main, header, nav, section, article, footer, form, pre, textarea, select, button, [role='main'], [role='navigation']) {
-  transition: background-color 760ms cubic-bezier(0.22, 1, 0.36, 1), color 620ms ease, border-color 760ms ease, box-shadow 760ms ease;
-}
-body[data-asuka-school-reduce-motion='true'][data-asuka-school-transitioning='true'] :is(aside, main, header, nav, section, article, footer, form, pre, textarea, select, button, [role='main'], [role='navigation']) { transition: none; }
 /* Stable semantic details: the palette is applied by presentation.ts, while these make its school motif tangible. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']) {
   border-radius: 8px;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 0 rgb(20 32 40 / 0.08);
-  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  transition: box-shadow 160ms ease, transform 160ms ease;
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']):not(:disabled):hover {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 5px 15px rgb(37 57 69 / 0.14);

@@ -8,6 +8,7 @@ import {
   isAsukaMode,
   isWallpaperPeriodPreference,
   millisecondsUntilNextWallpaperPeriod,
+  resolveAsukaPresentationMode,
   resolveWallpaperPeriod,
   wallpaperPeriodAt,
 } from '../src/shared/settings.js'
@@ -65,5 +66,13 @@ describe('Asuka settings invariants', () => {
     expect(millisecondsUntilNextWallpaperPeriod(new Date(2026, 0, 1, 18, 0, 0))).toBe(12 * 60 * 60 * 1_000)
     expect(isWallpaperPeriodPreference('noon')).toBe(true)
     expect(isWallpaperPeriodPreference('dawn')).toBe(false)
+  })
+
+  it('keeps the automatic palette synchronized with the current time after restart', () => {
+    expect(resolveAsukaPresentationMode('tokyo3-night', 'auto', 'morning')).toBe('after-class')
+    expect(resolveAsukaPresentationMode('tokyo3-night', 'auto', 'noon')).toBe('after-class')
+    expect(resolveAsukaPresentationMode('after-class', 'auto', 'night')).toBe('tokyo3-night')
+    expect(resolveAsukaPresentationMode('tokyo3-night', 'night', 'night')).toBe('tokyo3-night')
+    expect(resolveAsukaPresentationMode('off', 'auto', 'morning')).toBe('off')
   })
 })

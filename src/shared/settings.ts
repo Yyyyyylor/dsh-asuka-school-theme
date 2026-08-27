@@ -47,6 +47,20 @@ export function resolveWallpaperPeriod(preference: WallpaperPeriodPreference, no
   return preference === 'auto' ? wallpaperPeriodAt(now) : preference
 }
 
+/**
+ * Keep the color palette and wallpaper on the same clock when automatic timing
+ * is enabled. The persisted mode records the last selected scene, so it must
+ * not override the current period after a restart.
+ */
+export function resolveAsukaPresentationMode(
+  mode: AsukaMode,
+  preference: WallpaperPeriodPreference,
+  period: WallpaperPeriod,
+): AsukaMode {
+  if (mode === 'off' || preference !== 'auto') return mode
+  return period === 'night' ? 'tokyo3-night' : 'after-class'
+}
+
 /** Delay until the next 06:00, 11:00, or 17:00 local-time wallpaper boundary. */
 export function millisecondsUntilNextWallpaperPeriod(now = new Date()): number {
   const next = new Date(now)

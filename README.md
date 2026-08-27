@@ -21,7 +21,7 @@ time of day.
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v0.2.9/dsh-asuka-school-theme-0.2.9.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v1.0.0/dsh-asuka-school-theme-1.0.0.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -30,7 +30,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v0.2.9
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v1.0.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -42,7 +42,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-0.2.9.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-1.0.0.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the

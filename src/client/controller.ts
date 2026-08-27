@@ -5,6 +5,7 @@ import {
   DEFAULT_ASUKA_SETTINGS,
   isAsukaMode,
   millisecondsUntilNextWallpaperPeriod,
+  resolveAsukaPresentationMode,
   resolveWallpaperPeriod,
   type AsukaMode,
   type AsukaThemeSettings,
@@ -43,7 +44,8 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
   const syncScene = (): void => {
     if (wallpaperTimer !== undefined) clearTimeout(wallpaperTimer)
     const period = resolveWallpaperPeriod(current.wallpaperPeriod)
-    applyAsukaPresentation(current.mode, period, current.reduceMotion)
+    const presentationMode = resolveAsukaPresentationMode(current.mode, current.wallpaperPeriod, period)
+    applyAsukaPresentation(presentationMode, period, current.reduceMotion)
     applyWallpaper(current, period)
 
     if (current.mode === 'off' || !current.wallpaperEnabled || current.wallpaperPeriod !== 'auto') return

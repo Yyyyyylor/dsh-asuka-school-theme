@@ -145,11 +145,10 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] pre {
 }
 .asuka-quick-copy strong { font-size: 15px; }
 .asuka-quick-copy p, .asuka-section-header p { margin: 0; color: var(--dsw-alias-label-secondary); font-size: 13px; line-height: 1.55; }
-.asuka-mode-switch { display: flex; overflow: hidden; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; background: var(--dsw-alias-bg-layer-1); }
+.asuka-mode-switch { display: flex; flex-wrap: wrap; gap: 8px; }
 .asuka-mode-button, .asuka-theme-card, .asuka-reset-button { font: inherit; cursor: pointer; }
-.asuka-mode-button { min-height: 34px; padding: 0 10px; border: 0; border-right: 1px solid var(--dsw-alias-border-l1); color: var(--dsw-alias-label-secondary); background: transparent; font-size: 12px; }
-.asuka-mode-button:last-child { border-right: 0; }
-.asuka-mode-button[aria-pressed='true'] { color: var(--dsw-alias-brand-primary-invert); background: var(--dsw-alias-brand-primary); }
+.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; color: var(--dsw-alias-label-secondary); background: var(--dsw-alias-bg-layer-1); font-size: 12px; }
+.asuka-mode-button[aria-pressed='true'] { border-color: var(--dsw-alias-brand-primary); color: var(--dsw-alias-brand-primary-invert); background: var(--dsw-alias-brand-primary); }
 .asuka-mode-button:focus-visible, .asuka-theme-card:focus-visible, .asuka-reset-button:focus-visible, .asuka-section input:focus-visible, .asuka-section select:focus-visible { outline: 2px solid var(--dsw-alias-brand-primary); outline-offset: 2px; }
 .asuka-section { max-width: 760px; padding: 8px 0 32px; }
 .asuka-section-header { padding: 18px 20px; border-left: 3px solid var(--dsw-alias-brand-primary); background: linear-gradient(90deg, var(--dsw-alias-bg-layer-2), transparent); }

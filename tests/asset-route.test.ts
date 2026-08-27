@@ -1,4 +1,4 @@
-import { createServer } from 'node:http'
+import { createServer, request as httpRequest } from 'node:http'
 import { once } from 'node:events'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -28,24 +28,22 @@ describe('public wallpaper route', () => {
     await once(server, 'listening')
     const address = server.address()
     if (address === null || typeof address === 'string') throw new Error('server did not bind a TCP port')
-    const base = `http://127.0.0.1:${address.port}`
-
     try {
-      const get = await fetch(`${base}/wallpaper`)
+      const get = await requestAsset(address.port, '/wallpaper')
       expect(get.status).toBe(200)
-      expect(get.headers.get('content-type')).toBe('image/webp')
-      expect(get.headers.get('x-content-type-options')).toBe('nosniff')
-      expect((await get.arrayBuffer()).byteLength).toBeGreaterThan(1024)
+      expect(get.headers['content-type']).toBe('image/webp')
+      expect(get.headers['x-content-type-options']).toBe('nosniff')
+      expect(get.body.byteLength).toBeGreaterThan(1024)
 
-      const head = await fetch(`${base}/wallpaper`, { method: 'HEAD' })
+      const head = await requestAsset(address.port, '/wallpaper', 'HEAD')
       expect(head.status).toBe(200)
-      expect((await head.arrayBuffer()).byteLength).toBe(0)
+      expect(head.body.byteLength).toBe(0)
 
-      const post = await fetch(`${base}/wallpaper`, { method: 'POST' })
+      const post = await requestAsset(address.port, '/wallpaper', 'POST')
       expect(post.status).toBe(405)
-      expect(post.headers.get('allow')).toBe('GET, HEAD')
+      expect(post.headers.allow).toBe('GET, HEAD')
 
-      const traversal = await fetch(`${base}/wallpaper/../private/secret.webp`)
+      const traversal = await requestAsset(address.port, '/wallpaper/../private/secret.webp')
       expect(traversal.status).toBe(404)
     } finally {
       server.close()
@@ -61,10 +59,26 @@ describe('public wallpaper route', () => {
     const address = server.address()
     if (address === null || typeof address === 'string') throw new Error('server did not bind a TCP port')
     try {
-      expect((await fetch(`http://127.0.0.1:${address.port}`)).status).toBe(404)
+      expect((await requestAsset(address.port, '/')).status).toBe(404)
     } finally {
       server.close()
       await once(server, 'close')
     }
   })
 })
+
+function requestAsset(port: number, path: string, method = 'GET'): Promise<{ status: number, headers: Record<string, string | string[] | undefined>, body: Buffer }> {
+  return new Promise((resolve, reject) => {
+    const request = httpRequest({ hostname: '127.0.0.1', port, path, method }, response => {
+      const chunks: Buffer[] = []
+      response.on('data', chunk => chunks.push(Buffer.from(chunk)))
+      response.on('end', () => resolve({
+        status: response.statusCode ?? 0,
+        headers: response.headers,
+        body: Buffer.concat(chunks),
+      }))
+    })
+    request.once('error', reject)
+    request.end()
+  })
+}

@@ -6,6 +6,10 @@
 
 > 本项目是非官方同人作品，与 DeepSeek、khara、Evangelion 及相关权利方不存在关联。
 
+## 预览
+
+![Theme-Asuka 在 DeepSeek Harness 中运行](docs/images/theme-asuka-preview.png)
+
 ## 兼容性
 
 - DSH：`0.1.1-rc.2`
@@ -20,7 +24,7 @@ Ubuntu 是本项目的目标运行平台，**应可使用**；不过当前只完
 ### 从 GitHub Release 安装（推荐）
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v1.0.0/dsh-asuka-school-theme-1.0.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v1.0.1/dsh-asuka-school-theme-1.0.1.tgz
 ```
 
 本项目暂未发布到 npm。GitHub Release 中的 `.tgz` 是已构建、带版本号的发布包，推荐直接使用。
@@ -28,7 +32,7 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 ### 从 GitHub 源码安装
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v1.0.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v1.0.1
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -41,7 +45,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v1.0.0
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-1.0.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-1.0.1.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 文件一致。
@@ -50,8 +54,8 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-1.0.0.tgz
 
 ## 使用方式
 
-1. 在 **设置 → 通用 → Asuka School** 中快速切换“关闭 / 上学路上 / 午间教室 / 东京-3 夜”。
-2. 在 **设置 → Asuka School** 中调整壁纸时段、透明度、模糊、装饰细节、减少动态效果，并可重置插件设置。
+1. 在 **设置 → 通用 → Theme-Asuka** 中快速切换“关闭 / 上学路上 / 午间教室 / 东京-3 夜”。
+2. 在 **设置 → Theme-Asuka** 中调整壁纸时段、透明度、模糊、装饰细节、减少动态效果，并可重置插件设置。
 3. 默认“壁纸时段”为自动模式，按本机时间切换：
    - 早：06:00–11:00
    - 午：11:00–17:00

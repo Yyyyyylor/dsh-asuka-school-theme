@@ -33,4 +33,14 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px;')
     expect(ASUKA_STYLES).not.toContain('.asuka-mode-switch { display: flex; overflow: hidden;')
   })
+
+  it('clips the complete code block without turning its sticky banner into a scroll container', () => {
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {")
+    expect(ASUKA_STYLES).toContain('overflow: clip;')
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-markdown-code-block-banner);')
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block pre {")
+    expect(ASUKA_STYLES).toContain('border-top: 0;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;')
+    expect(ASUKA_STYLES).not.toContain('overflow: auto hidden;')
+  })
 })

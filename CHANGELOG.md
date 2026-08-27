@@ -11,9 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Contain DSH Markdown code-block title and content surfaces inside one rounded
-  outer frame, preventing corner background leaks without changing highlighting,
-  copy controls, scrolling, or theme tokens.
+- Clipped layered code-block backgrounds at the outer wrapper, made the sticky banner backing opaque, and removed the inner surface's conflicting top corners without disabling sticky positioning or horizontal scrolling.
 
 ## [2.0.0] - 2026-08-27
 

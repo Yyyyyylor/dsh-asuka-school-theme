@@ -129,8 +129,14 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] pre {
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {
   overflow: clip;
 }
+/* DSH rc.2 keeps this wrapper sticky; mask it square and let its painted child own the top radii, as <pre> owns the bottom radii. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {
   border-radius: 0;
+  background: var(--dsw-alias-bg-base);
+}
+body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   background: var(--dsw-alias-markdown-code-block-banner);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block pre {

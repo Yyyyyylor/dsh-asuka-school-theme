@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-08-28
+
+### Fixed
+
+- Preserved the code-block title's sticky behavior at the viewport boundary while masking scrolling code behind its rounded top corners.
+- Removed translucent square artifacts around the rounded title corners with scene-appropriate solid backing colors.
+
+### Changed
+
+- Slightly enlarged the code-block copy button for a more comfortable click target.
+
+### Tests
+
+- Added regression coverage for sticky-title masking, rounded title surfaces, copy-button sizing, and theme mask tokens.
+
 ## [2.0.1] - 2026-08-27
 
 ### Fixed
@@ -54,7 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.0...v1.0.1

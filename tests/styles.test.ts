@@ -21,7 +21,7 @@ describe('wallpaper compositing styles', () => {
 
   it('masks DSH sticky code banners behind their rounded painted surface', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
-    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-bg-base);')
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--asuka-code-block-sticky-mask);')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {")
     expect(ASUKA_STYLES).toContain('border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  background: var(--dsw-alias-markdown-code-block-banner);')
     expect(ASUKA_STYLES).not.toContain('overflow: hidden;\n  border: 1px solid var(--dsw-alias-border-l2);')
@@ -37,9 +37,14 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {")
     expect(ASUKA_STYLES).toContain('overflow: clip;')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
-    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-bg-base);')
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--asuka-code-block-sticky-mask);')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block pre {")
     expect(ASUKA_STYLES).toContain('border-top: 0;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;')
     expect(ASUKA_STYLES).not.toContain('overflow: auto hidden;')
+  })
+
+  it('slightly enlarges only the code banner copy button', () => {
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child button {")
+    expect(ASUKA_STYLES).toContain('min-width: 36px;\n  min-height: 24px;\n  padding: 0 6px;')
   })
 })

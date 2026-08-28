@@ -2,6 +2,7 @@ import type { ThemeDefinition } from '@deepseek-ai/dsh-client-ui-theme/client'
 import { ASUKA_COLORS as c } from './colors.js'
 
 const noonTokens = {
+    '--asuka-code-block-sticky-mask': '#E8E9E4',
     '--dsw-alias-bg-base': 'rgba(232, 233, 228, 0.84)',
     '--dsw-alias-bg-layer-1': 'rgba(244, 243, 237, 0.92)',
     '--dsw-alias-bg-layer-2': 'rgba(236, 237, 232, 0.9)',
@@ -91,6 +92,7 @@ export const asukaMorningTheme: ThemeDefinition = {
   colorScheme: 'light',
   tokens: {
     ...noonTokens,
+    '--asuka-code-block-sticky-mask': '#DBC4B0',
     '--dsw-alias-bg-base': 'rgba(235, 215, 196, 0.82)',
     '--dsw-alias-bg-layer-1': 'rgba(248, 234, 220, 0.92)',
     '--dsw-alias-bg-layer-2': 'rgba(241, 220, 201, 0.9)',

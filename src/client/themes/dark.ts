@@ -5,6 +5,7 @@ export const asukaDarkTheme: ThemeDefinition = {
   id: 'asuka-school-dark',
   colorScheme: 'dark',
   tokens: {
+    '--asuka-code-block-sticky-mask': c.nightNavy,
     '--dsw-alias-bg-base': c.nightNavy,
     '--dsw-alias-bg-layer-1': c.panelNavy,
     '--dsw-alias-bg-layer-2': '#26323E',

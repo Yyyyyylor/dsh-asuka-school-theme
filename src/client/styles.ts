@@ -1,6 +1,7 @@
 const STYLE_ID = 'dsh-asuka-school-theme-styles'
 
 export const ASUKA_STYLES = String.raw`
+@property --asuka-code-block-sticky-mask { syntax: '<color>'; inherits: true; initial-value: transparent; }
 @property --dsw-alias-bg-base { syntax: '<color>'; inherits: true; initial-value: transparent; }
 @property --dsw-alias-bg-layer-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
 @property --dsw-alias-bg-layer-2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
@@ -38,6 +39,7 @@ export const ASUKA_STYLES = String.raw`
 @property --shiki-background { syntax: '<color>'; inherits: true; initial-value: transparent; }
 body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
   transition:
+    --asuka-code-block-sticky-mask 520ms cubic-bezier(0.22, 1, 0.36, 1),
     --dsw-alias-bg-base 520ms cubic-bezier(0.22, 1, 0.36, 1),
     --dsw-alias-bg-layer-1 520ms cubic-bezier(0.22, 1, 0.36, 1),
     --dsw-alias-bg-layer-2 520ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -132,12 +134,17 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {
 /* DSH rc.2 keeps this wrapper sticky; mask it square and let its painted child own the top radii, as <pre> owns the bottom radii. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {
   border-radius: 0;
-  background: var(--dsw-alias-bg-base);
+  background: var(--asuka-code-block-sticky-mask);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background: var(--dsw-alias-markdown-code-block-banner);
+}
+body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child button {
+  min-width: 36px;
+  min-height: 24px;
+  padding: 0 6px;
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block pre {
   border-top: 0;

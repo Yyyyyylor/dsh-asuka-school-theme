@@ -11,6 +11,7 @@ describe('Asuka theme definitions', () => {
     expect(asukaDarkTheme).toMatchObject({ id: 'asuka-school-dark', colorScheme: 'dark' })
 
     for (const theme of [asukaMorningTheme, asukaNoonTheme, asukaDarkTheme]) {
+      expect(theme.tokens['--asuka-code-block-sticky-mask']).toMatch(/^#/)
       expect(theme.tokens['--dsw-alias-bg-base']).toMatch(/^#|^rgba/)
       expect(theme.tokens['--dsw-alias-button-primary-fill']).toMatch(/^#/)
       expect(theme.tokens['--dsw-specific-sidebar-fill']).toMatch(/^#|^rgba/)

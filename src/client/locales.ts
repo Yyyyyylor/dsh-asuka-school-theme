@@ -44,6 +44,12 @@ export type AsukaLocaleKey =
   | 'timing.morning'
   | 'timing.noon'
   | 'timing.night'
+  | 'sessionTitle.edit'
+  | 'sessionTitle.field'
+  | 'sessionTitle.confirm'
+  | 'sessionTitle.cancel'
+  | 'sessionTitle.saving'
+  | 'sessionTitle.error'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
@@ -94,6 +100,12 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
     'timing.morning': '早 · 06:00–11:00',
     'timing.noon': '午 · 11:00–17:00',
     'timing.night': '晚 · 17:00–次日 06:00',
+    'sessionTitle.edit': '编辑会话标题',
+    'sessionTitle.field': '会话标题',
+    'sessionTitle.confirm': '确认修改',
+    'sessionTitle.cancel': '取消修改',
+    'sessionTitle.saving': '正在保存会话标题',
+    'sessionTitle.error': '无法修改会话标题，请重试。',
   },
   en: {
     'quick.kicker': 'ASUKA // 02',
@@ -137,6 +149,12 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
     'timing.morning': 'Morning · 06:00–11:00',
     'timing.noon': 'Noon · 11:00–17:00',
     'timing.night': 'Night · 17:00–06:00',
+    'sessionTitle.edit': 'Edit session title',
+    'sessionTitle.field': 'Session title',
+    'sessionTitle.confirm': 'Save title',
+    'sessionTitle.cancel': 'Cancel title edit',
+    'sessionTitle.saving': 'Saving session title',
+    'sessionTitle.error': 'The session title could not be changed. Try again.',
   },
 }
 

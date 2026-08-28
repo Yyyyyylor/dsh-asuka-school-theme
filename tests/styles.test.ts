@@ -47,4 +47,13 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child button {")
     expect(ASUKA_STYLES).toContain('min-width: 36px;\n  min-height: 24px;\n  padding: 0 6px;')
   })
+
+  it('styles every title-edit state through existing DSH theme tokens', () => {
+    expect(ASUKA_STYLES).toContain('.asuka-session-title-trigger,')
+    expect(ASUKA_STYLES).toContain('background: var(--dsw-alias-interactive-bg-hover);')
+    expect(ASUKA_STYLES).toContain('.asuka-session-title-editor[aria-busy=\'true\'] {')
+    expect(ASUKA_STYLES).toContain('outline: 2px solid var(--dsw-alias-brand-primary);')
+    expect(ASUKA_STYLES).toContain('.asuka-session-title-action:disabled {')
+    expect(ASUKA_STYLES).toContain('box-shadow: inset 0 -2px 0 var(--dsw-alias-state-error-primary);')
+  })
 })

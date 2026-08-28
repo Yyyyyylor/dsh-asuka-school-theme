@@ -200,12 +200,113 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block p
 .asuka-section-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--dsw-alias-border-l2); color: var(--dsw-alias-label-secondary); font-size: 12px; line-height: 1.5; }
 .asuka-section-footer b { color: var(--dsw-alias-label-primary); }
 .asuka-reset-button { padding: 8px 10px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 6px; color: var(--dsw-alias-label-primary); background: var(--dsw-alias-bg-layer-1); white-space: nowrap; }
+.asuka-session-title-trigger,
+.asuka-session-title-action {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--dsw-alias-label-tertiary);
+  background: transparent;
+  cursor: pointer;
+}
+.asuka-session-title-trigger:hover,
+.asuka-session-title-action:hover:not(:disabled) {
+  color: var(--dsw-alias-label-primary);
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+.asuka-session-title-trigger:active,
+.asuka-session-title-action:active:not(:disabled) {
+  background: var(--dsw-alias-interactive-bg-active);
+}
+.asuka-session-title-trigger:focus-visible,
+.asuka-session-title-action:focus-visible,
+.asuka-session-title-input:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 2px;
+}
+.asuka-session-title-action:disabled {
+  color: var(--dsw-alias-label-dimmed);
+  cursor: not-allowed;
+}
+.asuka-session-title-editor {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  padding: 2px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 9px;
+  background: var(--dsw-alias-bg-layer-1);
+}
+.asuka-session-title-editor[aria-busy='true'] {
+  border-color: var(--dsw-alias-brand-primary);
+  background: var(--dsw-alias-bg-layer-2);
+}
+.asuka-session-title-input {
+  box-sizing: border-box;
+  width: clamp(132px, 24vw, 240px);
+  min-width: 0;
+  height: 26px;
+  padding: 2px 7px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--dsw-alias-label-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+}
+.asuka-session-title-input:disabled {
+  color: var(--dsw-alias-label-dimmed);
+}
+.asuka-session-title-input[aria-invalid='true'] {
+  box-shadow: inset 0 -2px 0 var(--dsw-alias-state-error-primary);
+}
+.asuka-session-title-confirm:not(:disabled) {
+  color: var(--dsw-alias-brand-primary);
+}
+.asuka-session-title-error {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  right: 0;
+  width: max-content;
+  max-width: min(320px, 70vw);
+  padding: 7px 9px;
+  border: 1px solid var(--dsw-alias-state-error-primary);
+  border-radius: 7px;
+  color: var(--dsw-alias-state-error-primary);
+  background: var(--dsw-alias-bg-overlay);
+  box-shadow: 0 4px 14px var(--dsw-alias-bg-mask-2);
+  font-size: 12px;
+  line-height: 18px;
+}
+.asuka-session-title-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 body[data-asuka-school-details='true'] { --asuka-selection-rail: var(--dsw-specific-sidebar-nav-item-active-accent); }
 @media (max-width: 640px) {
   .asuka-quick-row { grid-template-columns: 1fr; }
   .asuka-mode-switch { width: fit-content; }
   .asuka-theme-cards { grid-template-columns: 1fr; }
   .asuka-section-footer { align-items: flex-start; flex-direction: column; }
+  .asuka-session-title-input { width: clamp(112px, 34vw, 180px); }
 }
 `
 

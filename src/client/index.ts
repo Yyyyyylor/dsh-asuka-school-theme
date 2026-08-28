@@ -1,6 +1,7 @@
 import type { BoundActions } from '@deepseek-ai/dsh-client-ui-slots'
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
 import type {} from '@deepseek-ai/dsh-client-ui-settings-general/client'
 import { ASUKA_SETTINGS_NAMESPACE_ID, DEFAULT_ASUKA_SETTINGS, type AsukaThemeSettings } from '../shared/settings.js'
@@ -9,9 +10,11 @@ import { ASUKA_LOCALE_NAMESPACE, asukaLocales } from './locales.js'
 import { AsukaQuickRow } from './settings/AsukaQuickRow.js'
 import { AsukaSection } from './settings/AsukaSection.js'
 import { createAsukaSettingsStore } from './settings/settings-store.js'
+import { SessionTitleEditor } from './session-title/SessionTitleEditor.js'
+import { renameSessionTitle } from './session-title/rename.js'
 import { installAsukaStyles } from './styles.js'
 
-export const inject = ['slots', 'locale', 'connection', 'remote', 'settingsScope']
+export const inject = ['slots', 'locale', 'connection', 'remote', 'sessions', 'settingsScope']
 
 export function apply(ctx: ClientContext): void {
   ctx.effect(() => installAsukaStyles(), 'asuka-school-theme: owned styles')
@@ -56,4 +59,14 @@ export function apply(ctx: ClientContext): void {
     locale: ASUKA_LOCALE_NAMESPACE,
     inject: injectActions,
   }, AsukaSection))
+
+  ctx.slots.inject('conversation.session.header.actions', () => ctx.slots.register({
+    name: 'conversation.session.header.actions',
+    id: 'asuka-session-title-editor',
+    order: 20,
+    locale: ASUKA_LOCALE_NAMESPACE,
+    inject: sessionId => ({
+      renameTitle: (title: string) => renameSessionTitle(ctx.sessions, sessionId, title),
+    }),
+  }, SessionTitleEditor))
 }

@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-08-29
+
+### Added
+
+- Added a reduced-motion-aware entrance transition and a scene-tinted liquid-glass surface over a frosted wallpaper mask for the host settings dialog.
+- Extended the same scene-aware glass material to the sidebar, composer, user bubbles, settings controls, menus, lightweight dialogs, and code blocks.
+- Added an accessible inline session-title editor with localized save, cancel, loading, and error states.
+
+### Fixed
+
+- Removed the host's opaque active-composer fade that appeared as a white rectangle around the bottom input card.
+- Improved code-title and control contrast across all three scene presets while retaining a translucent dark-glass code surface.
+- Restored the page-background mask behind sticky code banners so their rounded top corners no longer expose the dark code surface.
+- Reused the Phase-1 solid theme-base surface for the square sticky wrapper while keeping the painted banner's 10px top radii.
+- Increased light-scene secondary, tertiary, caption, and dimmed text contrast across the sidebar and conversation view.
+
+### Changed
+
+- Increased settings-dialog transparency and brightened the sidebar glass without changing the remaining surface presets.
+- Reduced the sidebar's milky overlay and rebalanced its blur toward stronger wallpaper color and neutral brightness.
+- Reduced the shared composer surface opacity in both new-session and active-conversation views while preserving blur, borders, and text contrast.
+
+### Documentation
+
+- Updated the English and Chinese installation commands and feature summaries for v2.2.0.
+
 ## [2.1.0] - 2026-08-28
 
 ### Fixed
@@ -69,7 +95,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v1.0.1...v2.0.0

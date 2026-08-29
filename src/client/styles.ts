@@ -105,12 +105,181 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer,
 body[data-asuka-school-reduce-motion='true'][data-asuka-school-theme] { transition: none; }
+body[data-asuka-school-theme] {
+  --asuka-glass-surface-soft: rgb(242 247 249 / 0.22);
+  --asuka-glass-surface-medium: rgb(233 241 245 / 0.38);
+  --asuka-glass-surface-strong: rgb(226 236 242 / 0.56);
+  --asuka-composer-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 72%, transparent);
+  --asuka-glass-code-surface: rgb(22 32 43 / 0.86);
+  --asuka-glass-code-banner: rgb(33 46 59 / 0.92);
+  --asuka-sidebar-glass-surface: rgb(202 222 233 / 0.32);
+  --asuka-glass-highlight: rgb(255 255 255 / 0.62);
+  --asuka-glass-edge: rgb(255 255 255 / 0.52);
+  --asuka-glass-edge-soft: rgb(187 223 244 / 0.18);
+  --asuka-glass-shadow: rgb(7 24 39 / 0.28);
+  --asuka-glass-sheen: linear-gradient(145deg, rgb(255 255 255 / 0.18), transparent 38%, rgb(165 222 255 / 0.07) 72%, rgb(255 255 255 / 0.1));
+  --asuka-glass-blur: 20px;
+  --asuka-glass-saturate: 1.55;
+  --asuka-glass-brightness: 1.04;
+  --asuka-settings-mask: rgb(31 46 58 / 0.16);
+  --asuka-settings-mask-brightness: 0.92;
+  --asuka-settings-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 78%, transparent);
+  --asuka-settings-glass-layer-1: color-mix(in srgb, var(--asuka-glass-surface-soft) 78%, transparent);
+  --asuka-settings-glass-layer-2: color-mix(in srgb, var(--asuka-glass-surface-medium) 78%, transparent);
+  --asuka-settings-glass-layer-3: color-mix(in srgb, var(--asuka-glass-surface-strong) 58%, transparent);
+  --asuka-settings-glass-highlight: var(--asuka-glass-highlight);
+  --asuka-settings-glass-edge: color-mix(in srgb, var(--asuka-glass-edge) 82%, white);
+  --asuka-settings-glass-edge-soft: var(--asuka-glass-edge-soft);
+  --asuka-settings-glass-flare-a: rgb(165 222 255 / 0.2);
+  --asuka-settings-glass-flare-b: rgb(255 171 195 / 0.14);
+  --asuka-settings-glass-shadow: rgb(7 24 39 / 0.4);
+  --asuka-settings-glass-fallback: rgb(231 238 242 / 0.96);
+  --asuka-settings-glass-brightness: 1.06;
+}
+body[data-asuka-school-theme][data-asuka-school-scene='morning'] {
+  --asuka-glass-surface-soft: rgb(255 244 234 / 0.24);
+  --asuka-glass-surface-medium: rgb(252 234 219 / 0.4);
+  --asuka-glass-surface-strong: rgb(248 226 208 / 0.58);
+  --asuka-glass-code-surface: rgb(34 30 34 / 0.88);
+  --asuka-glass-code-banner: rgb(48 39 44 / 0.92);
+  --asuka-sidebar-glass-surface: rgb(245 219 198 / 0.34);
+  --asuka-glass-edge: rgb(255 248 236 / 0.56);
+  --asuka-glass-edge-soft: rgb(255 201 169 / 0.22);
+  --asuka-glass-shadow: rgb(69 39 27 / 0.26);
+  --asuka-glass-sheen: linear-gradient(145deg, rgb(255 255 255 / 0.2), transparent 38%, rgb(224 99 105 / 0.06) 72%, rgb(255 244 230 / 0.12));
+  --asuka-settings-mask: rgb(82 52 35 / 0.12);
+  --asuka-settings-mask-brightness: 0.96;
+  --asuka-settings-glass-flare-a: rgb(255 247 229 / 0.3);
+  --asuka-settings-glass-flare-b: rgb(224 99 105 / 0.14);
+  --asuka-settings-glass-fallback: rgb(248 232 218 / 0.96);
+}
+body[data-asuka-school-theme][data-asuka-school-scene='night'] {
+  --asuka-glass-surface-soft: rgb(25 48 69 / 0.24);
+  --asuka-glass-surface-medium: rgb(20 42 64 / 0.38);
+  --asuka-glass-surface-strong: rgb(18 37 58 / 0.5);
+  --asuka-glass-code-surface: rgb(7 18 31 / 0.86);
+  --asuka-glass-code-banner: rgb(14 31 48 / 0.92);
+  --asuka-sidebar-glass-surface: rgb(19 42 63 / 0.48);
+  --asuka-glass-highlight: rgb(255 255 255 / 0.3);
+  --asuka-glass-edge: rgb(224 245 255 / 0.38);
+  --asuka-glass-edge-soft: rgb(89 190 255 / 0.18);
+  --asuka-glass-shadow: rgb(0 5 16 / 0.56);
+  --asuka-glass-sheen: linear-gradient(145deg, rgb(255 255 255 / 0.1), transparent 38%, rgb(69 189 255 / 0.08) 70%, rgb(255 126 177 / 0.07));
+  --asuka-glass-brightness: 1;
+  --asuka-settings-mask: rgb(2 10 22 / 0.34);
+  --asuka-settings-mask-brightness: 0.74;
+  --asuka-settings-glass-flare-a: rgb(69 189 255 / 0.24);
+  --asuka-settings-glass-flare-b: rgb(255 126 177 / 0.16);
+  --asuka-settings-glass-shadow: rgb(0 5 16 / 0.64);
+  --asuka-settings-glass-fallback: rgb(24 39 56 / 0.97);
+  --asuka-settings-glass-brightness: 1;
+}
+/* The settings host mounts synchronously and unmounts immediately on close, so only entrance motion is safe here. */
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [aria-hidden='true'] {
+  background: linear-gradient(145deg, var(--asuka-settings-mask), rgb(0 0 0 / 0.06));
+  -webkit-backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
+  backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
+  animation: asuka-settings-mask-enter 200ms ease-out both;
+}
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
+  --dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);
+  --dsw-alias-bg-layer-2: var(--asuka-settings-glass-layer-2);
+  --dsw-alias-bg-layer-3: var(--asuka-settings-glass-layer-3);
+  --dsw-specific-sidebar-nav-item-hover: var(--asuka-settings-glass-layer-2);
+  --dsw-specific-sidebar-nav-item-active: var(--asuka-settings-glass-layer-3);
+  isolation: isolate;
+  border: 1px solid transparent;
+  background:
+    radial-gradient(100% 54% at 8% 0%, var(--asuka-settings-glass-flare-a), transparent 58%) padding-box,
+    radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-glass-flare-b), transparent 64%) padding-box,
+    linear-gradient(145deg, var(--asuka-settings-glass-surface), color-mix(in srgb, var(--asuka-settings-glass-surface) 78%, transparent)) padding-box,
+    linear-gradient(135deg, var(--asuka-settings-glass-edge), var(--asuka-settings-glass-edge-soft) 34%, var(--asuka-settings-glass-flare-b) 70%, var(--asuka-settings-glass-edge)) border-box;
+  -webkit-backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
+  backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
+  box-shadow:
+    inset 0 1px 0 var(--asuka-settings-glass-highlight),
+    inset 1px 0 0 var(--asuka-settings-glass-edge-soft),
+    inset -1px 0 0 rgb(255 255 255 / 0.07),
+    inset 0 -1px 0 rgb(3 15 27 / 0.12),
+    0 4px 18px rgb(0 10 22 / 0.2),
+    0 30px 96px var(--asuka-settings-glass-shadow);
+  animation: asuka-settings-panel-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(105deg, transparent 18%, rgb(255 255 255 / 0.08) 46%, transparent 70%),
+    radial-gradient(70% 18% at 50% 0%, var(--asuka-settings-glass-highlight), transparent 100%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.055);
+}
+@keyframes asuka-settings-mask-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes asuka-settings-panel-enter {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+    animation: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
+    background: var(--asuka-settings-glass-fallback);
+  }
+}
+/* Stable DSH surfaces share one restrained material; strength changes with information density. */
+body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble'], [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
+  border: 1px solid var(--asuka-glass-edge);
+  background-color: var(--asuka-glass-surface-medium);
+  background-image: var(--asuka-glass-sheen);
+  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  box-shadow:
+    inset 0 1px 0 var(--asuka-glass-highlight),
+    inset 0 0 0 1px rgb(255 255 255 / 0.04),
+    0 12px 36px var(--asuka-glass-shadow);
+}
+body[data-asuka-school-theme] :is([role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
+  background-color: var(--asuka-glass-surface-strong);
+}
+body[data-asuka-school-theme] [data-composer-card] {
+  background-color: var(--asuka-composer-glass-surface);
+}
+body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']) {
+  position: relative;
+  z-index: 2;
+}
+body[data-asuka-school-theme] [data-composer-card]:focus-within {
+  border-color: color-mix(in srgb, var(--asuka-glass-edge) 64%, var(--dsw-alias-brand-primary));
+  box-shadow:
+    inset 0 1px 0 var(--asuka-glass-highlight),
+    inset 0 0 0 1px rgb(255 255 255 / 0.05),
+    0 14px 42px var(--asuka-glass-shadow);
+}
+/* The host's active composer seat normally fades into opaque bg-base, which creates the white rectangle around the card. */
+body[data-asuka-school-theme] [data-phase='active'] [data-composer-seat] {
+  background: transparent;
+}
 body[data-asuka-school-theme] aside {
   position: relative;
   z-index: 2;
-  background-color: var(--dsw-specific-sidebar-fill);
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--dsw-specific-sidebar-fill) 98%, white), var(--dsw-specific-sidebar-fill));
-  border-right-color: var(--dsw-alias-border-l2);
+  background-color: var(--asuka-sidebar-glass-surface);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.1), transparent 44%), var(--asuka-glass-sheen);
+  border-right-color: var(--asuka-glass-edge-soft);
+  -webkit-backdrop-filter: blur(20px) saturate(1.62) brightness(1.02);
+  backdrop-filter: blur(20px) saturate(1.62) brightness(1.02);
+  box-shadow: inset -1px 0 0 rgb(255 255 255 / 0.1), 10px 0 32px rgb(5 20 33 / 0.08);
 }
 /* Stable semantic details: the palette is applied by presentation.ts, while these make its school motif tangible. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']) {
@@ -129,12 +298,27 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] pre {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 8px 24px rgb(19 30 41 / 0.12);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {
+  --dsw-alias-markdown-code-block: var(--asuka-glass-code-surface);
+  --dsw-alias-markdown-code-block-banner: var(--asuka-glass-code-banner);
+  --shiki-background: var(--asuka-glass-code-surface);
+  --dsw-alias-label-primary: #F5F8FA;
+  --dsw-alias-label-secondary: #DDE6EC;
+  --dsw-alias-label-tertiary: #C2CFD8;
+  --dsw-alias-label-caption: #9FB0BD;
+  --dsw-alias-border-l2: rgb(215 232 242 / 0.32);
   overflow: clip;
+  position: relative;
+  z-index: 2;
+  border-radius: 10px;
+  background: var(--asuka-glass-sheen);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18) brightness(0.94);
+  backdrop-filter: blur(18px) saturate(1.18) brightness(0.94);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 12px 34px var(--asuka-glass-shadow);
 }
-/* DSH rc.2 keeps this wrapper sticky; mask it square and let its painted child own the top radii, as <pre> owns the bottom radii. */
+/* Match the proven Phase-1 treatment: a square theme-base mask behind the rounded painted banner keeps scrolling code from bleeding through. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {
   border-radius: 0;
-  background: var(--asuka-code-block-sticky-mask);
+  background: var(--dsw-alias-bg-base);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {
   border-top-left-radius: 10px;
@@ -150,6 +334,8 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block p
   border-top: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  background-color: var(--asuka-glass-code-surface);
+  box-shadow: none;
 }
 .asuka-quick-row, .asuka-section { color: var(--dsw-alias-label-primary); }
 .asuka-quick-row {
@@ -172,7 +358,7 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block p
 .asuka-quick-copy p, .asuka-section-header p { margin: 0; color: var(--dsw-alias-label-secondary); font-size: 13px; line-height: 1.55; }
 .asuka-mode-switch { display: flex; flex-wrap: wrap; gap: 8px; }
 .asuka-mode-button, .asuka-theme-card, .asuka-reset-button { font: inherit; cursor: pointer; }
-.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px; color: var(--dsw-alias-label-secondary); background: var(--dsw-alias-bg-layer-1); font-size: 12px; }
+.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--asuka-glass-edge-soft); border-radius: 8px; color: var(--dsw-alias-label-secondary); background-color: var(--asuka-glass-surface-soft); background-image: var(--asuka-glass-sheen); font-size: 12px; }
 .asuka-mode-button[aria-pressed='true'] { border-color: var(--dsw-alias-brand-primary); color: var(--dsw-alias-brand-primary-invert); background: var(--dsw-alias-brand-primary); }
 .asuka-mode-button:focus-visible, .asuka-theme-card:focus-visible, .asuka-reset-button:focus-visible, .asuka-section input:focus-visible, .asuka-section select:focus-visible { outline: 2px solid var(--dsw-alias-brand-primary); outline-offset: 2px; }
 .asuka-section { max-width: 760px; padding: 8px 0 32px; }
@@ -181,7 +367,7 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block p
 .asuka-setting-group { display: grid; gap: 14px; margin: 24px 0 0; padding: 0; border: 0; }
 .asuka-setting-group legend { padding: 0; color: var(--dsw-alias-label-primary); font-size: 14px; font-weight: 700; }
 .asuka-theme-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.asuka-theme-card { display: grid; gap: 10px; padding: 10px; border: 1px solid var(--dsw-alias-border-l1); border-radius: 10px; color: var(--dsw-alias-label-primary); text-align: left; background: var(--dsw-alias-bg-layer-1); }
+.asuka-theme-card { display: grid; gap: 10px; padding: 10px; border: 1px solid var(--asuka-glass-edge-soft); border-radius: 10px; color: var(--dsw-alias-label-primary); text-align: left; background-color: var(--asuka-glass-surface-soft); background-image: var(--asuka-glass-sheen); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1); }
 .asuka-theme-card[aria-pressed='true'] { border-color: var(--dsw-alias-brand-primary); box-shadow: inset 3px 0 0 var(--dsw-alias-brand-primary); }
 .asuka-theme-card span:last-child { display: grid; gap: 3px; }
 .asuka-theme-card b { font-size: 13px; }
@@ -196,10 +382,10 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block p
 .asuka-toggle-row span, .asuka-range-row span, .asuka-select-row span { display: grid; gap: 3px; }
 .asuka-toggle-row input { width: 18px; height: 18px; accent-color: var(--dsw-alias-brand-primary); }
 .asuka-range-row input { width: min(100%, 420px); accent-color: var(--dsw-alias-brand-primary); }
-.asuka-select-row select { min-height: 34px; max-width: 230px; padding: 0 28px 0 10px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 6px; color: var(--dsw-alias-label-primary); background: var(--dsw-alias-bg-layer-1); font: inherit; }
+.asuka-select-row select { min-height: 34px; max-width: 230px; padding: 0 28px 0 10px; border: 1px solid var(--asuka-glass-edge-soft); border-radius: 6px; color: var(--dsw-alias-label-primary); background-color: var(--asuka-glass-surface-soft); background-image: var(--asuka-glass-sheen); font: inherit; }
 .asuka-section-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--dsw-alias-border-l2); color: var(--dsw-alias-label-secondary); font-size: 12px; line-height: 1.5; }
 .asuka-section-footer b { color: var(--dsw-alias-label-primary); }
-.asuka-reset-button { padding: 8px 10px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 6px; color: var(--dsw-alias-label-primary); background: var(--dsw-alias-bg-layer-1); white-space: nowrap; }
+.asuka-reset-button { padding: 8px 10px; border: 1px solid var(--asuka-glass-edge-soft); border-radius: 6px; color: var(--dsw-alias-label-primary); background-color: var(--asuka-glass-surface-soft); background-image: var(--asuka-glass-sheen); white-space: nowrap; }
 .asuka-session-title-trigger,
 .asuka-session-title-action {
   box-sizing: border-box;

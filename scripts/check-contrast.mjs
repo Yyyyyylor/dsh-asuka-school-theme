@@ -1,6 +1,6 @@
 const pairs = [
   ['light primary text', '#24313D', '#FCFAF4'],
-  ['light secondary text', '#4C5F6C', '#FCFAF4'],
+  ['light secondary text', '#354B59', '#FCFAF4'],
   ['light primary button', '#FFFFFF', '#C7474F'],
   ['Asuka hair action button', '#FFFFFF', '#B8522B'],
   ['noon code banner', '#24313D', '#F3E8DB'],

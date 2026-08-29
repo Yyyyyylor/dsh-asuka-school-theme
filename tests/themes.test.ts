@@ -26,6 +26,15 @@ describe('Asuka theme definitions', () => {
     expect(asukaMorningTheme.tokens['--dsw-alias-bg-base']).not.toBe(asukaNoonTheme.tokens['--dsw-alias-bg-base'])
   })
 
+  it('keeps light-scene navigation and conversation copy visibly darker than muted chrome', () => {
+    for (const theme of [asukaMorningTheme, asukaNoonTheme]) {
+      expect(theme.tokens['--dsw-alias-label-secondary']).toBe('#354B59')
+      expect(theme.tokens['--dsw-alias-label-tertiary']).toBe('#465C69')
+      expect(theme.tokens['--dsw-alias-label-caption']).toBe('#405663')
+      expect(theme.tokens['--dsw-alias-label-dimmed']).toBe('#536874')
+    }
+  })
+
   it('maps each enabled preset to a complete directly-presented palette', () => {
     expect(asukaThemeForMode('off')).toBeUndefined()
     expect(asukaThemeForMode('after-class')).toBe(asukaLightTheme)

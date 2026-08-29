@@ -19,9 +19,52 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).not.toContain("body[data-asuka-school-transitioning='true'] :is(")
   })
 
-  it('masks DSH sticky code banners behind their rounded painted surface', () => {
+  it('layers a frosted mask and scene-aware liquid glass only on the settings modal', () => {
+    const settingsDialog = "div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']"
+
+    expect(ASUKA_STYLES).toContain('--asuka-settings-glass-surface:')
+    expect(ASUKA_STYLES).toContain(`body[data-asuka-school-theme] ${settingsDialog} {`)
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-scene='night'] {")
+    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));')
+    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);')
+    expect(ASUKA_STYLES).toContain('linear-gradient(135deg, var(--asuka-settings-glass-edge)')
+    expect(ASUKA_STYLES).toContain("[role='dialog'][aria-modal='true']::before {")
+    expect(ASUKA_STYLES).toContain('--dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);')
+    expect(ASUKA_STYLES).toContain('animation: asuka-settings-panel-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;')
+    expect(ASUKA_STYLES).toContain('@keyframes asuka-settings-panel-enter')
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-reduce-motion='true'] div[role='presentation']")
+    expect(ASUKA_STYLES).toContain('@media (prefers-reduced-motion: reduce)')
+    expect(ASUKA_STYLES).not.toContain("body[data-asuka-school-theme] [role='dialog'] {")
+    expect(ASUKA_STYLES).not.toContain('asuka-settings-panel-exit')
+  })
+
+  it('shares glass tokens across stable major surfaces and clears the opaque composer seat', () => {
+    expect(ASUKA_STYLES).toContain('--asuka-glass-surface-soft:')
+    expect(ASUKA_STYLES).toContain('--asuka-composer-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 72%, transparent);')
+    expect(ASUKA_STYLES).toContain(":is([data-composer-card], [class*='_bubble'], [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true']))")
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-composer-card] {\n  background-color: var(--asuka-composer-glass-surface);")
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-phase='active'] [data-composer-seat] {\n  background: transparent;")
+    expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] aside {')
+    expect(ASUKA_STYLES).toContain('--asuka-sidebar-glass-surface:')
+    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(20px) saturate(1.62) brightness(1.02);')
+    expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block: var(--asuka-glass-code-surface);')
+    expect(ASUKA_STYLES).toContain('--dsw-alias-label-tertiary: #C2CFD8;')
+    expect(ASUKA_STYLES).toContain('--asuka-glass-code-surface: rgb(22 32 43 / 0.86);')
+    expect(ASUKA_STYLES).toContain('--asuka-glass-code-surface: rgb(34 30 34 / 0.88);')
+    expect(ASUKA_STYLES).toContain('--asuka-glass-code-surface: rgb(7 18 31 / 0.86);')
+    expect(ASUKA_STYLES).toContain('--asuka-settings-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 78%, transparent);')
+    expect(ASUKA_STYLES).toContain('.asuka-theme-card { display: grid;')
+    expect(ASUKA_STYLES).not.toContain('var(--dsw-alias-bg-base) 36px')
+  })
+
+  it('masks DSH sticky code banners with the Phase-1 solid theme surface', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
-    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--asuka-code-block-sticky-mask);')
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-bg-base);')
+    expect(ASUKA_STYLES).not.toContain(".md-code-block > :first-child::before {")
+    expect(ASUKA_STYLES).not.toContain('radial-gradient(circle at 100% 100%')
+    expect(ASUKA_STYLES).not.toContain('radial-gradient(circle at 0 100%')
+    expect(ASUKA_STYLES).not.toContain('background: var(--asuka-code-block-sticky-mask);')
+    expect(ASUKA_STYLES).not.toContain('--asuka-code-block-sticky-mask: var(--asuka-glass-code-surface);')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {")
     expect(ASUKA_STYLES).toContain('border-top-left-radius: 10px;\n  border-top-right-radius: 10px;\n  background: var(--dsw-alias-markdown-code-block-banner);')
     expect(ASUKA_STYLES).not.toContain('overflow: hidden;\n  border: 1px solid var(--dsw-alias-border-l2);')
@@ -29,7 +72,7 @@ describe('wallpaper compositing styles', () => {
 
   it('renders each quick scene choice as an independent button', () => {
     expect(ASUKA_STYLES).toContain('.asuka-mode-switch { display: flex; flex-wrap: wrap; gap: 8px; }')
-    expect(ASUKA_STYLES).toContain('.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--dsw-alias-border-l2); border-radius: 8px;')
+    expect(ASUKA_STYLES).toContain('.asuka-mode-button { min-height: 34px; padding: 0 12px; border: 1px solid var(--asuka-glass-edge-soft); border-radius: 8px;')
     expect(ASUKA_STYLES).not.toContain('.asuka-mode-switch { display: flex; overflow: hidden;')
   })
 
@@ -37,7 +80,7 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {")
     expect(ASUKA_STYLES).toContain('overflow: clip;')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
-    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--asuka-code-block-sticky-mask);')
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-bg-base);')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block pre {")
     expect(ASUKA_STYLES).toContain('border-top: 0;\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;')
     expect(ASUKA_STYLES).not.toContain('overflow: auto hidden;')

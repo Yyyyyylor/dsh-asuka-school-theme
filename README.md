@@ -25,7 +25,7 @@ time of day.
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v2.1.0/dsh-asuka-school-theme-2.1.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v2.2.0/dsh-asuka-school-theme-2.2.0.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -34,7 +34,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v2.1.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v2.2.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -46,7 +46,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-2.1.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-2.2.0.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the
@@ -60,6 +60,10 @@ plugin. The final filename should match the `.tgz` emitted by `npm pack`.
   decorative details, reduced motion, and reset. In the default automatic
   setting, Early is 06:00–11:00, Noon is 11:00–17:00, and Night is 17:00–06:00;
   the wallpaper crossfades at each boundary.
+- New-session and active-conversation composer cards share the same lighter,
+  scene-aware liquid-glass surface, keeping more of the wallpaper visible.
+- Use the edit action beside a conversation title to rename the current
+  session without leaving the conversation view.
 
 The default mode is **Off**. This plugin leaves the official Light, Dark, and
 System appearance unchanged; it only adds the selected wallpaper scene.

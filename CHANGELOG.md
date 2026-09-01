@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] - 2026-09-01
+
+### Changed
+
+- Renamed the General Settings quick row to `Theme-Asuka` in both Chinese and English.
+- Bumped the wallpaper asset revision so installed clients refresh the release assets.
+
+### Documentation
+
+- Replaced the README preview with the current midnight Theme-Asuka interface.
+- Updated English and Chinese installation commands for v2.2.1.
+
 ## [2.2.0] - 2026-08-29
 
 ### Added
@@ -95,7 +107,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.0...v2.0.1

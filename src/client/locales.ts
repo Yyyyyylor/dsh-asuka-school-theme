@@ -60,7 +60,7 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
 export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> = {
   zh: {
     'quick.kicker': 'ASUKA // 02',
-    'quick.label': '明日香学园',
+    'quick.label': 'Theme-Asuka',
     'quick.description': '选择早、中、晚场景，或让 DeepSeek Harness 保持原有外观。',
     'mode.off': '关闭',
     'mode.afterClass': '上学路上',
@@ -109,7 +109,7 @@ export const asukaLocales: Record<'zh' | 'en', Record<AsukaLocaleKey, string>> =
   },
   en: {
     'quick.kicker': 'ASUKA // 02',
-    'quick.label': 'Asuka School',
+    'quick.label': 'Theme-Asuka',
     'quick.description': 'Pick a morning, noon, or night scene, or leave DeepSeek Harness exactly as it is.',
     'mode.off': 'Off',
     'mode.afterClass': 'On the Way to School',

@@ -87,6 +87,9 @@ Do not package private artwork from `assets/private/`.
 
 ## Development
 
+Maintainers should start with the [project index](docs/README.md) and the
+[repository-specific agent guide](AGENTS.md).
+
 ```bash
 pnpm build
 pnpm test

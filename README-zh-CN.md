@@ -75,6 +75,8 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.0.tgz
 
 ## 开发与验证
 
+维护者请先阅读[项目索引](docs/README.md)与[项目专属 AGENTS.md](AGENTS.md)。
+
 ```bash
 pnpm build
 pnpm test

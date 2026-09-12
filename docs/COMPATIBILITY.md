@@ -1,8 +1,8 @@
 # Compatibility
 
-Current development baseline: DSH `0.1.5-rc.2`, Cordis `4.0.2`,
-Schemastery `3.18.2`. This update is unreleased; the plugin version remains
-`2.2.1`. Existing v2.2.1 release assets were built for DSH `0.1.1-rc.2`.
+Current development baseline: plugin `3.0.0`, DSH `0.1.5-rc.2`, Cordis
+`4.0.2`, and Schemastery `3.18.2`. Existing v2.2.1 release assets were built
+for DSH `0.1.1-rc.2`; compatibility changes first shipped in v3.0.0.
 
 ## Interface audit
 

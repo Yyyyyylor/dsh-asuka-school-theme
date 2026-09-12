@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Adapted to DSH 0.1.5-rc.2 / Cordis 4.0.2: replaced the retired client-runtime barrel with the owning store, settings, renderer, and session APIs, and registered the Host namespace directly.
+- Updated dependency pins and client graph edges while retaining all existing scene, wallpaper, glass, settings, and title-editing behavior.
+
+### Tests and documentation
+
+- Added real Cordis/DSH settings and route lifecycle tests, published store-engine coverage, and a built client factory import check.
+- Recorded the settings shell’s immediate unmount and focus-restoration paths; entrance animation remains, with no unsupported exit animation.
+- Verified an isolated Windows DSH Web Host and all three asset responses; browser interaction and Ubuntu/WSL2 regression remain unverified.
+
 ## [2.2.1] - 2026-09-01
 
 ### Changed

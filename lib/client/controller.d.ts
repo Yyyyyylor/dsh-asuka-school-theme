@@ -1,4 +1,4 @@
-import type { SettingsScope } from '@deepseek-ai/dsh-client-runtime/client';
+import type { SettingsScope } from '@deepseek-ai/dsh-client-ui-settings/client';
 import { type AsukaMode, type AsukaThemeSettings, type WallpaperPeriod, type WallpaperPeriodPreference } from '../shared/settings.js';
 import type { AsukaSettingsViewState } from './settings/settings-store.js';
 export interface AsukaThemeController {

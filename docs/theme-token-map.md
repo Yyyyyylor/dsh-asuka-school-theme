@@ -1,14 +1,17 @@
 # Theme token map
 
-The P0 inventory was extracted from the published `dsh-client-ui-theme`
-client artifact. The plugin overrides semantic aliases only; it does not
-target internal DOM class names.
+The inventory was rechecked against the locally installed DSH `0.1.5-rc.2`
+client artifacts. All 74 DSH/Shiki token names used by the existing palettes
+occur in those artifacts; palette values remain unchanged. This confirms name
+availability, not visual equivalence. The separate glass stylesheet also uses
+host attributes and code-block structure, so browser regression remains required.
 
 | Area | Tokens overridden |
 | --- | --- |
 | Application and surfaces | `--dsw-alias-bg-base`, `bg-layer-1/2/3`, `bg-overlay`, `bg-mask-1/2/3` |
 | Text and borders | `--dsw-alias-label-*`, `--dsw-alias-border-l1/2/3/4` |
 | Brand and buttons | `--dsw-alias-brand-*`, `--dsw-alias-button-primary-*`, elevated/floating/ghost aliases |
+| Static brand palette | `--dsw-static-deepseek-400/450/500/600` |
 | Interaction | `--dsw-alias-interactive-bg-hover`, `active`, `hover-accent` |
 | Status | `--dsw-alias-state-error-*`, `success-*`, `warn-*` |
 | Markdown and code | `--dsw-alias-markdown-code-block`, banner, inline code; `--shiki-*` and `--shiki-token-*` |

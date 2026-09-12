@@ -7,6 +7,6 @@ export interface AsukaSettingsViewState {
 type AsukaSettingsStoreActions = {
     sync: (draft: AsukaSettingsViewState, next: AsukaSettingsViewState) => void;
 };
-export declare function createAsukaSettingsStore(): import("@deepseek-ai/dsh-client-runtime/client").EngineStoreHandle<AsukaSettingsViewState, AsukaSettingsStoreActions>;
+export declare function createAsukaSettingsStore(): import("@deepseek-ai/dsh-client-store").EngineStoreHandle<AsukaSettingsViewState, AsukaSettingsStoreActions>;
 export {};
 //# sourceMappingURL=settings-store.d.ts.map

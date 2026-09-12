@@ -1,4 +1,4 @@
-import { defineStore } from '@deepseek-ai/dsh-client-runtime/client'
+import { defineStore } from '@deepseek-ai/dsh-client-store'
 import { DEFAULT_ASUKA_SETTINGS, type AsukaThemeSettings } from '../../shared/settings.js'
 
 export interface AsukaSettingsViewState {

@@ -16,9 +16,15 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.1.1-rc.2`
-- Cordis: `4.0.1`
+- DSH: `0.1.5-rc.2`
+- Cordis: `4.0.2`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
+
+The new baseline has Windows build, automated-test and isolated Host smoke
+coverage. Browser interaction, screenshots and Ubuntu/WSL2 validation remain pending.
+
+This compatibility update is unreleased. Build this checkout for DSH 0.1.5-rc.2;
+the v2.2.1 Release/tag commands below refer to the previous 0.1.1-rc.2 build.
 
 ## Install
 

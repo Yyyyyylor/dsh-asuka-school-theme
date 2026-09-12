@@ -1,5 +1,5 @@
 import z from '@deepseek-ai/schemastery'
-import { settingsNamespace } from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-settings'
 import {
   ASUKA_SETTINGS_NAMESPACE_ID,
   ASUKA_MODES,
@@ -8,7 +8,7 @@ import {
 } from './shared/settings.js'
 export * from './shared/settings.js'
 
-export const ASUKA_SETTINGS_NAMESPACE = settingsNamespace(ASUKA_SETTINGS_NAMESPACE_ID)
+export const ASUKA_SETTINGS_NAMESPACE = ASUKA_SETTINGS_NAMESPACE_ID
 
 export const AsukaThemeSettingsSchema = z.object({
   mode: z.union(ASUKA_MODES.map(mode => z.const(mode))).default(DEFAULT_ASUKA_SETTINGS.mode),

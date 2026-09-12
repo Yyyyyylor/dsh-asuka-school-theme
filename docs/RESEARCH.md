@@ -1,5 +1,13 @@
 # P0 research record
 
+Current audit: DSH `0.1.5-rc.2` / Cordis `4.0.2`, September 2026.
+The CLI is now installed and was checked directly along with its declarations
+and built artifacts. See [COMPATIBILITY.md](COMPATIBILITY.md) for the exact
+installation path, matching official commit, interface migration, settings
+close-lifecycle evidence and isolated Host smoke-test boundaries.
+The record below is historical evidence for the initial implementation, not
+the current compatibility baseline.
+
 Date: 2026-08-25  
 Compatibility baseline: `@deepseek-ai/dsh 0.1.1-rc.2`
 

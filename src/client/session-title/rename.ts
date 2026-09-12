@@ -1,4 +1,5 @@
-import type { ISessions, SessionId } from '@deepseek-ai/dsh-client-runtime/client'
+import type { ISessions } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 
 /** Rename through DSH's Session face so title projections settle immediately. */
 export async function renameSessionTitle(sessions: ISessions, sessionId: SessionId, title: string): Promise<void> {

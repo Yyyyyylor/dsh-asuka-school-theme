@@ -12,12 +12,14 @@
 
 ## 兼容性
 
-- DSH：`0.1.1-rc.2`
-- Cordis：`4.0.1`
+- DSH：`0.1.5-rc.2`
+- Cordis：`4.0.2`
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-Ubuntu 是本项目的目标运行平台，**应可使用**；不过当前只完成了编译基线验证，仍需在实际 Ubuntu/WSL2 的 DSH Web 环境中完成插件联调与浏览器截图回归测试。若你在 Ubuntu 上遇到问题，请记录 DSH 版本、浏览器版本及终端输出后再排查。
+Ubuntu 是本项目的目标运行平台，**应可使用**；不过新版当前只完成了 Windows 下的构建、自动测试及隔离 Host smoke test，仍需在实际 Ubuntu/WSL2 的 DSH Web 环境中完成插件联调与浏览器截图回归测试。若你在 Ubuntu 上遇到问题，请记录 DSH 版本、浏览器版本及终端输出后再排查。
+
+此兼容性更新尚未发布。使用 DSH 0.1.5-rc.2 时请从当前工作树构建；下方 v2.2.1 Release/标签命令仍指向旧的 0.1.1-rc.2 构建。
 
 ## 安装
 

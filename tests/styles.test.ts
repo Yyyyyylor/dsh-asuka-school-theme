@@ -2,6 +2,15 @@ import { describe, expect, it } from 'vitest'
 import { ASUKA_STYLES } from '../src/client/styles.js'
 
 describe('wallpaper compositing styles', () => {
+  it('gives light settings readable labels and native options an opaque color pair', () => {
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme='light'] div[role='presentation']")
+    expect(ASUKA_STYLES).toContain('--dsw-alias-label-tertiary: #304452;')
+    expect(ASUKA_STYLES).toContain('color-scheme: light;')
+    expect(ASUKA_STYLES).toContain('color-scheme: dark;')
+    expect(ASUKA_STYLES).toContain("[role='dialog'][aria-modal='true'] select option")
+    expect(ASUKA_STYLES).toContain('background-color: var(--asuka-settings-control-bg);')
+  })
+
   it('keeps the wallpaper visible above the app shell and keeps each crossfading layer self-contained', () => {
     expect(ASUKA_STYLES).toContain('#asuka-school-wallpaper-root {\n  position: fixed;\n  inset: 0;\n  z-index: 1;')
     expect(ASUKA_STYLES).not.toContain('body > :not(#asuka-school-wallpaper-root)')
@@ -9,13 +18,13 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('opacity 560ms cubic-bezier')
   })
 
-  it('protects the sidebar and animates theme tokens without per-element paint churn', () => {
+  it('protects the sidebar and transitions surfaces without inherited-token animation', () => {
     expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] aside')
     expect(ASUKA_STYLES).toContain('z-index: 2;')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true'])")
-    expect(ASUKA_STYLES).toContain('@property --dsw-alias-bg-base')
-    expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block-banner 520ms')
-    expect(ASUKA_STYLES).toContain('--dsw-specific-sidebar-fill 520ms')
+    expect(ASUKA_STYLES).not.toContain('@property --dsw-')
+    expect(ASUKA_STYLES).toContain('transition: background-color 520ms')
+    expect(ASUKA_STYLES).toContain('will-change: opacity, transform;')
     expect(ASUKA_STYLES).not.toContain("body[data-asuka-school-transitioning='true'] :is(")
   })
 

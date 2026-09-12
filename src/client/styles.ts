@@ -1,80 +1,11 @@
 const STYLE_ID = 'dsh-asuka-school-theme-styles'
 
 export const ASUKA_STYLES = String.raw`
-@property --asuka-code-block-sticky-mask { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-base { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-layer-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-layer-2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-layer-3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-overlay { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-mask-1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-mask-2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-bg-mask-3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-border-l1 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-border-l2 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-border-l3 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-border-l4 { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-brand-primary { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-brand-text { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-primary { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-primary-bluish { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-secondary { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-tertiary { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-caption { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-label-dimmed { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-button-primary-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-button-primary-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-button-info-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-button-info-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-interactive-bg-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-interactive-bg-active { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-markdown-code-block { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-alias-markdown-code-block-banner { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-sidebar-fill { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-sidebar-nav-item-active { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-sidebar-nav-item-hover { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-bubble { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-bubble-highlight { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --dsw-specific-input-major { syntax: '<color>'; inherits: true; initial-value: transparent; }
-@property --shiki-background { syntax: '<color>'; inherits: true; initial-value: transparent; }
-body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
-  transition:
-    --asuka-code-block-sticky-mask 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-base 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-1 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-2 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-layer-3 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-overlay 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-1 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-2 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-bg-mask-3 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l1 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l2 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l3 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-border-l4 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-brand-primary 420ms ease,
-    --dsw-alias-brand-text 420ms ease,
-    --dsw-alias-label-primary 420ms ease,
-    --dsw-alias-label-primary-bluish 420ms ease,
-    --dsw-alias-label-secondary 420ms ease,
-    --dsw-alias-label-tertiary 420ms ease,
-    --dsw-alias-label-caption 420ms ease,
-    --dsw-alias-label-dimmed 420ms ease,
-    --dsw-alias-button-primary-fill 420ms ease,
-    --dsw-alias-button-primary-hover 420ms ease,
-    --dsw-alias-button-info-fill 420ms ease,
-    --dsw-alias-button-info-hover 420ms ease,
-    --dsw-alias-interactive-bg-hover 420ms ease,
-    --dsw-alias-interactive-bg-active 420ms ease,
-    --dsw-alias-markdown-code-block 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-alias-markdown-code-block-banner 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-fill 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-nav-item-active 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-sidebar-nav-item-hover 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-bubble 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-bubble-highlight 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --dsw-specific-input-major 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    --shiki-background 520ms cubic-bezier(0.22, 1, 0.36, 1);
+/* Animate painted surfaces, not inherited tokens: token interpolation invalidates
+   every descendant on every frame, including code and glass backdrop layers. */
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']),
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(aside, [data-composer-card], [class*='_bubble']) {
+  transition: background-color 520ms cubic-bezier(0.22, 1, 0.36, 1), border-color 420ms ease;
 }
 #asuka-school-wallpaper-root {
   position: fixed;
@@ -97,6 +28,7 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
   background-size: cover, cover;
   background-repeat: no-repeat;
   opacity: 0;
+  will-change: opacity, transform;
   filter: var(--asuka-wallpaper-filter, saturate(0.88) contrast(0.98));
   transform: scale(1.015);
   transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1), transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -105,6 +37,7 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) {
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer,
 body[data-asuka-school-reduce-motion='true'][data-asuka-school-theme] { transition: none; }
+body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer { will-change: auto; }
 body[data-asuka-school-theme] {
   --asuka-glass-surface-soft: rgb(242 247 249 / 0.22);
   --asuka-glass-surface-medium: rgb(233 241 245 / 0.38);
@@ -173,6 +106,30 @@ body[data-asuka-school-theme][data-asuka-school-scene='night'] {
   --asuka-settings-glass-shadow: rgb(0 5 16 / 0.64);
   --asuka-settings-glass-fallback: rgb(24 39 56 / 0.97);
   --asuka-settings-glass-brightness: 1;
+}
+/* Settings use immediate, local text colors so a scene change never leaves
+   dark-mode labels on the new light glass. Native option popups need an opaque pair. */
+body[data-asuka-school-theme='light'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
+  color-scheme: light;
+  --dsw-alias-label-primary: #202D38;
+  --dsw-alias-label-primary-bluish: #202D38;
+  --dsw-alias-label-secondary: #293B48;
+  --dsw-alias-label-tertiary: #304452;
+  --dsw-alias-label-caption: #304452;
+  --dsw-alias-label-dimmed: #3A4D5A;
+  --asuka-settings-control-bg: #F1F4F5;
+  --asuka-settings-control-text: #202D38;
+  color: var(--dsw-alias-label-primary);
+}
+body[data-asuka-school-theme='dark'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
+  color-scheme: dark;
+  --asuka-settings-control-bg: #182738;
+  --asuka-settings-control-text: #F4F0E9;
+}
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] select,
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] select option {
+  color: var(--asuka-settings-control-text);
+  background-color: var(--asuka-settings-control-bg);
 }
 /* The settings host mounts synchronously and unmounts immediately on close, so only entrance motion is safe here. */
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [aria-hidden='true'] {

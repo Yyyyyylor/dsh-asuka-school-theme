@@ -58,7 +58,9 @@ export function applyAsukaPresentation(mode: AsukaMode, period: WallpaperPeriod 
 
   for (const [name, value] of Object.entries(definition.tokens)) {
     if (!baseline.tokens.has(name)) baseline.tokens.set(name, readInlineProperty(body, name))
-    body.style.setProperty(name, value, 'important')
+    if (body.style.getPropertyValue(name) !== value || body.style.getPropertyPriority(name) !== 'important') {
+      body.style.setProperty(name, value, 'important')
+    }
   }
 
 }

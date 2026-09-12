@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-09-12
+
+### Fixed
+
+- Replaced per-frame inherited palette interpolation with surface color transitions, retaining wallpaper crossfade/zoom and settings entrance motion while reducing scene-switch style invalidation.
+- Gave morning/noon settings local high-contrast labels and explicit native select/option foregrounds and backgrounds for both light and dark scenes.
+
 ### Changed
 
 - Adapted to DSH 0.1.5-rc.2 / Cordis 4.0.2: replaced the retired client-runtime barrel with the owning store, settings, renderer, and session APIs, and registered the Host namespace directly.
@@ -118,7 +125,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...v3.0.0
 [2.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.0.1...v2.1.0

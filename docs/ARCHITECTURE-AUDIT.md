@@ -8,7 +8,7 @@ Host settings namespace
               ▼
        Asuka theme controller
        ├── General Quick Row
-       ├── Asuka School section
+       ├── Theme Asuka section
        └── owned wallpaper document layer
 
 Host webServer

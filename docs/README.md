@@ -72,7 +72,7 @@ git diff --check
 - `pnpm check` 执行 TypeScript、资源、对比度和包结构检查。
 - `pnpm pack:check` 只检查 npm pack 内容，不代表已经发布，也不代表真实 DSH Web 已加载成功。
 
-涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。Ubuntu/WSL2 未实测时必须明确标注。
+涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。项目基线已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证；后续改动若未复测，必须明确标注本次验证边界。
 
 ## 发布内容边界
 

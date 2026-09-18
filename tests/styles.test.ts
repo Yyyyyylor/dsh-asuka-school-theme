@@ -95,9 +95,19 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).not.toContain('overflow: auto hidden;')
   })
 
-  it('slightly enlarges only the code banner copy button', () => {
-    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child button {")
+  it('anchors the code copy target to the host banner contract', () => {
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block [data-code-block-banner='true'] button {")
     expect(ASUKA_STYLES).toContain('min-width: 36px;\n  min-height: 24px;\n  padding: 0 6px;')
+    expect(ASUKA_STYLES).not.toContain('.md-code-block > :first-child > :first-child button {')
+  })
+
+  it('never moves host buttons across their hover hit boundary', () => {
+    const hostButtonRule = ASUKA_STYLES.match(/:is\(button, \[role='button'\]\):not\(:disabled\):hover \{([^}]*)\}/)?.[1]
+
+    expect(hostButtonRule).toBeDefined()
+    expect(hostButtonRule).not.toContain('transform:')
+    expect(ASUKA_STYLES).toContain(":is(.asuka-mode-button, .asuka-theme-card, .asuka-reset-button, .asuka-session-title-trigger, .asuka-session-title-action):not(:disabled):hover {")
+    expect(ASUKA_STYLES).toContain('transform: translateY(-1px);')
   })
 
   it('styles every title-edit state through existing DSH theme tokens', () => {

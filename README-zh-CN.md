@@ -1,4 +1,4 @@
-# 明日香学园 // 02
+# 主题-明日香 // 02
 
 [English](README.md)
 
@@ -17,7 +17,7 @@
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-v3.0.0 已完成 Windows 下的构建、自动测试、隔离 Host smoke test 与浏览器交互验证。Ubuntu 是本项目的目标运行平台，**应可使用**；仍需在实际 Ubuntu/WSL2 的 DSH Web 环境中完成联调与截图回归。若你在 Ubuntu 上遇到问题，请记录 DSH 版本、浏览器版本及终端输出后再排查。
+v3.0.0 已完成 Windows 下的构建、自动测试、隔离 Host smoke test 与浏览器交互验证，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
 
 ## 安装
 

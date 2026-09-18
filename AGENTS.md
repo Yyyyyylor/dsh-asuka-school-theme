@@ -6,7 +6,7 @@
 
 - 当前插件版本：`3.0.0`。
 - 兼容基线：DeepSeek Harness `0.1.5-rc.2`、Cordis `4.0.2`、Node.js `>=20`、pnpm `11.19.0`。
-- 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。Windows 已完成自动化与隔离 Host smoke test，不能据此声称 Ubuntu 实机已验证。
+- 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。项目已完成 Windows 自动化与隔离 Host smoke test，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
 - 项目未发布到 npm。正式安装来源是 GitHub Release 中的预构建 `.tgz`，或固定 Git tag 的 GitHub 源。
 - 开始修改前先阅读 [项目索引](docs/README.md)，再按任务进入对应源码与专项文档。
 

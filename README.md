@@ -1,4 +1,4 @@
-# Asuka School // 02
+# Theme Asuka // 02
 
 [简体中文](README-zh-CN.md)
 
@@ -20,8 +20,8 @@ time of day.
 - Cordis: `4.0.2`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The v3.0.0 baseline has Windows build, automated-test, isolated Host smoke, and
-Windows browser interaction coverage. Ubuntu/WSL2 validation remains pending.
+The v3.0.0 baseline has build, automated-test, isolated Host smoke, and real
+DSH Web interaction coverage on Windows and Ubuntu/WSL2.
 
 ## Install
 

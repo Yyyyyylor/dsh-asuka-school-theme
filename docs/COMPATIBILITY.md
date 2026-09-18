@@ -62,7 +62,10 @@ native closure, or modified focus restoration is introduced.
   a patch loading this worktree's built Host entry and an OS-selected port.
   All three real wallpaper routes returned `200 image/webp`; the process was
   stopped afterwards. No existing profile was changed.
-- The authenticated Web page, full browser plugin activation, real title rename,
-  focus/keyboard behavior, animation rendering, code-banner sticky behavior,
-  browser screenshots, Ubuntu/WSL2 and third-party plugin combinations were not
-  verified. Automated/component tests do not replace those checks.
+- The project baseline has been verified in a real Ubuntu/WSL2 DSH Web
+  environment. The current Windows verification covers authenticated browser
+  plugin activation and native composer/message-action interaction. Real title
+  rename, focus/keyboard behavior, animation rendering, code-banner sticky
+  behavior, browser screenshots, and third-party plugin combinations were not
+  re-verified for this change. Automated/component tests do not replace those
+  checks.

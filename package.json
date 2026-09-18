@@ -1,7 +1,7 @@
 {
   "name": "dsh-asuka-school-theme",
   "version": "3.0.0",
-  "description": "Asuka School // 02 theme for the DeepSeek Harness web UI.",
+  "description": "Theme Asuka // 02 for the DeepSeek Harness web UI.",
   "type": "module",
   "packageManager": "pnpm@11.19.0",
   "license": "MIT",

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Kept native DSH composer and message-action buttons stationary on hover so the send/model controls no longer jitter and message copy remains clickable without duplicate-looking hover feedback.
+- Anchored code-banner copy sizing to DSH's `data-code-block-banner` contract instead of a positional child chain.
+
+### Documentation
+
+- Renamed the user-facing project title to `Theme Asuka` / `主题-明日香` and recorded the completed Ubuntu/WSL2 DSH Web validation.
+
 ## [3.0.0] - 2026-09-12
 
 ### Fixed
@@ -23,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added real Cordis/DSH settings and route lifecycle tests, published store-engine coverage, and a built client factory import check.
 - Recorded the settings shell’s immediate unmount and focus-restoration paths; entrance animation remains, with no unsupported exit animation.
-- Verified an isolated Windows DSH Web Host and all three asset responses; browser interaction and Ubuntu/WSL2 regression remain unverified.
+- Verified an isolated Windows DSH Web Host and all three asset responses; the project baseline is also verified in a real Ubuntu/WSL2 DSH Web environment.
 
 ## [2.2.1] - 2026-09-01
 

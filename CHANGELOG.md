@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-09-20
+
 ### Fixed
 
 - Kept native DSH composer and message-action buttons stationary on hover so the send/model controls no longer jitter and message copy remains clickable without duplicate-looking hover feedback.
@@ -134,7 +136,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...v3.0.0
 [2.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.1.0...v2.2.0

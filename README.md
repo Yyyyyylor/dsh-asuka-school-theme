@@ -20,7 +20,7 @@ time of day.
 - Cordis: `4.0.2`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The v3.0.0 baseline has build, automated-test, isolated Host smoke, and real
+The v3.0.1 baseline has build, automated-test, isolated Host smoke, and real
 DSH Web interaction coverage on Windows and Ubuntu/WSL2.
 
 ## Install
@@ -28,7 +28,7 @@ DSH Web interaction coverage on Windows and Ubuntu/WSL2.
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.0.0/dsh-asuka-school-theme-3.0.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.0.1/dsh-asuka-school-theme-3.0.1.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -37,7 +37,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.1
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -49,7 +49,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.1.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the

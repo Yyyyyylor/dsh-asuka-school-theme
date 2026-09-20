@@ -17,14 +17,14 @@
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-v3.0.0 已完成 Windows 下的构建、自动测试、隔离 Host smoke test 与浏览器交互验证，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
+v3.0.1 已完成 Windows 下的构建、自动测试、隔离 Host smoke test 与浏览器交互验证，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
 
 ## 安装
 
 ### 从 GitHub Release 安装（推荐）
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.0.0/dsh-asuka-school-theme-3.0.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.0.1/dsh-asuka-school-theme-3.0.1.tgz
 ```
 
 本项目暂未发布到 npm。GitHub Release 中的 `.tgz` 是已构建、带版本号的发布包，推荐直接使用。
@@ -32,7 +32,7 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 ### 从 GitHub 源码安装
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.1
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -45,7 +45,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.0
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.1.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 文件一致。

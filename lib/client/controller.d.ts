@@ -1,4 +1,4 @@
-import type { SettingsScope } from '@deepseek-ai/dsh-client-ui-settings/client';
+import type { ConfigForm } from '@deepseek-ai/dsh-client-ui-settings/client';
 import { type AsukaMode, type AsukaThemeSettings, type WallpaperPeriod, type WallpaperPeriodPreference } from '../shared/settings.js';
 import type { AsukaSettingsViewState } from './settings/settings-store.js';
 export interface AsukaThemeController {
@@ -16,7 +16,7 @@ export interface AsukaThemeController {
     dispose(): void;
 }
 interface AsukaThemeControllerOptions {
-    settings: SettingsScope<AsukaThemeSettings>;
+    settings: ConfigForm<AsukaThemeSettings>;
     syncView: (next: AsukaSettingsViewState) => void;
 }
 /** Single source of truth for the Quick Row, Settings page, presentation, and wallpaper layer. */

@@ -16,12 +16,15 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.1.5-rc.2`
-- Cordis: `4.0.2`
+- Development checkout: DSH `0.1.7-rc.2`, Cordis `4.0.4`
+- Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The v3.0.1 baseline has build, automated-test, isolated Host smoke, and real
-DSH Web interaction coverage on Windows and Ubuntu/WSL2.
+The published v3.0.1 release targets DSH `0.1.5-rc.2` / Cordis `4.0.2`
+and has Windows and Ubuntu/WSL2 DSH Web coverage. This unreleased checkout
+adapts to `0.1.7-rc.2`; use a locally built package for these changes.
+Current check results and browser limitations are in
+[COMPATIBILITY.md](docs/COMPATIBILITY.md).
 
 ## Install
 
@@ -80,10 +83,22 @@ reapplying unrelated theme tokens.
 
 No credentials, telemetry, image upload, or browser `localStorage` preference
 store is used. Scalar preferences are stored in DSH's plugin-owned Host
-settings namespace. The three bundled WebPs are generated project assets; see
+entry's live Config form (`asuka-school-theme`). DSH migrates the old settings
+document into the profile; the entry ID and preference fields are unchanged.
+The three bundled WebPs are generated project assets; see
 [assets/LICENSE.md](assets/LICENSE.md) and [docs/ASSETS.md](docs/ASSETS.md).
 
 Do not package private artwork from `assets/private/`.
+
+The Host reads only the three package-owned images and serves fixed GET/HEAD
+routes on the existing DSH Web server. The browser uses same-origin DSH
+transport for images, settings and explicit session-title edits. No third-party
+service, data upload, telemetry, credentials or subprocess is used. The runtime
+dependency is pinned Schemastery `3.18.4`; DSH/Cordis are host-provided optional
+peers, not additional runtime installations. There are no installation lifecycle
+scripts. See [Store review](STORE-REVIEW.md) for dependency, permission and
+failure boundaries. Independent supply-chain review and Store automatic
+rechecking remain pending; declarations do not guarantee approval.
 
 ## Development
 
@@ -99,5 +114,5 @@ npm pack --dry-run
 
 The package publishes prebuilt `lib/index.js` and `lib/client.js`; end users do
 not need a postinstall build. See [docs/RESEARCH.md](docs/RESEARCH.md) for the
-current DSH runtime-audit limitation and [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)
+historical implementation notes and [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)
 for remaining live integration checks.

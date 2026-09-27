@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Adapted to DSH 0.1.7-rc.2 / Cordis 4.0.4: exposed the existing settings schema as volatile Config and switched to the shared ConfigForms service, retaining the persisted entry ID for DSH's legacy migration.
+- Submitted scene selection and reset as atomic mutations, restoring accepted settings when the Host refuses a scene without letting stale refusals override newer selections.
+- Pinned Schemastery to 3.18.4 and aligned DSH peers/development packages and the lockfile with the audited runtime; visual design and existing interactions are retained.
+
+### Documentation and tests
+
+- Added canonical repository/homepage/bugs metadata, exact DSH release compatibility and a packaged bilingual dependency/permission/failure disclosure for DSH Store #1195. Independent supply-chain and Store fixed-Commit review remain pending.
+- Added volatile Config, manifest and atomic settings regression coverage and updated compatibility, architecture and maintenance documentation. Plugin version remains 3.0.1; these changes are not a published release.
+
 ## [3.0.1] - 2026-09-20
 
 ### Fixed

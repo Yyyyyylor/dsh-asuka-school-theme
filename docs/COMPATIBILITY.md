@@ -1,71 +1,79 @@
 # Compatibility
 
-Current development baseline: plugin `3.0.1`, DSH `0.1.5-rc.2`, Cordis
-`4.0.2`, and Schemastery `3.18.2`. Existing v2.2.1 release assets were built
-for DSH `0.1.1-rc.2`; compatibility changes first shipped in v3.0.0.
+Current development baseline: plugin `3.0.1` (unreleased changes), DSH
+`0.1.7-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and pnpm
+`11.19.0`. Published v3.0.1 artifacts target DSH `0.1.5-rc.2`; these changes
+have not been released. Exact DSH peers deliberately reject older interfaces;
+the manifest declares only `0.1.7-rc.2` in `dsh.compatibility.dshReleases`.
+This is an author interface-compatibility declaration, not evidence for every
+install/start/uninstall/rollback operation or DSH Store approval.
 
-## Interface audit
+## Interface audit (2026-09-27)
 
-Primary evidence: the installed `dsh.cmd` resolves to
-`C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/lib/bin.js`.
-Both `dsh --version` and its package manifest report `0.1.5-rc.2`.
-The DSH packages below were inspected under that package's
-`node_modules/@deepseek-ai/`; Cordis reports `4.0.2`.
-No globally installed files were modified.
+Primary evidence: `dsh --version` and
+`C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/package.json`
+both report `0.1.7-rc.2`. Its `node_modules/@deepseek-ai/` packages supply the
+actual JS, declarations, manifests and client graph used for this audit.
+Installed Cordis is `4.0.4`; Schemastery is `3.18.4`. No globally installed
+package was modified. Development dependencies match these versions.
 
-Official source cross-check: [dsh-v0.1.5-rc.2](https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.1.5-rc.2),
-commit `fb2c4b9e698e30edb738bca4cf0618587db7d203`.
+Official cross-check: [dsh-v0.1.7-rc.2](https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.1.7-rc.2),
+especially [Web seeds](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.1.7-rc.2/packages/client/web/src/seed.ts)
+and [ConfigForms](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.1.7-rc.2/packages/client/ui-settings/src/client/config-form.ts).
 
-| Area | Verified contract and adaptation |
+| Area | Actual contract and adaptation |
 | --- | --- |
-| Host settings | `dsh-settings/lib/types/index.d.ts`: `register(ns, schema, { applies: 'live' })` validates a namespace string and owns its registration on the caller's fiber. Removed `settingsNamespace()`; retained the exact stored namespace and schema. |
-| Browser settings | `dsh-client-ui-settings/lib/types/client/settings-contract.d.ts` and `settings-scope.d.ts`: `bind<T>({ namespace })`, `getSnapshot`, `subscribe`, `set`, `unset` remain. Import moved from client-runtime to ui-settings; queued writes and controller behavior remain. |
-| Store | `dsh-client-store` exports `defineStore`; its published engine is tested directly. Zustand and Immer are development dependencies for these tests, never bundled into the browser plugin. |
-| Context/slots | Cordis exports `Context`; `dsh-client-ui-renderer/client` declares `ctx.slots`. `dsh-client-ui-slots` retains `BoundActions`, runtime/store/locale props, and list registration. Renderer, Session Controller, and Session UI are explicit client graph dependencies. |
-| Settings slots | `settings.general.item` and `settings.section` remain root-scoped list slots. `ctx.slots.inject` waits for declarations. The same shared store and controller serve both entries. |
-| Session title | `dsh-api-session-controller/client` owns `ISessions`; `dsh-session/types` owns `SessionId`; ui-session declares `useSessions` and session scope props. `binding(id)?.session.rename(title)` still returns `RemoteResult` with `ok`/`error.message`. Header actions still receive a session ID in their inject factory. Existing keyboard, focus, pending and error behavior is unchanged. |
-| Locale | `dsh-client-locale/client`: namespace registration and `bind(namespace)` remain. Both Chinese and English dictionaries are retained. |
-| Theme | `ThemeDefinition` retains `id`, `colorScheme`, and string-valued `tokens`. The existing inline presenter and palettes are unchanged. The host's separate `overrideTokens` API requires light/dark pairs, but this plugin does not call it. |
-| Assets | `dsh-host-webserver/lib/types/index.d.ts`: exact `register({ kind, path, handler })` returns a disposer; handler owns the HTTP response. GET/HEAD, immutable caching and three fixed paths are unchanged. |
-| Client artifact | Lazy CommonJS `window.__ModuleLoader__.load({ id, factory })` remains. [Platform seeds](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.1.5-rc.2/packages/client/web/src/seed.ts) include React and `dsh-client-store`; the removed client-runtime import/graph edge is gone. Seed-only store/slots packages are not plugin graph entries. |
+| Host settings | `dsh-settings/lib/types/index.d.ts` exports `SettingsForms`, not `SettingsProvider`; `register` and `get` are removed. Forms derive from a Loader entry's volatile `Config`. The plugin exports its existing schema as `Config = AsukaThemeSettingsSchema.volatile()` and owns `settings.configure({ auto: false })` through an effect. The custom Theme-Asuka page remains. |
+| Persistence/migration | `dsh-settings/lib/index.js` imports legacy `settings.yaml` into profile entry configs after Loader settlement, renaming it to `.imported` first. The Bundle entry ID stays `asuka-school-theme`, identical to the previous namespace. Fields and defaults are unchanged; no plugin-written migration or arbitrary profile editing is introduced. A rejected section is retained in DSH's migration record and logged by DSH. |
+| Client settings | `dsh-client-ui-settings/client` replaces `SettingsScope` / `settingsScope.bind` with `ConfigForm` / `configForms.get(entryId)`. Snapshots, subscribe, set and unset remain; `mutate` provides atomic operations and returns `boolean` (transport failure rejects). The controller submits a scene's three fields and reset's seven clears atomically, and recovers a refused scene without allowing an older refusal to override a newer selection. |
+| Inject graph | Host still requires `settings` and `webServer`. Client now requires `slots`, `locale`, `sessions`, `configForms`; the settings provider owns remote/connection dependencies. Package-level renderer/session-controller/session/conversation/settings/general/theme/locale edges remain valid in the installed manifests. Store/slots are platform seeds, not plugin graph entries. |
+| Slots/renderer | Renderer still provides `ctx.slots`; `settings.general.item` and `settings.section` are root-scoped list slots, and `conversation.session.header.actions` is a session-scoped list. `slots.inject/register`, `BoundActions`, store/runtime/locale props and session-ID injection retain their public contracts. Settings row type ownership is now ui-settings. |
+| Store/loader | Published `dsh-client-store` retains `defineStore`. Web seeds include React, JSX runtime, Cordis and store/slots. Built `window.__ModuleLoader__.load({ id, factory })` materializes using the real seed exports; React and DSH remain external. No Host-only module is imported into Client JS. |
+| Locale/theme | `locale.register` / `bind` and `ThemeDefinition` (`id`, `colorScheme`, string tokens) remain valid. Dictionaries, palettes, baseline restoration and reduced motion are unchanged. The plugin never calls the official theme-preference write API. |
+| Session/conversation | `ISessions.binding(id)?.session.rename(title)` still returns `RemoteResult` with `ok` / `error.message`; `SessionId`, `useSessions` and session scoped props remain. Native renderer/conversation components are neither replaced nor modified. Existing title-editor behavior is preserved. |
+| Assets/WebServer | Exact `webServer.register({ kind, path, handler })` and its disposer remain. The three GET/HEAD routes, fixed paths, MIME, immutable cache and `nosniff` are unchanged. |
+| Dependency boundary | Cordis peers now use `~4.0.4`; DSH peers/dev packages pin `0.1.7-rc.2`; Schemastery runtime dependency pins `3.18.4`. See [STORE-REVIEW.md](../STORE-REVIEW.md) for the resolved graph and independent review boundary. |
 
-## Settings close animation
+## Settings shell lifecycle
 
-The installed `dsh-client-ui-settings-general/lib/client.js` provides direct
-evidence, matching [SettingsRoot.tsx](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.1.5-rc.2/packages/client/ui-settings-general/src/client/SettingsRoot.tsx):
-
-- Lines 99–110: `SettingsPanel` installs document-level Escape handling while mounted.
-- Lines 121 and 159: the mask and close button call the same `onClose`.
-- Line 167: the selected settings section receives `{ close: onClose }`.
-- Lines 180 and 186–193: `open` is private React state; `close` sets it false
-  immediately, clears the section, and an effect restores trigger focus.
-- Lines 259–265: `open && <SettingsPanel ...>` directly removes the panel.
-
-There is no exiting state, exposed controlled-open setter, Transition/Presence
-boundary, awaited close callback, or additive lifecycle that can retain the
-shell. `settings.close` contributes only close-label content, and the section's
-`close` callback cannot govern Escape, mask or shell-button closure. Replacing
-the occupied shell slot would exceed the theme's scope. Therefore only the
-existing entrance animation remains, including both plugin `reduceMotion` and
-`prefers-reduced-motion` guards. No cloned DOM, intercepted events, delayed
-native closure, or modified focus restoration is introduced.
+The installed ui-settings-general Client now uses a shared launcher store
+rather than the old private React `open` state. `SettingsPanel` delegates modal
+handling to `useModalLayer(panel, true, onClose)`; the mask, close button and
+section callback still invoke the shell's close action. `open && SettingsPanel`
+still unmounts immediately, with no additive exit/Presence lifecycle. Existing
+entrance animation and both reduced-motion guards remain; no DOM cloning,
+event interception, delayed native closure or focus override was added.
 
 ## Verification boundaries
 
-- Windows/Node: `pnpm install`, `pnpm build`, `pnpm test`, `pnpm check`,
-  `pnpm pack:check`, `git diff --check`.
-- 49 automated tests include real Cordis/SettingsProvider/WebServer registration,
-  settings validation/update, route removal on disposal, the published store
-  engine and built lazy-CJS factory imports, plus existing scene/wallpaper,
-  range-control, style and title-editor regression coverage.
-- Isolated smoke: the installed CLI booted Web with a fresh temporary `DSH_HOME`,
-  a patch loading this worktree's built Host entry and an OS-selected port.
-  All three real wallpaper routes returned `200 image/webp`; the process was
-  stopped afterwards. No existing profile was changed.
-- The project baseline has been verified in a real Ubuntu/WSL2 DSH Web
-  environment. The current Windows verification covers authenticated browser
-  plugin activation and native composer/message-action interaction. Real title
-  rename, focus/keyboard behavior, animation rendering, code-banner sticky
-  behavior, browser screenshots, and third-party plugin combinations were not
-  re-verified for this change. Automated/component tests do not replace those
-  checks.
+- This adaptation changes APIs, dependency metadata and settings persistence;
+  it does not edit UI components, styles, palettes or wallpaper behavior.
+- Automated tests cover the actual Cordis volatile schema, SettingsForms API
+  shape, real WebServer routes and disposal, built Client factory imports,
+  manifest identity/dependencies, atomic scene writes/refusal/reset, and existing
+  scene/wallpaper, ranges, styles and title-editor behavior. The page-policy
+  sink in the route test is isolated; it does not prove Host persistence.
+- The full command set is `pnpm build`, `pnpm test`, `pnpm check`,
+  `pnpm pack:check`, `git diff --check`; all passed, with 56 automated tests.
+- Isolated installed Host API smoke passed using DSH's actual `boot`, Loader,
+  SettingsForms, ConfigEditor and WebServer with a fresh temporary home/profile.
+  It verified legacy migration to `.imported`, persisted atomic live updates
+  without remount, invalid/conflicting write refusal, readback after reboot,
+  all three GET/HEAD responses, 405 for POST, and 404 for unknown/traversal paths.
+  The context/server was disposed afterwards. This was a minimal Host API
+  composition, not a CLI package-install or full Web/browser smoke.
+- One Store-recommended `build-dsh-plugin` marketplace preflight at commit
+  `16393774a52bf93c02ebd461d1fee426a3b3ac83` returned `direct` /
+  `READY_FOR_CATALOG_ENTRY`, with no local structural errors/blockers/warnings.
+  It found the canonical repository, MIT license, unique Bundle entry and no
+  install lifecycle scripts. No catalog entry/registry was supplied: fixed-source
+  verification, permission scanning, supply-chain review and Registry CI are
+  not proven by this result. Its live release window was `0.1.7-alpha.2`,
+  `0.1.7-rc.1`, `0.1.7-rc.2`; this project declares only the audited rc.2.
+- Previous v3.0.1 Windows and Ubuntu/WSL2 browser evidence belongs to the old
+  baseline. Real DSH 0.1.7-rc.2 Web UI rendering, keyboard/IME/focus, hover/copy,
+  sticky code banners, animations and third-party plugin combinations have not
+  been re-verified. Automated/component tests do not replace browser evidence.
+- No real user profile, global DSH installation, Store catalog or issue was
+  modified. The Store's fixed-Commit automatic recheck remains external and
+  unverified; no push, release or Store approval is implied.

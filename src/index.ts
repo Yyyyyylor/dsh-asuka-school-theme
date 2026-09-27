@@ -5,13 +5,14 @@ import type { Context } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-host-webserver'
 import type { ServerResponse } from 'node:http'
 import {
-  ASUKA_SETTINGS_NAMESPACE,
   AsukaThemeSettingsSchema,
 } from './settings.js'
 import { WALLPAPER_ASSET_NAMES, WALLPAPER_ROUTE_PREFIX } from './shared/wallpapers.js'
 
 export const name = 'dsh-asuka-school-theme'
 export const inject = ['settings', 'webServer']
+// DSH 0.1.7 projects volatile Config fields into the entry's live form.
+export const Config = AsukaThemeSettingsSchema.volatile()
 
 export const ASSET_ROUTE_PREFIX = WALLPAPER_ROUTE_PREFIX
 const ASSET_CACHE_CONTROL = 'public, max-age=31536000, immutable'
@@ -22,9 +23,9 @@ export const PUBLIC_ASSETS = Object.freeze([
   { name: WALLPAPER_ASSET_NAMES.night, contentType: 'image/webp' },
 ] as const)
 
-/** Register one settings namespace and immutable, fixed-name image routes. */
+/** Expose the custom settings page and immutable, fixed-name image routes. */
 export function apply(ctx: Context): void {
-  ctx.settings.register(ASUKA_SETTINGS_NAMESPACE, AsukaThemeSettingsSchema, { applies: 'live' })
+  ctx.effect(() => ctx.settings.configure({ auto: false }), 'asuka-school-theme: custom settings')
 
   for (const asset of PUBLIC_ASSETS) {
     const filePath = fileURLToPath(new URL(`../assets/public/${asset.name}`, import.meta.url))

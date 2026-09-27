@@ -1,4 +1,4 @@
-import type { SettingsScope } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { ConfigForm } from '@deepseek-ai/dsh-client-ui-settings/client'
 import {
   clampBlur,
   clampOpacity,
@@ -32,7 +32,7 @@ export interface AsukaThemeController {
 }
 
 interface AsukaThemeControllerOptions {
-  settings: SettingsScope<AsukaThemeSettings>
+  settings: ConfigForm<AsukaThemeSettings>
   syncView: (next: AsukaSettingsViewState) => void
 }
 
@@ -121,23 +121,25 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
       if (disposed) return
       const mode: AsukaMode = period === 'night' ? 'tokyo3-night' : 'after-class'
       const snapshot = settings.getSnapshot()
-      pendingScene = {
+      const nextScene: AsukaThemeSettings = {
         ...(snapshot.value ?? current),
         mode,
         wallpaperEnabled: true,
         wallpaperPeriod: period,
       }
-      current = pendingScene
+      pendingScene = nextScene
+      current = nextScene
       present(snapshot.status, snapshot.revision ?? -1)
-      void Promise.all([
-        settings.set('mode', mode),
-        settings.set('wallpaperEnabled', true),
-        settings.set('wallpaperPeriod', period),
-      ]).catch(() => {
-        if (disposed) return
+      const recoverScene = () => {
+        if (disposed || pendingScene !== nextScene) return
         pendingScene = undefined
         syncFromSettings()
-      })
+      }
+      void settings.mutate([
+        { op: 'set', path: ['mode'], value: mode },
+        { op: 'set', path: ['wallpaperEnabled'], value: true },
+        { op: 'set', path: ['wallpaperPeriod'], value: period },
+      ]).then(accepted => { if (!accepted) recoverScene() }, recoverScene)
     },
     setWallpaperEnabled: (value) => { if (!disposed) void settings.set('wallpaperEnabled', Boolean(value)) },
     setWallpaperPeriod: (value) => { if (!disposed && ['auto', 'morning', 'noon', 'night'].includes(value)) void settings.set('wallpaperPeriod', value) },
@@ -155,7 +157,8 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     setReduceMotion: (value) => { if (!disposed) void settings.set('reduceMotion', Boolean(value)) },
     reset: () => {
       if (disposed) return
-      for (const field of Object.keys(DEFAULT_ASUKA_SETTINGS)) void settings.unset(field)
+      pendingScene = undefined
+      void settings.mutate(Object.keys(DEFAULT_ASUKA_SETTINGS).map(field => ({ op: 'unset', path: [field] })))
     },
     dispose: () => {
       if (disposed) return

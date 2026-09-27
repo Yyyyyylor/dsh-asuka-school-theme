@@ -14,7 +14,7 @@ vi.mock('../src/client/wallpaper/runtime.js', () => ({
 }))
 
 import { createAsukaThemeController } from '../src/client/controller.js'
-import type { AsukaThemeSettings } from '../src/shared/settings.js'
+import { DEFAULT_ASUKA_SETTINGS, type AsukaThemeSettings } from '../src/shared/settings.js'
 import type { AsukaSettingsViewState } from '../src/client/settings/settings-store.js'
 
 describe('Asuka theme controller', () => {
@@ -22,7 +22,7 @@ describe('Asuka theme controller', () => {
     vi.clearAllMocks()
   })
 
-  it('keeps one scene visually selected while its three persisted fields settle', async () => {
+  it('keeps one scene selected while its atomic three-field mutation settles', async () => {
     let value: AsukaThemeSettings = {
       mode: 'off', wallpaperEnabled: true, wallpaperPeriod: 'auto', wallpaperOpacity: 0.2, wallpaperBlurPx: 0, decorativeDetails: true, reduceMotion: false,
     }
@@ -36,7 +36,15 @@ describe('Asuka theme controller', () => {
         value = { ...value, [field]: next }
         watchers.forEach(listener => listener())
       },
-      unset: async () => undefined,
+      mutate: async (ops: Array<{ op: string, path: string[], value?: unknown }>) => {
+        for (const op of ops) {
+          writes.push([op.path[0], op.value])
+          value = { ...value, [op.path[0]]: op.value }
+        }
+        watchers.forEach(listener => listener())
+        return true
+      },
+      unset: async () => true,
     }
     const views: AsukaSettingsViewState[] = []
     const controller = createAsukaThemeController({
@@ -79,7 +87,15 @@ describe('Asuka theme controller', () => {
         value = { ...value, [field]: next }
         watchers.forEach(listener => listener())
       },
-      unset: async () => undefined,
+      mutate: async (ops: Array<{ op: string, path: string[], value?: unknown }>) => {
+        for (const op of ops) {
+          writes.push([op.path[0], op.value])
+          value = { ...value, [op.path[0]]: op.value }
+        }
+        watchers.forEach(listener => listener())
+        return true
+      },
+      unset: async () => true,
     }
     const controller = createAsukaThemeController({ settings: scope as never, syncView: () => undefined })
 
@@ -115,7 +131,8 @@ describe('Asuka theme controller', () => {
       getSnapshot: () => ({ status: 'ready' as const, value, revision: 1, base: {}, user: {}, writable: true, mode: 'host' as const }),
       subscribe: () => () => undefined,
       set: () => failedWrite,
-      unset: async () => undefined,
+      mutate: () => failedWrite,
+      unset: async () => true,
     }
     const views: AsukaSettingsViewState[] = []
     const controller = createAsukaThemeController({ settings: scope as never, syncView: view => views.push(view) })
@@ -129,5 +146,46 @@ describe('Asuka theme controller', () => {
 
     expect(views).toHaveLength(2)
     expect(wallpaper.apply).toHaveBeenCalledTimes(2)
+  })
+
+  it('restores accepted settings when ConfigForm refuses a scene and resets in one mutation', async () => {
+    const value = { ...DEFAULT_ASUKA_SETTINGS }
+    const mutate = vi.fn().mockResolvedValue(false)
+    const scope = {
+      getSnapshot: () => ({ status: 'ready' as const, value, revision: 1 }),
+      subscribe: () => () => undefined,
+      mutate,
+    }
+    const views: AsukaSettingsViewState[] = []
+    const controller = createAsukaThemeController({ settings: scope as never, syncView: view => views.push(view) })
+    controller.setScene('night')
+    expect(views.at(-1)?.settings.wallpaperPeriod).toBe('night')
+    await Promise.resolve()
+    expect(views.at(-1)?.settings).toEqual(DEFAULT_ASUKA_SETTINGS)
+    expect(mutate).toHaveBeenCalledTimes(1)
+    expect(mutate.mock.calls[0][0]).toHaveLength(3)
+    controller.reset()
+    expect(mutate.mock.calls[1][0]).toEqual(Object.keys(DEFAULT_ASUKA_SETTINGS).map(field => ({ op: 'unset', path: [field] })))
+    controller.dispose()
+  })
+
+  it('does not let an older refused mutation erase a newer pending scene', async () => {
+    const replies: Array<(accepted: boolean) => void> = []
+    const scope = {
+      getSnapshot: () => ({ status: 'ready' as const, value: DEFAULT_ASUKA_SETTINGS, revision: 1 }),
+      subscribe: () => () => undefined,
+      mutate: () => new Promise<boolean>(resolve => { replies.push(resolve) }),
+    }
+    const views: AsukaSettingsViewState[] = []
+    const controller = createAsukaThemeController({ settings: scope as never, syncView: view => views.push(view) })
+    controller.setScene('morning')
+    controller.setScene('night')
+    replies[0](false)
+    await Promise.resolve()
+    expect(views.at(-1)?.settings.wallpaperPeriod).toBe('night')
+    replies[1](false)
+    await Promise.resolve()
+    expect(views.at(-1)?.settings).toEqual(DEFAULT_ASUKA_SETTINGS)
+    controller.dispose()
   })
 })

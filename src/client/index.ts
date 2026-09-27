@@ -17,13 +17,13 @@ import { SessionTitleEditor } from './session-title/SessionTitleEditor.js'
 import { renameSessionTitle } from './session-title/rename.js'
 import { installAsukaStyles } from './styles.js'
 
-export const inject = ['slots', 'locale', 'connection', 'remote', 'sessions', 'settingsScope']
+export const inject = ['slots', 'locale', 'sessions', 'configForms']
 
 export function apply(ctx: Context): void {
   ctx.effect(() => installAsukaStyles(), 'asuka-school-theme: owned styles')
   ctx.effect(() => ctx.locale.register(ASUKA_LOCALE_NAMESPACE, asukaLocales), 'asuka-school-theme: locales')
 
-  const scope = ctx.settingsScope.bind<AsukaThemeSettings>({ namespace: ASUKA_SETTINGS_NAMESPACE_ID })
+  const scope = ctx.configForms.get<AsukaThemeSettings>(ASUKA_SETTINGS_NAMESPACE_ID)
   const store = createAsukaSettingsStore()
   let actions: BoundActions<typeof store> | undefined
   const controller = createAsukaThemeController({

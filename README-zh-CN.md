@@ -12,12 +12,11 @@
 
 ## 兼容性
 
-- DSH：`0.1.5-rc.2`
-- Cordis：`4.0.2`
+- 当前开发 checkout：DSH `0.1.7-rc.2`、Cordis `4.0.4`
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-v3.0.1 已完成 Windows 下的构建、自动测试、隔离 Host smoke test 与浏览器交互验证，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
+已发布的 v3.0.1 面向 DSH `0.1.5-rc.2` / Cordis `4.0.2`，并已完成 Windows 与 Ubuntu/WSL2 的 DSH Web 验证。本 checkout 的 `0.1.7-rc.2` 适配尚未发布，需使用本地构建包；本次检查结果与浏览器验证边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
@@ -69,9 +68,11 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.1.tgz
 
 ## 隐私与资源
 
-插件不收集凭据、遥测或浏览器 `localStorage` 数据。标量偏好存储在 DSH 的插件专属 Host 设置命名空间中。
+插件不收集凭据、遥测或浏览器 `localStorage` 数据。标量偏好存储在 DSH 插件 entry `asuka-school-theme` 的 live Config 表单中；DSH 会把旧设置文档迁移到 profile，入口 ID 和偏好字段不变。
 
 公开壁纸位于 `assets/public/`；相关使用说明见 [assets/LICENSE.md](assets/LICENSE.md) 与 [docs/ASSETS.md](docs/ASSETS.md)。请勿将私有开发素材放入发布包。
+
+Host 只读取包内三张壁纸，通过现有 DSH Web server 提供固定 GET/HEAD 路由。浏览器通过 DSH 同源传输访问图片、设置和用户主动编辑的会话标题；不连接第三方服务、不上传数据、不收集遥测、不读取凭据、不启动子进程。运行依赖锁定为 Schemastery `3.18.4`，DSH/Cordis 由宿主提供为 optional peers，不另装运行组件；没有安装期生命周期脚本。依赖、权限与失败边界见[商店审查说明](STORE-REVIEW.md)。独立供应链审查和商店自动复检仍待完成，声明完整不保证自动获批。
 
 ## 开发与验证
 

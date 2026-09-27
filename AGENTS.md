@@ -5,8 +5,8 @@
 ## 项目基线
 
 - 当前插件版本：`3.0.1`。
-- 兼容基线：DeepSeek Harness `0.1.5-rc.2`、Cordis `4.0.2`、Node.js `>=20`、pnpm `11.19.0`。
-- 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。项目已完成 Windows 自动化与隔离 Host smoke test，并已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证可用。
+- 兼容基线：DeepSeek Harness `0.1.7-rc.2`、Cordis `4.0.4`、Node.js `>=20`、pnpm `11.19.0`。
+- 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。已发布的旧基线有 Windows 与 Ubuntu/WSL2 浏览器证据；当前 0.1.7-rc.2 适配有自动测试与隔离 Host API smoke，本次未复测浏览器，边界见 COMPATIBILITY。
 - 项目未发布到 npm。正式安装来源是 GitHub Release 中的预构建 `.tgz`，或固定 Git tag 的 GitHub 源。
 - 开始修改前先阅读 [项目索引](docs/README.md)，再按任务进入对应源码与专项文档。
 
@@ -14,7 +14,7 @@
 
 | 路径 | 职责 |
 | --- | --- |
-| `src/index.ts` | Host 入口：注册设置命名空间与三条只读壁纸路由。 |
+| `src/index.ts` | Host 入口：导出 volatile Config、声明自定义设置页并注册三条只读壁纸路由。 |
 | `src/settings.ts`、`src/shared/` | Host/Client 共用的设置 schema、时段解析、壁纸资源映射与显示参数。 |
 | `src/client/index.ts` | Client 入口：安装样式、注册语言包和 additive slots，并连接设置控制器。 |
 | `src/client/controller.ts` | 设置、主题、壁纸和自动时段切换的单一协调层。 |
@@ -32,7 +32,7 @@
 ## 架构与兼容性约束
 
 1. Host 和 Client 必须保持分层。Host 使用 `settings`、`webServer`；浏览器端通过 DSH lazy-CJS loader 加载，并把 React 与 `@deepseek-ai/*` 保持为 external。不要把 Host-only 的 Schemastery 或 settings 模块打入 Client。
-2. 设置命名空间 `asuka-school-theme` 是已持久化数据的兼容边界。新增设置必须有默认值、schema 校验并兼容旧配置；不要无迁移地改名。
+2. Host entry / 配置表单 ID `asuka-school-theme` 是已持久化数据的兼容边界；使用 volatile Config 与 `configForms.get(entryId)`，由 DSH 迁移旧 settings.yaml。新增设置必须有默认值、schema 校验并兼容旧配置；不要无迁移地改名。
 3. `src/client/controller.ts` 是快捷行、设置页、主题投影和壁纸层的单一事实来源。新行为应接入现有控制器，不另建第二套状态同步链路。
 4. 插件只能通过 `ctx.slots.inject(...)`/`ctx.slots.register(...)` 增量扩展 DSH，不替换宿主组件或占用宿主私有 seat。所有注册、样式与计时器都应由 Cordis effect 或显式 disposer 管理。
 5. “关闭”必须恢复插件启用前捕获的 DSH 外观；不得持久化改写 DSH 官方 Light/Dark/System 偏好。
@@ -51,7 +51,8 @@
 3. 只修改 `src/`、测试、脚本或文档中的真源。需要交付可安装包时运行构建，由脚本刷新 `lib/`；不要直接修补生成文件。
 4. 修改依赖或 DSH 注入图时同步维护 `package.json`、`pnpm-lock.yaml`、`dsh.client.inject`、类型导入和契约测试。
 5. 修改公开壁纸时同步检查 `assets/LICENSE.md`、`docs/ASSETS.md`、`docs/ASSET-CANDIDATES.md`；无明确再分发权的第三方或官方动画素材不得进入仓库与发布包。
-6. 修改兼容版本、安装方式或用户功能时同步中英文 README、`CHANGELOG.md` 和相关 `docs/`。两份 README 的核心版本、安装命令和功能说明必须一致。
+6. 商店元数据与能力变动时同步 [STORE-REVIEW.md](STORE-REVIEW.md)；files/network 信号与运行依赖不得通过虚假声明绕过审查。
+7. 修改兼容版本、安装方式或用户功能时同步中英文 README、`CHANGELOG.md` 和相关 `docs/`。两份 README 的核心版本、安装命令和功能说明必须一致。
 
 ## 验证矩阵
 

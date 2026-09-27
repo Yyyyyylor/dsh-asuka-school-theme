@@ -1,23 +1,23 @@
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 import { get } from 'node:http'
-import { Context } from '@deepseek-ai/cordis'
-import { SettingsProvider } from '@deepseek-ai/dsh-settings'
+import { Context, resolveConfig } from '@deepseek-ai/cordis'
+import { SettingsForms } from '@deepseek-ai/dsh-settings'
 import WebServer from '@deepseek-ai/dsh-host-webserver'
 import * as clientStore from '@deepseek-ai/dsh-client-store'
 import * as React from 'react'
 import * as jsxRuntime from 'react/jsx-runtime'
 import { describe, expect, it } from 'vitest'
 import * as plugin from '../src/index.js'
-import { ASUKA_SETTINGS_NAMESPACE } from '../src/settings.js'
 import { DEFAULT_ASUKA_SETTINGS } from '../src/shared/settings.js'
 import { createAsukaSettingsStore } from '../src/client/settings/settings-store.js'
 
-/** Real DSH provider; only durable storage is replaced by an isolated memory sink. */
-class MemorySettings extends SettingsProvider {
-  readonly writable = true
-  protected async load() { return {} }
-  protected async persist() {}
+/** Only the page-policy sink is isolated; persistence is covered by the Host smoke. */
+function pagePolicySink(ctx: Context, policies: Set<object>) {
+  ctx.provide('settings', { configure: (policy: object) => {
+    policies.add(policy)
+    return () => { policies.delete(policy) }
+  } })
 }
 
 // node:http accepts OS-assigned ports that Fetch reserves for other protocols.
@@ -32,34 +32,38 @@ function readAsset(url: string): Promise<{ status: number | undefined, type: str
   })
 }
 
-describe('DSH 0.1.5-rc.2 contracts', () => {
-  it('registers settings and routes through real Cordis services and removes them on unload', async () => {
+describe('DSH 0.1.7-rc.2 contracts', () => {
+  it('exports a fully live Config with defaults and validates the actual Cordis schema contract', () => {
+    expect(typeof SettingsForms.prototype.configure).toBe('function')
+    expect('register' in SettingsForms.prototype).toBe(false)
+    expect(plugin.Config.meta.volatile).toBe(true)
+    expect(resolveConfig(plugin, {}).get()).toEqual(DEFAULT_ASUKA_SETTINGS)
+    expect(resolveConfig(plugin, { wallpaperPeriod: 'night', wallpaperOpacity: 1 }).get()).toMatchObject({ wallpaperPeriod: 'night', wallpaperOpacity: 1 })
+    expect(() => resolveConfig(plugin, { wallpaperOpacity: 2 })).toThrow()
+  })
+
+  it('registers the custom page policy and real WebServer routes with owned disposers', async () => {
     const ctx = new Context()
-    const settings = ctx.plugin(MemorySettings)
+    const policies = new Set<object>()
+    pagePolicySink(ctx, policies)
     const server = ctx.plugin(WebServer, { host: '127.0.0.1', port: 0 })
     let theme: ReturnType<Context['plugin']> | undefined
     try {
-      await settings.await()
       await server.await()
       theme = ctx.plugin(plugin)
       await theme.await()
-      expect(ctx.settings.get(ASUKA_SETTINGS_NAMESPACE)).toEqual(DEFAULT_ASUKA_SETTINGS)
-      expect(ctx.settings.describe()[0].applies).toBe('live')
-      await ctx.settings.update(ASUKA_SETTINGS_NAMESPACE, { wallpaperPeriod: 'night', wallpaperOpacity: 1 })
-      expect(ctx.settings.get(ASUKA_SETTINGS_NAMESPACE)).toMatchObject({ wallpaperPeriod: 'night', wallpaperOpacity: 1 })
-      await expect(ctx.settings.update(ASUKA_SETTINGS_NAMESPACE, { wallpaperOpacity: 2 })).rejects.toThrow()
+      expect(policies).toEqual(new Set([{ auto: false }]))
       const url = `http://127.0.0.1:${ctx.webServer.port}/asuka-school/assets/asuka-noon.webp`
       const response = await readAsset(url)
       expect(response.status).toBe(200)
       expect(response.type).toBe('image/webp')
       expect(response.bytes).toBeGreaterThan(1024)
       await theme.dispose()
-      expect(ctx.settings.get(ASUKA_SETTINGS_NAMESPACE)).toBeUndefined()
+      expect(policies.size).toBe(0)
       expect((await readAsset(url)).status).toBe(404)
     } finally {
       await theme?.dispose()
       await server.dispose()
-      await settings.dispose()
     }
   })
 
@@ -69,8 +73,8 @@ describe('DSH 0.1.5-rc.2 contracts', () => {
     expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', revision: 4, settings: { wallpaperBlurPx: 7 } })
   })
 
-  it('materializes the built lazy-CJS bundle using only actual 0.1.5 platform seed exports', async () => {
-    // The exact seed names are from packages/client/web/src/seed.ts at dsh-v0.1.5-rc.2.
+  it('materializes the built lazy-CJS bundle using only actual 0.1.7 platform seed exports', async () => {
+    // The exact seed names are from packages/client/web/src/seed.ts at dsh-v0.1.7-rc.2.
     const seeds: Record<string, unknown> = { react: React, 'react/jsx-runtime': jsxRuntime, '@deepseek-ai/dsh-client-store': clientStore }
     let loaded: { id: string, factory: (require: (id: string) => unknown) => { apply: unknown } } | undefined
     runInNewContext(await readFile('lib/client.js', 'utf8'), { window: { __ModuleLoader__: { load: (entry: typeof loaded) => { loaded = entry } } } })

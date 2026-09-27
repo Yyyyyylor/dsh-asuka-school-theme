@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.0.1`，兼容基线为 DeepSeek Harness `0.1.5-rc.2` / Cordis `4.0.2`。
+本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.0.1`，兼容基线为 DeepSeek Harness `0.1.7-rc.2` / Cordis `4.0.4`。
 
 ## 从这里开始
 
@@ -13,11 +13,11 @@
 
 ```text
 DSH Host
-├─ settings.register("asuka-school-theme", schema)
+├─ volatile Config + settings.configure({ auto: false })
 └─ webServer.register(三条固定 WebP 路由)
 
 DSH Web Client
-├─ settingsScope.bind() ──> AsukaThemeController
+├─ configForms.get("asuka-school-theme") ──> AsukaThemeController
 │                           ├─ 主题 token / 基线恢复
 │                           ├─ 自动与手动场景
 │                           └─ 双层壁纸运行时
@@ -47,7 +47,8 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 
 | 文档 | 用途 | 何时阅读或更新 |
 | --- | --- | --- |
-| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.1.5-rc.2 接口核对、Settings 关闭生命周期和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
+| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.1.7-rc.2 接口核对、Settings 关闭生命周期和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
+| [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |
 | [theme-token-map.md](theme-token-map.md) | DSH/Shiki token 覆盖范围 | 改主题颜色、按钮、sidebar、composer 或代码块时 |
 | [ASSETS.md](ASSETS.md) | 三张公开壁纸的构图、预算与目录规则 | 替换、重编码或新增壁纸时 |
@@ -76,7 +77,7 @@ git diff --check
 
 ## 发布内容边界
 
-`package.json#files` 仅允许发布预构建 `lib/`、`assets/public/`、资源许可、Cordis patch、双语 README 和 LICENSE。`assets/private/`、本地 `.tgz`、`/tgz/`、测试与内部文档不会进入安装包。
+`package.json#files` 仅允许发布预构建 `lib/`、`assets/public/`、资源许可、Cordis patch、双语 README、商店审查说明和 LICENSE。`assets/private/`、本地 `.tgz`、`/tgz/`、测试与其余内部文档不会进入安装包。
 
 项目未发布到 npm。GitHub Release 的版本化 `.tgz` 是首选安装产物；发布步骤只有在明确授权时执行。
 

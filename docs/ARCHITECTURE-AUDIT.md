@@ -1,10 +1,10 @@
 # Architecture audit
 
 ```text
-Host settings namespace
+Host volatile Config / profile entry
       │
       └── asuka-school-theme
-              │ settingsScope.bind()
+              │ configForms.get(entryId)
               ▼
        Asuka theme controller
        ├── General Quick Row
@@ -19,8 +19,12 @@ Host webServer
 
 ## Lifecycle
 
-The 0.1.5-rc.2 audit uses the installed CLI and official tag
-`dsh-v0.1.5-rc.2` (`fb2c4b9e698e30edb738bca4cf0618587db7d203`).
+The 0.1.7-rc.2 audit uses the installed CLI and official tag
+`dsh-v0.1.7-rc.2`. Host settings now project volatile Config fields into
+entry-owned profile forms; `settings.configure({ auto: false })` suppresses
+the generated page because this plugin supplies its own section. The unchanged
+entry ID lets DSH migrate the old settings document. Client `configForms.get`
+provides shared, revision-fenced writes; scene selection and reset are atomic.
 The former client-runtime barrel is replaced by Cordis `Context`,
 `dsh-client-store`, `dsh-client-ui-settings/client`, and
 `dsh-api-session-controller/client`. Slot contracts remain in `dsh-client-ui-slots`;

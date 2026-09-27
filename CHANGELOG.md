@@ -7,16 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-09-27
+
 ### Changed
 
 - Adapted to DSH 0.1.7-rc.2 / Cordis 4.0.4: exposed the existing settings schema as volatile Config and switched to the shared ConfigForms service, retaining the persisted entry ID for DSH's legacy migration.
 - Submitted scene selection and reset as atomic mutations, restoring accepted settings when the Host refuses a scene without letting stale refusals override newer selections.
 - Pinned Schemastery to 3.18.4 and aligned DSH peers/development packages and the lockfile with the audited runtime; visual design and existing interactions are retained.
 
+### Fixed
+
+- Kept the latest optimistic scene selected while rapid A/B/A Host acknowledgements settle, then resumed normal Host updates after the exact request completed.
+- Excluded fixed-position tooltips from message-bubble glass selectors and transitioned Settings glass colors locally, preserving reduced-motion behavior without invalidating the full UI tree.
+
 ### Documentation and tests
 
 - Added canonical repository/homepage/bugs metadata, exact DSH release compatibility and a packaged bilingual dependency/permission/failure disclosure for DSH Store #1195. Independent supply-chain and Store fixed-Commit review remain pending.
-- Added volatile Config, manifest and atomic settings regression coverage and updated compatibility, architecture and maintenance documentation. Plugin version remains 3.0.1; these changes are not a published release.
+- Added volatile Config, manifest, atomic settings and transition regression coverage and updated compatibility, architecture and maintenance documentation.
 
 ## [3.0.1] - 2026-09-20
 
@@ -147,7 +154,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...v3.0.0
 [2.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.0...v2.2.1

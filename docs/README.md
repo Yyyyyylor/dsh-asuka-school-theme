@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.0.1`，兼容基线为 DeepSeek Harness `0.1.7-rc.2` / Cordis `4.0.4`。
+本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.1.0`，兼容基线为 DeepSeek Harness `0.1.7-rc.2` / Cordis `4.0.4`。
 
 ## 从这里开始
 

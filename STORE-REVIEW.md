@@ -1,6 +1,6 @@
 # DSH Store review / 商店审查说明
 
-Author disclosure for plugin `3.0.1` (unreleased DSH `0.1.7-rc.2` adaptation),
+Author disclosure for plugin `3.1.0` (DSH `0.1.7-rc.2`),
 2026-09-27. This is a bounded source/dependency review, not an independent
 supply-chain certification or marketplace approval.
 

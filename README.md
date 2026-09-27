@@ -16,22 +16,22 @@ time of day.
 
 ## Compatibility
 
-- Development checkout: DSH `0.1.7-rc.2`, Cordis `4.0.4`
+- DSH: `0.1.7-rc.2`
+- Cordis: `4.0.4`
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The published v3.0.1 release targets DSH `0.1.5-rc.2` / Cordis `4.0.2`
-and has Windows and Ubuntu/WSL2 DSH Web coverage. This unreleased checkout
-adapts to `0.1.7-rc.2`; use a locally built package for these changes.
-Current check results and browser limitations are in
-[COMPATIBILITY.md](docs/COMPATIBILITY.md).
+Version 3.1.0 targets DSH `0.1.7-rc.2`. Automated tests, isolated Host API
+smoke and a full Windows DSH Web install/browser run passed. Ubuntu/WSL2 was
+verified for the previous DSH baseline and has not been rerun for 0.1.7-rc.2;
+see [COMPATIBILITY.md](docs/COMPATIBILITY.md) for the exact evidence and limits.
 
 ## Install
 
 ### From GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.0.1/dsh-asuka-school-theme-3.0.1.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.1.0/dsh-asuka-school-theme-3.1.0.tgz
 ```
 
 This project is not published to npm. The GitHub Release asset is a prebuilt,
@@ -40,7 +40,7 @@ versioned package and is the preferred installation source.
 ### From GitHub source
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.0.1
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -52,7 +52,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.0.1.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.1.0.tgz
 ```
 
 Restart the DSH Web profile after installing, updating, or removing the

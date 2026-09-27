@@ -1,9 +1,8 @@
 # Compatibility
 
-Current development baseline: plugin `3.0.1` (unreleased changes), DSH
-`0.1.7-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and pnpm
-`11.19.0`. Published v3.0.1 artifacts target DSH `0.1.5-rc.2`; these changes
-have not been released. Exact DSH peers deliberately reject older interfaces;
+Current release baseline: plugin `3.1.0`, DSH `0.1.7-rc.2`, Cordis `4.0.4`,
+Schemastery `3.18.4`, Node.js `>=20` and pnpm `11.19.0`. Exact DSH peers
+deliberately reject older interfaces;
 the manifest declares only `0.1.7-rc.2` in `dsh.compatibility.dshReleases`.
 This is an author interface-compatibility declaration, not evidence for every
 install/start/uninstall/rollback operation or DSH Store approval.
@@ -112,5 +111,5 @@ event interception, delayed native closure or focus override was added.
   preference, clock-boundary timing and third-party plugin combinations remain
   outside this browser run. Automated/component tests remain separate evidence.
 - No real user profile, global DSH installation, Store catalog or issue was
-  modified. The Store's fixed-Commit automatic recheck remains external and
-  unverified; no push, release or Store approval is implied.
+  modified during verification. The Store's fixed-Commit automatic recheck
+  remains external and unverified; publishing v3.1.0 does not imply Store approval.

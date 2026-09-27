@@ -36,7 +36,7 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-scene='night'] {")
     expect(ASUKA_STYLES).toContain('backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));')
     expect(ASUKA_STYLES).toContain('backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);')
-    expect(ASUKA_STYLES).toContain('linear-gradient(135deg, var(--asuka-settings-glass-edge)')
+    expect(ASUKA_STYLES).toContain('linear-gradient(135deg, var(--asuka-settings-paint-edge)')
     expect(ASUKA_STYLES).toContain("[role='dialog'][aria-modal='true']::before {")
     expect(ASUKA_STYLES).toContain('--dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);')
     expect(ASUKA_STYLES).toContain('animation: asuka-settings-panel-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;')
@@ -47,10 +47,21 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).not.toContain('asuka-settings-panel-exit')
   })
 
+  it('interpolates the settings gradient colors locally across light/dark scenes', () => {
+    for (const surface of ['surface', 'flare-a', 'flare-b', 'edge', 'edge-soft', 'mask']) {
+      const property = `--asuka-settings-paint-${surface}`
+      expect(ASUKA_STYLES).toContain(`@property ${property} { syntax: '<color>'; inherits: false; initial-value: transparent; }`)
+      expect(ASUKA_STYLES).toContain(`${property} 560ms ease-in-out`)
+      expect(ASUKA_STYLES).toContain(`var(${property})`)
+    }
+    expect(ASUKA_STYLES).not.toContain('@property --dsw-')
+    expect(ASUKA_STYLES).toMatch(/@media \(prefers-reduced-motion: reduce\)[\s\S]*?animation: none;\s+transition: none;/)
+  })
+
   it('shares glass tokens across stable major surfaces and clears the opaque composer seat', () => {
     expect(ASUKA_STYLES).toContain('--asuka-glass-surface-soft:')
     expect(ASUKA_STYLES).toContain('--asuka-composer-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 72%, transparent);')
-    expect(ASUKA_STYLES).toContain(":is([data-composer-card], [class*='_bubble'], [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true']))")
+    expect(ASUKA_STYLES).toContain(":is([data-composer-card], [class*='_bubble']:not([role='tooltip']), [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true']))")
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-composer-card] {\n  background-color: var(--asuka-composer-glass-surface);")
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-phase='active'] [data-composer-seat] {\n  background: transparent;")
     expect(ASUKA_STYLES).toContain('body[data-asuka-school-theme] aside {')

@@ -188,4 +188,45 @@ describe('Asuka theme controller', () => {
     expect(views.at(-1)?.settings).toEqual(DEFAULT_ASUKA_SETTINGS)
     controller.dispose()
   })
+
+  it.each([
+    ['morning', 'noon'], ['morning', 'night'], ['noon', 'night'],
+  ] as const)('holds the final %s/%s selection through repeated older acknowledgements', async (first, second) => {
+    let value = { ...DEFAULT_ASUKA_SETTINGS }
+    let revision = 1
+    const watchers = new Set<() => void>()
+    const replies: Array<() => void> = []
+    const scope = {
+      getSnapshot: () => ({ status: 'ready' as const, value, revision }),
+      subscribe: (listener: () => void) => { watchers.add(listener); return () => watchers.delete(listener) },
+      mutate: (ops: Array<{ path: string[], value: unknown }>) => new Promise<boolean>(resolve => {
+        replies.push(() => {
+          for (const op of ops) value = { ...value, [op.path[0]]: op.value }
+          revision += 1
+          watchers.forEach(listener => listener())
+          resolve(true)
+        })
+      }),
+    }
+    const views: AsukaSettingsViewState[] = []
+    const controller = createAsukaThemeController({ settings: scope as never, syncView: view => views.push(view) })
+    for (const period of [first, second, first, second, first]) controller.setScene(period)
+    const beforeAcknowledgements = views.length
+    const presentationCount = presentation.apply.mock.calls.length
+    const wallpaperCount = wallpaper.apply.mock.calls.length
+    for (const reply of replies) {
+      reply()
+      await Promise.resolve()
+      expect(views.at(-1)?.settings.wallpaperPeriod).toBe(first)
+    }
+    expect(views.slice(beforeAcknowledgements).every(view => view.settings.wallpaperPeriod === first)).toBe(true)
+    expect(presentation.apply).toHaveBeenCalledTimes(presentationCount)
+    expect(wallpaper.apply).toHaveBeenCalledTimes(wallpaperCount)
+
+    // Once the final request settles, later Host changes must be observed normally.
+    value = { ...value, wallpaperPeriod: second }
+    watchers.forEach(listener => listener())
+    expect(views.at(-1)?.settings.wallpaperPeriod).toBe(second)
+    controller.dispose()
+  })
 })

@@ -94,14 +94,16 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
     const snapshot = settings.getSnapshot()
     const persisted = snapshot.value ?? DEFAULT_ASUKA_SETTINGS
     if (pendingScene !== undefined) {
-      const complete = persisted.mode === pendingScene.mode
-        && persisted.wallpaperEnabled === pendingScene.wallpaperEnabled
-        && persisted.wallpaperPeriod === pendingScene.wallpaperPeriod
-      if (!complete) {
-        present(snapshot.status, snapshot.revision ?? -1)
-        return
+      // An older write can contain the same scene after A/B/A clicks. Only
+      // settlement of this exact request releases the optimistic selection.
+      current = {
+        ...persisted,
+        mode: pendingScene.mode,
+        wallpaperEnabled: pendingScene.wallpaperEnabled,
+        wallpaperPeriod: pendingScene.wallpaperPeriod,
       }
-      pendingScene = undefined
+      present(snapshot.status, snapshot.revision ?? -1)
+      return
     }
 
     current = persisted
@@ -130,7 +132,7 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
       pendingScene = nextScene
       current = nextScene
       present(snapshot.status, snapshot.revision ?? -1)
-      const recoverScene = () => {
+      const settleScene = () => {
         if (disposed || pendingScene !== nextScene) return
         pendingScene = undefined
         syncFromSettings()
@@ -139,7 +141,7 @@ export function createAsukaThemeController(options: AsukaThemeControllerOptions)
         { op: 'set', path: ['mode'], value: mode },
         { op: 'set', path: ['wallpaperEnabled'], value: true },
         { op: 'set', path: ['wallpaperPeriod'], value: period },
-      ]).then(accepted => { if (!accepted) recoverScene() }, recoverScene)
+      ]).then(settleScene, settleScene)
     },
     setWallpaperEnabled: (value) => { if (!disposed) void settings.set('wallpaperEnabled', Boolean(value)) },
     setWallpaperPeriod: (value) => { if (!disposed && ['auto', 'morning', 'noon', 'night'].includes(value)) void settings.set('wallpaperPeriod', value) },

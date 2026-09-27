@@ -70,10 +70,47 @@ event interception, delayed native closure or focus override was added.
   verification, permission scanning, supply-chain review and Registry CI are
   not proven by this result. Its live release window was `0.1.7-alpha.2`,
   `0.1.7-rc.1`, `0.1.7-rc.2`; this project declares only the audited rc.2.
-- Previous v3.0.1 Windows and Ubuntu/WSL2 browser evidence belongs to the old
-  baseline. Real DSH 0.1.7-rc.2 Web UI rendering, keyboard/IME/focus, hover/copy,
-  sticky code banners, animations and third-party plugin combinations have not
-  been re-verified. Automated/component tests do not replace browser evidence.
+- A separate full CLI install and real Web/browser verification completed on
+  Windows on 2026-09-27, using the locally packed checkout at commit
+  `35baf45b60d32745d1a4e62c3d90e91a2ad34771`, Node.js `24.19.0` and the
+  Codex in-app browser. The temporary home was
+  `%TEMP%/asuka-017-cli-web-20260927`; `dsh plugin --profile web add <local.tgz>`
+  installed the plugin and its three transitive/runtime packages, and
+  `dsh web --host 127.0.0.1 --port 0 --no-open` started the full Web profile.
+  Telemetry was disabled with `DSH_TELEMETRY_DISABLED=1`; no model credentials
+  were supplied and no model request was sent.
+  - Verified all three scene presets, the General quick row, rapid preset
+    changes ending on the selected scene, opacity/blur keyboard controls,
+    wallpaper-period selection, reset to the seven defaults, and restoration
+    of the original System appearance when switched off.
+  - Restarted the CLI server and reloaded the browser: Night, 30% opacity,
+    1px blur and reduced motion were restored from the profile. Reduced motion
+    produced `0s` wallpaper transitions. Auto selected the actual current Noon
+    wallpaper; a real clock-boundary transition was not waited for.
+  - Loaded a locally generated, validated seven-event Session log containing
+    fixed user/assistant text and 40 JavaScript lines. This was fixture content
+    rendered by the real DSH UI, not a live model response. Chinese title save,
+    Escape cancellation, disabled blank-title confirmation, code-copy completeness,
+    wrap toggle, horizontal scroll, sticky language/copy header, rounded clipping,
+    vertical conversation scrolling and the bottom composer were checked.
+  - Inspected the normal 807px viewport and a 600px narrow viewport, including
+    Settings and sidebar. Document width matched viewport width at 600px; the
+    settings cards wrapped and the pane remained scrollable. No browser console
+    errors were captured. Screenshots were saved outside the repository.
+  - Visual finding: current Shiki spans use
+    `color: var(--shiki-token-string-expression)`, while the plugin projects
+    `--shiki-token-string`. In the Noon scene, the old token was `#B9D8A7`,
+    but the rendered string color was `rgb(43, 138, 62)` against the dark
+    `rgba(22, 32, 43, 0.86)` code surface. Strings appeared too dark; their
+    estimated contrast over the scene surface was about 2.6:1 (an estimate,
+    not a screenshot pixel measurement). This compatibility issue is recorded
+    but not fixed by this verification-only change; visual compatibility is
+    therefore not a clean pass.
+- Previous Ubuntu/WSL2 evidence belongs to v3.0.1's old baseline. The new
+  baseline has not been re-verified on Ubuntu/WSL2 or standalone Chrome.
+  IME composition, injected rename/asset failures, OS-level reduced-motion
+  preference, clock-boundary timing and third-party plugin combinations remain
+  outside this browser run. Automated/component tests remain separate evidence.
 - No real user profile, global DSH installation, Store catalog or issue was
   modified. The Store's fixed-Commit automatic recheck remains external and
   unverified; no push, release or Store approval is implied.

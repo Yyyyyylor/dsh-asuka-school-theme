@@ -4,9 +4,17 @@ export const ASUKA_STYLES = String.raw`
 /* Animate painted surfaces, not inherited tokens: token interpolation invalidates
    every descendant on every frame, including code and glass backdrop layers. */
 body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']),
-body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(aside, [data-composer-card], [class*='_bubble']) {
-  transition: background-color 520ms cubic-bezier(0.22, 1, 0.36, 1), border-color 420ms ease;
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(aside, [data-composer-card], [class*='_bubble']:not([role='tooltip'])) {
+  transition: background-color 520ms ease-in-out, border-color 420ms ease;
 }
+/* These paint colors are local to the Settings surfaces. Unlike inherited
+   theme tokens, animating them does not invalidate the entire UI tree. */
+@property --asuka-settings-paint-surface { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --asuka-settings-paint-flare-a { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --asuka-settings-paint-flare-b { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --asuka-settings-paint-edge { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --asuka-settings-paint-edge-soft { syntax: '<color>'; inherits: false; initial-value: transparent; }
+@property --asuka-settings-paint-mask { syntax: '<color>'; inherits: false; initial-value: transparent; }
 #asuka-school-wallpaper-root {
   position: fixed;
   inset: 0;
@@ -133,12 +141,18 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
 }
 /* The settings host mounts synchronously and unmounts immediately on close, so only entrance motion is safe here. */
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [aria-hidden='true'] {
-  background: linear-gradient(145deg, var(--asuka-settings-mask), rgb(0 0 0 / 0.06));
+  --asuka-settings-paint-mask: var(--asuka-settings-mask);
+  background: linear-gradient(145deg, var(--asuka-settings-paint-mask), rgb(0 0 0 / 0.06));
   -webkit-backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
   backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
   animation: asuka-settings-mask-enter 200ms ease-out both;
 }
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
+  --asuka-settings-paint-surface: var(--asuka-settings-glass-surface);
+  --asuka-settings-paint-flare-a: var(--asuka-settings-glass-flare-a);
+  --asuka-settings-paint-flare-b: var(--asuka-settings-glass-flare-b);
+  --asuka-settings-paint-edge: var(--asuka-settings-glass-edge);
+  --asuka-settings-paint-edge-soft: var(--asuka-settings-glass-edge-soft);
   --dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);
   --dsw-alias-bg-layer-2: var(--asuka-settings-glass-layer-2);
   --dsw-alias-bg-layer-3: var(--asuka-settings-glass-layer-3);
@@ -147,10 +161,10 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
   isolation: isolate;
   border: 1px solid transparent;
   background:
-    radial-gradient(100% 54% at 8% 0%, var(--asuka-settings-glass-flare-a), transparent 58%) padding-box,
-    radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-glass-flare-b), transparent 64%) padding-box,
-    linear-gradient(145deg, var(--asuka-settings-glass-surface), color-mix(in srgb, var(--asuka-settings-glass-surface) 78%, transparent)) padding-box,
-    linear-gradient(135deg, var(--asuka-settings-glass-edge), var(--asuka-settings-glass-edge-soft) 34%, var(--asuka-settings-glass-flare-b) 70%, var(--asuka-settings-glass-edge)) border-box;
+    radial-gradient(100% 54% at 8% 0%, var(--asuka-settings-paint-flare-a), transparent 58%) padding-box,
+    radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-paint-flare-b), transparent 64%) padding-box,
+    linear-gradient(145deg, var(--asuka-settings-paint-surface), color-mix(in srgb, var(--asuka-settings-paint-surface) 78%, transparent)) padding-box,
+    linear-gradient(135deg, var(--asuka-settings-paint-edge), var(--asuka-settings-paint-edge-soft) 34%, var(--asuka-settings-paint-flare-b) 70%, var(--asuka-settings-paint-edge)) border-box;
   -webkit-backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
   backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
   box-shadow:
@@ -161,6 +175,19 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
     0 4px 18px rgb(0 10 22 / 0.2),
     0 30px 96px var(--asuka-settings-glass-shadow);
   animation: asuka-settings-panel-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+  transition:
+    --asuka-settings-paint-surface 560ms ease-in-out,
+    --asuka-settings-paint-flare-a 560ms ease-in-out,
+    --asuka-settings-paint-flare-b 560ms ease-in-out,
+    --asuka-settings-paint-edge 560ms ease-in-out,
+    --asuka-settings-paint-edge-soft 560ms ease-in-out,
+    --asuka-settings-paint-mask 560ms ease-in-out,
+    background-color 560ms ease-in-out,
+    backdrop-filter 560ms ease-in-out,
+    -webkit-backdrop-filter 560ms ease-in-out,
+    box-shadow 560ms ease-in-out;
 }
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before {
   content: '';
@@ -184,10 +211,12 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
 }
 body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
   animation: none;
+  transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+  body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
     animation: none;
+    transition: none;
   }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -195,8 +224,10 @@ body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [ari
     background: var(--asuka-settings-glass-fallback);
   }
 }
+/* Tooltip CSS modules also use _bubble; leave their fixed positioning and
+   out-of-flow geometry to the host instead of treating them as message bubbles. */
 /* Stable DSH surfaces share one restrained material; strength changes with information density. */
-body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble'], [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
+body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([role='tooltip']), [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
   border: 1px solid var(--asuka-glass-edge);
   background-color: var(--asuka-glass-surface-medium);
   background-image: var(--asuka-glass-sheen);
@@ -213,7 +244,7 @@ body[data-asuka-school-theme] :is([role='menu'], [role='listbox'], [role='dialog
 body[data-asuka-school-theme] [data-composer-card] {
   background-color: var(--asuka-composer-glass-surface);
 }
-body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']) {
+body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([role='tooltip'])) {
   position: relative;
   z-index: 2;
 }

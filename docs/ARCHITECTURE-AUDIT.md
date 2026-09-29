@@ -19,8 +19,9 @@ Host webServer
 
 ## Lifecycle
 
-The 0.1.7-rc.2 audit uses the installed CLI and official tag
-`dsh-v0.1.7-rc.2`. Host settings now project volatile Config fields into
+The 0.2.0-rc.2 audit uses the installed CLI and package declarations/JS.
+The preceding 0.1.7-rc.2 audit also checked the official tag
+`dsh-v0.1.7-rc.2`. Host settings project volatile Config fields into
 entry-owned profile forms; `settings.configure({ auto: false })` suppresses
 the generated page because this plugin supplies its own section. The unchanged
 entry ID lets DSH migrate the old settings document. Client `configForms.get`

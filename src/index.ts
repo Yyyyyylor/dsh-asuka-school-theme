@@ -11,7 +11,7 @@ import { WALLPAPER_ASSET_NAMES, WALLPAPER_ROUTE_PREFIX } from './shared/wallpape
 
 export const name = 'dsh-asuka-school-theme'
 export const inject = ['settings', 'webServer']
-// DSH 0.1.7 projects volatile Config fields into the entry's live form.
+// DSH projects volatile Config fields into the entry's live form.
 export const Config = AsukaThemeSettingsSchema.volatile()
 
 export const ASSET_ROUTE_PREFIX = WALLPAPER_ROUTE_PREFIX

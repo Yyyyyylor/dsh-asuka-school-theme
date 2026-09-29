@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.1.0`，兼容基线为 DeepSeek Harness `0.1.7-rc.2` / Cordis `4.0.4`。
+本页是 `dsh-asuka-school-theme` 的维护入口。项目当前开发版本为 `3.2.0-rc.1`（未发布），兼容基线为 DeepSeek Harness `0.2.0-rc.2` / Cordis `4.0.4`。
 
 ## 从这里开始
 
@@ -47,7 +47,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 
 | 文档 | 用途 | 何时阅读或更新 |
 | --- | --- | --- |
-| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.1.7-rc.2 接口核对、Settings 关闭生命周期和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
+| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.0-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |
 | [theme-token-map.md](theme-token-map.md) | DSH/Shiki token 覆盖范围 | 改主题颜色、按钮、sidebar、composer 或代码块时 |
@@ -73,7 +73,7 @@ git diff --check
 - `pnpm check` 执行 TypeScript、资源、对比度和包结构检查。
 - `pnpm pack:check` 只检查 npm pack 内容，不代表已经发布，也不代表真实 DSH Web 已加载成功。
 
-涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。项目基线已在 Ubuntu/WSL2 的真实 DSH Web 环境中验证；后续改动若未复测，必须明确标注本次验证边界。
+涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。旧 DSH 基线曾在 Ubuntu/WSL2 的真实 DSH Web 环境中验证；0.2.0-rc.2 若未复测，必须明确标注本次验证边界。
 
 ## 发布内容边界
 

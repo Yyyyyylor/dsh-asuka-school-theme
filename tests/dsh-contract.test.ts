@@ -32,7 +32,7 @@ function readAsset(url: string): Promise<{ status: number | undefined, type: str
   })
 }
 
-describe('DSH 0.1.7-rc.2 contracts', () => {
+describe('DSH 0.2.0-rc.2 contracts', () => {
   it('exports a fully live Config with defaults and validates the actual Cordis schema contract', () => {
     expect(typeof SettingsForms.prototype.configure).toBe('function')
     expect('register' in SettingsForms.prototype).toBe(false)
@@ -73,8 +73,8 @@ describe('DSH 0.1.7-rc.2 contracts', () => {
     expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', revision: 4, settings: { wallpaperBlurPx: 7 } })
   })
 
-  it('materializes the built lazy-CJS bundle using only actual 0.1.7 platform seed exports', async () => {
-    // The exact seed names are from packages/client/web/src/seed.ts at dsh-v0.1.7-rc.2.
+  it('materializes the built lazy-CJS bundle using only actual 0.2.0 platform seed exports', async () => {
+    // These imports are present in the installed 0.2.0-rc.2 Web frontend's staticModules seed.
     const seeds: Record<string, unknown> = { react: React, 'react/jsx-runtime': jsxRuntime, '@deepseek-ai/dsh-client-store': clientStore }
     let loaded: { id: string, factory: (require: (id: string) => unknown) => { apply: unknown } } | undefined
     runInNewContext(await readFile('lib/client.js', 'utf8'), { window: { __ModuleLoader__: { load: (entry: typeof loaded) => { loaded = entry } } } })

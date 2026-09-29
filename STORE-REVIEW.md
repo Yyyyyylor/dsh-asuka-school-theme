@@ -1,7 +1,7 @@
 # DSH Store review / 商店审查说明
 
-Author disclosure for plugin `3.1.0` (DSH `0.1.7-rc.2`),
-2026-09-27. This is a bounded source/dependency review, not an independent
+Author disclosure for unpublished plugin `3.2.0-rc.1` (DSH `0.2.0-rc.2`),
+2026-09-30. This is a bounded source/dependency review, not an independent
 supply-chain certification or marketplace approval.
 
 本说明对应 [DSH Store #1195](https://github.com/AI-Scarlett/DSH-Store/issues/1195)。
@@ -35,7 +35,7 @@ supply-chain certification or marketplace approval.
 | --- | --- | --- |
 | Runtime dependency / 运行依赖 | `@deepseek-ai/schemastery` **3.18.4** | Host Config validation. Exact pin replaces the previous caret range. Its published manifest is MIT and has no install lifecycle scripts. / 验证 Host 配置；锁定实际核对的版本。 |
 | Runtime transitive / 传递运行依赖 | `@deepseek-ai/cosmokit` **1.8.5**, `@standard-schema/spec` **1.1.0**, resolved by `pnpm-lock.yaml` with integrity hashes | Schemastery's declared utility/schema dependencies; published manifests are MIT, without lifecycle scripts. Cosmokit has no dependencies; standard-schema is a type contract. / 工具与 schema 协议，具体解析值与完整性记录可复核。 |
-| Host/Client peers / 宿主依赖 | Cordis `~4.0.4`; DSH peers **0.1.7-rc.2** | Host settings/WebServer; Client renderer, session controller/UI, conversation, locale, settings/general, theme; platform-seeded store/slots and session types. Optional peer metadata avoids installing a second official component graph. These services are still required on the Web runtime paths that use them. / 由 DSH 提供；optional peer 不表示缺少必要服务时仍可启用。 |
+| Host/Client peers / 宿主依赖 | Cordis `~4.0.4`; DSH peers **0.2.0-rc.2** | Host settings/WebServer; Client renderer, session controller/UI, conversation, locale, settings/general, theme; platform-seeded store/slots and session types. Optional peer metadata avoids installing a second official component graph. These services are still required on the Web runtime paths that use them. / 由 DSH 提供；optional peer 不表示缺少必要服务时仍可启用。 |
 | Development only / 仅开发 | DSH/Cordis type and test packages, React/test renderer, Zustand/Immer, TypeScript, esbuild, tsdown, Vitest and type declarations | Build and automated checks only. These are not plugin runtime dependencies; React and all `@deepseek-ai/*` remain external in Client JS. / 不在客户端打包第二份 React，不把 Host schema 打进 Client。 |
 
 The direct runtime dependency's published JS and manifests were inspected for
@@ -75,12 +75,13 @@ files/network 信号是真实能力，不能声明为 none。考虑到 DSH 设�
 
 - Current interface evidence and test boundaries: [COMPATIBILITY.md](docs/COMPATIBILITY.md).
 - Review contract: [DSH Store registry guide](https://github.com/AI-Scarlett/DSH-Store/blob/main/registry/README.md).
-- Read-only preflight: [build-dsh-plugin](https://github.com/AI-Scarlett/build-dsh-plugin),
+- Previous v3.1.0 read-only preflight: [build-dsh-plugin](https://github.com/AI-Scarlett/build-dsh-plugin),
   inspected at commit `16393774a52bf93c02ebd461d1fee426a3b3ac83`.
   One `audit-marketplace-entry.mjs` run returned `direct` /
   `READY_FOR_CATALOG_ENTRY`, without structural errors, blockers or warnings.
   No catalog entry/registry was supplied; this does not run the Store's bounded
-  runtime source scanner or independent dependency/security approval.
+  runtime source scanner or independent dependency/security approval. It has not
+  been rerun for this 0.2.0-rc.2 development branch.
 - Local checks do not prove the default branch's fixed Commit, Store source
   review, dependency supply-chain approval, Registry CI, or public listing.
   No Store catalog, issue comment or real user profile is modified by this task.

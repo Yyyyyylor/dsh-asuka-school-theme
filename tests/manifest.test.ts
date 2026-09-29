@@ -23,15 +23,15 @@ describe('DSH Store manifest contract', () => {
     const manifest = JSON.parse(await readFile('package.json', 'utf8'))
     expect(manifest.dependencies).toEqual({ '@deepseek-ai/schemastery': '3.18.4' })
     expect(manifest.optionalDependencies).toBeUndefined()
-    expect(manifest.dsh.compatibility.dshReleases).toEqual({ '0.1.7-rc.2': 'compatible' })
+    expect(manifest.dsh.compatibility.dshReleases).toEqual({ '0.2.0-rc.2': 'compatible' })
     expect(manifest.peerDependencies['@deepseek-ai/cordis']).toBe('~4.0.4')
     for (const [name, version] of Object.entries(manifest.peerDependencies)) {
-      if (name.startsWith('@deepseek-ai/dsh-')) expect(version).toBe('0.1.7-rc.2')
+      if (name.startsWith('@deepseek-ai/dsh-')) expect(version).toBe('0.2.0-rc.2')
       expect(manifest.peerDependenciesMeta[name].optional).toBe(true)
     }
     for (const name of manifest.dsh.client.inject) {
-      expect(manifest.peerDependencies[name]).toBe('0.1.7-rc.2')
-      expect(manifest.devDependencies[name]).toBe('0.1.7-rc.2')
+      expect(manifest.peerDependencies[name]).toBe('0.2.0-rc.2')
+      expect(manifest.devDependencies[name]).toBe('0.2.0-rc.2')
     }
     expect(manifest.dsh.client.inject).not.toContain('@deepseek-ai/dsh-client-runtime')
     expect(manifest.dsh.client.inject).not.toContain('@deepseek-ai/dsh-client-store')

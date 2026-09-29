@@ -16,28 +16,43 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.1.7-rc.2`
+- DSH: `0.2.0-rc.2` (current development branch)
 - Cordis: `4.0.4`
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-Version 3.1.0 targets DSH `0.1.7-rc.2`. Automated tests, isolated Host API
-smoke and a full Windows DSH Web install/browser run passed. Ubuntu/WSL2 was
-verified for the previous DSH baseline and has not been rerun for 0.1.7-rc.2;
-see [COMPATIBILITY.md](docs/COMPATIBILITY.md) for the exact evidence and limits.
+The unpublished `3.2.0-rc.1` package targets DSH `0.2.0-rc.2`. The published
+v3.1.0 package targets DSH `0.1.7-rc.2`; its Windows Web and older Ubuntu/WSL2
+evidence does not verify this development branch. See
+[COMPATIBILITY.md](docs/COMPATIBILITY.md) for the current checks and limits.
 
 ## Install
 
-### From GitHub Release (recommended)
+### From a local checkout (DSH 0.2.0-rc.2)
+
+In the repository root, run:
+
+```bash
+pnpm install
+pnpm build
+npm pack
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0-rc.1.tgz
+```
+
+This development version is not published. Restart the DSH Web profile after
+installing, updating or removing the plugin. The package filename should match
+the `.tgz` emitted by `npm pack`.
+
+### Previous GitHub Release (DSH 0.1.7-rc.2)
 
 ```bash
 dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.1.0/dsh-asuka-school-theme-3.1.0.tgz
 ```
 
-This project is not published to npm. The GitHub Release asset is a prebuilt,
-versioned package and is the preferred installation source.
+This project is not published to npm. This prebuilt v3.1.0 asset is for the
+previous DSH compatibility baseline.
 
-### From GitHub source
+### Previous GitHub source tag (DSH 0.1.7-rc.2)
 
 ```bash
 dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
@@ -45,18 +60,6 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
 
 This requires Git to be available on the host. Pin the tag instead of using
 `main` so updates remain predictable.
-
-### From a local checkout
-
-```bash
-pnpm install
-pnpm build
-npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.1.0.tgz
-```
-
-Restart the DSH Web profile after installing, updating, or removing the
-plugin. The final filename should match the `.tgz` emitted by `npm pack`.
 
 ## Use
 

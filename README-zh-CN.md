@@ -12,32 +12,16 @@
 
 ## 兼容性
 
-- DSH：`0.1.7-rc.2`
+- DSH：`0.2.0-rc.2`（当前开发分支）
 - Cordis：`4.0.4`
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-v3.1.0 面向 DSH `0.1.7-rc.2`，已通过自动测试、隔离 Host API smoke 和完整的 Windows DSH Web 安装/浏览器验证。Ubuntu/WSL2 的实机验证来自上一 DSH 基线，尚未针对 0.1.7-rc.2 复测；具体证据与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+未发布的 `3.2.0-rc.1` 包面向 DSH `0.2.0-rc.2`。已发布的 v3.1.0 包面向 DSH `0.1.7-rc.2`；旧版 Windows Web 和更早的 Ubuntu/WSL2 证据不能证明当前开发分支的运行效果。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
-### 从 GitHub Release 安装（推荐）
-
-```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.1.0/dsh-asuka-school-theme-3.1.0.tgz
-```
-
-本项目暂未发布到 npm。GitHub Release 中的 `.tgz` 是已构建、带版本号的发布包，推荐直接使用。
-
-### 从 GitHub 源码安装
-
-```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
-```
-
-该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
-
-### 从本地项目安装
+### 从本地项目安装（DSH 0.2.0-rc.2）
 
 在项目根目录执行：
 
@@ -45,12 +29,26 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.1.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0-rc.1.tgz
 ```
 
-最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 文件一致。
+这个开发版本尚未发布。安装、更新或移除插件后，请重启 DSH Web profile。最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
 
-安装、更新或移除后，请重启 DSH Web profile。
+### 旧版 GitHub Release（DSH 0.1.7-rc.2）
+
+```bash
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.1.0/dsh-asuka-school-theme-3.1.0.tgz
+```
+
+本项目暂未发布到 npm。这个已构建的 v3.1.0 发布包适用于上一 DSH 兼容基线。
+
+### 旧版 GitHub 源码标签（DSH 0.1.7-rc.2）
+
+```bash
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
+```
+
+该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
 
 ## 使用方式
 

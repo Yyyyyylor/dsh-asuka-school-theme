@@ -1,13 +1,59 @@
 # Compatibility
 
-Current release baseline: plugin `3.1.0`, DSH `0.1.7-rc.2`, Cordis `4.0.4`,
-Schemastery `3.18.4`, Node.js `>=20` and pnpm `11.19.0`. Exact DSH peers
-deliberately reject older interfaces;
-the manifest declares only `0.1.7-rc.2` in `dsh.compatibility.dshReleases`.
-This is an author interface-compatibility declaration, not evidence for every
-install/start/uninstall/rollback operation or DSH Store approval.
+Current unpublished development baseline: plugin `3.2.0-rc.1`, DSH
+`0.2.0-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and
+pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
+only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
+evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
 
-## Interface audit (2026-09-27)
+## 0.2.0-rc.2 interface audit (2026-09-30)
+
+Primary evidence: the installed `dsh --version` and package tree at
+`C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/` report
+`0.2.0-rc.2`. The package's `node_modules/@deepseek-ai/` declarations, JS,
+manifests and built Web frontend were checked against the plugin's imports and
+injection graph. No globally installed package was modified.
+
+| Area | Installed 0.2.0-rc.2 contract and decision |
+| --- | --- |
+| Host Config and settings | `SettingsForms.configure({ auto: false })` and its disposer remain; volatile `Config` still projects entry-owned live fields. Keep the existing entry ID and schema. |
+| Client settings | `configForms.get<T>(entryId)`, snapshot/subscribe, `set`, `unset` and atomic `mutate` retain their signatures and refusal behavior. Keep the single controller and optimistic scene settling. |
+| Slots | `settings.general.item` and `settings.section` remain root list slots; `conversation.session.header.actions` remains a session list slot. The installed UI bundles still render these seats. Keep additive registrations. |
+| Session title | `sessions.binding(id)?.session.rename(title)` still returns `RemoteResult` with `ok` and error details. Keep the editor behavior. |
+| Assets | `webServer.register({ kind: 'exact', path, handler })` still returns a disposer. Keep the fixed GET/HEAD wallpaper routes. |
+| Client graph and loader | All eight declared `dsh.client.inject` packages are present in the installed graph. The Web seed still provides React, JSX runtime and `dsh-client-store`; `__ModuleLoader__.load({ id, factory })` remains the lazy-CJS registration form. Keep React and DSH external. |
+| Dependencies | The installed DSH packages are `0.2.0-rc.2`, Cordis is `4.0.4` and Schemastery is `3.18.4`. Update exact peers/dev dependencies and lockfile; leave the runtime schema dependency unchanged. |
+
+`pnpm install` added explicit `minimumReleaseAgeExclude` entries for the 68
+newly released packages in this exact DSH dependency graph. It did not add a
+wildcard exception or change the project's runtime permissions.
+
+No Host/Client API break in the plugin's used surface required an implementation
+change. The 0.2.0 UI's visual DOM and browser interactions still require a real
+Web run to establish visual compatibility; type/build checks do not prove them.
+
+### Current verification boundary
+
+- `pnpm build`, `pnpm test` (60 tests), `pnpm check`, `pnpm pack:check` and
+  `git diff --check` passed in this worktree. The package includes prebuilt
+  Host/Client output and all three allowlisted WebPs.
+- An isolated local `DSH_HOME` profile installed the generated `3.2.0-rc.1`
+  tarball and started the installed DSH `0.2.0-rc.2` Web server on loopback.
+  Real Host routes returned 200/WebP for all three HEAD requests and one GET,
+  405 for POST, and 404 for an unknown filename. This verified startup and
+  routes, not browser rendering or settings persistence.
+- The available Browser Use bridge blocked loopback navigation with
+  `net::ERR_BLOCKED_BY_CLIENT`. No 0.2.0-rc.2 browser visual or interaction
+  claim is made. Ubuntu/WSL2, full install/update/removal behavior, settings
+  write/readback, clock-boundary transitions, IME, injected failure paths and
+  third-party plugin combinations remain unverified for this development build.
+
+## Previous 0.1.7-rc.2 audit and verification (historical)
+
+The following findings describe the published plugin `3.1.0` and its former DSH
+baseline. Its Windows/Ubuntu evidence does not carry over to `0.2.0-rc.2`.
+
+### Interface audit (2026-09-27)
 
 Primary evidence: `dsh --version` and
 `C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/package.json`
@@ -33,7 +79,7 @@ and [ConfigForms](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.1.
 | Assets/WebServer | Exact `webServer.register({ kind, path, handler })` and its disposer remain. The three GET/HEAD routes, fixed paths, MIME, immutable cache and `nosniff` are unchanged. |
 | Dependency boundary | Cordis peers now use `~4.0.4`; DSH peers/dev packages pin `0.1.7-rc.2`; Schemastery runtime dependency pins `3.18.4`. See [STORE-REVIEW.md](../STORE-REVIEW.md) for the resolved graph and independent review boundary. |
 
-## Settings shell lifecycle
+### Settings shell lifecycle
 
 The installed ui-settings-general Client now uses a shared launcher store
 rather than the old private React `open` state. `SettingsPanel` delegates modal
@@ -43,7 +89,7 @@ still unmounts immediately, with no additive exit/Presence lifecycle. Existing
 entrance animation and both reduced-motion guards remain; no DOM cloning,
 event interception, delayed native closure or focus override was added.
 
-## Verification boundaries
+### Verification boundaries
 
 - This adaptation changes APIs, dependency metadata and settings persistence;
   it does not edit UI components, styles, palettes or wallpaper behavior.

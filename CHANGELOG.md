@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Prepared the unpublished `3.2.0-rc.1` package for DSH `0.2.0-rc.2`: updated exact DSH peer/development versions, compatibility metadata and the lockfile without changing theme or interaction code. Rebuilding confirmed the existing generated code remains current.
+- Rechecked the installed Host/Client contracts for volatile Config, ConfigForms, slots, asset routes, session rename and the lazy-CJS loader; their used interfaces remain compatible.
+
 ## [3.1.0] - 2026-09-27
 
 ### Changed

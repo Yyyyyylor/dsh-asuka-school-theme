@@ -17,14 +17,14 @@
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-`3.2.0` 面向 DSH `0.2.0-rc.2`，已使用 Codex 内置浏览器在隔离的 Windows DSH Web profile 中检查玻璃表面与高透明度壁纸下的显示效果。当前基线尚未复测 Ubuntu/WSL2 和真实模型流式回复。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+`3.2.1` 面向 DSH `0.2.0-rc.2`，已使用 Codex 内置浏览器在隔离的 Windows DSH Web profile 中检查玻璃表面与高透明度壁纸下的显示效果。当前基线尚未复测 Ubuntu/WSL2 和真实模型流式回复。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
 ### GitHub Release（推荐）
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.0/dsh-asuka-school-theme-3.2.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.1/dsh-asuka-school-theme-3.2.1.tgz
 ```
 
 本项目暂未发布到 npm。Release 安装包包含预构建的 Host/Client 代码和三张公开壁纸。安装、更新或移除插件后，请重启 DSH Web profile。
@@ -37,7 +37,7 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.1.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
@@ -45,7 +45,7 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0.tgz
 ### GitHub 源码标签
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.1
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -62,6 +62,8 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.0
 新会话页与会话底部输入框使用同一套更轻透的场景化液态玻璃表面，让壁纸保留更多可见细节。会话标题旁的编辑操作可直接修改当前会话名称，无需离开会话页面。
 
 模型回复、思考、工具调用及输出、错误提示沿用消息的玻璃材质，并在壁纸透明度为 100% 时保持清晰可读。
+
+左侧栏、会话顶部栏与停靠的右侧面板使用统一的悬浮圆角玻璃表面，栏间留白可透出壁纸。保留图标栏、拖拽调整宽度及窄窗口下的原生右栏全屏行为；标题编辑时，空间不足的顶部操作会换行。
 
 自动切换使用交叉淡入效果；启用“减少动态效果”后会关闭该动画。插件不会改写 DSH 官方的浅色、深色或系统外观，只叠加所选的壁纸场景。
 

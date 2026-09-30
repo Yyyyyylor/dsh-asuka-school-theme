@@ -30,6 +30,32 @@ backdrop rather than adding blur and bright borders to every row. The brand mark
 is excluded via `sidebar.brand.mark`; selected sessions retain the scene accent
 when decorative details are enabled.
 
+The Settings dialog locally pairs `--dsw-alias-bg-module-platform` with its glass
+layer 3 so native Light/Dark/System switching cannot introduce a dark control
+behind light-scene labels. Sidebar tooltip presence raises only the sidebar's
+stacking context above conversation cards, below resize handles and native
+overlays. Both files and terminal guide cards use `--asuka-floating-radius`,
+including the terminal's absolute main-button hit target.
+
+The floating layout reuses the same glass tint, sheen, edge, highlight and shadow
+tokens for the left sidebar, conversation header and docked right panes. The
+header and left sidebar also share the same restrained outer shadow. Its
+`--asuka-floating-surface` blends the sidebar tint with the scene's base color
+for a more readable navigation surface at high wallpaper opacity. The default
+outer inset is 10px with a 16px radius; below 640px it is 6px / 12px. The native
+56px collapsed rail uses a 4px inline inset and preserves 36px icon targets.
+
+DSH 0.2 computes grid tracks and resize-handle positions from the full frame
+width. The stylesheet therefore insets only occupants: the left root overrides
+its inline width, the header uses margins, and the right panel uses border-box
+padding. It does not change frame padding, tracks, handles, dock transforms or
+overflow. The host's dock panes retain their own rounded overflow clipping;
+non-interactive background pseudo-elements supply blur without filtering their
+content ancestors. Fixed popups, floating panes, Settings and sticky code keep
+their existing positioning. The header's title-edit cluster can wrap utilities
+when the center becomes too narrow; no action is removed. Unsupported backdrop
+filter falls back to the existing scene-aware opaque Settings glass token.
+
 The workspace and Agent preset triggers above the composer share the medium
 glass surface, soft edge, height, and padding. The native workspace trigger is
 scoped to the hero row; the Agent trigger is scoped to its additive slot. Menus

@@ -1,6 +1,6 @@
 # Compatibility
 
-Current release baseline: plugin `3.2.0`, DSH
+Current release baseline: plugin `3.2.1`, DSH
 `0.2.0-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and
 pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
 only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
@@ -62,6 +62,49 @@ Web run to establish visual compatibility; type/build checks do not prove them.
   install/update/removal behavior, persistence across restart, clock-boundary
   transitions, IME, injected failure paths and third-party plugin combinations
   remain unverified for this development build.
+
+### Floating glass layout development check (2026-09-30)
+
+The installed `0.2.0-rc.2` layout, sidebar, conversation and right-sidebar
+bundles were inspected alongside their real DOM and computed styles. The frame
+solves tracks and handles in JS; dock panes own their clipping and slide/fullscreen
+lifecycle. Only plugin styles changed; the layout implementation was not replaced.
+
+- `pnpm build`, `pnpm test` (57 tests), `pnpm check`, `pnpm pack:check`
+  and `git diff --check` passed. Contrast checks cover existing palette pairs,
+  not screenshot pixel measurements of translucent navigation surfaces.
+- A fresh `%TEMP%/asuka-floating-glass-20260930` home installed the local
+  `3.2.0` package, then loaded this worktree's rebuilt plugin Client. The real
+  Windows DSH Web ran on loopback in the Codex in-app browser, with telemetry
+  disabled and no model credentials. A 12-event offline Session fixture was
+  rendered; no model request or tool execution was sent.
+- Morning/noon/night were visually checked at 100% wallpaper opacity. Left
+  sidebar, header and right dock had rounded glass edges and visible wallpaper
+  gaps. A 1280px viewport measured 10px outer insets and a 20px header/dock gap;
+  dragging the right track from 576px to 456px preserved those gaps.
+- Expanded/collapsed left sidebar, right open/close, its narrow-screen fullscreen
+  adaptation, Settings open/close and the header menu were checked. The 56px
+  rail retained 36px icon controls. At 620px, including a manually expanded left
+  sidebar, and 390px, title confirmation/cancellation remained clickable without
+  document-level horizontal overflow. Enter saved the fixture title and Escape
+  cancelled editing. Utilities wrap only when editing needs more space.
+- Computed `backdrop-filter` was `none` on all three content ancestors and
+  `blur(20px)` on their background pseudo-elements. The plugin's reduced-motion
+  preference stopped frame/rail/dock transitions. Switching off restored the
+  native full-height sidebar, header at y=0 and right padding of 0px. No browser
+  console errors were captured.
+- Follow-up checks reproduced native Dark appearance making controls dark on
+  noon Settings glass. After locally adapting `bg-module-platform`, noon with
+  native Dark, night with native Light, and morning Settings remained legible.
+  Both pointer hover and keyboard focus showed the complete Settings tooltip
+  above the composer. Files/terminal guide cards measured the sidebar's 16px
+  radius at 1280px and 12px at 600px; narrow fullscreen retained no document
+  horizontal overflow. Targeted theme/style tests (14) and `pnpm check` passed.
+- Screenshots were saved outside the repository. Ubuntu/WSL2, standalone Chrome,
+  OS reduced-motion emulation, unsupported-filter fallback, IME, long-code sticky
+  scrolling/copy, live streaming, floating/detached pane combinations and other
+  plugins were not re-verified in this run. No user profile or installed DSH core
+  was modified; this development change has not been published.
 
 ## Previous 0.1.7-rc.2 audit and verification (historical)
 

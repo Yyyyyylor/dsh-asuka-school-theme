@@ -9,6 +9,7 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('color-scheme: dark;')
     expect(ASUKA_STYLES).toContain("[role='dialog'][aria-modal='true'] select option")
     expect(ASUKA_STYLES).toContain('background-color: var(--asuka-settings-control-bg);')
+    expect(ASUKA_STYLES).toContain('--dsw-alias-bg-module-platform: var(--asuka-settings-glass-layer-3);')
   })
 
   it('keeps the wallpaper visible above the app shell and keeps each crossfading layer self-contained', () => {
@@ -59,7 +60,7 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-phase='active'] [data-composer-seat] {\n  background: transparent;")
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] [data-slot='sidebar'] > * {")
     expect(ASUKA_STYLES).toContain('--asuka-sidebar-glass-surface:')
-    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(20px) saturate(1.62) brightness(1.02);')
+    expect(ASUKA_STYLES).toContain('background-color: var(--asuka-floating-surface);')
     expect(ASUKA_STYLES).toContain('--dsw-alias-markdown-code-block: var(--asuka-glass-code-surface);')
     expect(ASUKA_STYLES).toContain('--dsw-alias-label-tertiary: #C2CFD8;')
     expect(ASUKA_STYLES).toContain('--asuka-glass-code-surface: rgb(22 32 43 / 0.86);')
@@ -68,6 +69,28 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('--asuka-settings-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 78%, transparent);')
     expect(ASUKA_STYLES).toContain('.asuka-theme-card { display: grid;')
     expect(ASUKA_STYLES).not.toContain('var(--dsw-alias-bg-base) 36px')
+  })
+
+  it('insets occupants without changing native tracks, handles or popup containing blocks', () => {
+    const floating = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf('/* DSH 0.2\'s frame'), ASUKA_STYLES.indexOf("body[data-asuka-school-theme] [data-composer-card] button"))
+    expect(floating).toContain("[data-sidebar-collapsed] [data-slot='sidebar'] > *")
+    expect(floating).toContain('--asuka-floating-rail-gap: 4px;')
+    expect(floating).toContain('width: calc(100% - 2 * var(--asuka-floating-inline-gap)) !important;')
+    expect(floating).toContain("header:has(> [data-conversation-header-leading])")
+    expect(floating).toContain("[data-slot='sidebar'] > *,\n  header:has(> [data-conversation-header-leading]),")
+    expect(floating).toContain("[data-slot='conversation.session.header'] > div:has(.asuka-session-title-editor)")
+    expect(floating).toContain('min-width: min(100%, 360px);')
+    expect(floating).toContain("[data-sidebar-right-panel] [data-dockkit-host='dock'] > [data-dockkit-pane]")
+    expect(floating).toContain('border-radius: var(--asuka-floating-radius);')
+    expect(floating).toContain('pointer-events: none;')
+    expect(floating).toContain("[data-slot='sidebar'] > *:has([role='tooltip']) {\n  z-index: 10;")
+    expect(floating).toContain('backdrop-filter: none;')
+    expect(floating).toMatch(/\)::before \{[^}]*backdrop-filter: blur\(var\(--asuka-glass-blur\)\)/)
+    expect(floating).not.toMatch(/grid-template|overflow:|transform:|position: fixed/)
+    expect(floating).toContain("[data-asuka-school-reduce-motion='true']")
+    expect(floating).toContain('@media (max-width: 640px)')
+    expect(floating).toContain('background-color: var(--asuka-settings-glass-fallback);')
+    expect(ASUKA_STYLES).toContain("[data-sidebar-right-panel] [data-sidebar-right-guide-entry] {\n  border-radius: var(--asuka-floating-radius);")
   })
 
   it('masks DSH sticky code banners with the Phase-1 solid theme surface', () => {

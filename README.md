@@ -21,7 +21,7 @@ time of day.
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-Version `3.2.0` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
+Version `3.2.1` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
 wallpaper behavior were checked in an isolated Windows DSH Web profile using
 the Codex in-app browser. Ubuntu/WSL2 and live model streaming have not been
 re-verified for this baseline. See
@@ -32,7 +32,7 @@ re-verified for this baseline. See
 ### GitHub Release (recommended)
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.0/dsh-asuka-school-theme-3.2.0.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.1/dsh-asuka-school-theme-3.2.1.tgz
 ```
 
 This project is not published to npm. The Release asset contains the prebuilt
@@ -47,7 +47,7 @@ In the repository root, run:
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.1.tgz
 ```
 
 The package filename should match the `.tgz` emitted by `npm pack`.
@@ -55,7 +55,7 @@ The package filename should match the `.tgz` emitted by `npm pack`.
 ### GitHub source tag
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.1
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -73,6 +73,10 @@ This requires Git to be available on the host. Pin the tag instead of using
   scene-aware liquid-glass surface, keeping more of the wallpaper visible.
 - Assistant replies, reasoning, tool calls/output and errors share the message
   glass material and remain readable above 100% wallpaper opacity.
+- The left sidebar, conversation header and docked right panes float above the
+  wallpaper with matching rounded glass surfaces and visible gaps. The icon rail,
+  pane resizing and narrow-window fullscreen behavior remain native; title-edit
+  actions wrap when the center column runs out of room.
 - Use the edit action beside a conversation title to rename the current
   session without leaving the conversation view.
 

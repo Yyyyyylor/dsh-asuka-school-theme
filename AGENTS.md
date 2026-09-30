@@ -4,7 +4,7 @@
 
 ## 项目基线
 
-- 当前开发版本：`3.2.0-rc.1`（未发布）。
+- 当前版本：`3.2.0`。
 - 兼容基线：DeepSeek Harness `0.2.0-rc.2`、Cordis `4.0.4`、Node.js `>=20`、pnpm `11.19.0`。
 - 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。旧版 0.1.7-rc.2 的 Windows Web 验证不能代表本次 0.2.0-rc.2 的真实浏览器结果；边界见 COMPATIBILITY。
 - 项目未发布到 npm。正式安装来源是 GitHub Release 中的预构建 `.tgz`，或固定 Git tag 的 GitHub 源。

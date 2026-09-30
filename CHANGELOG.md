@@ -7,10 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-09-30
+
 ### Changed
 
-- Prepared the unpublished `3.2.0-rc.1` package for DSH `0.2.0-rc.2`: updated exact DSH peer/development versions, compatibility metadata and the lockfile without changing theme or interaction code. Rebuilding confirmed the existing generated code remains current.
+- Updated exact DSH peer/development versions, compatibility metadata and the lockfile for DSH `0.2.0-rc.2` / Cordis `4.0.4`.
 - Rechecked the installed Host/Client contracts for volatile Config, ConfigForms, slots, asset routes, session rename and the lazy-CJS loader; their used interfaces remain compatible.
+
+### Fixed
+
+- Kept assistant replies, reasoning, tool calls/results, process summaries and error information above high-opacity wallpaper; unified their glass tint, frosted backdrop, highlights and borders with user messages and the composer. Reply/tool/error backdrop filters stay on background pseudo-elements, without filtering or clipping the transcript scrollport or sticky code ancestors.
+- Unified the workspace and Agent preset selectors above the composer. Softened sidebar controls with transparent navigation/icon actions, subtle hover feedback, and restrained glass emphasis for the new-session action and selected session; retained the composer add button's glass material and removed the opaque scroll fade strip above sidebar Settings.
+- Kept the DSH 0.2 sidebar above the wallpaper at 100% opacity by styling its actual sidebar slot, including its glass surface.
+- Removed full-screen filter and scale interpolation from wallpaper crossfades and backdrop-filter interpolation from Settings, while retaining opacity fades and reduced-motion behavior.
+- Restored readable selected and unselected scene buttons in General Settings when the theme is off, in both DSH light and dark appearance.
 
 ## [3.1.0] - 2026-09-27
 
@@ -159,7 +169,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v2.2.1...v3.0.0

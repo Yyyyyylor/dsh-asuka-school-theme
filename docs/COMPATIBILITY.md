@@ -1,6 +1,6 @@
 # Compatibility
 
-Current unpublished development baseline: plugin `3.2.0-rc.1`, DSH
+Current release baseline: plugin `3.2.0`, DSH
 `0.2.0-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and
 pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
 only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
@@ -34,19 +34,34 @@ Web run to establish visual compatibility; type/build checks do not prove them.
 
 ### Current verification boundary
 
-- `pnpm build`, `pnpm test` (60 tests), `pnpm check`, `pnpm pack:check` and
+- `pnpm build`, `pnpm test` (56 tests), `pnpm check`, `pnpm pack:check` and
   `git diff --check` passed in this worktree. The package includes prebuilt
   Host/Client output and all three allowlisted WebPs.
 - An isolated local `DSH_HOME` profile installed the generated `3.2.0-rc.1`
   tarball and started the installed DSH `0.2.0-rc.2` Web server on loopback.
   Real Host routes returned 200/WebP for all three HEAD requests and one GET,
   405 for POST, and 404 for an unknown filename. This verified startup and
-  routes, not browser rendering or settings persistence.
-- The available Browser Use bridge blocked loopback navigation with
-  `net::ERR_BLOCKED_BY_CLIENT`. No 0.2.0-rc.2 browser visual or interaction
-  claim is made. Ubuntu/WSL2, full install/update/removal behavior, settings
-  write/readback, clock-boundary transitions, IME, injected failure paths and
-  third-party plugin combinations remain unverified for this development build.
+  routes.
+- The isolated profile was opened in the Codex in-app browser on Windows.
+  Morning, noon and night controls changed scenes; an intermediate opacity
+  reading confirmed that the two wallpaper layers still crossfade. At 100%
+  wallpaper opacity, the sidebar remained visible above the wallpaper in
+  morning and night. General Settings' off choice was visually legible in
+  DSH light and dark appearance. These checks used the rebuilt local package.
+- A validated 12-event offline Session fixture rendered fixed assistant text,
+  reasoning, tool input/output, a table and a short code block through the real
+  DSH UI. At 100% wallpaper opacity, morning/noon/night replies and expanded
+  tools displayed the shared frosted-glass material above the wallpaper. The
+  existing missing-credential error was also legible in night glass. Expansion,
+  collapse and vertical conversation scrolling worked; a 620px viewport had
+  no document-level horizontal overflow. Switching the theme off removed the
+  reading surfaces and restored DSH's original dark appearance. No model or
+  tool was invoked for the fixture; live streaming, long-code sticky behavior
+  and clipboard output were not re-verified in this run.
+- No controlled frame-rate measurement was captured. Ubuntu/WSL2, full
+  install/update/removal behavior, persistence across restart, clock-boundary
+  transitions, IME, injected failure paths and third-party plugin combinations
+  remain unverified for this development build.
 
 ## Previous 0.1.7-rc.2 audit and verification (historical)
 

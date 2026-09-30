@@ -1,6 +1,6 @@
 # DSH Store review / 商店审查说明
 
-Author disclosure for unpublished plugin `3.2.0-rc.1` (DSH `0.2.0-rc.2`),
+Author disclosure for plugin `3.2.0` (DSH `0.2.0-rc.2`),
 2026-09-30. This is a bounded source/dependency review, not an independent
 supply-chain certification or marketplace approval.
 
@@ -81,7 +81,7 @@ files/network 信号是真实能力，不能声明为 none。考虑到 DSH 设�
   `READY_FOR_CATALOG_ENTRY`, without structural errors, blockers or warnings.
   No catalog entry/registry was supplied; this does not run the Store's bounded
   runtime source scanner or independent dependency/security approval. It has not
-  been rerun for this 0.2.0-rc.2 development branch.
+  been rerun for this 0.2.0-rc.2 release baseline.
 - Local checks do not prove the default branch's fixed Commit, Store source
   review, dependency supply-chain approval, Registry CI, or public listing.
   No Store catalog, issue comment or real user profile is modified by this task.

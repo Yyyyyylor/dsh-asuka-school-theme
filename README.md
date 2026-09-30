@@ -16,19 +16,30 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.2.0-rc.2` (current development branch)
+- DSH: `0.2.0-rc.2`
 - Cordis: `4.0.4`
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The unpublished `3.2.0-rc.1` package targets DSH `0.2.0-rc.2`. The published
-v3.1.0 package targets DSH `0.1.7-rc.2`; its Windows Web and older Ubuntu/WSL2
-evidence does not verify this development branch. See
+Version `3.2.0` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
+wallpaper behavior were checked in an isolated Windows DSH Web profile using
+the Codex in-app browser. Ubuntu/WSL2 and live model streaming have not been
+re-verified for this baseline. See
 [COMPATIBILITY.md](docs/COMPATIBILITY.md) for the current checks and limits.
 
 ## Install
 
-### From a local checkout (DSH 0.2.0-rc.2)
+### GitHub Release (recommended)
+
+```bash
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.0/dsh-asuka-school-theme-3.2.0.tgz
+```
+
+This project is not published to npm. The Release asset contains the prebuilt
+Host/Client code and all three public wallpapers. Restart the DSH Web profile
+after installing, updating or removing the plugin.
+
+### From a local checkout
 
 In the repository root, run:
 
@@ -36,26 +47,15 @@ In the repository root, run:
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0-rc.1.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.0.tgz
 ```
 
-This development version is not published. Restart the DSH Web profile after
-installing, updating or removing the plugin. The package filename should match
-the `.tgz` emitted by `npm pack`.
+The package filename should match the `.tgz` emitted by `npm pack`.
 
-### Previous GitHub Release (DSH 0.1.7-rc.2)
+### GitHub source tag
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.1.0/dsh-asuka-school-theme-3.1.0.tgz
-```
-
-This project is not published to npm. This prebuilt v3.1.0 asset is for the
-previous DSH compatibility baseline.
-
-### Previous GitHub source tag (DSH 0.1.7-rc.2)
-
-```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.1.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -71,6 +71,8 @@ This requires Git to be available on the host. Pin the tag instead of using
   the wallpaper crossfades at each boundary.
 - New-session and active-conversation composer cards share the same lighter,
   scene-aware liquid-glass surface, keeping more of the wallpaper visible.
+- Assistant replies, reasoning, tool calls/output and errors share the message
+  glass material and remain readable above 100% wallpaper opacity.
 - Use the edit action beside a conversation title to rename the current
   session without leaving the conversation view.
 

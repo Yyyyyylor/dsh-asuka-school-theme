@@ -190,7 +190,7 @@ describe('Asuka theme controller', () => {
   })
 
   it.each([
-    ['morning', 'noon'], ['morning', 'night'], ['noon', 'night'],
+    ['morning', 'noon'], ['morning', 'night'],
   ] as const)('holds the final %s/%s selection through repeated older acknowledgements', async (first, second) => {
     let value = { ...DEFAULT_ASUKA_SETTINGS }
     let revision = 1

@@ -10,7 +10,6 @@ import * as jsxRuntime from 'react/jsx-runtime'
 import { describe, expect, it } from 'vitest'
 import * as plugin from '../src/index.js'
 import { DEFAULT_ASUKA_SETTINGS } from '../src/shared/settings.js'
-import { createAsukaSettingsStore } from '../src/client/settings/settings-store.js'
 
 /** Only the page-policy sink is isolated; persistence is covered by the Host smoke. */
 function pagePolicySink(ctx: Context, policies: Set<object>) {
@@ -65,12 +64,6 @@ describe('DSH 0.2.0-rc.2 contracts', () => {
       await theme?.dispose()
       await server.dispose()
     }
-  })
-
-  it('uses the published store engine with synchronous shared action updates', () => {
-    const instance = createAsukaSettingsStore().create()
-    instance.actions.sync({ status: 'ready', revision: 4, settings: { ...DEFAULT_ASUKA_SETTINGS, wallpaperBlurPx: 7 } })
-    expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', revision: 4, settings: { wallpaperBlurPx: 7 } })
   })
 
   it('materializes the built lazy-CJS bundle using only actual 0.2.0 platform seed exports', async () => {

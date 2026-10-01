@@ -16,11 +16,15 @@ import { createAsukaSettingsStore } from './settings/settings-store.js'
 import { SessionTitleEditor } from './session-title/SessionTitleEditor.js'
 import { renameSessionTitle } from './session-title/rename.js'
 import { installAsukaStyles } from './styles.js'
+import { installWorkspacePickerToggleGuard } from './workspace-picker.js'
+import { installDockCloseMotion } from './dock-motion.js'
 
 export const inject = ['slots', 'locale', 'sessions', 'configForms']
 
 export function apply(ctx: Context): void {
   ctx.effect(() => installAsukaStyles(), 'asuka-school-theme: owned styles')
+  ctx.effect(() => installWorkspacePickerToggleGuard(), 'asuka-school-theme: workspace picker toggle compatibility')
+  ctx.effect(() => installDockCloseMotion(), 'asuka-school-theme: dock close motion')
   ctx.effect(() => ctx.locale.register(ASUKA_LOCALE_NAMESPACE, asukaLocales), 'asuka-school-theme: locales')
 
   const scope = ctx.configForms.get<AsukaThemeSettings>(ASUKA_SETTINGS_NAMESPACE_ID)

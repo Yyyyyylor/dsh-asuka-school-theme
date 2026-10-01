@@ -56,13 +56,20 @@ export function applyAsukaPresentation(mode: AsukaMode, period: WallpaperPeriod 
   body.toggleAttribute('data-ds-dark-theme', definition.colorScheme === 'dark')
   root.style.setProperty('color-scheme', definition.colorScheme, 'important')
 
+  // Stage changes off-document and commit one style mutation. A palette can
+  // change dozens of inherited tokens; notifying live observers per token is
+  // unnecessary and exposes intermediate palettes to those observers.
+  const draft = document.createElement('div')
+  draft.style.cssText = body.style.cssText
+  let changed = false
   for (const [name, value] of Object.entries(definition.tokens)) {
     if (!baseline.tokens.has(name)) baseline.tokens.set(name, readInlineProperty(body, name))
     if (body.style.getPropertyValue(name) !== value || body.style.getPropertyPriority(name) !== 'important') {
-      body.style.setProperty(name, value, 'important')
+      draft.style.setProperty(name, value, 'important')
+      changed = true
     }
   }
-
+  if (changed) body.style.cssText = draft.style.cssText
 }
 
 /** Restore only values and attributes that this plugin captured before activation. */
@@ -75,7 +82,10 @@ export function clearAsukaPresentation(): void {
   body.removeAttribute(REDUCED_MOTION_ATTRIBUTE)
   body.toggleAttribute('data-ds-dark-theme', baseline.darkTheme)
   writeInlineProperty(root, 'color-scheme', baseline.colorScheme)
-  for (const [name, property] of baseline.tokens) writeInlineProperty(body, name, property)
+  const draft = document.createElement('div')
+  draft.style.cssText = body.style.cssText
+  for (const [name, property] of baseline.tokens) writeInlineProperty(draft, name, property)
+  if (body.style.cssText !== draft.style.cssText) body.style.cssText = draft.style.cssText
   baseline = undefined
 }
 

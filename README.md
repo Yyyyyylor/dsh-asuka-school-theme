@@ -21,18 +21,20 @@ time of day.
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-Version `3.2.1` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
+Version `3.2.2` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
 wallpaper behavior were checked in an isolated Windows DSH Web profile using
-the Codex in-app browser. Ubuntu/WSL2 and live model streaming have not been
-re-verified for this baseline. See
+the Codex in-app browser. On 2026-10-01, the user also confirmed normal state
+testing and real model streaming in WSL Ubuntu for the current version. See
 [COMPATIBILITY.md](docs/COMPATIBILITY.md) for the current checks and limits.
 
 ## Install
 
-### GitHub Release (recommended)
+### GitHub Release
+
+Install the prebuilt `3.2.2` Release asset:
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.1/dsh-asuka-school-theme-3.2.1.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.2/dsh-asuka-school-theme-3.2.2.tgz
 ```
 
 This project is not published to npm. The Release asset contains the prebuilt
@@ -47,15 +49,17 @@ In the repository root, run:
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.1.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.2.tgz
 ```
 
 The package filename should match the `.tgz` emitted by `npm pack`.
 
 ### GitHub source tag
 
+Install from the fixed `v3.2.2` source tag:
+
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.1
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -73,10 +77,23 @@ This requires Git to be available on the host. Pin the tag instead of using
   scene-aware liquid-glass surface, keeping more of the wallpaper visible.
 - Assistant replies, reasoning, tool calls/output and errors share the message
   glass material and remain readable above 100% wallpaper opacity.
+- Presented file cards and model submenus use matching rounded glass; file
+  actions retain one shared frame and their native preview/menu behavior.
+- The composer's add menu keeps its rounded frosted glass and blurs content behind
+  it; clicking the workspace selector again closes its menu. Split dividers stop
+  inside the rounded edges.
 - The left sidebar, conversation header and docked right panes float above the
   wallpaper with matching rounded glass surfaces and visible gaps. The icon rail,
   pane resizing and narrow-window fullscreen behavior remain native; title-edit
   actions wrap when the center column runs out of room.
+- Splitting the right sidebar smoothly expands a second pane; closing a split
+  smoothly expands the surviving pane. Desktop fullscreen entry and exit smoothly
+  change its width. Dragging remains immediate, and plugin/system reduced-motion
+  preferences disable transitions.
+- Narrow guide panes hide shortcut hints to keep entry names visible and restore
+  them when widened. Selected dock tabs pair their fill and labels with the scene.
+  Code banners use distinct scene fills and a fine divider to separate the title,
+  code body and transcript.
 - Use the edit action beside a conversation title to rename the current
   session without leaving the conversation view.
 
@@ -86,7 +103,10 @@ System appearance unchanged; it only adds the selected wallpaper scene.
 Wallpaper images are decoded before the existing crossfade starts, and likely
 next scenes are preloaded while the browser is idle. Range-control previews are
 frame-coalesced, so opacity and blur adjustments remain responsive without
-reapplying unrelated theme tokens.
+reapplying unrelated theme tokens. Previously decoded preset images are reused
+until plugin disposal; blur is applied to each wallpaper layer before its opacity
+crossfade, avoiding a filtered parent that flattens both changing layers.
+Palette variables are prepared off-document and applied in one style update.
 
 ## Privacy and assets
 

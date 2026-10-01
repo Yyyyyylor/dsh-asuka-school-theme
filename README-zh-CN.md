@@ -17,14 +17,16 @@
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-`3.2.1` 面向 DSH `0.2.0-rc.2`，已使用 Codex 内置浏览器在隔离的 Windows DSH Web profile 中检查玻璃表面与高透明度壁纸下的显示效果。当前基线尚未复测 Ubuntu/WSL2 和真实模型流式回复。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+`3.2.2` 面向 DSH `0.2.0-rc.2`，已使用 Codex 内置浏览器在隔离的 Windows DSH Web profile 中检查玻璃表面与高透明度壁纸下的显示效果。用户于 2026-10-01 确认当前版本在 WSL Ubuntu 的状态测试与真实模型流式回复均正常。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
-### GitHub Release（推荐）
+### GitHub Release
+
+安装 `3.2.2` Release 中的预构建包：
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.1/dsh-asuka-school-theme-3.2.1.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.2/dsh-asuka-school-theme-3.2.2.tgz
 ```
 
 本项目暂未发布到 npm。Release 安装包包含预构建的 Host/Client 代码和三张公开壁纸。安装、更新或移除插件后，请重启 DSH Web profile。
@@ -37,15 +39,17 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.1.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.2.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
 
 ### GitHub 源码标签
 
+从固定的 `v3.2.2` 源码标签安装：
+
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.1
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -63,11 +67,19 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.1
 
 模型回复、思考、工具调用及输出、错误提示沿用消息的玻璃材质，并在壁纸透明度为 100% 时保持清晰可读。
 
+交付文件卡片与模型二级菜单使用一致的圆角玻璃材质；文件操作按钮共用一个外框，并保留原生预览及菜单行为。
+
+输入框的加号菜单保持圆角毛玻璃效果，模糊背后的文字与控件；再次点击工作区选择按钮可关闭菜单。拆分分隔线收在面板上下圆角以内。
+
 左侧栏、会话顶部栏与停靠的右侧面板使用统一的悬浮圆角玻璃表面，栏间留白可透出壁纸。保留图标栏、拖拽调整宽度及窄窗口下的原生右栏全屏行为；标题编辑时，空间不足的顶部操作会换行。
+
+右侧栏拆分时，新面板平滑展开；关闭分栏时，剩余面板平滑扩展。桌面窗口进入和退出全屏时，面板宽度平滑过渡。拖拽保持即时响应，插件或系统的减少动画偏好会关闭过渡。
+
+窄分栏的开始页会收起快捷键提示，优先显示入口名称，拉宽后恢复；选中标签的文字与底色统一跟随场景。代码块标题使用独立的场景底色和细分隔线，便于区分标题、代码与回复正文。
 
 自动切换使用交叉淡入效果；启用“减少动态效果”后会关闭该动画。插件不会改写 DSH 官方的浅色、深色或系统外观，只叠加所选的壁纸场景。
 
-壁纸会在解码完成后再开始原有的交叉淡入，并在浏览器空闲时预载可能的下一场景。透明度和模糊度调节会按动画帧合并预览更新，且不会重复应用无关的主题变量，从而让连续拖动更加流畅。
+壁纸会在解码完成后再开始原有的交叉淡入，并在浏览器空闲时预载可能的下一场景。已解码的预设图片会复用到插件卸载；模糊在各壁纸层淡入前单独处理，避免对持续变化的双层父容器做整屏滤镜。配色变量准备完成后一次应用。透明度和模糊度调节会按动画帧合并预览更新，且不会重复应用无关的主题变量，从而让连续拖动更加流畅。
 
 ## 隐私与资源
 

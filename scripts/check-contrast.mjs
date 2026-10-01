@@ -1,10 +1,17 @@
+import { readFileSync } from 'node:fs'
+
+const styles = readFileSync(new URL('../src/client/styles.ts', import.meta.url), 'utf8')
+const codeBanners = [...styles.matchAll(/--asuka-glass-code-banner: (#[\dA-F]{6});/g)]
+if (codeBanners.length !== 3) throw new Error('Expected three scene code-banner colors')
+const bannerLabels = [...styles.matchAll(/--asuka-code-banner-muted: (#[\dA-F]{6});/g)].map(([, value]) => value)
+if (bannerLabels.length !== 2) throw new Error('Expected light and dark code-banner label colors')
+
 const pairs = [
   ['light primary text', '#24313D', '#FCFAF4'],
   ['light secondary text', '#354B59', '#FCFAF4'],
   ['light primary button', '#FFFFFF', '#C7474F'],
   ['Asuka hair action button', '#FFFFFF', '#B8522B'],
-  ['noon code banner', '#24313D', '#F3E8DB'],
-  ['morning code banner', '#24313D', '#F0D8C2'],
+  ...codeBanners.map(([, background], index) => [`scene ${index + 1} code banner label`, bannerLabels[index === 2 ? 1 : 0], background]),
   ['dark primary text', '#F4F0E9', '#202934'],
   ['dark secondary text', '#C5D2D8', '#202934'],
   ['dark primary button', '#171C24', '#E35A64'],

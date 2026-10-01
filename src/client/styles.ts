@@ -25,7 +25,6 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(
   overflow: hidden;
   contain: paint;
   opacity: 0;
-  filter: blur(var(--asuka-wallpaper-blur, 0px));
   transition: opacity 420ms ease;
 }
 #asuka-school-wallpaper-root[data-enabled='true'] { opacity: var(--asuka-wallpaper-opacity, 0.12); }
@@ -38,7 +37,9 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(
   background-repeat: no-repeat;
   opacity: 0;
   will-change: opacity;
-  filter: var(--asuka-wallpaper-filter, saturate(0.88) contrast(0.98));
+  /* Filter each static image before compositing its opacity. Filtering the
+     parent flattens both fading layers into a changing full-screen surface. */
+  filter: var(--asuka-wallpaper-filter, saturate(0.88) contrast(0.98)) blur(var(--asuka-wallpaper-blur, 0px));
   transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; }
@@ -65,7 +66,10 @@ body[data-asuka-school-theme] {
   --asuka-reading-surface: var(--asuka-glass-surface-medium);
   --asuka-reading-surface-soft: var(--asuka-glass-surface-soft);
   --asuka-glass-code-surface: rgb(22 32 43 / 0.86);
-  --asuka-glass-code-banner: rgb(33 46 59 / 0.92);
+  --asuka-glass-code-banner: #AABCC6;
+  --asuka-code-banner-label: #24313D;
+  --asuka-code-banner-muted: #30404D;
+  --asuka-code-banner-edge: rgb(36 49 61 / 0.2);
   --asuka-sidebar-glass-surface: rgb(202 222 233 / 0.32);
   --asuka-glass-highlight: rgb(255 255 255 / 0.62);
   --asuka-glass-edge: rgb(255 255 255 / 0.52);
@@ -95,7 +99,7 @@ body[data-asuka-school-theme][data-asuka-school-scene='morning'] {
   --asuka-glass-surface-medium: rgb(252 234 219 / 0.4);
   --asuka-glass-surface-strong: rgb(248 226 208 / 0.58);
   --asuka-glass-code-surface: rgb(34 30 34 / 0.88);
-  --asuka-glass-code-banner: rgb(48 39 44 / 0.92);
+  --asuka-glass-code-banner: #C4AA91;
   --asuka-sidebar-glass-surface: rgb(245 219 198 / 0.34);
   --asuka-glass-edge: rgb(255 248 236 / 0.56);
   --asuka-glass-edge-soft: rgb(255 201 169 / 0.22);
@@ -112,7 +116,10 @@ body[data-asuka-school-theme][data-asuka-school-scene='night'] {
   --asuka-glass-surface-medium: rgb(20 42 64 / 0.38);
   --asuka-glass-surface-strong: rgb(18 37 58 / 0.5);
   --asuka-glass-code-surface: rgb(7 18 31 / 0.86);
-  --asuka-glass-code-banner: rgb(14 31 48 / 0.92);
+  --asuka-glass-code-banner: #293846;
+  --asuka-code-banner-label: #F5F8FA;
+  --asuka-code-banner-muted: #C2CFD8;
+  --asuka-code-banner-edge: rgb(215 232 242 / 0.24);
   --asuka-sidebar-glass-surface: rgb(19 42 63 / 0.48);
   --asuka-glass-highlight: rgb(255 255 255 / 0.3);
   --asuka-glass-edge: rgb(224 245 255 / 0.38);
@@ -240,22 +247,73 @@ body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [ari
 /* Tooltip CSS modules also use _bubble; leave their fixed positioning and
    out-of-flow geometry to the host instead of treating them as message bubbles. */
 /* Stable DSH surfaces share one restrained material; strength changes with information density. */
-body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([role='tooltip']), [role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
+body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([role='tooltip']), [role='menu']:not([data-menu-material], [data-menu-material] *), [role='listbox']:not([data-menu-material], [data-menu-material] *), [role='dialog']:not([aria-modal='true'])) {
   border: 1px solid var(--asuka-glass-edge);
   background-color: var(--asuka-glass-surface-medium);
   background-image: var(--asuka-glass-sheen);
-  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
-  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
   box-shadow:
     inset 0 1px 0 var(--asuka-glass-highlight),
     inset 0 0 0 1px rgb(255 255 255 / 0.04),
     0 12px 36px var(--asuka-glass-shadow);
 }
-body[data-asuka-school-theme] :is([role='menu'], [role='listbox'], [role='dialog']:not([aria-modal='true'])) {
+body[data-asuka-school-theme] :is([class*='_bubble']:not([role='tooltip']), [role='menu']:not([data-menu-material], [data-menu-material] *), [role='listbox']:not([data-menu-material], [data-menu-material] *), [role='dialog']:not([aria-modal='true'])) {
+  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+}
+body[data-asuka-school-theme] :is([role='menu']:not([data-menu-material], [data-menu-material] *), [role='listbox']:not([data-menu-material], [data-menu-material] *), [role='dialog']:not([aria-modal='true'])) {
+  background-color: var(--asuka-glass-surface-strong);
+}
+/* ModelSelect changes its shell from menu to group in the model pane. Paint
+   MenuSurface, never its inner scrolling menu. Keep nested fixed menus free of
+   a filtered/clipped ancestor; the native material layer inherits its radius. */
+body[data-asuka-school-theme] [data-menu-material='translucent'] {
+  border: 1px solid var(--asuka-glass-edge);
+  background: transparent;
+  box-shadow: inset 0 1px 0 var(--asuka-glass-highlight), 0 12px 36px var(--asuka-glass-shadow);
+}
+body[data-asuka-school-theme] [data-menu-material='translucent'] > [aria-hidden='true']:first-child {
+  background-color: var(--asuka-glass-surface-strong);
+  background-image: var(--asuka-glass-sheen);
+  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+}
+/* Presented deliverables use static neutral fills in DSH. Their native preview
+   hit target, portal actions and clipping stay intact; only the paint changes. */
+body[data-asuka-school-theme] [data-presented-file] {
+  border-color: var(--asuka-glass-edge);
+  background-color: var(--asuka-glass-surface-medium);
+  background-image: var(--asuka-glass-sheen);
+  box-shadow: inset 0 1px 0 var(--asuka-glass-highlight), 0 8px 24px var(--asuka-glass-shadow);
+}
+body[data-asuka-school-theme] [data-presented-file]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+}
+body[data-asuka-school-theme] [data-presented-file]:hover {
   background-color: var(--asuka-glass-surface-strong);
 }
 body[data-asuka-school-theme] [data-composer-card] {
   background-color: var(--asuka-composer-glass-surface);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* The add menu extends outside this card. A filter on the card creates a
+   backdrop root that excludes the welcome text behind the menu. Blur only the
+   card's background so MenuSurface can sample the actual page behind it. */
+body[data-asuka-school-theme] [data-composer-card]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+  backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
 }
 body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([role='tooltip'])) {
   position: relative;
@@ -357,6 +415,19 @@ body[data-asuka-school-theme] {
   --asuka-floating-radius: 16px;
   --asuka-floating-surface: color-mix(in srgb, var(--asuka-sidebar-glass-surface) 55%, var(--dsw-alias-bg-base));
 }
+/* AppFrame adds data-animating only in a follow-up layout effect. DockKit can
+   flush the changed tracks before that commit, so the header snaps while the
+   dock slides. Arm the native transition before either track update happens.
+   Keep the host's duration/easing and instant fullscreen/drag exceptions. */
+body[data-asuka-school-theme] div:has(> [data-rightbar-col]) {
+  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+}
+body[data-asuka-school-theme] div:has(> [data-rightbar-col]):is([data-dragging], [data-rightbar-fullscreen], [data-rightbar-instant]) {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] div:has(> [data-rightbar-col]) { transition: none; }
+}
 body[data-asuka-school-theme] div:has(> [data-slot='sidebar']) {
   background: transparent;
   border-right: 0;
@@ -403,6 +474,43 @@ body[data-asuka-school-theme] [data-slot='conversation.session.header'] > div:ha
 body[data-asuka-school-theme] [data-sidebar-right-panel] {
   box-sizing: border-box;
   padding: var(--asuka-floating-gap);
+  transition: width var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+}
+/* Paint the divider only between the rounded edges. Keep the full-height native
+   pointer target and its horizontal hit slop; no pane/tooltip ancestor is clipped. */
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-split] > [data-dockkit-divider]::before,
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-split] > [data-dockkit-divider]::after {
+  top: var(--asuka-floating-radius);
+  bottom: var(--asuka-floating-radius);
+}
+/* DockLayout keeps tab hosts mounted and supplies the split fractions inline.
+   Give its single-pane state the same three tracks as the split state so the
+   browser can interpolate them. The zero-width spare track has no occupant;
+   split ratios, tab identity, focus and removal still belong to DockKit. */
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-surface] > div[data-dockkit-split]:has(> :is([data-dockkit-host='dock'], [data-dockkit-empty])) {
+  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+}
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-surface] > div:not([data-dockkit-split]):has(> :is([data-dockkit-host='dock'], [data-dockkit-empty])) {
+  grid-template-columns: minmax(0, 1fr) 0px minmax(0, 0fr) !important;
+}
+/* Closing motion is owned by dock-motion.ts: animate the observed surface,
+   rather than this grid, so DockKit refreshes room through the final width. */
+/* Pointer tracking marks the native divider/tab while captured. Resizing must
+   follow the pointer immediately, including the frame's outer width handle. */
+body[data-asuka-school-theme] [data-dragging] [data-sidebar-right-panel],
+body[data-asuka-school-theme] [data-dragging] [data-sidebar-right-panel] [data-dockkit-surface] > div,
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-surface] > div:has([data-dockkit-pointer]) {
+  transition: none !important;
+}
+/* Narrow screens use the host's automatic fullscreen slide, not a width morph. */
+@media (max-width: 767px) {
+  body[data-asuka-school-theme] [data-sidebar-right-panel] { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] [data-sidebar-right-panel],
+  body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-surface] > div {
+    transition: none !important;
+  }
 }
 body[data-asuka-school-theme] :is(
   [data-slot='sidebar'] > *,
@@ -454,15 +562,17 @@ body[data-asuka-school-theme] :is(
 /* The plugin preference also stops native layout motion (the host already
    honors the OS preference). Restrict this to frame/rail/dock transitions. */
 body[data-asuka-school-theme][data-asuka-school-reduce-motion='true'] :is(
-  [data-animating]:has(> [data-rightbar-col]),
+  div:has(> [data-rightbar-col]),
   [data-animating]:has(> [data-rightbar-col]) > [data-side],
   [data-slot='sidebar'] [class*='_fading'] > *,
   [data-slot='sidebar'] [class*='_wide'],
   [data-slot='sidebar'] [class*='_railIn'] *,
+  [data-sidebar-right-panel],
+  [data-sidebar-right-panel] [data-dockkit-surface] > div,
   [data-sidebar-right-panel] [data-dockkit-host='dock'],
   [data-sidebar-right-panel] [data-dockkit-empty],
   [data-sidebar-right-panel] [data-dockkit-divider]
-) { animation: none; transition: none; }
+) { animation: none; transition: none !important; }
 @media (max-width: 640px) {
   body[data-asuka-school-theme] {
     --asuka-floating-gap: 6px;
@@ -493,6 +603,28 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [rol
 body[data-asuka-school-theme][data-asuka-school-details='true'] :is(button, [role='button']):not(:disabled):hover {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 5px 15px rgb(37 57 69 / 0.14);
 }
+/* Give the wordmark's frame room without squeezing its SVG or the collapse
+   action. Only the expanded logo row borrows space from sidebar padding. */
+body[data-asuka-school-theme] [data-slot='sidebar'] [class*='_logoRow']:has(> button[class*='_wide'] [data-slot='sidebar.brand.mark']) {
+  margin-inline: -6px;
+}
+body[data-asuka-school-theme] [data-slot='sidebar'] button[class*='_wide']:has([data-slot='sidebar.brand.mark']) {
+  box-sizing: border-box;
+  padding: 6px;
+}
+/* Native text tabs have no top/inline padding. Keep their underline and scene
+   colors while giving the shared rounded detail frame a comfortable inset. */
+body[data-asuka-school-theme] [data-conversation-tabs] {
+  gap: 12px;
+  padding-left: 0;
+}
+body[data-asuka-school-theme] [data-conversation-tabs] > [role='tab'] {
+  padding: 6px 12px 10px;
+}
+body[data-asuka-school-theme] [data-conversation-tabs] > [role='tab']::after {
+  left: 12px;
+  right: 12px;
+}
 /* Files is a button; terminal supplies a split-action wrapper with an absolute
    main button. Both outer cards and that hit target use the sidebar radius. */
 body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-guide-entry] {
@@ -501,31 +633,65 @@ body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-gui
 body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-guide-entry] > button:first-child {
   border-radius: inherit;
 }
+/* The native shortcut is flex:none and can consume the whole title at split
+   widths. Query the guide's own width, including fullscreen and divider drag. */
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-guide] {
+  container: asuka-dock-guide / inline-size;
+  width: 100%;
+  padding-inline: clamp(10px, 6%, 24px);
+}
+@container asuka-dock-guide (max-width: 320px) {
+  body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-guide-entry] {
+    gap: 10px;
+    padding-inline: 12px;
+  }
+  body[data-asuka-school-theme] [data-sidebar-right-panel] [data-sidebar-right-guide-entry] > :is([class*='_keys'], [class*='_shortcut']) {
+    display: none;
+  }
+}
+/* DockKit's native selected fill uses markdown-tag, which follows official
+   appearance independently of scene labels. Keep the color pair local. */
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-tab][aria-selected='true'] {
+  color: var(--dsw-alias-label-primary);
+  background: var(--asuka-glass-surface-medium);
+}
+body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-tab]:hover {
+  background: var(--asuka-glass-surface-strong);
+}
+/* The full-card preview retains one rounded hit target and an inset focus ring. */
+body[data-asuka-school-theme] [data-presented-file] > button:first-child {
+  border-radius: inherit;
+  box-shadow: none;
+}
+body[data-asuka-school-theme] [data-presented-file] > button:first-child:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--dsw-focus-ring-color, var(--dsw-alias-state-business-primary));
+}
 /* The native split action owns one outer frame. Independent button radii and
    detail shadows would draw two overlapping capsules inside that frame. */
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact'] {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] {
   border-color: var(--asuka-glass-edge-soft);
   border-radius: 8px;
   background: var(--asuka-glass-surface-soft);
 }
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact'] > button {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact'] > button + button {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button + button {
   border-left-color: var(--asuka-glass-edge-soft);
 }
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact'] > button:not(:disabled):is(:hover, [aria-expanded='true']) {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button:not(:disabled):is(:hover, [aria-expanded='true']) {
   background: var(--asuka-glass-surface-medium);
   box-shadow: none;
 }
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact'] > button:focus-visible {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button:focus-visible {
   outline: none;
   background: var(--asuka-glass-surface-medium);
   box-shadow: none;
 }
-body[data-asuka-school-theme] [data-slot='conversation.session.header.utilities'] [data-open-target][data-size='compact']:has(> button:focus-visible) {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact']:has(> button:focus-visible) {
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 2px;
 }
@@ -628,7 +794,17 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {
   backdrop-filter: blur(18px) saturate(1.18) brightness(0.94);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 12px 34px var(--asuka-glass-shadow);
 }
-/* Match the proven Phase-1 treatment: a square theme-base mask behind the rounded painted banner keeps scrolling code from bleeding through. */
+/* Pair restrained scene fills with local labels, independently of native
+   Light/Dark appearance and the optional decorative code treatment. */
+body[data-asuka-school-theme] .md-code-block [data-code-block-banner='true'] {
+  --dsw-alias-label-primary: var(--asuka-code-banner-label);
+  --dsw-alias-label-secondary: var(--asuka-code-banner-muted);
+  --dsw-alias-label-tertiary: var(--asuka-code-banner-muted);
+  color: var(--dsw-alias-label-primary);
+  background: var(--asuka-glass-code-banner);
+  box-shadow: inset 0 -1px 0 var(--asuka-code-banner-edge);
+}
+/* Keep the existing sticky mask and clipping geometry. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {
   border-radius: 0;
   background: var(--dsw-alias-bg-base);
@@ -636,7 +812,7 @@ body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block >
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background: var(--dsw-alias-markdown-code-block-banner);
+  background: var(--asuka-glass-code-banner);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block [data-code-block-banner='true'] button {
   min-width: 36px;

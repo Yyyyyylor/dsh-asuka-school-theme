@@ -167,6 +167,60 @@ describe('wallpaper runtime', () => {
     expect(root.children.some(layer => layer.dataset.active === 'true')).toBe(true)
   })
 
+  it('reuses decoded images when revisiting a preset without another decode', async () => {
+    applyWallpaper(settings('morning'), 'morning')
+    imageInstances[0].onload?.()
+    await settle()
+    drainFrames()
+
+    applyWallpaper(settings('noon'), 'noon')
+    imageInstances[1].onload?.()
+    await settle()
+    drainFrames()
+
+    applyWallpaper(settings('morning'), 'morning')
+    await settle()
+    drainFrames()
+    expect(imageInstances).toHaveLength(2)
+    expect(imageInstances[0].decode).toHaveBeenCalledTimes(1)
+    expect(activeImage()).toContain('asuka-after-class.webp')
+  })
+
+  it('shares an in-flight decode across A/B/A clicks and ignores B completion', async () => {
+    applyWallpaper(settings('morning'), 'morning')
+    const morning = imageInstances[0]
+    applyWallpaper(settings('noon'), 'noon')
+    const noon = imageInstances[1]
+    applyWallpaper(settings('morning'), 'morning')
+    expect(imageInstances).toHaveLength(2)
+
+    morning.onload?.()
+    await settle()
+    drainFrames()
+    expect(activeImage()).toContain('asuka-after-class.webp')
+    noon.onload?.()
+    await settle()
+    drainFrames()
+    expect(activeImage()).toContain('asuka-after-class.webp')
+  })
+
+  it('releases the image cache on disposal and fences a pending old decode', async () => {
+    applyWallpaper(settings('morning'), 'morning')
+    const oldImage = imageInstances[0]
+    clearWallpaper()
+    oldImage.onload?.()
+    await settle()
+    drainFrames()
+    expect(fakeDocument.getElementById('asuka-school-wallpaper-root')).toBeNull()
+
+    applyWallpaper(settings('morning'), 'morning')
+    expect(imageInstances).toHaveLength(2)
+    imageInstances[1].onload?.()
+    await settle()
+    drainFrames()
+    expect(activeImage()).toContain('asuka-after-class.webp')
+  })
+
   it('reloads formally after a failed preload instead of reusing false', async () => {
     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
     applyWallpaper(settings('auto'), 'morning')

@@ -1,7 +1,7 @@
 # DSH Store review / 商店审查说明
 
-Author disclosure for plugin `3.2.1` (DSH `0.2.0-rc.2`),
-2026-09-30. This is a bounded source/dependency review, not an independent
+Author disclosure for plugin `3.2.2` (DSH `0.2.0-rc.2`),
+2026-10-01. This is a bounded source/dependency review, not an independent
 supply-chain certification or marketplace approval.
 
 本说明对应 [DSH Store #1195](https://github.com/AI-Scarlett/DSH-Store/issues/1195)。

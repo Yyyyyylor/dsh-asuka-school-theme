@@ -17,6 +17,9 @@ let preloadTimer: ReturnType<typeof setTimeout> | undefined
 let preloadIdleHandle: number | undefined
 let preloadFallbackTimer: ReturnType<typeof setTimeout> | undefined
 let preloaded: { period: WallpaperPeriod, ready: Promise<boolean> } | undefined
+// The three allowlisted assets bound this cache. Retain the decoded Image,
+// not just its promise, so revisiting a preset can reuse its decoded resource.
+const decodedImages = new Map<string, { image: HTMLImageElement, ready: Promise<boolean> }>()
 let wallpaperEnabled = false
 let autoPreloadEnabled = false
 let preloadGeneration = 0
@@ -137,6 +140,7 @@ export function clearWallpaper(): void {
   cancelScheduledFrames()
   cancelPreload()
   preloaded = undefined
+  decodedImages.clear()
   const body = document.body
   body.removeAttribute(ATTRIBUTE_ENABLED)
   body.removeAttribute(ATTRIBUTE_MODE)
@@ -150,21 +154,32 @@ export function clearWallpaper(): void {
 
 function loadAndDecodeImage(url: string): Promise<boolean> {
   if (typeof Image === 'undefined') return Promise.resolve(true)
-  return new Promise(resolve => {
-    const image = new Image()
+  const cached = decodedImages.get(url)
+  if (cached !== undefined) return cached.ready
+  const image = new Image()
+  const ready = new Promise<boolean>(resolve => {
+    const finish = (success: boolean) => {
+      image.onload = null
+      image.onerror = null
+      // Failed loads must remain retryable, including failed idle preloads.
+      if (!success && decodedImages.get(url)?.image === image) decodedImages.delete(url)
+      resolve(success)
+    }
     image.onload = () => {
       if (typeof image.decode !== 'function') {
-        resolve(true)
+        finish(true)
         return
       }
       // A successful load means the resource is usable. Some browsers reject
       // decode() after onload for transient decoder/cache reasons, so degrade
       // gracefully instead of blocking the scene forever.
-      void image.decode().then(() => resolve(true), () => resolve(true))
+      void image.decode().then(() => finish(true), () => finish(true))
     }
-    image.onerror = () => resolve(false)
-    image.src = url
+    image.onerror = () => finish(false)
   })
+  decodedImages.set(url, { image, ready })
+  image.src = url
+  return ready
 }
 
 function ensurePeriodReady(period: WallpaperPeriod, url: string): Promise<boolean> {

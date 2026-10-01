@@ -4,7 +4,7 @@
 
 ## 项目基线
 
-- 当前版本：`3.2.1`。
+- 当前版本：`3.2.2`。
 - 兼容基线：DeepSeek Harness `0.2.0-rc.2`、Cordis `4.0.4`、Node.js `>=20`、pnpm `11.19.0`。
 - 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。旧版 0.1.7-rc.2 的 Windows Web 验证不能代表本次 0.2.0-rc.2 的真实浏览器结果；边界见 COMPATIBILITY。
 - 项目未发布到 npm。正式安装来源是 GitHub Release 中的预构建 `.tgz`，或固定 Git tag 的 GitHub 源。
@@ -23,6 +23,7 @@
 | `src/client/settings/` | 通用设置快捷行、完整设置页、范围控件草稿与共享视图 store。 |
 | `src/client/session-title/` | 会话标题编辑 UI 与 DSH Session rename 调用。 |
 | `src/client/styles.ts` | 插件自有全局样式、玻璃表面、宿主 DOM 适配及 reduced-motion 规则。 |
+| `src/client/dock-motion.ts` | 关闭分栏时的外层尺寸过渡、原生 room 重测、取消与观察器清理。 |
 | `tests/` | Host/Client 契约、设置、控制器、壁纸、样式、标题编辑和资源路由回归。 |
 | `scripts/` | Client 打包及资源、对比度、发布包结构检查。 |
 | `lib/` | 受版本控制的构建产物；不要直接手工编辑。 |

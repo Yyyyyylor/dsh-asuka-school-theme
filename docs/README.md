@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.2.1`，兼容基线为 DeepSeek Harness `0.2.0-rc.2` / Cordis `4.0.4`。
+本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.2.2`，兼容基线为 DeepSeek Harness `0.2.0-rc.2` / Cordis `4.0.4`。
 
 ## 从这里开始
 
@@ -35,6 +35,8 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | Host 设置与资源路由 | `src/index.ts`、`src/settings.ts` | `tests/dsh-contract.test.ts`、`tests/asset-route.test.ts` |
 | 设置默认值、时段与校验 | `src/shared/settings.ts` | `tests/settings.test.ts` |
 | Client 注册与生命周期 | `src/client/index.ts` | `tests/dsh-contract.test.ts` |
+| 工作区菜单二次点击兼容 | `src/client/workspace-picker.ts` | `tests/workspace-picker.test.ts`，外加真实浏览器交互回归 |
+| 关闭分栏动画与尺寸跟踪 | `src/client/dock-motion.ts` | `tests/dock-motion.test.ts`，外加真实 DSH 尺寸与分栏按钮验证 |
 | 场景与设置协调 | `src/client/controller.ts` | `tests/controller.test.ts` |
 | 主题 token 和启停恢复 | `src/client/presentation.ts`、`src/client/themes/` | `tests/themes.test.ts`、`tests/styles.test.ts` |
 | 壁纸加载、预载与切换 | `src/shared/wallpapers.ts`、`src/client/wallpaper/runtime.ts` | `tests/wallpaper-runtime.test.ts`、`tests/asset-route.test.ts` |
@@ -73,7 +75,7 @@ git diff --check
 - `pnpm check` 执行 TypeScript、资源、对比度和包结构检查。
 - `pnpm pack:check` 只检查 npm pack 内容，不代表已经发布，也不代表真实 DSH Web 已加载成功。
 
-涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。0.2.0-rc.2 已在隔离的 Windows DSH Web 中复测场景切换、100% 壁纸下的侧栏，以及关闭态设置行；其余验证边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。旧 DSH 基线的 Ubuntu/WSL2 证据不能代替当前版本复测。
+涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。0.2.0-rc.2 已在隔离的 Windows DSH Web 中复测场景切换、100% 壁纸下的侧栏，以及关闭态设置行。用户于 2026-10-01 确认当前 `3.2.2` 状态在 WSL Ubuntu 的状态测试与真实模型流式回复均正常；具体证据与各轮验证边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
 
 ## 发布内容边界
 

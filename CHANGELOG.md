@@ -5,7 +5,24 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.2.2] - 2026-10-01
+
+### Changed
+
+- Added native-timed width transitions for right-sidebar fullscreen, splitting and closing a split. Closing expands the surviving pane through the observed dock surface so native room measurement stays current. Pointer resizing and both reduced-motion preferences remain immediate.
+- Updated both README previews with the supplied current-state screenshot. After the preset transition optimization, the user reconfirmed normal state testing and real model streaming in WSL Ubuntu for the final 3.2.2 state.
+
+### Fixed
+
+- Reduced preset-switching work by committing palette variables in one body style update, retaining the three decoded wallpaper resources and filtering each image before its opacity crossfade, rather than blurring the changing two-layer parent. Preserved baseline restoration, unrelated inline styles, image-load fallback, stale-request guards and reduced-motion behavior.
+- Kept right-sidebar guide titles visible at narrow split widths by hiding visual shortcut hints through a local container query; paired selected dock-tab fills with scene labels across native Light/Dark appearance changes.
+- Gave the expanded DeepSeek HARNESS wordmark and Chat/Trajectory tabs comfortable internal padding while preserving the full logo, collapse action and active underline.
+- Coordinated code banners with the morning warm sand, noon mist blue-gray and night deep blue-gray palettes, using matching dark/light labels and an inset divider even when decorative details are disabled. Contrast checks read the actual banner and label colors from the stylesheet.
+- Moved composer blur to its background layer so the add menu can blur the welcome text and controls behind it, restoring readable frosted glass without filtering or clipping the menu shell.
+- Restored the composer's add-menu rounded glass by leaving its internal scrolling list transparent; made the workspace picker close on its second trigger click; inset split-divider paint from both rounded ends while preserving its native drag target.
+- Armed the native grid transition before right-sidebar toggles so the conversation header resizes continuously with the dock slide; retained native timing, drag/fullscreen exceptions and both reduced-motion guards.
+- Applied scene glass to presented file cards and removed overlapping decorative frames from their split actions, preserving preview, menus and keyboard focus feedback.
+- Painted the model selector's shared MenuSurface instead of its inner scrolling menu, restoring rounded glass in the model pane without filtering or clipping nested fixed menus.
 
 ## [3.2.1] - 2026-09-30
 
@@ -181,7 +198,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
-[Unreleased]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.1...HEAD
+[3.2.2]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.0.1...v3.1.0

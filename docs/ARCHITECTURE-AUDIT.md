@@ -59,6 +59,15 @@ Visible detached panes retain native behavior and skip this dock-close motion.
 
 ## Appearance isolation
 
+The unreleased rounded-refraction enhancement is a separate Cordis effect in
+`liquid-glass.ts`. It observes activation from the existing presenter, discovers
+major paint surfaces, and owns per-surface SVG lens resources and passive
+pointer highlights. It adds no settings synchronizer or Host/API service.
+Filtering stays on background siblings, including the Settings background;
+Off/disposal restores markers and inline filter properties and releases maps.
+Resize settling, decode fences, engine fallback and resource budgets are
+documented in [LIQUID-GLASS.md](LIQUID-GLASS.md).
+
 The controller does not persist changes to DSH's Light / Dark / System preference.
 The existing presenter applies inline body tokens, the dark-theme attribute, and
 root color-scheme while a scene is enabled, restoring its captured baseline on Off

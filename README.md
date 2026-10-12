@@ -67,6 +67,15 @@ This requires Git to be available on the host. Pin the tag instead of using
 
 ## Use
 
+This unreleased checkout adds rounded background refraction to the composer,
+sidebar, header, menus and Settings on Chromium, with a curved highlight rim
+and subtle dispersion on compact controls. Settings uses a stronger 48px
+background blur while keeping its translucent tint and rim highlights.
+Other engines retain frosted glass.
+Both reduced-motion preferences stop pointer-following highlights. This is a
+Web effect inspired by Liquid Glass; it does not use Apple's native material.
+See [the implementation and verification limits](docs/LIQUID-GLASS.md).
+
 - Open **Settings → General → Theme-Asuka** for the quick Off / On the Way to
   School / Noon Classroom / Tokyo-3 Night scene switch.
 - Open **Settings → Theme-Asuka** for wallpaper period, opacity, blur,

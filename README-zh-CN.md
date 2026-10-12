@@ -56,6 +56,8 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 
 ## 使用方式
 
+当前未发布的开发版本为输入框、侧栏、顶栏、菜单和 Settings 增加了 Chromium 背景折射、圆角透镜边缘高光和紧凑控件的轻微色散。Settings 使用更强的 48px 背景模糊，同时保留通透底色和边缘高光。其他浏览器保留毛玻璃回退；插件与系统的减少动画偏好都会停止跟随指针的高光。这是受 Liquid Glass 启发的网页效果，没有使用 Apple 原生材质。实现与验证边界见 [LIQUID-GLASS.md](docs/LIQUID-GLASS.md)。
+
 1. 在 **设置 → 通用 → Theme-Asuka** 中快速切换“关闭 / 上学路上 / 午间教室 / 东京-3 夜”。
 2. 在 **设置 → Theme-Asuka** 中调整壁纸时段、透明度、模糊、装饰细节、减少动态效果，并可重置插件设置。
 3. 默认“壁纸时段”为自动模式，按本机时间切换：

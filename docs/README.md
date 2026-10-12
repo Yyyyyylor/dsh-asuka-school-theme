@@ -43,6 +43,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | 快捷行与完整设置页 | `src/client/settings/` | `tests/range-row.test.tsx`、`tests/range-draft.test.ts` |
 | 会话标题编辑 | `src/client/session-title/` | `tests/session-title-editor.test.tsx`、`tests/session-title-rename.test.ts` |
 | 玻璃表面与宿主 DOM 样式 | `src/client/styles.ts` | `tests/styles.test.ts`，外加真实浏览器视觉回归 |
+| 圆角背景折射与高光 | `src/client/liquid-glass.ts`、`src/client/liquid-glass-styles.ts` | `tests/liquid-glass.test.ts`，外加真实浏览器视觉回归 |
 | 打包与发布结构 | `scripts/build-client.mjs`、`scripts/check-package.mjs`、`tsdown.config.ts` | `pnpm build`、`pnpm check`、`pnpm pack:check` |
 
 ## 专项文档
@@ -53,6 +54,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |
 | [theme-token-map.md](theme-token-map.md) | DSH/Shiki token 覆盖范围 | 改主题颜色、按钮、sidebar、composer 或代码块时 |
+| [LIQUID-GLASS.md](LIQUID-GLASS.md) | 未发布的网页折射实现、Desktop 能力核对和验证边界 | 改透镜、滤镜、材质或浏览器回退时 |
 | [ASSETS.md](ASSETS.md) | 三张公开壁纸的构图、预算与目录规则 | 替换、重编码或新增壁纸时 |
 | [ASSET-CANDIDATES.md](ASSET-CANDIDATES.md) | 壁纸来源与再分发决策 | 评估任何新图像素材时 |
 | [RESEARCH.md](RESEARCH.md) | 初始 DSH 0.1.1-rc.2 调研历史及当前审计入口 | 追溯旧设计决策时；当前接口以兼容性文档为准 |

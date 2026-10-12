@@ -1,3 +1,5 @@
+import { ASUKA_LIQUID_STYLES } from './liquid-glass-styles.js'
+
 const STYLE_ID = 'dsh-asuka-school-theme-styles'
 
 export const ASUKA_STYLES = String.raw`
@@ -81,6 +83,7 @@ body[data-asuka-school-theme] {
   --asuka-glass-brightness: 1.04;
   --asuka-settings-mask: rgb(31 46 58 / 0.16);
   --asuka-settings-mask-brightness: 0.92;
+  --asuka-settings-glass-blur: 48px;
   --asuka-settings-glass-surface: color-mix(in srgb, var(--asuka-glass-surface-strong) 78%, transparent);
   --asuka-settings-glass-layer-1: color-mix(in srgb, var(--asuka-glass-surface-soft) 78%, transparent);
   --asuka-settings-glass-layer-2: color-mix(in srgb, var(--asuka-glass-surface-medium) 78%, transparent);
@@ -188,8 +191,8 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
     radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-paint-flare-b), transparent 64%) padding-box,
     linear-gradient(145deg, var(--asuka-settings-paint-surface), color-mix(in srgb, var(--asuka-settings-paint-surface) 78%, transparent)) padding-box,
     linear-gradient(135deg, var(--asuka-settings-paint-edge), var(--asuka-settings-paint-edge-soft) 34%, var(--asuka-settings-paint-flare-b) 70%, var(--asuka-settings-paint-edge)) border-box;
-  -webkit-backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
-  backdrop-filter: blur(32px) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
+  -webkit-backdrop-filter: blur(var(--asuka-settings-glass-blur)) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
+  backdrop-filter: blur(var(--asuka-settings-glass-blur)) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
   box-shadow:
     inset 0 1px 0 var(--asuka-settings-glass-highlight),
     inset 1px 0 0 var(--asuka-settings-glass-edge-soft),
@@ -989,6 +992,7 @@ body[data-asuka-school-details='true'] { --asuka-selection-rail: var(--dsw-speci
   .asuka-section-footer { align-items: flex-start; flex-direction: column; }
   .asuka-session-title-input { width: clamp(112px, 34vw, 180px); }
 }
+${ASUKA_LIQUID_STYLES}
 `
 
 export function installAsukaStyles(): () => void {

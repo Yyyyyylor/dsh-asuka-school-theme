@@ -6,6 +6,74 @@ pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
 only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
 evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
 
+## Settings background blur correction (2026-10-12)
+
+Restored the original translucent Settings fill, gradient and modal mask,
+superseding the opacity increase recorded below. Settings now uses a shared
+48px blur token: on the background pseudo-element with refraction active, or
+the original frosted dialog when lenses are unavailable. Rim highlights,
+refraction, local label/control colors and other surface blur values remain.
+
+`pnpm build`, all 74 tests, `pnpm check`, `pnpm pack:check` and
+`git diff --check` passed. Style checks cover the translucent fill and shared
+blur token in both paths; these are static contracts, not rendered evidence.
+The isolated DSH Web server started successfully, but both the in-app browser
+and Edge navigation returned `ERR_BLOCKED_BY_CLIENT` from the browser tool.
+The new 48px material therefore has no fresh visual verification in this run;
+the 2026-10-04 screenshots below describe the prior material. Ubuntu/WSL and
+Desktop were not rechecked. No model request or user profile change was made.
+
+## Unreleased rounded refraction development check (2026-10-04)
+
+This worktree adds Web background refraction; published `3.2.2` and its earlier
+WSL verification do not include this change. Renderer evidence and resource
+budgets are documented in [LIQUID-GLASS.md](LIQUID-GLASS.md).
+
+- Built and loaded the development Client through the real installed DSH
+  `0.2.0-rc.2` Web Host in a new `%TEMP%/asuka-liquid-glass-20261004` home on
+  loopback port 5184. No credentials or existing profile were copied. Only
+  existing offline fixture sessions were copied; telemetry capture was disabled.
+  No model request, tool execution or external application launch was performed.
+- Windows Codex in-app browser checks used 1280 × 800 and 620 × 800 viewports,
+  with 100% wallpaper opacity and 0px wallpaper blur. Visually checked all six
+  native Light/Dark and morning/noon/night combinations in Settings, as well as
+  composer, sidebar/header, native add menu, right-pane guide and the offline
+  transcript's table and short highlighted code block. The original browser
+  viewport was restored afterwards. Screenshots remain outside the repository.
+- Observed bending of wallpaper/window lines at the composer rim. Computed
+  backdrop filters include same-document `url("#asuka-liquid-lens-…")` on
+  composer/sidebar/header/dock background layers and the native menu material
+  child. Menu shells and dock content retain `none`. Settings content has `none`
+  while its background has the 18px blur plus lens. This is background pixel
+  displacement, not a wallpaper duplicate or an Apple native material.
+- After increasing Settings opacity, reloaded the rebuilt Client and confirmed
+  the new 94% mix of the scene fallback fill was loaded. Rechecked Settings in
+  native Light/Dark with all three scenes at 100% wallpaper opacity and 0px blur;
+  labels and controls were readable with substantially less background bleed.
+  Checked General and the plugin's wallpaper controls, plus the Morning settings
+  page at 620px: document width remained 620px and the panel remained contained.
+  Retained rim highlights/refraction and restored the temporary viewport override.
+- At 620px, document width remained 620px, labels and code stayed contained,
+  and the scene-aware code banner retained its controls/highlighting. Plugin
+  reduced motion removed inline pointer-highlight coordinates and gave both
+  wallpaper layers `0s` transitions while retaining static lenses. Off removed
+  all SVG filter nodes, lens markers and inline filter references, restoring the
+  captured native appearance. Re-enabling rebuilt lenses normally. Browser
+  console inspection found no captured warnings/errors.
+- `pnpm build`, 74 automated tests, `pnpm check`, `pnpm pack:check` and
+  `git diff --check` passed. Tests include rounded-map normals, a neutral center,
+  outside-corner behavior, raster memory bounds and the unsupported-engine gate;
+  contrast checks cover palette/code colors, not screenshot pixel contrast.
+  Build required access to the worktree's parent-directory metadata; npm pack's
+  cache was placed in this task's temporary directory.
+
+Standalone Electron/Desktop (including its `dsh-app` scheme), Ubuntu/WSL,
+non-Chromium paint fallback, GPU-specific filter failure, OS reduced-motion
+emulation, long-code sticky/copy behavior, live streaming and controlled frame
+timing were not rechecked. No performance gain or native Liquid Glass equivalence
+is claimed. The earlier `3.2.2` target-environment confirmation remains evidence
+only for that released version.
+
 ## Preset transition work reduction (2026-10-01)
 
 The rebuilt Client was checked in the same real isolated Windows DSH Web profile.

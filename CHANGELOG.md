@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Added Chromium background refraction to composer, sidebar, header, dock panes, native translucent menus and Settings. Size-aware rounded lens maps bend the rim while keeping the center flat; compact controls use restrained color dispersion and pointer-following edge light. Reply and code materials retain their existing readable treatment.
+- Retained frosted glass on unsupported engines, during resizing and when lens images cannot decode. Lens resources and pointer/observer work are owned by the plugin lifecycle; Off removes them, and both reduced-motion preferences stop moving highlights. This is a Web approximation, not Apple native Liquid Glass.
+
+### Fixed
+
+- Increased Settings background blur to 48px while retaining the translucent scene tint, original modal mask, rounded rim highlights and refraction. Background details soften without making the glass opaque or blurring settings controls.
+
 ## [3.2.2] - 2026-10-01
 
 ### Changed

@@ -45,6 +45,15 @@ It does not register into the host's single workspace slot or replace its compon
 The compatibility guard remains active while the plugin is loaded, including
 scene Off, and its effect removes the listener on disposal.
 
+`command-menu.ts` owns a separate capture-click compatibility guard for the
+composer's add button. DSH 0.2's draft-focus tracking can clear the programmatic
+launcher without closing its menu. A visible command menu, including pending
+command candidates, is closed through the same editor's native Escape arbitration;
+the click is suppressed only if Escape was consumed, preventing immediate reopening.
+Other sources, composing drafts, opening and outside clicks retain native behavior.
+The guard does not access private React/editor state or add service dependencies;
+Cordis disposal removes its listener.
+
 `dock-motion.ts` is also owned by a Cordis effect. A MutationObserver discovers
 right-side dock surfaces and detects the native split-to-single change; a
 ResizeObserver records visible pane bounds and container resizing. Only the
@@ -56,6 +65,36 @@ Native removal and focus remain immediate; no close event or component is replac
 New splits, parent resizing, dragging, scene changes and reduced motion cancel
 stale animations. Disposal disconnects both observers and cancels owned animations.
 Visible detached panes retain native behavior and skip this dock-close motion.
+
+Fullscreen presentation keeps matching frame-track and panel-width transitions
+in both directions. The sidebar and center tracks fold to zero while the open
+right track grows to the frame width, using their existing overflow clipping to
+remove underlying glass from the fullscreen rim. Conversation content retains
+its normal narrow push width (400px minimum on wide frames), avoiding repeated
+text/composer reflow during the fold. A closed panel releases the full-width track
+even when its local fullscreen choice is retained for reopening. Wide frames use
+native panel mode/open state, rather than the frame's delayed fullscreen report.
+Narrow adapted tracks ignore the native automatic-fullscreen instant flag, and
+wide fullscreen panels retain track motion through their exit/reopening. Panel
+width/mode stays fixed during the native exit slide; only the occupied frame
+track is released. Dragging and both reduced-motion preferences remain immediate.
+
+`rightbar-layout.ts` adapts DSH's derived fullscreen rule below 768px while the
+theme is active. It retains the host's requested left track, assigns 45% of the
+remaining room (capped at 340px) to the right panel, and reserves that track only
+while expanded. Docks stay mounted and retain their native edge slide, focus,
+navigation and room measurement. Native automatic-fullscreen exit collapses the
+panel; the adapter instead toggles its local presentation with matching accessible
+copy, tooltip text/keycaps and glyph. The original SVG stays mounted; CSS supplies
+the fullscreen glyph only in adapted push mode. The effective `aria-keyshortcuts`
+binding routes the same toggle from a visible docked pane, after local handlers
+and before the host's window-bubble dispatch. Modals/menus, composition, AltGraph,
+repeats and unrelated/hidden/floating focus do not trigger a second native action.
+This temporary choice resets when leaving the narrow breakpoint; no DSH preference
+or Session layout is rewritten. Off/disposal restores owned markers, CSS variables
+and button/tooltip labels and releases observers, the animation frame, click/key
+and composition listeners. Native tooltip nodes, positioning and focus stay owned
+by the host; the adapter restores only label values it still owns.
 
 ## Appearance isolation
 

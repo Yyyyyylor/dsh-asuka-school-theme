@@ -2,6 +2,20 @@ import { describe, expect, it } from 'vitest'
 import { ASUKA_STYLES } from '../src/client/styles.js'
 
 describe('wallpaper compositing styles', () => {
+  it('animates menu labels once per surface without filtering or moving popup ancestors', () => {
+    const motion = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf('/* Drive one entrance per MenuSurface mount'), ASUKA_STYLES.indexOf('/* Presented deliverables'))
+    const surface = motion.split("body[data-asuka-school-theme] [data-menu-material='translucent'] {")[1]?.split('}')[0]
+    expect(surface).toContain('--asuka-menu-progress: 1;')
+    expect(surface).toContain('animation: asuka-menu-content-enter 180ms')
+    expect(surface).not.toMatch(/opacity:|transform:|translate:|filter:|will-change:/)
+    expect(motion).toContain("@property --asuka-menu-progress { syntax: '<number>'; inherits: true; initial-value: 1; }")
+    expect(motion).toContain("button > :is(span, svg):not(:has([data-menu-material]))")
+    expect(motion).toContain('translate: 0 calc((1 - var(--asuka-menu-progress)) * 4px);')
+    expect(motion).not.toContain("[aria-hidden='true']:first-child")
+    expect(motion).toContain("[data-asuka-school-reduce-motion='true'] [data-menu-material='translucent'] {\n  animation: none;")
+    expect(motion).toContain("@media (prefers-reduced-motion: reduce) {\n  body[data-asuka-school-theme] [data-menu-material='translucent'] { animation: none; }")
+  })
+
   it('gives light settings readable labels and native options an opaque color pair', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme='light'] div[role='presentation']")
     expect(ASUKA_STYLES).toContain('--dsw-alias-label-tertiary: #304452;')
@@ -40,10 +54,31 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('--asuka-settings-glass-surface:')
     expect(ASUKA_STYLES).toContain(`body[data-asuka-school-theme] ${settingsDialog} {`)
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-scene='night'] {")
-    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));')
+    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(2px) saturate(1.15) brightness(var(--asuka-settings-mask-brightness));')
     expect(ASUKA_STYLES).toContain('--asuka-settings-glass-blur: 48px;')
-    expect(ASUKA_STYLES).toContain('--asuka-liquid-blur: var(--asuka-settings-glass-blur);')
-    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(var(--asuka-settings-glass-blur)) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);')
+    expect(ASUKA_STYLES).toContain('backdrop-filter: blur(var(--asuka-settings-glass-blur)) var(--asuka-liquid-filter, blur(0px)) saturate(1.4) brightness(var(--asuka-settings-glass-brightness));')
+    const dialogRule = ASUKA_STYLES.split(`body[data-asuka-school-theme] ${settingsDialog} {`)[1]?.split('}')[0]
+    expect(dialogRule).toContain('backdrop-filter: none;')
+    expect(dialogRule).toContain('background: transparent;')
+    expect(dialogRule).not.toContain('var(--asuka-settings-paint-edge)')
+    expect(dialogRule).not.toContain('border-box;')
+    const rimRule = ASUKA_STYLES.split(`body[data-asuka-school-theme] ${settingsDialog}::after {`)[1]?.split('}')[0]
+    expect(rimRule).toContain('var(--asuka-settings-paint-edge)')
+    expect(rimRule).toContain('mask-composite: exclude;')
+    expect(rimRule).toContain('pointer-events: none;')
+    expect(rimRule).toContain('--asuka-settings-paint-edge: var(--asuka-settings-glass-edge);')
+    expect(rimRule).toContain('circle 110px at var(--asuka-liquid-light-x)')
+    expect(ASUKA_STYLES).toContain("@property --asuka-liquid-light-strength { syntax: '<number>'; inherits: false; initial-value: 0; }")
+    expect(ASUKA_STYLES).toContain('--asuka-liquid-light-strength 180ms ease-out;')
+    expect(ASUKA_STYLES).toContain(`body[data-asuka-school-theme][data-asuka-liquid-engine='true'] ${settingsDialog}::after { opacity: 0.82; }`)
+    expect(ASUKA_STYLES).toContain(`body[data-asuka-school-theme][data-asuka-liquid-engine='true'][data-asuka-school-details='false'] ${settingsDialog}::after { opacity: 0.38; }`)
+    const paintRule = ASUKA_STYLES.split(`body[data-asuka-school-theme] ${settingsDialog}::before {`)[1]?.split('}')[0]
+    expect(paintRule).toContain('--asuka-settings-paint-surface: var(--asuka-settings-glass-surface);')
+    expect(paintRule).toContain('linear-gradient(145deg, var(--asuka-settings-paint-surface)')
+    const entrance = ASUKA_STYLES.split('@keyframes asuka-settings-panel-enter {')[1]?.split('/*')[0]
+    expect(entrance).toContain('translateY(10px) scale(0.98)')
+    expect(entrance).not.toContain('opacity:')
+    expect(ASUKA_STYLES).toContain(`${settingsDialog} > * {\n  animation: asuka-settings-mask-enter 240ms ease-out both;`)
     expect(ASUKA_STYLES).toContain('linear-gradient(135deg, var(--asuka-settings-paint-edge)')
     expect(ASUKA_STYLES).toContain("[role='dialog'][aria-modal='true']::before {")
     expect(ASUKA_STYLES).toContain('--dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);')
@@ -79,7 +114,7 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).not.toContain('var(--dsw-alias-bg-base) 36px')
   })
 
-  it('insets occupants without changing native tracks, handles or popup containing blocks', () => {
+  it('insets occupants and changes tracks only for split normalization and narrow rightbar room', () => {
     const floating = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf('/* DSH 0.2\'s frame'), ASUKA_STYLES.indexOf("body[data-asuka-school-theme] [data-composer-card] button"))
     expect(floating).toContain("[data-sidebar-collapsed] [data-slot='sidebar'] > *")
     expect(floating).toContain('--asuka-floating-rail-gap: 4px;')
@@ -96,7 +131,9 @@ describe('wallpaper compositing styles', () => {
     expect(floating).toMatch(/\)::before \{[^}]*backdrop-filter: blur\(var\(--asuka-glass-blur\)\)/)
     expect(floating).not.toMatch(/overflow:|transform:|position: fixed/)
     expect(floating).toContain("[data-dockkit-split] > [data-dockkit-divider]::after {\n  top: var(--asuka-floating-radius);\n  bottom: var(--asuka-floating-radius);")
-    expect(floating.match(/grid-template-columns\s*:/g)).toHaveLength(1)
+    expect(floating.match(/grid-template-columns\s*:/g)).toHaveLength(4)
+    expect(floating).toContain("div[data-asuka-narrow-rightbar]:has(> [data-rightbar-col])")
+    expect(floating).toContain('grid-template-columns: var(--asuka-narrow-sidebar-width) minmax(0, 1fr) minmax(0, var(--asuka-narrow-track-width)) !important;')
     expect(floating).toContain('grid-template-columns: minmax(0, 1fr) 0px minmax(0, 0fr) !important;')
     expect(floating).toContain("[data-asuka-school-reduce-motion='true']")
     expect(floating).toContain('@media (max-width: 640px)')
@@ -107,8 +144,17 @@ describe('wallpaper compositing styles', () => {
   it('arms native track motion before the host animation flag and preserves instant layout paths', () => {
     expect(ASUKA_STYLES).toContain("div:has(> [data-rightbar-col]) {\n  transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);")
     expect(ASUKA_STYLES).toContain(":is([data-dragging], [data-rightbar-fullscreen], [data-rightbar-instant]) {\n  transition: none;")
-    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] div:has(> [data-rightbar-col]) { transition: none; }")
+    expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme] div:has(> [data-rightbar-col]) { transition: none !important; }")
     expect(ASUKA_STYLES).toMatch(/\[data-asuka-school-reduce-motion='true'\] :is\(\s+div:has\(> \[data-rightbar-col\]\)/)
+  })
+
+  it('shows a fullscreen glyph only for the adapted narrow push button without replacing host artwork', () => {
+    const narrow = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf('/* Interpolate the same three tracks'), ASUKA_STYLES.indexOf('@media (max-width: 767px) and (prefers-reduced-motion: reduce)'))
+    expect(narrow).toContain("[data-sidebar-right-mode][data-asuka-rightbar-mode='push'] > svg { display: none; }")
+    expect(narrow).toContain("[data-sidebar-right-mode][data-asuka-rightbar-mode='push']::before {")
+    expect(narrow).toContain('width: 15px;\n    height: 15px;')
+    expect(narrow).toContain('background-repeat: no-repeat;')
+    expect(narrow).not.toContain("[data-asuka-rightbar-mode='fullscreen'] > svg")
   })
 
   it('interpolates dock split tracks and fullscreen width without delaying captured pointer resizing', () => {
@@ -121,11 +167,24 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain('grid-template-columns: minmax(0, 1fr) 0px minmax(0, 0fr) !important;')
     expect(ASUKA_STYLES).toContain('div:has([data-dockkit-pointer]) {\n  transition: none !important;')
     expect(ASUKA_STYLES).toContain('[data-dragging] [data-sidebar-right-panel],')
-    expect(ASUKA_STYLES).toContain('@media (max-width: 767px) {\n  body[data-asuka-school-theme] [data-sidebar-right-panel] { transition: none; }')
+    expect(ASUKA_STYLES).toContain("div[data-asuka-narrow-rightbar='fullscreen']:has(> [data-rightbar-col]):has([data-sidebar-right-open]) {\n    grid-template-columns: 0px minmax(0, 1fr) minmax(0, var(--asuka-narrow-full-width)) !important;")
+    expect(ASUKA_STYLES).not.toContain('body[data-asuka-school-theme] [data-sidebar-right-panel] { transition: none; }')
+    expect(ASUKA_STYLES).toContain('grid-template-columns: 0px minmax(0, 1fr) minmax(0, 100%) !important;')
+    expect(ASUKA_STYLES).toContain("[data-asuka-narrow-rightbar] [data-slot='main.conversation'] > * {\n    min-width: calc(var(--asuka-narrow-full-width) - var(--asuka-narrow-sidebar-width) - var(--asuka-narrow-panel-width));")
     const reduced = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf("body[data-asuka-school-theme][data-asuka-school-reduce-motion='true'] :is("))
     expect(reduced).toContain('[data-sidebar-right-panel],')
     expect(reduced).toContain('[data-sidebar-right-panel] [data-dockkit-surface] > div,')
     expect(reduced).toContain(') { animation: none; transition: none !important; }')
+  })
+
+  it('keeps narrow open/close tracks moving through native auto-fullscreen instant flags', () => {
+    const narrow = ASUKA_STYLES.slice(ASUKA_STYLES.indexOf('@media (max-width: 767px) {'), ASUKA_STYLES.indexOf('@media (max-width: 767px) and (prefers-reduced-motion: reduce)'))
+    expect(narrow).toContain('transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out) !important;')
+    expect(narrow).not.toContain('[data-rightbar-instant]')
+    expect(narrow).toContain("[data-asuka-narrow-rightbar][data-dragging]")
+    expect(narrow).toContain("[data-asuka-school-reduce-motion='true']")
+    expect(narrow).toContain("[data-asuka-narrow-rightbar='fullscreen'] [data-sidebar-right-panel] {\n    width: var(--asuka-narrow-full-width) !important;")
+    expect(ASUKA_STYLES).toContain(":has([data-sidebar-right-panel='fullscreen'][data-sidebar-right-open]:not([hidden], [hidden] *)) {\n    grid-template-columns: 0px")
   })
 
   it('paints menu shells and file cards without filtering their interactive content ancestors', () => {
@@ -138,6 +197,27 @@ describe('wallpaper compositing styles', () => {
     expect(fileShell).not.toMatch(/backdrop-filter|overflow|transform/)
     expect(ASUKA_STYLES).toContain(":is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button {\n  border-radius: 0;")
     expect(ASUKA_STYLES).toContain("[data-size='compact']:has(> button:focus-visible)")
+  })
+
+  it('keeps trigger-menu scroll hints separate from the full-size liquid rim', () => {
+    expect(ASUKA_STYLES).toContain("[data-asuka-liquid-glass='true']:not([data-trigger-menu])::after,")
+    expect(ASUKA_STYLES).toContain("[data-trigger-menu][data-asuka-liquid-glass='true'] > [aria-hidden='true']:first-child::after,")
+    expect(ASUKA_STYLES).not.toContain("[data-asuka-liquid-glass='true']::after {")
+    const rim = ASUKA_STYLES.split("[data-trigger-menu][data-menu-material='translucent'] > [aria-hidden='true']:first-child::after {")[1]?.split('}')[0]
+    expect(rim).toContain('inset: 0;')
+    expect(rim).toContain('mask-composite: exclude;')
+    expect(rim).toContain('pointer-events: none;')
+    expect(ASUKA_STYLES).not.toMatch(/\[data-overflow-below\][^{]*\{/)
+  })
+
+  it('uses the final menu material before the asynchronous lens is ready', () => {
+    const firstPaint = "body[data-asuka-school-theme][data-asuka-liquid-engine='true'] [data-menu-material='translucent']"
+    expect(ASUKA_STYLES).toContain(`${firstPaint} {\n  --asuka-liquid-blur: 5px;`)
+    expect(ASUKA_STYLES).toContain(`${firstPaint} {\n  --asuka-liquid-filter: blur(0px);`)
+    const material = ASUKA_STYLES.split(`${firstPaint} > [aria-hidden='true']:first-child {`)[1]?.split('}')[0]
+    expect(material).toContain('backdrop-filter: blur(var(--asuka-liquid-blur)) var(--asuka-liquid-filter) saturate(1.35)')
+    expect(material).toContain('inset 0 2px 1px -1px var(--asuka-glass-highlight)')
+    expect(ASUKA_STYLES).toContain(`${firstPaint}:not([data-trigger-menu])::after,`)
   })
 
   it('masks DSH sticky code banners with the Phase-1 solid theme surface', () => {

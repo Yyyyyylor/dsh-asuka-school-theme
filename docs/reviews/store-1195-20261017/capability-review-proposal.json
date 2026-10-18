@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "documentType": "author-commissioned-capability-review-proposal",
+  "authority": "proposal-only-not-a-store-registry",
+  "appliedToStore": false,
+  "record": {
+    "repositoryUrl": "https://github.com/Yyyyyylor/dsh-asuka-school-theme",
+    "commit": "5173509ca8249141f6a64e2449d2b46bf813f8d1",
+    "binding": "8d0908d819aae48ae0ffe3d6b7a2684facc07fe1bedb8abd42982cf0f0ee0a35",
+    "verdict": "approved",
+    "reviewer": "Codex, commissioned by the plugin author; not a DSH Store maintainer",
+    "reviewedAt": "2026-10-17",
+    "rationale": "Author-commissioned capability-only recommendation. Three fixed public wallpaper files are streamed via exact GET/HEAD same-origin DSH routes. Settings and explicit current-session title changes use host APIs; no arbitrary files, outbound services, commands or credential reads. Supply-chain approval is not included.",
+    "evidenceUrls": [
+      "https://github.com/Yyyyyylor/dsh-asuka-school-theme/commit/5173509ca8249141f6a64e2449d2b46bf813f8d1",
+      "https://github.com/Yyyyyylor/dsh-asuka-school-theme/blob/5173509ca8249141f6a64e2449d2b46bf813f8d1/lib/index.js",
+      "https://github.com/Yyyyyylor/dsh-asuka-school-theme/blob/5173509ca8249141f6a64e2449d2b46bf813f8d1/lib/client.js"
+    ],
+    "permissions": {
+      "level": "high",
+      "files": "read-only",
+      "network": "specified-services",
+      "commands": "none",
+      "credentials": [
+        "none"
+      ]
+    }
+  },
+  "validation": {
+    "recordShapeValid": true,
+    "admissionWithCapabilityProposalOnly": "review-required"
+  }
+}

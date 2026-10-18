@@ -166,16 +166,11 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [aria-hidden='true'] {
   --asuka-settings-paint-mask: var(--asuka-settings-mask);
   background: linear-gradient(145deg, var(--asuka-settings-paint-mask), rgb(0 0 0 / 0.06));
-  -webkit-backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
-  backdrop-filter: blur(10px) saturate(1.2) brightness(var(--asuka-settings-mask-brightness));
+  -webkit-backdrop-filter: blur(2px) saturate(1.15) brightness(var(--asuka-settings-mask-brightness));
+  backdrop-filter: blur(2px) saturate(1.15) brightness(var(--asuka-settings-mask-brightness));
   animation: asuka-settings-mask-enter 200ms ease-out both;
 }
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] {
-  --asuka-settings-paint-surface: var(--asuka-settings-glass-surface);
-  --asuka-settings-paint-flare-a: var(--asuka-settings-glass-flare-a);
-  --asuka-settings-paint-flare-b: var(--asuka-settings-glass-flare-b);
-  --asuka-settings-paint-edge: var(--asuka-settings-glass-edge);
-  --asuka-settings-paint-edge-soft: var(--asuka-settings-glass-edge-soft);
   --dsw-alias-bg-layer-1: var(--asuka-settings-glass-layer-1);
   --dsw-alias-bg-layer-2: var(--asuka-settings-glass-layer-2);
   --dsw-alias-bg-layer-3: var(--asuka-settings-glass-layer-3);
@@ -186,13 +181,9 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
   --dsw-specific-sidebar-nav-item-active: var(--asuka-settings-glass-layer-3);
   isolation: isolate;
   border: 1px solid transparent;
-  background:
-    radial-gradient(100% 54% at 8% 0%, var(--asuka-settings-paint-flare-a), transparent 58%) padding-box,
-    radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-paint-flare-b), transparent 64%) padding-box,
-    linear-gradient(145deg, var(--asuka-settings-paint-surface), color-mix(in srgb, var(--asuka-settings-paint-surface) 78%, transparent)) padding-box,
-    linear-gradient(135deg, var(--asuka-settings-paint-edge), var(--asuka-settings-paint-edge-soft) 34%, var(--asuka-settings-paint-flare-b) 70%, var(--asuka-settings-paint-edge)) border-box;
-  -webkit-backdrop-filter: blur(var(--asuka-settings-glass-blur)) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
-  backdrop-filter: blur(var(--asuka-settings-glass-blur)) saturate(1.72) brightness(var(--asuka-settings-glass-brightness)) contrast(1.02);
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   box-shadow:
     inset 0 1px 0 var(--asuka-settings-glass-highlight),
     inset 1px 0 0 var(--asuka-settings-glass-edge-soft),
@@ -202,7 +193,9 @@ body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'
     0 30px 96px var(--asuka-settings-glass-shadow);
   animation: asuka-settings-panel-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']),
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before,
+body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after {
   transition:
     --asuka-settings-paint-surface 560ms ease-in-out,
     --asuka-settings-paint-flare-a 560ms ease-in-out,
@@ -210,34 +203,84 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[
     --asuka-settings-paint-edge 560ms ease-in-out,
     --asuka-settings-paint-edge-soft 560ms ease-in-out,
     --asuka-settings-paint-mask 560ms ease-in-out,
+    --asuka-liquid-light-x 140ms ease-out,
+    --asuka-liquid-light-y 140ms ease-out,
+    --asuka-liquid-light-strength 180ms ease-out,
     background-color 560ms ease-in-out;
 }
 body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before {
+  --asuka-settings-paint-surface: var(--asuka-settings-glass-surface);
+  --asuka-settings-paint-flare-a: var(--asuka-settings-glass-flare-a);
+  --asuka-settings-paint-flare-b: var(--asuka-settings-glass-flare-b);
   content: '';
   position: absolute;
   inset: 1px;
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
+  /* Keep the same painted layer before and after asynchronous lens decoding. */
+  -webkit-backdrop-filter: blur(var(--asuka-settings-glass-blur)) var(--asuka-liquid-filter, blur(0px)) saturate(1.4) brightness(var(--asuka-settings-glass-brightness));
+  backdrop-filter: blur(var(--asuka-settings-glass-blur)) var(--asuka-liquid-filter, blur(0px)) saturate(1.4) brightness(var(--asuka-settings-glass-brightness));
   background:
     linear-gradient(105deg, transparent 18%, rgb(255 255 255 / 0.08) 46%, transparent 70%),
-    radial-gradient(70% 18% at 50% 0%, var(--asuka-settings-glass-highlight), transparent 100%);
+    radial-gradient(70% 18% at 50% 0%, var(--asuka-settings-glass-highlight), transparent 100%),
+    radial-gradient(100% 54% at 8% 0%, var(--asuka-settings-paint-flare-a), transparent 58%),
+    radial-gradient(90% 72% at 100% 100%, var(--asuka-settings-paint-flare-b), transparent 64%),
+    linear-gradient(145deg, var(--asuka-settings-paint-surface), color-mix(in srgb, var(--asuka-settings-paint-surface) 78%, transparent));
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.055);
 }
+/* A border-box background also paints beneath the entire translucent center.
+   Mask the edge gradient to a rim instead of adding a second panel-wide tint. */
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after {
+  --asuka-settings-paint-edge: var(--asuka-settings-glass-edge);
+  --asuka-settings-paint-edge-soft: var(--asuka-settings-glass-edge-soft);
+  --asuka-settings-paint-flare-b: var(--asuka-settings-glass-flare-b);
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 110px at var(--asuka-liquid-light-x) var(--asuka-liquid-light-y), color-mix(in srgb, var(--asuka-settings-glass-highlight) calc(var(--asuka-liquid-light-strength) * 100%), transparent), transparent 100%),
+    linear-gradient(135deg, var(--asuka-settings-paint-edge), var(--asuka-settings-paint-edge-soft) 34%, var(--asuka-settings-paint-flare-b) 70%, var(--asuka-settings-paint-edge));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+/* Match the decoded rim even if Settings' first map is still decoding. */
+body[data-asuka-school-theme][data-asuka-liquid-engine='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after { opacity: 0.82; }
+body[data-asuka-school-theme][data-asuka-liquid-engine='true'][data-asuka-school-details='false'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after { opacity: 0.38; }
 @keyframes asuka-settings-mask-enter {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 @keyframes asuka-settings-panel-enter {
-  from { opacity: 0; transform: translateY(10px) scale(0.98); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(10px) scale(0.98); }
+  to { transform: none; }
 }
-body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+/* Opacity on the dialog makes it a Backdrop Root and prevents its painted
+   child from sampling the page until the fade ends. Fade only its content. */
+body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] > * {
+  animation: asuka-settings-mask-enter 240ms ease-out both;
+}
+body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] > * {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true'] > * { animation: none; }
+}
+body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']),
+body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before,
+body[data-asuka-school-reduce-motion='true'] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after {
   animation: none;
   transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']) {
+  body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > :is([aria-hidden='true'], [role='dialog'][aria-modal='true']),
+  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::before,
+  body[data-asuka-school-theme] div[role='presentation']:has(> [aria-hidden='true'] + [role='dialog'][aria-modal='true']) > [role='dialog'][aria-modal='true']::after {
     animation: none;
     transition: none;
   }
@@ -279,6 +322,31 @@ body[data-asuka-school-theme] [data-menu-material='translucent'] > [aria-hidden=
   background-image: var(--asuka-glass-sheen);
   -webkit-backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
   backdrop-filter: blur(var(--asuka-glass-blur)) saturate(var(--asuka-glass-saturate)) brightness(var(--asuka-glass-brightness));
+}
+/* Drive one entrance per MenuSurface mount, including portaled/nested menus.
+   Keep opacity/transform off the shell and content wrappers: either can change
+   backdrop sampling or the containing block of a fixed submenu. Only labels
+   and icons move; native hit targets, placement and glass paint stay stable.
+   DSH removes these menus immediately on close, without an exit lifecycle. */
+@property --asuka-menu-progress { syntax: '<number>'; inherits: true; initial-value: 1; }
+body[data-asuka-school-theme] [data-menu-material='translucent'] {
+  --asuka-menu-progress: 1;
+  animation: asuka-menu-content-enter 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+body[data-asuka-school-theme] [data-menu-material='translucent'] button > :is(span, svg):not(:has([data-menu-material])),
+body[data-asuka-school-theme] [data-menu-material='translucent'] [data-menu-group-heading] {
+  opacity: var(--asuka-menu-progress);
+  translate: 0 calc((1 - var(--asuka-menu-progress)) * 4px);
+}
+@keyframes asuka-menu-content-enter {
+  from { --asuka-menu-progress: 0; }
+  to { --asuka-menu-progress: 1; }
+}
+body[data-asuka-school-theme][data-asuka-school-reduce-motion='true'] [data-menu-material='translucent'] {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] [data-menu-material='translucent'] { animation: none; }
 }
 /* Presented deliverables use static neutral fills in DSH. Their native preview
    hit target, portal actions and clipping stay intact; only the paint changes. */
@@ -429,7 +497,7 @@ body[data-asuka-school-theme] div:has(> [data-rightbar-col]):is([data-dragging],
   transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-asuka-school-theme] div:has(> [data-rightbar-col]) { transition: none; }
+  body[data-asuka-school-theme] div:has(> [data-rightbar-col]) { transition: none !important; }
 }
 body[data-asuka-school-theme] div:has(> [data-slot='sidebar']) {
   background: transparent;
@@ -505,9 +573,78 @@ body[data-asuka-school-theme] [data-dragging] [data-sidebar-right-panel] [data-d
 body[data-asuka-school-theme] [data-sidebar-right-panel] [data-dockkit-surface] > div:has([data-dockkit-pointer]) {
   transition: none !important;
 }
-/* Narrow screens use the host's automatic fullscreen slide, not a width morph. */
+/* Interpolate the same three tracks and right-anchored panel in both modes.
+   Fullscreen also folds the native clipped sidebar/center columns to zero,
+   so their glass does not show through the fullscreen pane's left rim. */
+@media (min-width: 768px) {
+  body[data-asuka-school-theme] div:has(> [data-rightbar-col]):has([data-sidebar-right-open], [data-sidebar-right-panel='fullscreen']:not([hidden], [hidden] *)):not([data-dragging]) {
+    transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out);
+  }
+  body[data-asuka-school-theme] div:has(> [data-rightbar-col]):has([data-sidebar-right-panel='fullscreen'][data-sidebar-right-open]:not([hidden], [hidden] *)) {
+    grid-template-columns: 0px minmax(0, 1fr) minmax(0, 100%) !important;
+  }
+  body[data-asuka-school-theme] div:has(> [data-rightbar-col]):has([data-sidebar-right-open]) [data-slot='main.conversation'] > * {
+    min-width: 400px;
+  }
+}
 @media (max-width: 767px) {
-  body[data-asuka-school-theme] [data-sidebar-right-panel] { transition: none; }
+  body[data-asuka-school-theme] div[data-asuka-narrow-rightbar]:has(> [data-rightbar-col]) {
+    grid-template-columns: var(--asuka-narrow-sidebar-width) minmax(0, 1fr) minmax(0, var(--asuka-narrow-track-width)) !important;
+    /* Native auto-fullscreen leaves its instant flag during close/reopen.
+       Our push/fullscreen tracks must keep pace with the native pane slide. */
+    transition: grid-template-columns var(--ds-transition-duration-slow) var(--ds-ease-in-out) !important;
+  }
+  body[data-asuka-school-theme] div[data-asuka-narrow-rightbar='fullscreen']:has(> [data-rightbar-col]):has([data-sidebar-right-open]) {
+    grid-template-columns: 0px minmax(0, 1fr) minmax(0, var(--asuka-narrow-full-width)) !important;
+  }
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar='push'] [data-sidebar-right-panel] {
+    width: var(--asuka-narrow-panel-width) !important;
+    --dsh-sidebar-width: var(--asuka-narrow-panel-width) !important;
+  }
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar='fullscreen'] [data-sidebar-right-panel] {
+    width: var(--asuka-narrow-full-width) !important;
+  }
+  /* The existing center column clips its content. Keep a readable content
+     width while that column folds, rather than reflowing text into one letter
+     per line or changing composer height throughout the fullscreen motion. */
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar] [data-slot='main.conversation'] > * {
+    min-width: calc(var(--asuka-narrow-full-width) - var(--asuka-narrow-sidebar-width) - var(--asuka-narrow-panel-width));
+  }
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar] [data-slot='sidebar'] > * {
+    width: calc(var(--asuka-narrow-sidebar-width) - 2 * var(--asuka-floating-inline-gap)) !important;
+  }
+  /* The host derives an exit glyph for every narrow viewport. Show an owned
+     fullscreen glyph in our push mode without replacing React's SVG nodes. */
+  body[data-asuka-school-theme] [data-sidebar-right-mode][data-asuka-rightbar-mode='push'] > svg { display: none; }
+  body[data-asuka-school-theme] [data-sidebar-right-mode][data-asuka-rightbar-mode='push']::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background:
+      linear-gradient(currentColor 0 0) left top / 5px 1px,
+      linear-gradient(currentColor 0 0) left top / 1px 5px,
+      linear-gradient(currentColor 0 0) right top / 5px 1px,
+      linear-gradient(currentColor 0 0) right top / 1px 5px,
+      linear-gradient(currentColor 0 0) left bottom / 5px 1px,
+      linear-gradient(currentColor 0 0) left bottom / 1px 5px,
+      linear-gradient(currentColor 0 0) right bottom / 5px 1px,
+      linear-gradient(currentColor 0 0) right bottom / 1px 5px;
+    background-repeat: no-repeat;
+  }
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar='push'] [class*='_heroWorkspaceRow'] {
+    flex-wrap: wrap;
+  }
+  body[data-asuka-school-theme] [data-asuka-narrow-rightbar='push'] [class*='_heroWorkspaceRow'] > button {
+    min-width: 0;
+    max-width: 100%;
+  }
+  body[data-asuka-school-theme] div[data-asuka-narrow-rightbar][data-dragging]:has(> [data-rightbar-col]),
+  body[data-asuka-school-theme][data-asuka-school-reduce-motion='true'] div[data-asuka-narrow-rightbar]:has(> [data-rightbar-col]) {
+    transition: none !important;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  body[data-asuka-school-theme] div[data-asuka-narrow-rightbar]:has(> [data-rightbar-col]) { transition: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   body[data-asuka-school-theme] [data-sidebar-right-panel],

@@ -1,0 +1,1 @@
+{"version":3,"file":"rightbar-layout.d.ts","sourceRoot":"","sources":["../../src/client/rightbar-layout.ts"],"names":[],"mappings":"AAMA,+EAA+E;AAC/E,wBAAgB,oBAAoB,CAAC,KAAK,EAAE,MAAM,EAAE,OAAO,EAAE,MAAM;;;EAGlE;AAcD,6EAA6E;AAC7E,wBAAgB,uBAAuB,CAAC,KAAK,EAAE,aAAa,EAAE,QAAQ,EAAE,MAAM,GAAG,OAAO,CAYvF;AAED;oFACoF;AACpF,wBAAgB,2BAA2B,CAAC,IAAI,GAAE,QAAmB,GAAG,MAAM,IAAI,CAoLjF"}

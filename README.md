@@ -72,6 +72,13 @@ sidebar, header, menus and Settings on Chromium, with a curved highlight rim
 and subtle dispersion on compact controls. Settings uses a stronger 48px
 background blur while keeping its translucent tint and rim highlights.
 Other engines retain frosted glass.
+On narrow windows, the right sidebar shares the available width with the main
+content instead of automatically covering it; its fullscreen button remains available.
+Its button glyph, tooltip and keyboard shortcut follow the displayed layout;
+exiting fullscreen returns to the shared width while keeping the sidebar open.
+Fullscreen entry and exit animate the sidebar and main area together, with one
+glass rim and stable conversation content during the transition.
+Pointer highlights respond softly near the rim and fade when the pointer leaves.
 Both reduced-motion preferences stop pointer-following highlights. This is a
 Web effect inspired by Liquid Glass; it does not use Apple's native material.
 See [the implementation and verification limits](docs/LIQUID-GLASS.md).
@@ -89,8 +96,14 @@ See [the implementation and verification limits](docs/LIQUID-GLASS.md).
 - Presented file cards and model submenus use matching rounded glass; file
   actions retain one shared frame and their native preview/menu behavior.
 - The composer's add menu keeps its rounded frosted glass and blurs content behind
-  it; clicking the workspace selector again closes its menu. Split dividers stop
+  it; clicking either the add button or workspace selector again closes its menu.
+  The add menu retains its bottom scroll hint separately from the glass rim. Split dividers stop
   inside the rounded edges.
+- Menu backgrounds keep the same blur, tint and rim during opening, retaining
+  refraction and pointer highlights without a delayed material switch.
+  Menu labels and icons fade in with a subtle 4px rise over 180ms; plugin/system
+  reduced motion disables this entrance. Menus still close immediately because
+  DSH does not retain them for an exit animation.
 - The left sidebar, conversation header and docked right panes float above the
   wallpaper with matching rounded glass surfaces and visible gaps. The icon rail,
   pane resizing and narrow-window fullscreen behavior remain native; title-edit

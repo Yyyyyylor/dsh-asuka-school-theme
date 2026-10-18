@@ -37,6 +37,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | Client 注册与生命周期 | `src/client/index.ts` | `tests/dsh-contract.test.ts` |
 | 工作区菜单二次点击兼容 | `src/client/workspace-picker.ts` | `tests/workspace-picker.test.ts`，外加真实浏览器交互回归 |
 | 关闭分栏动画与尺寸跟踪 | `src/client/dock-motion.ts` | `tests/dock-motion.test.ts`，外加真实 DSH 尺寸与分栏按钮验证 |
+| 窄窗口右栏并排布局 | `src/client/rightbar-layout.ts`、`src/client/styles.ts` | `tests/rightbar-layout.test.ts`，外加真实 DSH 开关、全屏和窗口尺寸验证 |
 | 场景与设置协调 | `src/client/controller.ts` | `tests/controller.test.ts` |
 | 主题 token 和启停恢复 | `src/client/presentation.ts`、`src/client/themes/` | `tests/themes.test.ts`、`tests/styles.test.ts` |
 | 壁纸加载、预载与切换 | `src/shared/wallpapers.ts`、`src/client/wallpaper/runtime.ts` | `tests/wallpaper-runtime.test.ts`、`tests/asset-route.test.ts` |
@@ -52,6 +53,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | --- | --- | --- |
 | [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.0-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
+| [#1195 供应链审核](reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) / [能力审核](reviews/store-1195-20261017/CAPABILITY-REVIEW.md) | 已发布 3.2.2 固定提交的两项审核证据、实际解析差异和未获商城批准的边界 | 维护者正式审阅登记或后续固定源复核时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |
 | [theme-token-map.md](theme-token-map.md) | DSH/Shiki token 覆盖范围 | 改主题颜色、按钮、sidebar、composer 或代码块时 |
 | [LIQUID-GLASS.md](LIQUID-GLASS.md) | 未发布的网页折射实现、Desktop 能力核对和验证边界 | 改透镜、滤镜、材质或浏览器回退时 |

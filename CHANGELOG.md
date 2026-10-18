@@ -9,11 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Added a 180ms fade and subtle rise for native menu labels/icons and group headings, including the add, workspace, preset, permission, model and Settings dropdown menus. Glass layers and hit targets stay fixed; both reduced-motion preferences disable the entrance. DSH still unmounts menus immediately on close, so no exit animation is added.
 - Added Chromium background refraction to composer, sidebar, header, dock panes, native translucent menus and Settings. Size-aware rounded lens maps bend the rim while keeping the center flat; compact controls use restrained color dispersion and pointer-following edge light. Reply and code materials retain their existing readable treatment.
 - Retained frosted glass on unsupported engines, during resizing and when lens images cannot decode. Lens resources and pointer/observer work are owned by the plugin lifecycle; Off removes them, and both reduced-motion preferences stop moving highlights. This is a Web approximation, not Apple native Liquid Glass.
 
 ### Fixed
 
+- Kept right-sidebar open/close motion synchronized through the host's automatic-fullscreen instant flag. Fullscreen panels retain their width while sliding out, and wide fullscreen reopening follows the visible panel state without a delayed frame jump; glass, content styling and fullscreen-toggle behavior remain unchanged.
+- Smoothed right-sidebar fullscreen entry and exit with synchronized frame/panel widths. Fullscreen folds the underlying navigation and main columns away, removing the doubled left glass rim; conversation content retains a readable width during the fold to avoid vertical text and composer-height jumps. Reduced-motion and pointer resizing remain immediate.
+- Synchronized the narrow right-sidebar fullscreen button's glyph, tooltip and accessible label with its actual layout. Its effective keyboard shortcut now uses the same local toggle, so exiting fullscreen restores the shared main/sidebar width instead of collapsing the sidebar; native wide-window behavior and modal/input guards remain intact.
+- Stabilized large/small menu backgrounds from their first paint: supported menus now keep their existing 5px blur, saturation, depth and rim while their local lens decodes. New surfaces are discovered before paint instead of after a 100ms delay; native motion, refraction, pointer highlights and resize debouncing remain intact.
+- Separated the add menu's full-height glass rim from its native bottom scroll fade, removing the bright internal stripe. Repeated add-button activation now closes the visible command menu through the editor's existing Escape handling, preserving drafts, selection and outside dismissal.
+- Kept header/composer glass attached through sidebar width transitions and atomically replaced decoded lens maps, eliminating the switch to a different blur/tint during room resizing. Pointer reflections now respond softly near the rim and fade out at their last location.
+- Restored the Settings glass center by painting the translucent tint once on its blurred background layer and masking the edge gradient to the rim, instead of stacking a border-box gradient across the entire panel.
+- Stabilized the Settings entrance material before and after lens decoding, keeping its blur on one background layer. Content still fades in, while entrance scaling no longer changes lens raster dimensions or triggers an unnecessary fallback.
+- Kept the right sidebar beside the main content on narrow windows while the theme is active, rather than covering it automatically. Opening reserves room and closing restores it; manual fullscreen and reduced motion remain available.
 - Increased Settings background blur to 48px while retaining the translucent scene tint, original modal mask, rounded rim highlights and refraction. Background details soften without making the glass opaque or blurring settings controls.
 
 ## [3.2.2] - 2026-10-01

@@ -1,5 +1,12 @@
 # DSH Store review / 商店审查说明
 
+2026-10-17 补充：针对 #1195 维护者 10 月 15 日要求，已对已发布固定提交
+`5173509ca8249141f6a64e2449d2b46bf813f8d1` 编制
+[运行依赖供应链审核](docs/reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) 和
+[文件/同源资源路由能力审核](docs/reviews/store-1195-20261017/CAPABILITY-REVIEW.md)。
+这是作者委托的证据审阅，不是商城已批准。制品完整性已核对；供应链代码求值、
+解析和来源边界仍需维护者裁定，商城 block 未解除。以下 2026-10-01 披露保留为历史材料。
+
 Author disclosure for plugin `3.2.2` (DSH `0.2.0-rc.2`),
 2026-10-01. This is a bounded source/dependency review, not an independent
 supply-chain certification or marketplace approval.

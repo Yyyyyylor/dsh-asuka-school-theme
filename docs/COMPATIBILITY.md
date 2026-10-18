@@ -6,6 +6,281 @@ pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
 only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
 evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
 
+## Right-sidebar open/close timing (2026-10-12)
+
+Real 735px DSH Web samples reproduced the host's automatic-fullscreen exit
+leaving `data-rightbar-instant` set across close/reopen. The frame jumped between
+373.45px and 679px of center room while the native pane continued its 300ms slide.
+The narrow adapter now keeps its track transition armed through that host flag.
+It also retains the selected panel mode/width while closed, releasing only the
+frame track so fullscreen exit no longer shrinks the pane during its slide.
+Wide fullscreen tracks use the native panel mode/open attributes because the
+host reports frame fullscreen only after entrance transforms finish.
+
+Windows isolated DSH Web checks covered ordinary and fullscreen open/close at
+735px and 1280px, plus quick Ctrl+Shift+B close/reopen. Intermediate geometry kept
+the pane's left edge 10px inside the frame divider; the same 8px/filter URL stayed
+attached. Fullscreen exit retained 715px pane content at 735px and 1260px content
+at 1280px through the slide. Plugin reduced motion retained immediate open/close
+and hidden exit content. The default viewport, normal motion and open push-mode
+right sidebar were restored; Morning/System, Chinese, 33% wallpaper opacity,
+0px blur and enabled details were retained.
+
+Runtime edits are limited to the right-sidebar adapter and its layout rules;
+other content/material rules are unchanged. Build, 88 tests and
+type/asset/contrast/package checks passed. OS reduced motion, Ubuntu/WSL,
+standalone Desktop/titlebar, detached panes and live streaming were not rechecked.
+No model/terminal/feedback request or real profile change was made.
+
+## Fullscreen rim and synchronized layout motion (2026-10-12)
+
+The isolated preview reproduced a doubled left rim caused by the navigation
+glass remaining behind the fullscreen panel. Narrow fullscreen also disabled
+panel-width motion and frame-track entry motion, while exit animated only the
+center track. Both modes now interpolate the same three tracks and panel width
+with the host's 300ms easing. Fullscreen folds navigation/center tracks to zero
+through their existing clipping, exposing wallpaper behind a single glass rim.
+Conversation content retains its push width (at least 400px on wide frames),
+preventing vertical text and composer-height jumps as its column folds. Closed
+panels release the fullscreen track. No content transform/opacity, new clipping
+ancestor, glass-filter change or host component replacement was introduced.
+
+Real Windows DSH Web checks covered 735px and 1280px fullscreen entry/exit,
+mouse and Ctrl+Alt+Enter, full-panel collapse/reopening, Morning/Noon Light and
+Night Dark. Geometry samples kept the panel edge aligned with the frame divider
+through intermediate widths in both directions, retaining the same 8px/filter
+URL. Narrow exit retained a 373.44px conversation and 116px composer height while
+the panel shrank from 735px to 305.55px. Plugin reduced motion set both frame
+and panel transitions to none. Restored the default viewport, Morning/System,
+Chinese, 33% wallpaper opacity, 0px blur, normal motion and enabled details.
+
+Build, 87 tests, type/asset/contrast/package checks passed. OS reduced motion is
+covered statically, not toggled live. Ubuntu/WSL, standalone Desktop/titlebar,
+live conversation/code streaming and detached panes were not rechecked. Samples
+and screenshots establish observed layout/rendering, not a GPU frame-rate
+guarantee. No model/terminal/feedback request or real profile change was made.
+
+## Narrow right-sidebar fullscreen controls (2026-10-12)
+
+The isolated Windows DSH Web preview reproduced a narrow-window mismatch:
+after exiting local fullscreen, the native glyph and tooltip still said Exit
+fullscreen, while the native fullscreen shortcut collapsed the sidebar. The
+installed host derives automatic fullscreen below 768px; its exit command
+collapses the panel before changing mode to push.
+
+The narrow layout adapter now synchronizes the button label, glyph and native
+tooltip with the displayed mode. It retains the native SVG and tooltip/keycap
+nodes, drawing the push-mode glyph through a scoped CSS marker. The shortcut
+uses the button's effective `aria-keyshortcuts`, runs after local handlers and
+before host window-bubble dispatch, and restores push without closing the dock.
+Modal/menu, composition, AltGraph, hidden/inert and dock-focus guards keep its
+scope narrow. Wide windows, theme Off and disposal restore native controls.
+
+Real browser checks covered mouse activation, Enter/Space and Ctrl+Alt+Enter,
+tooltip text/keycaps, 735px/1280px breakpoint transitions, a Settings modal,
+Chinese/English locale changes and theme Off/on. Exiting fullscreen kept the
+sidebar open beside the main area. The original viewport, Chinese language,
+Morning/System theme, 24% wallpaper opacity, 0px blur, normal motion and enabled
+details were restored, leaving the right sidebar open in push mode.
+
+Build, 87 tests and type/asset/contrast/package checks passed. Unit checks cover
+customized bindings, modifier mismatch, numpad, IME and AltGraph exclusions;
+those input variants were not all exercised in the live browser. Ubuntu/WSL,
+standalone Desktop, detached dock and terminal shortcut handling were not
+rechecked. No model/command/feedback request or real user profile change was made.
+
+## Small-menu entrance motion (2026-10-12)
+
+Installed DSH `0.2.0-rc.2` primitives expose an owner-controlled `Menu` whose
+list is rendered with `open && MenuSurface`; input-trigger `MenuView` returns
+null when closed. Neither retains a closing state. This checkout therefore adds
+entrance motion only, with no host edits, retained DOM or dismissal interception.
+Each native translucent MenuSurface animates one inherited progress value for
+180ms. Button labels/icons and group headings fade in and rise by up to 4px;
+the glass layer, shell, scrolling wrappers and native hit targets remain still.
+The progress resets locally for each nested menu, and replacement/filter rows
+reuse the current progress instead of replaying an entrance. Both reduced-motion
+preferences disable it; the theme Off state restores the native styles.
+
+Real isolated Windows DSH Web checks covered add, workspace, preset, permission,
+model and Settings language menus at 735px, plus the model menu at 1280px.
+Opening samples captured intermediate text opacity/offset and then opacity 1 /
+zero offset. Menu shells retained opacity 1, no transform/translate and 5px glass;
+header/composer retained their 8px/3px filters. Add/workspace second-click close,
+Escape and outside dismissal remained functional. The model pane's menu-to-group
+change kept progress 1. Morning/Noon Light and Night Dark screenshots retained
+readable labels and the glass rim. Plugin reduced motion produced animation none,
+0s duration and fully visible labels; theme Off restored native 40px menu blur.
+Restored the original viewport, Morning/System, 24% wallpaper opacity, 0px blur,
+normal motion, enabled details and closed right sidebar.
+
+Build, 84 tests, type/asset/contrast/package and pack checks passed. Static tests
+cover the shell/material boundary and both motion guards. OS reduced motion was
+not toggled in the browser; Ubuntu/WSL, standalone Desktop, live model streaming
+and nested fixed-submenu interaction were not rechecked. No model/command/feedback
+request or real user profile change was made.
+
+## Stable menu opening material (2026-10-12)
+
+The isolated Windows DSH Web preview reproduced add-menu opening with a 20px
+frosted background, followed by a 5px SVG glass background after the runtime's
+100ms discovery delay. Supported menus now use their final blur, saturation,
+inset depth and rim before map readiness. The optional local decoded filter is
+added to that same material layer; nested menus explicitly reset inherited
+filter URLs until their own lens is ready. Settings retains its 48px blur and
+final rim opacity from the first frame, including decorative-details Off.
+MutationObserver reconciles added/removed surfaces before paint without
+cancelling existing resize debounces. Native entrance/close behavior, pointer
+lighting and optical parameters are retained; no popup is hidden or delayed.
+
+Real browser checks covered add, workspace, preset, permission and model menus,
+the model pane's menu-to-group change, Settings, three repeated open/close cycles,
+735px/1280px windows, Morning/Noon Light and Night Dark. Opening samples retained
+5px menu material and the existing rim; header/composer retained their filter
+URLs and 8px/3px blur. Settings retained its transform entrance, 48px blur and
+shell opacity 1. Plugin reduced motion plus details Off gave zero moving light,
+`0s` rim transitions and opacity 0.38. Theme Off removed all lens markers and
+owned filter URLs, and the permission menu restored native 40px glass.
+Returned to the original viewport, Morning/System, 44% wallpaper opacity,
+0px wallpaper blur, normal motion, enabled details and closed right sidebar.
+
+Build, all 83 tests, type/asset/contrast/package and pack checks passed. Static
+regression checks cover first-paint material, local filter isolation and Settings
+rim opacity. Browser samples and screenshots are separate rendering evidence,
+not a frame-by-frame GPU guarantee. Ubuntu/WSL, standalone Desktop, OS reduced
+motion, forced image-decode failures and live model streaming were not rechecked.
+No command/model/feedback request or real user profile change was made.
+
+## Add-menu rim and repeat-toggle correction (2026-10-12)
+
+The isolated Windows DSH Web preview reproduced a 16px-high liquid rim inside
+the add menu: its native bottom scroll hint and the plugin rim shared `::after`.
+The rim now uses the native material child's full-size pseudo-element, leaving
+the host scroll fade, scrolling list, rounded clipping and backdrop blur intact.
+The same preview reproduced the launcher becoming false while the command menu
+remained visible after draft focusing. A capture-click guard closes that menu
+through the same editor's native Escape handling and suppresses reopening only
+when Escape was consumed. Pending commands are included; other source menus and
+IME composition are left to the host.
+
+Real browser checks covered 735px and 1280px, Morning/Noon Light and Night Dark,
+second clicks, rapid double-click, repeated keyboard activation, Escape, outside
+clicks, keyboard scrolling to the last command and preservation of a test draft.
+The scroll fade retained its native 16px height/bottom inset and disappeared at
+the bottom; the independent rim retained full material height and glass blur.
+Plugin reduced motion gave the rim zero strength and `0s` transitions. Restored
+Morning, System appearance, 44% opacity, 0px wallpaper blur, normal motion and
+the original viewport; removed the temporary unsent test draft.
+
+Build, all 82 tests, type/asset/contrast/package and pack checks passed. Guard
+unit tests cover filtering, consumed/unconsumed close events, IME bypass and
+listener disposal; CSS checks cover layer separation. These are separate from
+the real browser checks. Ubuntu/WSL, standalone Desktop, OS reduced motion and
+actual command execution were not rechecked; no model or feedback was sent.
+
+## Continuous glass during right-sidebar motion (2026-10-12)
+
+In the real isolated Windows DSH Web preview, opening the right sidebar
+reproduced header/composer lens markers disappearing during width motion:
+their backgrounds switched to the 20px frosted fallback and returned to
+8px/3px SVG glass afterwards. The runtime now keeps the decoded filter attached,
+stretches its map through room changes, and atomically installs the next decoded
+map after the 100ms settling debounce. Replacement failures retain the old map.
+
+The pointer reflection is now a local 110px light, attenuated by distance from
+the rim, with 140ms position easing and 180ms strength fading on the painted
+pseudo-element. Leaving a surface preserves its last coordinates while fading
+strength to zero. Reduced motion clears owned pointer properties and transitions.
+
+Checked open/close transition samples at 735px and 1280px, three rapid keyboard
+toggles, matching image/layout widths during motion, and pointer transfer from
+header to composer. Samples retained the same filter URLs and 8px/3px blur.
+The header's light visibly eased to zero at its last coordinates rather than
+jumping to a corner. Plugin reduced motion produced zero strength and `0s`
+rim transitions; theme Off left zero owned filter/pointer references and lens
+markers. Re-enabling restored glass. Restored the original viewport, Morning,
+44% wallpaper opacity, 0px wallpaper blur and normal motion.
+
+Build, all 79 tests, type/asset/contrast/package and pack checks passed. The new
+pure highlight test covers center suppression, edge attenuation and bounds;
+static rules cover local paint easing. Real browser samples are separate from
+those tests and do not constitute frame-by-frame GPU verification. Ubuntu/WSL,
+standalone Desktop, OS reduced motion and injected decode failures were not
+rechecked. No model request or real user profile change was made.
+
+## Settings glass center correction (2026-10-12)
+
+Follow-up visual feedback showed that stable blur alone did not preserve the
+glass appearance. The old border-box gradient painted beneath the full center,
+stacking with the translucent fill. Settings now paints its existing tint once
+on the blurred pseudo-element, leaves the shell transparent, and masks the
+edge gradient/pointer highlight to a two-pixel rim. Tint/blur constants were not
+increased. Local non-inherited paint colors are assigned on their actual layers.
+
+Real isolated Windows DSH Web checks used the 735px in-app browser with 100%
+wallpaper opacity and 0px wallpaper blur. The Morning/Noon/Night settings panes
+retained background color variations with softened image details and sharp
+controls; computed styles confirmed a transparent shell, 48px background blur
+and excluded center in the rim mask. Returned to Morning, 44% wallpaper opacity
+(the value present at the start of this correction) and 0px wallpaper blur.
+Build, 78 tests, type/asset/contrast/package and pack checks passed. Screenshots
+remain outside the repository. These are targeted Windows browser checks;
+Ubuntu/WSL, standalone Desktop and non-Chromium painting were not rechecked.
+
+## Settings entrance material stabilization (2026-10-12)
+
+The isolated Windows DSH `0.2.0-rc.2` Web preview reproduced two different
+entrance states: a 48px filter on the dialog with a 10px mask, followed by a
+48px filter on its pseudo-element with a 2px mask after lens decoding. The
+dialog also faded/scaled while maps used transformed bounding-box dimensions.
+
+Settings now keeps its 48px blur on the background pseudo-element and the
+mask at 2px before and after decoding, retaining the translucent tint and rim.
+The shell retains its transform entrance and its children fade independently;
+the shell's opacity stays at 1 so it does not isolate its child's backdrop.
+Maps use layout dimensions, and an initial ResizeObserver delivery no longer
+detaches a map that already matches those dimensions.
+
+In the real Codex in-app browser, checked repeated Settings opens in Morning
+Light at 735px, Night Dark at 1280px, and Noon Light at 620px. Initial and
+settled DOM samples confirmed the same filter layer, 48px blur, mask and shell
+opacity, with only the optional lens URL added. Screenshots showed retained
+glass/rim and contained content. Plugin reduced motion removed both shell and
+content animations while retaining blur. Restored the original viewport and
+Morning/normal-motion preview afterwards. This is targeted rendering evidence,
+not a frame-by-frame recording or an OS/GPU-wide flicker guarantee.
+
+Build, all 78 tests, type/asset/contrast/package checks and pack structure
+checks passed. Static CSS regression checks cover the stable background layer
+and separate content fade; these do not replace the browser checks. Ubuntu/WSL,
+standalone Desktop, non-Chromium fallback painting and OS reduced motion were
+not rechecked. No model request or real user profile change was made.
+
+## Narrow right sidebar room (2026-10-12)
+
+DSH's installed `0.2.0-rc.2` sidebar derives automatic fullscreen below
+768px. The plugin now reserves 45% of the room after the left sidebar for
+the right pane (up to 340px), allowing the main area to shrink alongside it.
+The existing mode button toggles manual fullscreen within this narrow layout.
+Wide windows and theme Off restore the native tracks and button label.
+
+Real Windows DSH Web checks used the isolated
+`%TEMP%/asuka-liquid-glass-20261004` profile and the rebuilt, locally linked
+plugin in the Codex in-app browser. At 735px, the collapsed left rail, main
+area and right pane measured 56px / 373.45px / 305.55px without overlap.
+Also checked 620px and 375px, the expanded left sidebar, manual fullscreen
+and return, collapse/reopen, 1280px native layout restoration, theme Off
+restoration, and plugin reduced motion (`0s` frame/dock transitions).
+The 375px new-session workspace/preset controls wrap inside the main area;
+document width matched each narrow viewport. Temporary viewport overrides
+were reset. Screenshots remain outside the repository.
+
+The 78 automated tests, build, type/asset/contrast/package checks and pack
+structure check passed. Pure width tests and static CSS contracts are separate
+from the real browser checks above. Ubuntu/WSL, standalone Desktop, OS-level
+reduced motion, live streaming and third-party sidebar combinations were not
+rechecked. No model request or real user profile change was made.
+
 ## Settings background blur correction (2026-10-12)
 
 Restored the original translucent Settings fill, gradient and modal mask,

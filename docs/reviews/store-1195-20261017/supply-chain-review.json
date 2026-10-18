@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "identity": {
+    "repositoryUrl": "https://github.com/Yyyyyylor/dsh-asuka-school-theme",
+    "commit": "5173509ca8249141f6a64e2449d2b46bf813f8d1",
+    "version": "3.2.2",
+    "manifestPath": "package.json",
+    "entryIds": [
+      "asuka-school-theme"
+    ],
+    "reviewedAt": "2026-10-17",
+    "reviewer": "Codex, commissioned by the plugin author; not a DSH Store maintainer",
+    "storePolicyCommit": "58b1dec62ad5d6e43d3c07b042d1455926471d71",
+    "policyVersion": "bounded-source-v3",
+    "policyDigest": "3578986fe56466165ea24abf5ec522dc5a97086296653349ddcb9e20b8dd89f3",
+    "binding": "8d0908d819aae48ae0ffe3d6b7a2684facc07fe1bedb8abd42982cf0f0ee0a35",
+    "sourceDigest": "f19a67a9a39262a6cd8b75569b9a4da08841123ecf070a5e7c3b970d7c1b738b"
+  },
+  "status": "completed-with-admission-blockers",
+  "verdict": "not-ready-for-current-store-supplyChain-pass-record",
+  "appliedToStore": false,
+  "artifactIntegrity": "verified-for-four-captured-artifacts",
+  "runtimeClosure": [
+    "@deepseek-ai/cosmokit@1.8.6",
+    "@deepseek-ai/schemastery@3.18.4",
+    "@standard-schema/spec@1.1.0"
+  ],
+  "historicalLockClosure": [
+    "@deepseek-ai/schemastery@3.18.4",
+    "@deepseek-ai/cosmokit@1.8.5",
+    "@standard-schema/spec@1.1.0"
+  ],
+  "findings": [
+    {
+      "id": "SC-01",
+      "kind": "admission-policy-incompatibility",
+      "package": "@deepseek-ai/schemastery@3.18.4",
+      "evidence": [
+        {
+          "file": "lib/index.cjs",
+          "line": 42,
+          "sha256": "aca1c1a47c7b6034feee01501aefca3e6dd97a0bac4fe334fd30647ae5a9e480",
+          "code": "schema.callback = new Function(\"return \" + schema.callback)();"
+        },
+        {
+          "file": "lib/index.mjs",
+          "line": 42,
+          "sha256": "cfcbe46c7416bdb35ce891c252152bbf519e08199bede5930dd7cb880c65f1ef",
+          "code": "schema.callback = new Function(\"return \" + schema.callback)();"
+        },
+        {
+          "file": "src/index.ts",
+          "line": 276,
+          "sha256": "a6647b515659cf439b701fa9f9574c9c310ce3872d26a13a81e9fa4d02ba10ad",
+          "code": "schema.callback = new Function('return ' + schema.callback)()"
+        }
+      ],
+      "conclusion": "String callback restoration uses new Function. Current Store supplyChain package records require moduleLoading=static. No user-setting-to-schema-constructor path identified in this fixed plugin; this is not a demonstrated exploit."
+    },
+    {
+      "id": "SC-02",
+      "kind": "resolution-drift",
+      "conclusion": "Published ~1.8.5 resolves cosmokit 1.8.6 in isolated npm resolution; source lock has 1.8.5 and is excluded from distributed files. All artifact files except package.json are byte-identical in 1.8.5 and 1.8.6. Reviewed versions do not authorize future range resolutions."
+    },
+    {
+      "id": "SC-03",
+      "kind": "provenance-boundary",
+      "conclusion": "DeepSeek package metadata omits gitHead and provenance attestations. All published TypeScript sources match the fixed official DSH tag, but published-commit/build provenance is not independently certified. Standard-schema attestation payload matches the artifact and fixed tag, but Sigstore envelope verification was not performed."
+    }
+  ],
+  "remainingGate": "Store maintainer must review these exceptions or request an upstream source/dependency change and a fresh fixed-Commit audit; no complete:true/moduleLoading:static/securityVerdict:pass supplyChain entry was fabricated."
+}

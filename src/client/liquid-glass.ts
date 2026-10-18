@@ -56,6 +56,14 @@ interface Lens {
   attribute: string | null
 }
 
+/** Local reflection fades with distance from the rim; the center stays quiet. */
+export function glassHighlight(width: number, height: number, x: number, y: number) {
+  const px = Math.max(0, Math.min(width, x)), py = Math.max(0, Math.min(height, y))
+  const distance = Math.min(px, py, width - px, height - py)
+  return { x: width > 0 ? px / width * 100 : 0, y: height > 0 ? py / height * 100 : 0,
+    strength: width > 0 && height > 0 ? 0.6 * Math.max(0, 1 - distance / 64) ** 2 : 0 }
+}
+
 /** Chromium's same-document SVG backdrop path is an enhancement. Other engines,
  * missing canvas/observers and map failures retain the existing frosted glass.
  * This is Web refraction of the page, not an OS/native Liquid Glass material. */
@@ -67,6 +75,8 @@ export function installLiquidGlass(root: Document = document): () => void {
   const canvas = root.createElement('canvas')
   const context = canvas.getContext('2d')
   if (!context) return () => {}
+  const engineAttribute = root.body.getAttribute('data-asuka-liquid-engine')
+  root.body.setAttribute('data-asuka-liquid-engine', 'true')
   const svg = root.createElementNS(SVG_NS, 'svg')
   svg.setAttribute('aria-hidden', 'true')
   svg.setAttribute('width', '0')
@@ -79,16 +89,25 @@ export function installLiquidGlass(root: Document = document): () => void {
   const reduced = view.matchMedia('(prefers-reduced-motion: reduce)')
   let sequence = 0, timer = 0, frame = 0, disposed = false
   let light: HTMLElement | undefined
-  let pointer: { element: HTMLElement, x: number, y: number } | undefined
+  let pointer: { element: HTMLElement, x: number, y: number, strength: number } | undefined
   const active = () => root.body.hasAttribute('data-asuka-school-theme')
   const motion = () => active() && !reduced.matches && root.body.dataset.asukaSchoolReduceMotion !== 'true'
   const clearLight = () => {
-    light?.style.removeProperty('--asuka-liquid-light-x')
-    light?.style.removeProperty('--asuka-liquid-light-y')
+    // Keep the last location while the reflection fades, rather than flying
+    // back to the default corner. Coordinates are removed on release/reset.
+    light?.style.removeProperty('--asuka-liquid-pointer-strength')
     light = undefined
     pointer = undefined
     if (frame) view.cancelAnimationFrame(frame)
     frame = 0
+  }
+  const resetLight = () => {
+    clearLight()
+    for (const element of lenses.keys()) {
+      element.style.removeProperty('--asuka-liquid-pointer-x')
+      element.style.removeProperty('--asuka-liquid-pointer-y')
+      element.style.removeProperty('--asuka-liquid-pointer-strength')
+    }
   }
   const release = (element: HTMLElement, lens: Lens) => {
     resize.unobserve(element)
@@ -98,6 +117,9 @@ export function installLiquidGlass(root: Document = document): () => void {
     if (lens.property) element.style.setProperty('--asuka-liquid-filter', lens.property, lens.priority)
     else element.style.removeProperty('--asuka-liquid-filter')
     if (light === element) clearLight()
+    element.style.removeProperty('--asuka-liquid-pointer-x')
+    element.style.removeProperty('--asuka-liquid-pointer-y')
+    element.style.removeProperty('--asuka-liquid-pointer-strength')
     lenses.delete(element)
   }
   const primitive = (name: string, attributes: Record<string, string>) => {
@@ -106,8 +128,8 @@ export function installLiquidGlass(root: Document = document): () => void {
     return node
   }
   const update = (element: HTMLElement, lens: Lens) => {
-    const rect = element.getBoundingClientRect()
-    const width = Math.round(rect.width), height = Math.round(rect.height)
+    // Layout dimensions stay stable through Settings/menu entrance transforms.
+    const width = element.offsetWidth, height = element.offsetHeight
     if (width < 2 || height < 2 || element.closest('[hidden]')) {
       element.removeAttribute('data-asuka-liquid-glass')
       return
@@ -119,8 +141,8 @@ export function installLiquidGlass(root: Document = document): () => void {
       return
     }
     lens.size = size
-    lens.ready = false
-    element.removeAttribute('data-asuka-liquid-glass')
+    // Keep the previous decoded map/material visible while its replacement
+    // is prepared. Only initial activation needs the frosted fallback.
     try {
       const map = createLensMap(width, height, radius)
       canvas.width = map.width
@@ -129,18 +151,18 @@ export function installLiquidGlass(root: Document = document): () => void {
       data.data.set(map.pixels)
       context.putImageData(data, 0, 0)
       const href = canvas.toDataURL()
-      lens.filter.replaceChildren(primitive('feImage', {
+      const parts: SVGElement[] = [primitive('feImage', {
         href, x: '0', y: '0', width: String(width), height: String(height),
         preserveAspectRatio: 'none', result: 'lens',
-      }))
+      })]
       const displace = (result: string, scale: number) => primitive('feDisplacementMap', {
         in: 'SourceGraphic', in2: 'lens', scale: String(scale), xChannelSelector: 'R', yChannelSelector: 'G', result,
       })
-      lens.filter.append(displace('refracted', map.scale))
+      parts.push(displace('refracted', map.scale))
       // Restrained optical dispersion only on compact controls. Large reading
       // and navigation panes use a single displacement pass.
       if (width * height < 220_000 && element.matches('[data-composer-card], [data-menu-material], header')) {
-        lens.filter.append(
+        parts.push(
           primitive('feColorMatrix', { in: 'refracted', type: 'matrix', values: '0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0', result: 'green' }),
           displace('red-offset', map.scale + 0.8),
           primitive('feColorMatrix', { in: 'red-offset', type: 'matrix', values: '1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0', result: 'red' }),
@@ -156,19 +178,27 @@ export function installLiquidGlass(root: Document = document): () => void {
       image.src = href
       void image.decode().then(() => {
         if (disposed || !active() || lenses.get(element) !== lens || lens.size !== size) return
+        // Room motion may have continued while decoding. Match its current
+        // box immediately; the debounced update will refine the map geometry.
+        parts[0]!.setAttribute('width', String(element.offsetWidth))
+        parts[0]!.setAttribute('height', String(element.offsetHeight))
+        lens.filter.replaceChildren(...parts)
         lens.ready = true
         element.style.setProperty('--asuka-liquid-filter', `url("#${lens.filter.id}")`)
         element.setAttribute('data-asuka-liquid-glass', 'true')
-      }, () => { /* Remain on frosted glass until a different size is requested. */ })
+      }, () => { /* Keep the decoded map, or the initial frosted fallback. */ })
     } catch {
-      // A blocked data image or unavailable encoder must not blank the surface.
-      element.removeAttribute('data-asuka-liquid-glass')
+      // A failed replacement retains the last decoded map. Initial failures
+      // retain the frosted material without exposing an incomplete SVG filter.
     }
   }
-  const sync = () => {
-    timer = 0
+  const sync = (geometry = true) => {
+    if (geometry) {
+      if (timer) view.clearTimeout(timer)
+      timer = 0
+    }
     if (disposed) return
-    if (!motion()) clearLight()
+    if (!motion()) resetLight()
     const found = active() ? new Set(root.querySelectorAll<HTMLElement>(SURFACES)) : new Set<HTMLElement>()
     for (const [element, lens] of lenses) if (!found.has(element)) release(element, lens)
     for (const element of found) {
@@ -190,7 +220,7 @@ export function installLiquidGlass(root: Document = document): () => void {
         lenses.set(element, lens)
         resize.observe(element)
       }
-      update(element, lens)
+      if (geometry || !lens.ready) update(element, lens)
     }
   }
   const schedule = () => {
@@ -198,9 +228,17 @@ export function installLiquidGlass(root: Document = document): () => void {
     timer = view.setTimeout(sync, 100)
   }
   const resize = new view.ResizeObserver(entries => {
-    // During native resize/split motion use the frosted fallback. Rasterize once
-    // dimensions settle, rather than rebuilding maps on every animation frame.
-    for (const entry of entries) (entry.target as HTMLElement).removeAttribute('data-asuka-liquid-glass')
+    // Stretch the decoded map through native room motion; keep material/blur
+    // attached and rasterize a fresh map only after dimensions settle.
+    for (const entry of entries) {
+      const element = entry.target as HTMLElement
+      const lens = lenses.get(element)
+      const image = lens?.filter.querySelector('feImage')
+      if (image && element.offsetWidth > 0 && element.offsetHeight > 0) {
+        if (image.getAttribute('width') !== String(element.offsetWidth)) image.setAttribute('width', String(element.offsetWidth))
+        if (image.getAttribute('height') !== String(element.offsetHeight)) image.setAttribute('height', String(element.offsetHeight))
+      }
+    }
     schedule()
   })
   const tree = new view.MutationObserver(records => {
@@ -209,45 +247,50 @@ export function installLiquidGlass(root: Document = document): () => void {
     const changed = [...lenses.keys()].some(element => !element.isConnected)
       || records.some(record => [...record.addedNodes].some(node => node instanceof view.HTMLElement
         && (node.matches(SURFACES) || node.querySelector(SURFACES))))
-    if (changed && !timer) timer = view.setTimeout(sync, 100)
+    // MutationObserver runs before paint: new popups must not spend 100ms in
+    // a different material. Existing resizing maps keep their own debounce.
+    if (changed) sync(false)
   })
   tree.observe(root.body, { childList: true, subtree: true })
   const appearance = new view.MutationObserver(() => {
     if (!active()) for (const [element, lens] of lenses) release(element, lens)
-    if (!motion()) clearLight()
+    if (!motion()) resetLight()
     schedule()
   })
   appearance.observe(root.body, { attributes: true, attributeFilter: ['data-asuka-school-theme', 'data-asuka-school-scene', 'data-asuka-school-reduce-motion'] })
   const move = (event: PointerEvent) => {
-    if (!motion() || event.pointerType === 'touch') return
+    if (!motion() || event.pointerType === 'touch') { clearLight(); return }
     const element = event.target instanceof view.Element ? event.target.closest<HTMLElement>(SURFACES) : null
     if (!element || !lenses.has(element)) { clearLight(); return }
     if (light !== element) { clearLight(); light = element }
     const rect = element.getBoundingClientRect()
-    pointer = { element, x: (event.clientX - rect.left) / rect.width * 100, y: (event.clientY - rect.top) / rect.height * 100 }
+    pointer = { element, ...glassHighlight(rect.width, rect.height, event.clientX - rect.left, event.clientY - rect.top) }
     if (frame) return
     frame = view.requestAnimationFrame(() => {
       frame = 0
       if (!pointer || !motion()) return
-      pointer.element.style.setProperty('--asuka-liquid-light-x', `${pointer.x.toFixed(1)}%`)
-      pointer.element.style.setProperty('--asuka-liquid-light-y', `${pointer.y.toFixed(1)}%`)
+      pointer.element.style.setProperty('--asuka-liquid-pointer-x', `${pointer.x.toFixed(1)}%`)
+      pointer.element.style.setProperty('--asuka-liquid-pointer-y', `${pointer.y.toFixed(1)}%`)
+      pointer.element.style.setProperty('--asuka-liquid-pointer-strength', pointer.strength.toFixed(3))
     })
   }
   root.addEventListener('pointermove', move, { passive: true })
   root.addEventListener('pointerleave', clearLight)
-  reduced.addEventListener('change', clearLight)
+  reduced.addEventListener('change', resetLight)
   sync()
   return () => {
     disposed = true
     if (timer) view.clearTimeout(timer)
-    clearLight()
+    resetLight()
     tree.disconnect()
     appearance.disconnect()
     resize.disconnect()
     for (const [element, lens] of lenses) release(element, lens)
     svg.remove()
+    if (engineAttribute === null) root.body.removeAttribute('data-asuka-liquid-engine')
+    else root.body.setAttribute('data-asuka-liquid-engine', engineAttribute)
     root.removeEventListener('pointermove', move)
     root.removeEventListener('pointerleave', clearLight)
-    reduced.removeEventListener('change', clearLight)
+    reduced.removeEventListener('change', resetLight)
   }
 }

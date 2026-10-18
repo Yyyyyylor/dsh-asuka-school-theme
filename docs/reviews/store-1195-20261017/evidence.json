@@ -1,0 +1,1033 @@
+{
+  "schemaVersion": 1,
+  "identity": {
+    "repositoryUrl": "https://github.com/Yyyyyylor/dsh-asuka-school-theme",
+    "commit": "5173509ca8249141f6a64e2449d2b46bf813f8d1",
+    "version": "3.2.2",
+    "manifestPath": "package.json",
+    "entryIds": [
+      "asuka-school-theme"
+    ],
+    "reviewedAt": "2026-10-17",
+    "reviewer": "Codex, commissioned by the plugin author; not a DSH Store maintainer",
+    "storePolicyCommit": "58b1dec62ad5d6e43d3c07b042d1455926471d71",
+    "policyVersion": "bounded-source-v3",
+    "policyDigest": "3578986fe56466165ea24abf5ec522dc5a97086296653349ddcb9e20b8dd89f3",
+    "binding": "8d0908d819aae48ae0ffe3d6b7a2684facc07fe1bedb8abd42982cf0f0ee0a35",
+    "sourceDigest": "f19a67a9a39262a6cd8b75569b9a4da08841123ecf070a5e7c3b970d7c1b738b"
+  },
+  "fixedSource": {
+    "reasons": [
+      "runtime or optional dependencies require a separate supply-chain review",
+      "runtime source contains the files permission signal",
+      "runtime source contains the network permission signal"
+    ],
+    "signals": {
+      "files": true,
+      "network": true,
+      "commands": false,
+      "credentials": false,
+      "protectedDsh": false,
+      "nativeOrExecutableArtifacts": false
+    },
+    "securityScan": {
+      "engine": "dsh-store-submission-static-v1",
+      "policy": "high-risk-block-cli-capability-warn-v1",
+      "verdict": "pass",
+      "complete": true,
+      "scopeReasons": [],
+      "filesScanned": 26,
+      "eligibleFiles": 26,
+      "skippedOversize": 0,
+      "skippedUnsupported": 0,
+      "capped": false,
+      "counts": {
+        "critical": 0,
+        "warning": 0,
+        "info": 0
+      },
+      "findings": [],
+      "findingsTruncated": false
+    },
+    "engine": "bounded-source-v3",
+    "sourceDigest": "f19a67a9a39262a6cd8b75569b9a4da08841123ecf070a5e7c3b970d7c1b738b",
+    "sourceEvidence": [
+      {
+        "file": "cordis.patch.yml",
+        "bytes": 76,
+        "blob": "748491c6a72a4bf070100c3ba15aef6fa84394f4",
+        "sha256": "df1a7df6518e3a9ed54d09744529b2d5da88be3afebafd73d91d541b6e20a685"
+      },
+      {
+        "file": "lib/client.js",
+        "bytes": 120148,
+        "blob": "1b51f49b59d2939fa474cc5031672b02454b2bca",
+        "sha256": "ee326b58c5be084afac4c7ad0ec83b8c84d937c81ea063b7d67e615c65f984b7"
+      },
+      {
+        "file": "lib/client/controller.d.ts",
+        "bytes": 1208,
+        "blob": "44cb85d38c6c6c94334817c1d9b18fa539d53b3e",
+        "sha256": "e030caacec9416d6ec92fd40afa7d575f1c86a5e68596878d21547ff591ffbff"
+      },
+      {
+        "file": "lib/client/dock-motion.d.ts",
+        "bytes": 118,
+        "blob": "56752cc44977aebd515a2e12e957f3bb124e0867",
+        "sha256": "9400563dda0e0b6ee98010f8d8ceec3b623c36e5712a9b85f36a8b3cef130fa0"
+      },
+      {
+        "file": "lib/client/index.d.ts",
+        "bytes": 177,
+        "blob": "1c0d7cf0004e4536c092cfa634d5e020739c3eac",
+        "sha256": "c3a796dc930ad980ce217021fba7fa122baeb62b82511c2f73047b6fecd5eb20"
+      },
+      {
+        "file": "lib/client/locales.d.ts",
+        "bytes": 1391,
+        "blob": "070fdab8245c8d9937d9e6f86133efb5c1f9fccc",
+        "sha256": "d761a41c42b1b040394c88835cc0caf283f887ad86ab6c6e5e73a69c35306c22"
+      },
+      {
+        "file": "lib/client/presentation.d.ts",
+        "bytes": 1046,
+        "blob": "e35210ec718a60b93843e71442263f63a78d3f17",
+        "sha256": "3eef543dfd814979b64911ff8549d9f2f3411c50e8689619cd2d35a94b114bfc"
+      },
+      {
+        "file": "lib/client/session-title/SessionTitleEditor.d.ts",
+        "bytes": 528,
+        "blob": "3edbb6774287d6b0b5bc73502deaa9b356bc3694",
+        "sha256": "fc8d4eff3137c0bc77fb633292b7d4eb2b804afc492bef822ad4e20a258436f4"
+      },
+      {
+        "file": "lib/client/session-title/rename.d.ts",
+        "bytes": 381,
+        "blob": "e73f50e8ad7055bffdf59159a768a4cdcea3e3eb",
+        "sha256": "498a2b780d79bcee2f0d2a1593089cbe34a5e1af42c09a02e6859193dc99e6b1"
+      },
+      {
+        "file": "lib/client/settings/AsukaQuickRow.d.ts",
+        "bytes": 734,
+        "blob": "3471c84c60e7ead8e9c8ace7bbec35cdbda61fd5",
+        "sha256": "b39410dbb1bcc3d8d23ff49240c1cb005b70101696297d1ee0f14629d0379a88"
+      },
+      {
+        "file": "lib/client/settings/AsukaSection.d.ts",
+        "bytes": 1596,
+        "blob": "da1ef07ffdf6ce9027b143f5ec84ffcc46f42473",
+        "sha256": "c68c9ba0fc81811c61850cd9f2bfceb47aaf860581b7fd637abcd147fca90c7c"
+      },
+      {
+        "file": "lib/client/settings/range-draft.d.ts",
+        "bytes": 326,
+        "blob": "b6ecc0f83b955c7c4859edb104b7e19f6f841a3f",
+        "sha256": "f455bfa0c27e66f40ff0108efcf6fe56945c36a5fedf6effb0125f3e4b76bf15"
+      },
+      {
+        "file": "lib/client/settings/settings-store.d.ts",
+        "bytes": 553,
+        "blob": "60a5b20c5608c2f088970491cfc799ccdacf9023",
+        "sha256": "9f736f445ffe595d144803aba20a257f5fb1dc1bf3aca42a997241431784d143"
+      },
+      {
+        "file": "lib/client/styles.d.ts",
+        "bytes": 137,
+        "blob": "5c2626bcdaa8ffd9af391d001b991180deb003ac",
+        "sha256": "e61305eaab22bf61a2ea4cea41ec969dcbcdf7fd8a8621cd76beb90086ae725e"
+      },
+      {
+        "file": "lib/client/themes/colors.d.ts",
+        "bytes": 726,
+        "blob": "529dd14becdff5b39aaee325e3270902075e671a",
+        "sha256": "dd40d7060a09f7f66621ea0316bfb66099752f6dad249c7f4c75eef6ca1d6405"
+      },
+      {
+        "file": "lib/client/themes/dark.d.ts",
+        "bytes": 168,
+        "blob": "938426fc9322a6deaeaa5378b607d1010cdb9215",
+        "sha256": "20373dfbfe416d559568e723182e9583894430e567eb08e8fb8070e87b81e2fe"
+      },
+      {
+        "file": "lib/client/themes/index.d.ts",
+        "bytes": 160,
+        "blob": "fa070088e2ff124ee9efaef51f71a5e7e3b6337e",
+        "sha256": "13f35787af450ef214b2b35344cd4e29e3fba15e4da26bba7e5a2d529df95bd8"
+      },
+      {
+        "file": "lib/client/themes/light.d.ts",
+        "bytes": 508,
+        "blob": "a39c229d9bceb0718e50553b789daf0f94f77249",
+        "sha256": "e7ea5f1d3a0e078dc0ddc8253a2a481347e98b44878338d4b1d1009902055d60"
+      },
+      {
+        "file": "lib/client/wallpaper/runtime.d.ts",
+        "bytes": 636,
+        "blob": "99c46f55db4686f5e49c7bb75076f9529e81241a",
+        "sha256": "2a3a066d6b1de4b8652970d051146654c7f6949386fbc4ad91b35ca47eafd8f5"
+      },
+      {
+        "file": "lib/client/workspace-picker.d.ts",
+        "bytes": 134,
+        "blob": "0dee7f4de583ec2f6bfad98950d566e3f8d82aa2",
+        "sha256": "bb07465610ba4915aa2034afa3906057425a2c03131b9cf4b668a18c65fbf2aa"
+      },
+      {
+        "file": "lib/index.d.ts",
+        "bytes": 2722,
+        "blob": "e923e74cd62e33fcd07ed80fce81399d174bd976",
+        "sha256": "834ae5096f369b60d9bc070b8b1dfdd07f8d3e59bbcff013d5e242ccc2a2edfb"
+      },
+      {
+        "file": "lib/index.js",
+        "bytes": 4554,
+        "blob": "e125896e99b7812b4913b5a3a8271993b7fc6610",
+        "sha256": "b13c0e0fb7fb261666e8081c6828cefc162936e87cfd1c497eb5b8378df1b2b6"
+      },
+      {
+        "file": "lib/settings.d.ts",
+        "bytes": 1275,
+        "blob": "7a061c3daa8e7bcba1177d0004f957bdf954dcdf",
+        "sha256": "76a9642c71492f38bf22a42349b6253f6214e677b5e5f1ecf5a8fcbc1de9f97d"
+      },
+      {
+        "file": "lib/shared/settings.d.ts",
+        "bytes": 2212,
+        "blob": "9fdde48b930f995992ad951e65800ced2ccfd5c4",
+        "sha256": "d990dfc7a47bc4958e7a76c7d3ecfd8b79b853dc3e0ec5ccf730136999a94565"
+      },
+      {
+        "file": "lib/shared/wallpapers.d.ts",
+        "bytes": 992,
+        "blob": "ab54cfed4c13f49b1ee0be725460c9cd15e3a2d2",
+        "sha256": "23bc3484f03e89b7343a6a3c7daea9ed20616c11a9f16c98907ccc960c0970ae"
+      },
+      {
+        "file": "package.json",
+        "bytes": 5174,
+        "blob": "0c423548ef774bb2b882699d66b639ebe0eb0823",
+        "sha256": "9e38e38873dabeee98f1126f09c40959b27168a87b33855a692fc72606ace7b6"
+      }
+    ],
+    "capabilityEvidence": [
+      {
+        "rule": "capability-files",
+        "file": "lib/client.js",
+        "signal": "files",
+        "responsibility": "reviewer",
+        "line": 1288,
+        "location": "line"
+      },
+      {
+        "rule": "capability-network",
+        "file": "lib/index.d.ts",
+        "signal": "network",
+        "responsibility": "reviewer",
+        "line": 2,
+        "location": "line"
+      },
+      {
+        "rule": "capability-files",
+        "file": "lib/index.js",
+        "signal": "files",
+        "responsibility": "reviewer",
+        "line": 1,
+        "location": "line"
+      }
+    ],
+    "toolViewEvidence": [],
+    "budgetFindings": [],
+    "reviewSignals": {
+      "toolViewExtension": false,
+      "dynamicModuleLoading": false
+    },
+    "scanComplete": true,
+    "filesScanned": 26,
+    "unsupportedFiles": 0,
+    "scope": {
+      "kind": "explicit-files-conservative-superset",
+      "repositoryEntries": 113,
+      "packageEntries": 57,
+      "files": 57
+    },
+    "runtimeFiles": 26,
+    "runtimeBytes": 147680,
+    "runtimeDependencies": {
+      "@deepseek-ai/schemastery": "3.18.4"
+    },
+    "policyDigest": "3578986fe56466165ea24abf5ec522dc5a97086296653349ddcb9e20b8dd89f3",
+    "contractVerified": true,
+    "approved": false
+  },
+  "dependencies": [
+    {
+      "name": "@deepseek-ai/schemastery",
+      "version": "3.18.4",
+      "metadataUrl": "https://registry.npmjs.org/@deepseek-ai%2fschemastery/3.18.4",
+      "metadataSha256": "6358451fdc0528fe97ac32f894e9e88d45c1cf31150d2e240fad14f44a5428a7",
+      "tarball": "https://registry.npmjs.org/@deepseek-ai/schemastery/-/schemastery-3.18.4.tgz",
+      "artifactBytes": 27570,
+      "artifactSha256": "da518e0b44fa27cdfbda9f798f7ab1ad3a055466bc2c030d0f6b2b86c9266d24",
+      "integrity": "sha512-SSXO6tYuyrIqKVbmOnIq0s+riUywYzouFMcnBluHF9n4KMo2G8HvEzhCYj6pj2617/glOjbJuVInJ9hfONsjkg==",
+      "registryIntegrityMatches": true,
+      "lockfileIntegrityMatches": true,
+      "registrySha1Matches": true,
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "vendor/schemastery"
+      },
+      "gitHead": null,
+      "dependencies": {
+        "@standard-schema/spec": "^1.1.0",
+        "@deepseek-ai/cosmokit": "~1.8.5"
+      },
+      "optionalDependencies": {},
+      "peerDependencies": {},
+      "scripts": {},
+      "bin": null,
+      "license": "MIT",
+      "signatures": [
+        {
+          "sig": "MEUCIG1H7mHAJqlJO88mv+lT7Yz4Lq5Ppj2pGB5UBx8k8gKoAiEA+7sh59akf31p6n8L1ME4/13mrQY5WAuf3Cr+Kijb1O4=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        },
+        {
+          "sig": "MEUCIQDch6sTkjZZy59CMV2dvEDBL22zuiw9E9E4E/Ke962awgIgTCdeULpIeQbpKod2+uwsMnOt0N+mrPxZAvZnj0mLpuw=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "attestations": null,
+      "files": [
+        {
+          "file": "LICENSE",
+          "bytes": 1071,
+          "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+        },
+        {
+          "file": "README.md",
+          "bytes": 9687,
+          "sha256": "cdd54eece79b14c3672dfe94abb38b8d01c6ced57fb9975c4147fa17f81512d4"
+        },
+        {
+          "file": "lib/index.cjs",
+          "bytes": 23821,
+          "sha256": "aca1c1a47c7b6034feee01501aefca3e6dd97a0bac4fe334fd30647ae5a9e480"
+        },
+        {
+          "file": "lib/index.mjs",
+          "bytes": 22988,
+          "sha256": "cfcbe46c7416bdb35ce891c252152bbf519e08199bede5930dd7cb880c65f1ef"
+        },
+        {
+          "file": "lib/types/index.d.ts",
+          "bytes": 12506,
+          "sha256": "fca846c1420a192b7ae749da96afa0c9b5c57b2e7dff418153674f90200f4e27"
+        },
+        {
+          "file": "lib/types/index.d.ts.map",
+          "bytes": 10848,
+          "sha256": "ee91a9f4c24c9bc82b5a37e8c84f690f5ec6e2385795902683557b0a08812e47"
+        },
+        {
+          "file": "package.json",
+          "bytes": 932,
+          "sha256": "81c5663da570b5072eecaa9d823dd600315308538ed1fd931b276523fb40d95f"
+        },
+        {
+          "file": "src/index.ts",
+          "bytes": 36623,
+          "sha256": "a6647b515659cf439b701fa9f9574c9c310ce3872d26a13a81e9fa4d02ba10ad"
+        }
+      ],
+      "sourceDigest": "04da296a996ea953de75ba0c7a5d54747490f9a22cd59d787c0d9ec40f32a283",
+      "evidenceDirectory": "deepseek-ai--schemastery-3.18.4",
+      "signatureVerification": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        },
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        }
+      ],
+      "runtimeAudit": {
+        "moduleLoading": "contains-code-evaluation",
+        "codeGeneration": [
+          {
+            "file": "lib/index.cjs",
+            "line": 42,
+            "sha256": "aca1c1a47c7b6034feee01501aefca3e6dd97a0bac4fe334fd30647ae5a9e480",
+            "code": "schema.callback = new Function(\"return \" + schema.callback)();"
+          },
+          {
+            "file": "lib/index.mjs",
+            "line": 42,
+            "sha256": "cfcbe46c7416bdb35ce891c252152bbf519e08199bede5930dd7cb880c65f1ef",
+            "code": "schema.callback = new Function(\"return \" + schema.callback)();"
+          },
+          {
+            "file": "src/index.ts",
+            "line": 276,
+            "sha256": "a6647b515659cf439b701fa9f9574c9c310ce3872d26a13a81e9fa4d02ba10ad",
+            "code": "schema.callback = new Function('return ' + schema.callback)()"
+          }
+        ],
+        "signals": {
+          "files": false,
+          "network": false,
+          "commands": false,
+          "credentials": false,
+          "protectedDsh": false,
+          "nativeOrExecutableArtifacts": false
+        }
+      },
+      "upstreamSourceComparison": [
+        {
+          "file": "src/index.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "a6647b515659cf439b701fa9f9574c9c310ce3872d26a13a81e9fa4d02ba10ad",
+          "exactMatch": true
+        }
+      ],
+      "upstreamSourceComparisonStatus": "source-files-match; published-gitHead-absent; no-reproducible-build-claim"
+    },
+    {
+      "name": "@deepseek-ai/cosmokit",
+      "version": "1.8.5",
+      "metadataUrl": "https://registry.npmjs.org/@deepseek-ai%2fcosmokit/1.8.5",
+      "metadataSha256": "7b14c210e99248d130b340ee6d72c942391211891323122d89a64868db1b5992",
+      "tarball": "https://registry.npmjs.org/@deepseek-ai/cosmokit/-/cosmokit-1.8.5.tgz",
+      "artifactBytes": 17422,
+      "artifactSha256": "9a4920c4c3f32490499a1566829345375ad6f64eaa756ee517c398a73fb4fe64",
+      "integrity": "sha512-LXsrlem9z8dq4sLflj2yuCuYX7KqhdzF5hZly3eZyuTo8d6oDSOXuEgC5DbQWKW+lksm6zmOutQLsP/ma6wR6A==",
+      "registryIntegrityMatches": true,
+      "lockfileIntegrityMatches": true,
+      "registrySha1Matches": true,
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "vendor/cosmokit"
+      },
+      "gitHead": null,
+      "dependencies": {},
+      "optionalDependencies": {},
+      "peerDependencies": {},
+      "scripts": {},
+      "bin": null,
+      "license": "MIT",
+      "signatures": [
+        {
+          "sig": "MEUCIG4dqPtpwZhjQUwPZ32Sd6czoVp0dnqe3MCyE+eZojZgAiEA+3AsVzY8mh4Ht4heiY0rfyEEflgEfEEEnU0kNQXXJfE=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        },
+        {
+          "sig": "MEUCIFz4o3hc2ZpR3bIablN15VJ0WQCHHVthhqG1/95JBmmmAiEA46yAA7+F8Hy/+RGTkhbLgzQ7jDT038Yw5aF5bUGJ4qM=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "attestations": null,
+      "files": [
+        {
+          "file": "LICENSE",
+          "bytes": 1071,
+          "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+        },
+        {
+          "file": "README.md",
+          "bytes": 1418,
+          "sha256": "fa0a17f50f83cda52ce623c9d42afb4eec1b33689285a0b9d2f655acbca13286"
+        },
+        {
+          "file": "lib/index.js",
+          "bytes": 17160,
+          "sha256": "ba44c0871656e4c7cac2c3c8a2ff644e0d2eb9d6bda7f6355866d686d513268e"
+        },
+        {
+          "file": "lib/types/array.d.ts",
+          "bytes": 1069,
+          "sha256": "f63b6a79179ea0f70902e1c9d8c98b3fd457b124c7c5dcb3adccc4fae5a8c5b6"
+        },
+        {
+          "file": "lib/types/array.d.ts.map",
+          "bytes": 788,
+          "sha256": "76e7996107ba6d4ea97eebe33c825e85f53392fd9b21e87248d0030903f5cdf1"
+        },
+        {
+          "file": "lib/types/index.d.ts",
+          "bytes": 547,
+          "sha256": "850b1bde1c4b0dd26069a365e3837180890205f243f962838c4b769302aa583b"
+        },
+        {
+          "file": "lib/types/index.d.ts.map",
+          "bytes": 309,
+          "sha256": "cc8b19e444b8d7a04697460273e5ace19f1ea4ca51bbc987b3397c0e261d5e5c"
+        },
+        {
+          "file": "lib/types/misc.d.ts",
+          "bytes": 2901,
+          "sha256": "b3ffb1d306130b143d309b7621dc0f94446bf0d0721a5aeaae92f1112c3a852c"
+        },
+        {
+          "file": "lib/types/misc.d.ts.map",
+          "bytes": 2706,
+          "sha256": "7fd470887c2b1a2c86c5b149fdfddc90d7a00bea047547391ad6d169d1bc468f"
+        },
+        {
+          "file": "lib/types/string.d.ts",
+          "bytes": 2790,
+          "sha256": "018925218746fd81518276960ee5eaaf7664f7ac0a1bc01d6604903254186ced"
+        },
+        {
+          "file": "lib/types/string.d.ts.map",
+          "bytes": 2772,
+          "sha256": "6f10c183f6f0c7aac796f6fd0ae3b16b30d455a86d7d2018ecf3641093adeeac"
+        },
+        {
+          "file": "lib/types/time.d.ts",
+          "bytes": 773,
+          "sha256": "2fb4faf4cb90b96c83a3282f6cad6eafd3395a251ae2d193a0a27c63cf4dfc78"
+        },
+        {
+          "file": "lib/types/time.d.ts.map",
+          "bytes": 753,
+          "sha256": "afad91a505bd82c857a69ad72718e59d4a08f05c35493854ac000ace760a3a51"
+        },
+        {
+          "file": "lib/types/types.d.ts",
+          "bytes": 2421,
+          "sha256": "ecec322706391b1eed65497f97bb2ba53dfee289d276c35b91ad83550b61a2fa"
+        },
+        {
+          "file": "lib/types/types.d.ts.map",
+          "bytes": 1552,
+          "sha256": "6da6f71fd5de4144c9f2862aad0951c5586e7b03e95a9624c4ec5730c39cd368"
+        },
+        {
+          "file": "lib/types/volatile.d.ts",
+          "bytes": 1852,
+          "sha256": "9733d9ecf59e8b86a6e5605c830e2efacbd93e527c3fd8388aaf0d09649fef0c"
+        },
+        {
+          "file": "lib/types/volatile.d.ts.map",
+          "bytes": 840,
+          "sha256": "7f41de53d13986b169df89edba078f017f0acdaff8338d00ddc45596a19fefa4"
+        },
+        {
+          "file": "package.json",
+          "bytes": 739,
+          "sha256": "eedc5e1a5575d05749e9bf3a22fa56e67a5fb8153ca02838fae961ddcd0cf4ef"
+        },
+        {
+          "file": "src/array.ts",
+          "bytes": 1453,
+          "sha256": "cf4de899ecffd66a90d8cef6f4c7d127d31f77f776d8e173d41c30d2d7632cf7"
+        },
+        {
+          "file": "src/index.ts",
+          "bytes": 506,
+          "sha256": "1087da74b9c461984e547d524ee766eebcf329a78e4720bff5b60a004ccf6e8c"
+        },
+        {
+          "file": "src/misc.ts",
+          "bytes": 3865,
+          "sha256": "117617943074ea57c15f216905dacd2f6d1c4c2ff16586f97a7a7a87dbf2141f"
+        },
+        {
+          "file": "src/string.ts",
+          "bytes": 3928,
+          "sha256": "5564272b3e15e49235cbe3a8b453f27306baf282d23a893982841670f65d3c04"
+        },
+        {
+          "file": "src/time.ts",
+          "bytes": 3054,
+          "sha256": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2"
+        },
+        {
+          "file": "src/types.ts",
+          "bytes": 7038,
+          "sha256": "cc49c12e4a637f7b0754ff78a8299e9c42fa40ee8c678550af0c538a80146a92"
+        },
+        {
+          "file": "src/volatile.ts",
+          "bytes": 3637,
+          "sha256": "937433215595f89da249ec7cabb89e331ff4135a40c6686a95666d2095315e55"
+        }
+      ],
+      "sourceDigest": "26c00a1fb75b9d50c49f29937150096472b64c413cc4e5d516095d15c23863e8",
+      "evidenceDirectory": "deepseek-ai--cosmokit-1.8.5",
+      "signatureVerification": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        },
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        }
+      ],
+      "runtimeAudit": {
+        "moduleLoading": "static",
+        "codeGeneration": [],
+        "signals": {
+          "files": false,
+          "network": false,
+          "commands": false,
+          "credentials": false,
+          "protectedDsh": false,
+          "nativeOrExecutableArtifacts": false
+        }
+      },
+      "upstreamSourceComparison": [
+        {
+          "file": "src/array.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "cf4de899ecffd66a90d8cef6f4c7d127d31f77f776d8e173d41c30d2d7632cf7",
+          "exactMatch": true
+        },
+        {
+          "file": "src/index.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "1087da74b9c461984e547d524ee766eebcf329a78e4720bff5b60a004ccf6e8c",
+          "exactMatch": true
+        },
+        {
+          "file": "src/misc.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "117617943074ea57c15f216905dacd2f6d1c4c2ff16586f97a7a7a87dbf2141f",
+          "exactMatch": true
+        },
+        {
+          "file": "src/string.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "5564272b3e15e49235cbe3a8b453f27306baf282d23a893982841670f65d3c04",
+          "exactMatch": true
+        },
+        {
+          "file": "src/time.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2",
+          "exactMatch": true
+        },
+        {
+          "file": "src/types.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "cc49c12e4a637f7b0754ff78a8299e9c42fa40ee8c678550af0c538a80146a92",
+          "exactMatch": true
+        },
+        {
+          "file": "src/volatile.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "937433215595f89da249ec7cabb89e331ff4135a40c6686a95666d2095315e55",
+          "exactMatch": true
+        }
+      ],
+      "upstreamSourceComparisonStatus": "source-files-match; published-gitHead-absent; no-reproducible-build-claim"
+    },
+    {
+      "name": "@standard-schema/spec",
+      "version": "1.1.0",
+      "metadataUrl": "https://registry.npmjs.org/@standard-schema%2fspec/1.1.0",
+      "metadataSha256": "b77a34ff8515136247f170a1147366366128d83eee0e0c52a3efe2cb27271d1f",
+      "tarball": "https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz",
+      "artifactBytes": 4178,
+      "artifactSha256": "a7cb7268be280ab518d450f8c3b07c86f23417225c0ab53691ed59b3067cceaf",
+      "integrity": "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==",
+      "registryIntegrityMatches": true,
+      "lockfileIntegrityMatches": true,
+      "registrySha1Matches": true,
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/standard-schema/standard-schema"
+      },
+      "gitHead": null,
+      "dependencies": {},
+      "optionalDependencies": {},
+      "peerDependencies": {},
+      "scripts": {
+        "lint": "pnpm biome lint ./src",
+        "format": "pnpm biome format --write ./src",
+        "check": "pnpm biome check ./src",
+        "build": "tsup"
+      },
+      "bin": null,
+      "license": "MIT",
+      "signatures": [
+        {
+          "sig": "MEQCIGdCUE4g1c6RO81SGehjWNra28GX4mcyQ77hk1CGKESMAiBiyPqcj8S2TGWwYdiiDGoeurLutzxBTPQRNVt0c/IfUQ==",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "attestations": {
+        "url": "https://registry.npmjs.org/-/npm/v1/attestations/@standard-schema%2fspec@1.1.0",
+        "provenance": {
+          "predicateType": "https://slsa.dev/provenance/v1"
+        }
+      },
+      "files": [
+        {
+          "file": "LICENSE",
+          "bytes": 1071,
+          "sha256": "653b779005a3a4d64a7288c940f7b9a0e8f0b1e0375f6aa6af9473caf131e564"
+        },
+        {
+          "file": "README.md",
+          "bytes": 7551,
+          "sha256": "1abba96482ed100b7b4e61277e7700aa7d1b4e06e433626f39d89cd620e0efa7"
+        },
+        {
+          "file": "dist/index.cjs",
+          "bytes": 754,
+          "sha256": "68eba92bc1637688388d7adc1fe5aa748b27c7101ad40123e64135bb5e9ed8e7"
+        },
+        {
+          "file": "dist/index.d.cts",
+          "bytes": 6056,
+          "sha256": "bdd14f07b4eca0b4b5203b85b8dbc4d084c749fa590bee5ea613e1641dcd3b29"
+        },
+        {
+          "file": "dist/index.d.ts",
+          "bytes": 6056,
+          "sha256": "bdd14f07b4eca0b4b5203b85b8dbc4d084c749fa590bee5ea613e1641dcd3b29"
+        },
+        {
+          "file": "dist/index.js",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "file": "package.json",
+          "bytes": 1146,
+          "sha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb"
+        }
+      ],
+      "sourceDigest": "1cc0924790dec7ee1c21c305166ffc9f6728c1a84bcee8f7c897ef7caf66e630",
+      "evidenceDirectory": "standard-schema--spec-1.1.0",
+      "signatureVerification": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        }
+      ],
+      "runtimeAudit": {
+        "moduleLoading": "static",
+        "codeGeneration": [],
+        "signals": {
+          "files": false,
+          "network": false,
+          "commands": false,
+          "credentials": false,
+          "protectedDsh": false,
+          "nativeOrExecutableArtifacts": false
+        }
+      }
+    },
+    {
+      "name": "@deepseek-ai/cosmokit",
+      "version": "1.8.6",
+      "metadataUrl": "https://registry.npmjs.org/@deepseek-ai%2fcosmokit/1.8.6",
+      "metadataSha256": "4ad4b0422845be25d846511eb65cf81f2f4077f04c711264a3bc32d828e50005",
+      "tarball": "https://registry.npmjs.org/@deepseek-ai/cosmokit/-/cosmokit-1.8.6.tgz",
+      "artifactBytes": 17422,
+      "artifactSha256": "02332c246aafba7f5f96246956e25e9693db91238a5105fde6d4e00c74036e78",
+      "integrity": "sha512-ZSD/fN52L498LBIOYwjIOlaLv5veY6ZEwI2yzvZUKQtctn0QAPqu8tKdJ+OF5+Tv6NBq1U+wJWH+QI6OGy5EvQ==",
+      "registryIntegrityMatches": true,
+      "freshResolutionIntegrityMatches": true,
+      "lockfileIntegrityMatches": false,
+      "registrySha1Matches": true,
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "vendor/cosmokit"
+      },
+      "gitHead": null,
+      "dependencies": {},
+      "optionalDependencies": {},
+      "peerDependencies": {},
+      "scripts": {},
+      "bin": null,
+      "license": "MIT",
+      "signatures": [
+        {
+          "sig": "MEYCIQCnxlDG8euNudtGC2yhkNsOwuaZucTfhH9xvgzMbmzaRwIhAKRAR06nE4DuCAQUrTuU052PAE2dbS3Oi0vXWbog9QSP",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        },
+        {
+          "sig": "MEUCIEsJTHlA36z7QxSF3TMKdsd5Nd2vwxEUjak6M580pHyrAiEAktnh3YeDQ4Q/FVwfP8rexsHsWqSv2DQhOJ4HvU6gAV8=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "attestations": null,
+      "files": [
+        {
+          "file": "LICENSE",
+          "bytes": 1071,
+          "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+        },
+        {
+          "file": "README.md",
+          "bytes": 1418,
+          "sha256": "fa0a17f50f83cda52ce623c9d42afb4eec1b33689285a0b9d2f655acbca13286"
+        },
+        {
+          "file": "lib/index.js",
+          "bytes": 17160,
+          "sha256": "ba44c0871656e4c7cac2c3c8a2ff644e0d2eb9d6bda7f6355866d686d513268e"
+        },
+        {
+          "file": "lib/types/array.d.ts",
+          "bytes": 1069,
+          "sha256": "f63b6a79179ea0f70902e1c9d8c98b3fd457b124c7c5dcb3adccc4fae5a8c5b6"
+        },
+        {
+          "file": "lib/types/array.d.ts.map",
+          "bytes": 788,
+          "sha256": "76e7996107ba6d4ea97eebe33c825e85f53392fd9b21e87248d0030903f5cdf1"
+        },
+        {
+          "file": "lib/types/index.d.ts",
+          "bytes": 547,
+          "sha256": "850b1bde1c4b0dd26069a365e3837180890205f243f962838c4b769302aa583b"
+        },
+        {
+          "file": "lib/types/index.d.ts.map",
+          "bytes": 309,
+          "sha256": "cc8b19e444b8d7a04697460273e5ace19f1ea4ca51bbc987b3397c0e261d5e5c"
+        },
+        {
+          "file": "lib/types/misc.d.ts",
+          "bytes": 2901,
+          "sha256": "b3ffb1d306130b143d309b7621dc0f94446bf0d0721a5aeaae92f1112c3a852c"
+        },
+        {
+          "file": "lib/types/misc.d.ts.map",
+          "bytes": 2706,
+          "sha256": "7fd470887c2b1a2c86c5b149fdfddc90d7a00bea047547391ad6d169d1bc468f"
+        },
+        {
+          "file": "lib/types/string.d.ts",
+          "bytes": 2790,
+          "sha256": "018925218746fd81518276960ee5eaaf7664f7ac0a1bc01d6604903254186ced"
+        },
+        {
+          "file": "lib/types/string.d.ts.map",
+          "bytes": 2772,
+          "sha256": "6f10c183f6f0c7aac796f6fd0ae3b16b30d455a86d7d2018ecf3641093adeeac"
+        },
+        {
+          "file": "lib/types/time.d.ts",
+          "bytes": 773,
+          "sha256": "2fb4faf4cb90b96c83a3282f6cad6eafd3395a251ae2d193a0a27c63cf4dfc78"
+        },
+        {
+          "file": "lib/types/time.d.ts.map",
+          "bytes": 753,
+          "sha256": "afad91a505bd82c857a69ad72718e59d4a08f05c35493854ac000ace760a3a51"
+        },
+        {
+          "file": "lib/types/types.d.ts",
+          "bytes": 2421,
+          "sha256": "ecec322706391b1eed65497f97bb2ba53dfee289d276c35b91ad83550b61a2fa"
+        },
+        {
+          "file": "lib/types/types.d.ts.map",
+          "bytes": 1552,
+          "sha256": "6da6f71fd5de4144c9f2862aad0951c5586e7b03e95a9624c4ec5730c39cd368"
+        },
+        {
+          "file": "lib/types/volatile.d.ts",
+          "bytes": 1852,
+          "sha256": "9733d9ecf59e8b86a6e5605c830e2efacbd93e527c3fd8388aaf0d09649fef0c"
+        },
+        {
+          "file": "lib/types/volatile.d.ts.map",
+          "bytes": 840,
+          "sha256": "7f41de53d13986b169df89edba078f017f0acdaff8338d00ddc45596a19fefa4"
+        },
+        {
+          "file": "package.json",
+          "bytes": 739,
+          "sha256": "70ef4acbb6f4186b9fd24d1e7f32457112179767cf42de849bf00ef7f63b0467"
+        },
+        {
+          "file": "src/array.ts",
+          "bytes": 1453,
+          "sha256": "cf4de899ecffd66a90d8cef6f4c7d127d31f77f776d8e173d41c30d2d7632cf7"
+        },
+        {
+          "file": "src/index.ts",
+          "bytes": 506,
+          "sha256": "1087da74b9c461984e547d524ee766eebcf329a78e4720bff5b60a004ccf6e8c"
+        },
+        {
+          "file": "src/misc.ts",
+          "bytes": 3865,
+          "sha256": "117617943074ea57c15f216905dacd2f6d1c4c2ff16586f97a7a7a87dbf2141f"
+        },
+        {
+          "file": "src/string.ts",
+          "bytes": 3928,
+          "sha256": "5564272b3e15e49235cbe3a8b453f27306baf282d23a893982841670f65d3c04"
+        },
+        {
+          "file": "src/time.ts",
+          "bytes": 3054,
+          "sha256": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2"
+        },
+        {
+          "file": "src/types.ts",
+          "bytes": 7038,
+          "sha256": "cc49c12e4a637f7b0754ff78a8299e9c42fa40ee8c678550af0c538a80146a92"
+        },
+        {
+          "file": "src/volatile.ts",
+          "bytes": 3637,
+          "sha256": "937433215595f89da249ec7cabb89e331ff4135a40c6686a95666d2095315e55"
+        }
+      ],
+      "sourceDigest": "d0464eeea7a618e126f89d57af35bfd8ba621ae3b716763e3161108b7f442576",
+      "evidenceDirectory": "deepseek-ai--cosmokit-1.8.6",
+      "signatureVerification": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        },
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "expires": null,
+          "verified": true
+        }
+      ],
+      "runtimeAudit": {
+        "moduleLoading": "static",
+        "codeGeneration": [],
+        "signals": {
+          "files": false,
+          "network": false,
+          "commands": false,
+          "credentials": false,
+          "protectedDsh": false,
+          "nativeOrExecutableArtifacts": false
+        }
+      },
+      "upstreamSourceComparison": [
+        {
+          "file": "src/array.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "cf4de899ecffd66a90d8cef6f4c7d127d31f77f776d8e173d41c30d2d7632cf7",
+          "exactMatch": true
+        },
+        {
+          "file": "src/index.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "1087da74b9c461984e547d524ee766eebcf329a78e4720bff5b60a004ccf6e8c",
+          "exactMatch": true
+        },
+        {
+          "file": "src/misc.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "117617943074ea57c15f216905dacd2f6d1c4c2ff16586f97a7a7a87dbf2141f",
+          "exactMatch": true
+        },
+        {
+          "file": "src/string.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "5564272b3e15e49235cbe3a8b453f27306baf282d23a893982841670f65d3c04",
+          "exactMatch": true
+        },
+        {
+          "file": "src/time.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2",
+          "exactMatch": true
+        },
+        {
+          "file": "src/types.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "cc49c12e4a637f7b0754ff78a8299e9c42fa40ee8c678550af0c538a80146a92",
+          "exactMatch": true
+        },
+        {
+          "file": "src/volatile.ts",
+          "commit": "639ed015397290b3745d163aafe02ffee4aa3f84",
+          "sha256": "937433215595f89da249ec7cabb89e331ff4135a40c6686a95666d2095315e55",
+          "exactMatch": true
+        }
+      ],
+      "upstreamSourceComparisonStatus": "source-files-match; published-gitHead-absent; no-reproducible-build-claim"
+    }
+  ],
+  "productionResolution": {
+    "method": "npm install --package-lock-only --ignore-scripts --omit=dev --omit=optional --legacy-peer-deps --no-audit --no-fund",
+    "packageLockSha256": "6dadfb2e69522da6f524040079e51a4c11c00dc1fc277977cabf8d845220d4c8",
+    "dependencies": [
+      {
+        "path": "node_modules/@deepseek-ai/cosmokit",
+        "name": "@deepseek-ai/cosmokit",
+        "version": "1.8.6",
+        "resolved": "https://registry.npmjs.org/@deepseek-ai/cosmokit/-/cosmokit-1.8.6.tgz",
+        "integrity": "sha512-ZSD/fN52L498LBIOYwjIOlaLv5veY6ZEwI2yzvZUKQtctn0QAPqu8tKdJ+OF5+Tv6NBq1U+wJWH+QI6OGy5EvQ==",
+        "dependencies": {}
+      },
+      {
+        "path": "node_modules/@deepseek-ai/schemastery",
+        "name": "@deepseek-ai/schemastery",
+        "version": "3.18.4",
+        "resolved": "https://registry.npmjs.org/@deepseek-ai/schemastery/-/schemastery-3.18.4.tgz",
+        "integrity": "sha512-SSXO6tYuyrIqKVbmOnIq0s+riUywYzouFMcnBluHF9n4KMo2G8HvEzhCYj6pj2617/glOjbJuVInJ9hfONsjkg==",
+        "dependencies": {
+          "@deepseek-ai/cosmokit": "~1.8.5",
+          "@standard-schema/spec": "^1.1.0"
+        }
+      },
+      {
+        "path": "node_modules/@standard-schema/spec",
+        "name": "@standard-schema/spec",
+        "version": "1.1.0",
+        "resolved": "https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz",
+        "integrity": "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==",
+        "dependencies": {}
+      }
+    ],
+    "nodeModulesCreated": false,
+    "note": "Isolated npm resolver observation, not a real DSH install or proof every installer uses this resolution."
+  },
+  "pluginAssets": [
+    {
+      "file": "assets/public/asuka-after-class.webp",
+      "bytes": 289670,
+      "sha256": "94a6ce3d7dac8832642321b6cbe470d5d13a8f8036861540b03cf760ffdb7b56"
+    },
+    {
+      "file": "assets/public/asuka-noon.webp",
+      "bytes": 122354,
+      "sha256": "783e8232563f99e7d09b202072e5dd56e261f9cba780594139d69889ed3340eb"
+    },
+    {
+      "file": "assets/public/asuka-tokyo3-night.webp",
+      "bytes": 63076,
+      "sha256": "1b8cea0a69416e468ef7a795d91bea80a9c35d5000d97fe920a41e20e005105b"
+    }
+  ],
+  "provenance": {
+    "standardSchema": {
+      "claimCommit": "2c4e37f6d92e7ddc1d0d0b6bab4173f1d8d41df1",
+      "payloadSubjectMatchesArtifact": true,
+      "sigstoreEnvelopeCryptographicallyVerified": false
+    },
+    "npmSignatures": "All captured signatures verified with the retrieved npm registry public key; this is not publisher-account or build-provenance certification."
+  },
+  "exclusions": [
+    "No target code, lifecycle scripts or build scripts executed",
+    "No real DSH profile or runtime acceptance",
+    "No npm vulnerability database/CodeQL scan",
+    "No Store authorization or remote writes"
+  ]
+}

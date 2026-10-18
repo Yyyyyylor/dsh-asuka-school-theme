@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { createLensMap, installLiquidGlass } from '../src/client/liquid-glass.js'
+import { createLensMap, glassHighlight, installLiquidGlass } from '../src/client/liquid-glass.js'
 
 function sample(map: ReturnType<typeof createLensMap>, x: number, y: number) {
   const index = (y * map.width + x) * 4
@@ -7,6 +7,15 @@ function sample(map: ReturnType<typeof createLensMap>, x: number, y: number) {
 }
 
 describe('rounded background lens', () => {
+  it('limits pointer reflection to the nearby rim and keeps a large center quiet', () => {
+    expect(glassHighlight(400, 200, 200, 100)).toEqual({ x: 50, y: 50, strength: 0 })
+    const edge = glassHighlight(400, 200, 4, 100)
+    const shoulder = glassHighlight(400, 200, 32, 100)
+    expect(edge.strength).toBeGreaterThan(shoulder.strength)
+    expect(edge.strength).toBeLessThanOrEqual(0.6)
+    expect(glassHighlight(400, 200, -20, 300)).toEqual({ x: 0, y: 100, strength: 0.6 })
+    expect(glassHighlight(0, 0, 0, 0)).toEqual({ x: 0, y: 0, strength: 0 })
+  })
   it('keeps the center neutral and bends opposite edges inward without disturbing the tangent', () => {
     const map = createLensMap(200, 100, 16)
     expect(sample(map, 100, 50)).toEqual([128, 128, 128, 255])

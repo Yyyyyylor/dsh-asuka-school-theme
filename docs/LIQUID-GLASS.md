@@ -5,6 +5,70 @@ installation commands remain `3.2.2`; the existing release artifacts are unchang
 The new optics are available by building the current source. This is a Web approximation of
 rounded glass, not Apple's native Liquid Glass material.
 
+## WebGPU optics (2026-10-18, unreleased)
+
+The visual targets come from Apple's [Meet Liquid Glass](https://developer.apple.com/videos/play/wwdc2025/219/):
+curved lensing, geometry-dependent highlights, separation from underlying content,
+and readable controls. The native material also adapts shadows/tint to content
+and morphs between controls. This implementation does not reproduce that whole
+system or claim 100% equivalence.
+
+The [WebGPU source contract](https://www.w3.org/TR/2026/CRD-webgpu-20260109/#dictdef-gpucopyexternalimagesourceinfo)
+accepts images, video and canvases, not arbitrary HTML elements or the compositor's
+backdrop. A standalone WebGPU canvas cannot directly refract all live DOM. Copying
+the wallpaper would miss overlapping text/controls. Screen capture would add a
+permission prompt and capture feedback; DOM rasterizers would introduce incomplete
+snapshots and dependencies. Neither is used here.
+
+Instead, `liquid-glass-gpu.ts` renders optical data with a real WebGPU render
+pipeline. A rounded-rectangle distance field supplies the outward normal; a
+smooth convex shoulder and WGSL `refract` at IOR 1.46 generate signed displacement.
+R/G encode that displacement; B encodes Fresnel, specular and restrained caustic
+light. This is an artistic single-interface lens model, not spectral ray tracing.
+The live background remains browser-owned: the existing SVG `feDisplacementMap`
+uses this map to bend the Backdrop Root Image; a screen blend adds the GPU light.
+Compact controls retain restrained RGB dispersion. Scene tint, labels and pointer
+highlights retain their existing tokens and CSS behavior.
+
+The canvas contains geometry only. It exports a PNG snapshot in the render task,
+before the [WebGPU canvas texture expires](https://gpuweb.github.io/gpuweb/#automatic-expiry),
+then validates the scoped GPU commands and decodes the image before installation.
+No page image reaches JavaScript. Actual sampling is limited to the CSS Backdrop
+Root (including its clipping/stacking rules), not every DOM node or OS window.
+This is a WebGPU optical-map + SVG compositor implementation, not a pure WebGPU
+framebuffer renderer. Optical highlights are geometry-based; adaptive native
+content analysis, control fusion, elastic morphing and environment lighting are
+still absent. No performance improvement over the CPU fallback is claimed.
+
+- One device, uniform buffer and offscreen canvas are shared across at most 12
+  surfaces. Snapshots are serialized; DPR is capped at 2 and the longest map side
+  at 1024 pixels. The previous map stays visible until its replacement decodes.
+- Geometry/viewport changes regenerate maps after the existing 100ms debounce;
+  browser composition samples scrolling/live content using those maps without a
+  JavaScript GPU frame loop. Hidden pages defer regeneration and clear pointer
+  work; visibility restoration rechecks geometry. Both reduced-motion preferences
+  keep static optics but stop the existing nonessential motion/highlights.
+- GPU initialization is lazy per theme-enable cycle. Insecure contexts, absent
+  adapters, shader/device creation failure, validation failure and device loss
+  fall back to the existing CPU map + SVG path. Unsupported backdrop engines
+  retain frosted glass. There is no automatic retry loop; Off/On retries.
+- Off/disposal destroys GPU resources and invalidates queued/late results;
+  surface identity, dimensions and renderer epochs fence map/decode races.
+  Each installed surface exposes `data-asuka-liquid-renderer="webgpu"` only
+  after its GPU map has decoded; fallback maps expose `svg`. These attributes
+  are diagnostics, not configuration or a public host API.
+- No host DOM replacement, new clipping/containing block, new setting, runtime
+  dependency, external request or screen-capture permission is introduced.
+  `@webgpu/types` is a development-only type package.
+
+Windows Codex in-app browser verified actual WebGPU maps (neutral center and
+opposite signed edge displacement), live DOM stripe/text refraction, real device
+destruction fallback, simulated adapter unavailability, Off/On and teardown.
+An isolated DSH `0.2.1-rc.2` loaded GPU maps on sidebar/header/composer/dock,
+menus and Settings. See [COMPATIBILITY.md](COMPATIBILITY.md) for the bounded
+integration evidence. Neither Apple native comparison nor a new Ubuntu run was
+performed. The implementation below describes the retained CPU/SVG baseline.
+
 ## Renderer and Desktop evidence
 
 The official [DSH Desktop README at dsh-v0.2.0-rc.2](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.0-rc.2/apps/desktop/README.md)

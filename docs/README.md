@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。项目当前版本为 `3.2.2`，兼容基线为 DeepSeek Harness `0.2.0-rc.2` / Cordis `4.0.4`。
+本页是 `dsh-asuka-school-theme` 的维护入口。包版本为 `3.2.2`；当前未发布源码的兼容基线为 DeepSeek Harness `0.2.1-rc.2` / Cordis `4.0.5`。已发布的 `3.2.2` 资产不包含本次适配与 WebGPU 改动。
 
 ## 从这里开始
 
@@ -44,14 +44,14 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | 快捷行与完整设置页 | `src/client/settings/` | `tests/range-row.test.tsx`、`tests/range-draft.test.ts` |
 | 会话标题编辑 | `src/client/session-title/` | `tests/session-title-editor.test.tsx`、`tests/session-title-rename.test.ts` |
 | 玻璃表面与宿主 DOM 样式 | `src/client/styles.ts` | `tests/styles.test.ts`，外加真实浏览器视觉回归 |
-| 圆角背景折射与高光 | `src/client/liquid-glass.ts`、`src/client/liquid-glass-styles.ts` | `tests/liquid-glass.test.ts`，外加真实浏览器视觉回归 |
+| 圆角背景折射与高光 | `src/client/liquid-glass.ts`、`src/client/liquid-glass-gpu.ts`、`src/client/liquid-glass-styles.ts` | `tests/liquid-glass*.test.ts`，外加真实浏览器视觉回归 |
 | 打包与发布结构 | `scripts/build-client.mjs`、`scripts/check-package.mjs`、`tsdown.config.ts` | `pnpm build`、`pnpm check`、`pnpm pack:check` |
 
 ## 专项文档
 
 | 文档 | 用途 | 何时阅读或更新 |
 | --- | --- | --- |
-| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.0-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
+| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.1-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
 | [#1195 供应链审核](reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) / [能力审核](reviews/store-1195-20261017/CAPABILITY-REVIEW.md) | 已发布 3.2.2 固定提交的两项审核证据、实际解析差异和未获商城批准的边界 | 维护者正式审阅登记或后续固定源复核时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |

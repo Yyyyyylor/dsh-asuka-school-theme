@@ -15,13 +15,13 @@ describe('DSH Store manifest contract', () => {
 
   it('keeps declared DSH compatibility, peers, and development packages aligned', async () => {
     const manifest = JSON.parse(await readFile('package.json', 'utf8'))
-    expect(manifest.dependencies).toEqual({ '@deepseek-ai/schemastery': '3.18.4' })
+    expect(manifest.dependencies).toEqual({ '@deepseek-ai/schemastery': '3.18.5' })
     expect(manifest.optionalDependencies).toBeUndefined()
     const dshReleases = manifest.dsh.compatibility.dshReleases
     const [dshVersion] = Object.keys(dshReleases)
     expect(Object.keys(dshReleases)).toHaveLength(1)
     expect(dshReleases[dshVersion]).toBe('compatible')
-    expect(manifest.peerDependencies['@deepseek-ai/cordis']).toBe('~4.0.4')
+    expect(manifest.peerDependencies['@deepseek-ai/cordis']).toBe('~4.0.5')
     for (const [name, version] of Object.entries(manifest.peerDependencies)) {
       if (name.startsWith('@deepseek-ai/dsh-')) expect(version).toBe(dshVersion)
       expect(manifest.peerDependenciesMeta[name].optional).toBe(true)

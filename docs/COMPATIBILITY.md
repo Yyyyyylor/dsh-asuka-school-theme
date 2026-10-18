@@ -1,10 +1,85 @@
 # Compatibility
 
 Current version baseline: plugin `3.2.2`, DSH
-`0.2.0-rc.2`, Cordis `4.0.4`, Schemastery `3.18.4`, Node.js `>=20` and
+`0.2.1-rc.2`, Cordis `4.0.5`, Schemastery `3.18.5`, Node.js `>=20` and
 pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
-only the audited `0.2.0-rc.2`. This interface-compatibility declaration is not
+only the audited `0.2.1-rc.2`. This interface-compatibility declaration is not
 evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
+
+## 0.2.1-rc.2 interface audit (2026-10-18, unreleased)
+
+Primary evidence is the actual npm installation at
+`C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/`:
+the CLI package is `0.2.1-rc.2`, with Cordis `4.0.5` and Schemastery
+`3.18.5`. Its nested package declarations, runtime bundles, manifests and
+built Web frontend were read. No installed DSH files or official profile
+were modified. The plugin version remains `3.2.2`; its published Release
+artifacts do not contain this development adaptation.
+
+| Area | Actual target contract and adaptation |
+| --- | --- |
+| Host configuration | Volatile `Config`, `SettingsForms.configure({ auto: false })`, its disposer and legacy import remain. The `asuka-school-theme` entry ID, defaults and field names remain unchanged. |
+| Client settings | `configForms.get<T>(entryId)`, snapshots, subscribe, set/unset and atomic `mutate` retain the used contract. Snapshots expose base/user composition layers and writability; the plugin only consumes its existing accepted value/revision/status fields. No second settings controller is needed. |
+| Slots | `settings.general.item` and `settings.section` remain root list slots; `conversation.session.header.actions` remains a session list slot. The target renderer retains `slots.inject/register`, store actions, locale and Session injection. Registrations remain additive. |
+| Session rename | `sessions.binding(id)?.session.rename(title)` still returns a `RemoteResult` containing `ok` and an error message on failure. The existing title editor and error handling remain. |
+| WebServer | Exact route registration and its disposer remain. The three allowlisted GET/HEAD WebP routes retain MIME, immutable cache and nosniff behavior. |
+| Loader and dependency graph | All eight `dsh.client.inject` packages remain valid. The actual frontend static seed contains React, JSX runtime, Cordis, `dsh-client-store` and `dsh-client-ui-slots`; lazy-CJS `__ModuleLoader__.load({ id, factory })` remains usable. Store/slots stay platform seeds rather than additional injected plugin entries. |
+| Layout and motion | AppFrame still exposes `data-rightbar-col`, collapsed/fullscreen/instant and animation attributes; SidebarPanel retains push/fullscreen/open markers, the 768px automatic-fullscreen rule and native dock slide transitions. Settings still uses `open && SettingsPanel` and immediate unmount on close. Existing DOM adapters remain scoped to these contracts; no Host component replacement is introduced. |
+| Dependencies | DSH peers and development packages now pin `0.2.1-rc.2`, Cordis uses `~4.0.5` / `4.0.5`, and the runtime schema dependency pins the target `3.18.5`. `@webgpu/types` is development-only. The lockfile and exact-version release-age exceptions follow the resolved graph. |
+
+No API break in the plugin's used entry/settings/slot/session surface required
+a source rewrite. TypeScript no-emit and the targeted DSH contract, manifest
+and asset-route suites passed (8 tests), including a real Cordis Config,
+real WebServer registration/disposal and built lazy-CJS materialization.
+The page-policy sink in that suite is isolated: it does not prove live profile
+persistence or UI rendering. Full-build and real-browser evidence for this
+development change must be recorded separately; all older runs below retain
+their original version and platform boundaries.
+
+## WebGPU integration check (2026-10-18, unreleased)
+
+- `pnpm build`, all 18 suites / 92 tests, `pnpm check` and `pnpm pack:check`
+  passed. The first sandbox Vitest invocation failed before executing tests due
+  to Windows temporary-cache rename EPERM; the normal local run passed. Checks
+  include target DSH contracts, schema/controller, optics lifecycle, assets,
+  contrast and package boundaries. GPU mocks test resource/error behavior only.
+- A fresh `DSH_HOME` at `%TEMP%/asuka-webgpu-021-20261018` installed the local
+  `.tgz` with `dsh plugin --profile web add`; DSH `0.2.1-rc.2` then served its
+  full Web profile on loopback with telemetry disabled and no model credentials.
+  The actual lazy-CJS Client and live Config page loaded successfully. The
+  installed DSH core and official user profile were not edited.
+- In the Windows Codex in-app Chromium browser, sidebar, header, composer,
+  dock, native menu and Settings surfaces installed decoded maps with
+  `data-asuka-liquid-renderer="webgpu"`. Morning/light, noon/light and
+  night/dark scenes, 100% wallpaper opacity, Settings scrolling and native
+  menus remained readable. Plugin reduced motion retained static GPU optics.
+  Composer drafts, second-click add-menu close, rightbar open, split, split
+  close and fullscreen/exit worked. At 735px, content and rightbar remained
+  beside each other and document width matched viewport width; default viewport
+  was restored. Off released all Asuka filter nodes and renderer markers.
+- A separate local fixture used the same production source, with live DOM
+  stripes/text behind the lens. Its real WebGPU PNG at 1024×259 had center
+  `[128,128,0,255]`, left `[171,128,48,255]` and right `[84,128,48,255]`,
+  confirming a non-neutral GPU result and opposite edge displacement rather
+  than only a capability flag. The GPU appearance added a curved, directional
+  reflective rim compared with the retained CPU/SVG map. Destroying the actual
+  device fell back to SVG; a deliberately unavailable adapter also retained
+  SVG. Off/On recreated GPU optics, and teardown left zero filters/markers.
+  This fixture is renderer evidence, not a substitute for the DSH checks above.
+- The browser console showed no new warning/error during the interaction check.
+  Refreshing the final Client bundle required a deliberate isolated-server
+  restart, which produced expected connection-lost/retry warnings. After
+  reauthentication the final bundle again installed WebGPU maps in the noon scene.
+  Screenshots were saved outside the repository in the task's visualization
+  folder; the released README preview remains unchanged.
+- This run did not compare pixel output against Apple native Liquid Glass,
+  identify whether the browser backend used hardware or software WebGPU,
+  benchmark GPU time, or run Ubuntu/WSL/Desktop. It did not send a real model
+  message or recheck streaming, message/code sticky scrolling, title-editor IME,
+  OS reduced-motion emulation or every light/dark × scene combination. Existing
+  regression suites cover the unchanged contracts but do not prove those live
+  interactions. See [LIQUID-GLASS.md](LIQUID-GLASS.md) for sampling limitations
+  and the remaining native-material differences.
 
 ## Right-sidebar open/close timing (2026-10-12)
 

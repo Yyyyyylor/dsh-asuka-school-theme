@@ -12,12 +12,12 @@
 
 ## 兼容性
 
-- DSH：`0.2.0-rc.2`
-- Cordis：`4.0.4`
+- DSH（未发布源码）：`0.2.1-rc.2`
+- Cordis：`4.0.5`
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-`3.2.2` 面向 DSH `0.2.0-rc.2`，已使用 Codex 内置浏览器在隔离的 Windows DSH Web profile 中检查玻璃表面与高透明度壁纸下的显示效果。用户于 2026-10-01 确认当前版本在 WSL Ubuntu 的状态测试与真实模型流式回复均正常。具体核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+当前源码适配 DSH `0.2.1-rc.2` 并增加 WebGPU 光学计算，需要本地构建体验，尚未发布。已发布的 `3.2.2` 安装资产仍面向 DSH `0.2.0-rc.2`，曾使用 Codex 内置浏览器在隔离 Windows profile 中检查玻璃表面与高透明度壁纸效果；用户于 2026-10-01 确认该发布版在 WSL Ubuntu 的状态测试与真实模型流式回复正常。新开发版的核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
@@ -55,6 +55,8 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
 
 ## 使用方式
+
+当前源码使用 WebGPU shader 渲染圆角透镜折射贴图、Fresnel/镜面光及轻微焦散边缘，再由 SVG backdrop 滤镜采样表面背后的实时页面（包括 DOM 文字）。GPU canvas 只含光学数据；没有复制壁纸、录屏或引入 DOM 截图库。贴图随尺寸变化更新，没有常驻逐帧循环。WebGPU 不可用、初始化失败或 device lost 时沿用已有 SVG 光学效果；不支持 backdrop 路径的浏览器保留毛玻璃。WebGPU 需要安全上下文（HTTPS 或 localhost）。
 
 当前未发布的开发版本为输入框、侧栏、顶栏、菜单和 Settings 增加了 Chromium 背景折射、圆角透镜边缘高光和紧凑控件的轻微色散。Settings 使用更强的 48px 背景模糊，同时保留通透底色和边缘高光。窄窗口下，右侧边栏与主内容分配可用宽度，不再自动覆盖主内容，仍可通过按钮手动全屏。鼠标靠近边缘时，高光柔和响应，离开后原地淡出。其他浏览器保留毛玻璃回退；插件与系统的减少动画偏好都会停止跟随指针的高光。这是受 Liquid Glass 启发的网页效果，没有使用 Apple 原生材质。实现与验证边界见 [LIQUID-GLASS.md](docs/LIQUID-GLASS.md)。
 
@@ -95,7 +97,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 
 公开壁纸位于 `assets/public/`；相关使用说明见 [assets/LICENSE.md](assets/LICENSE.md) 与 [docs/ASSETS.md](docs/ASSETS.md)。请勿将私有开发素材放入发布包。
 
-Host 只读取包内三张壁纸，通过现有 DSH Web server 提供固定 GET/HEAD 路由。浏览器通过 DSH 同源传输访问图片、设置和用户主动编辑的会话标题；不连接第三方服务、不上传数据、不收集遥测、不读取凭据、不启动子进程。运行依赖锁定为 Schemastery `3.18.4`，DSH/Cordis 由宿主提供为 optional peers，不另装运行组件；没有安装期生命周期脚本。依赖、权限与失败边界见[商店审查说明](STORE-REVIEW.md)。独立供应链审查和商店自动复检仍待完成，声明完整不保证自动获批。
+Host 只读取包内三张壁纸，通过现有 DSH Web server 提供固定 GET/HEAD 路由。浏览器通过 DSH 同源传输访问图片、设置和用户主动编辑的会话标题；不连接第三方服务、不上传数据、不收集遥测、不读取凭据、不启动子进程。运行依赖锁定为 Schemastery `3.18.5`，DSH/Cordis 由宿主提供为 optional peers，不另装运行组件；没有安装期生命周期脚本。依赖、权限与失败边界见[商店审查说明](STORE-REVIEW.md)。独立供应链审查和商店自动复检仍待完成，声明完整不保证自动获批。
 
 ## 开发与验证
 

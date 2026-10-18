@@ -16,12 +16,14 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.2.0-rc.2`
-- Cordis: `4.0.4`
+- DSH (unreleased checkout): `0.2.1-rc.2`
+- Cordis: `4.0.5`
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-Version `3.2.2` targets DSH `0.2.0-rc.2`. Its glass surfaces and high-opacity
+The current source adapts to DSH `0.2.1-rc.2` and adds WebGPU optics; build it
+locally to try these unreleased changes. The published `3.2.2` assets still
+target DSH `0.2.0-rc.2`. Their glass surfaces and high-opacity
 wallpaper behavior were checked in an isolated Windows DSH Web profile using
 the Codex in-app browser. On 2026-10-01, the user also confirmed normal state
 testing and real model streaming in WSL Ubuntu for the current version. See
@@ -67,7 +69,16 @@ This requires Git to be available on the host. Pin the tag instead of using
 
 ## Use
 
-This unreleased checkout adds rounded background refraction to the composer,
+This unreleased checkout uses WebGPU to render rounded lens refraction maps,
+Fresnel/specular light and a restrained caustic rim. SVG backdrop filters then
+sample the live page behind each surface, including DOM text; no wallpaper
+copy, screen recording or DOM rasterization library is used. The GPU canvas
+contains optical data, not the page image. Maps update on geometry changes,
+not in a continuous frame loop. Missing WebGPU, device loss or initialization
+failure retains the existing SVG optics; unsupported backdrop engines retain
+frosted glass. WebGPU requires a secure context (HTTPS or localhost).
+
+Rounded background refraction applies to the composer,
 sidebar, header, menus and Settings on Chromium, with a curved highlight rim
 and subtle dispersion on compact controls. Settings uses a stronger 48px
 background blur while keeping its translucent tint and rim highlights.
@@ -145,7 +156,7 @@ The Host reads only the three package-owned images and serves fixed GET/HEAD
 routes on the existing DSH Web server. The browser uses same-origin DSH
 transport for images, settings and explicit session-title edits. No third-party
 service, data upload, telemetry, credentials or subprocess is used. The runtime
-dependency is pinned Schemastery `3.18.4`; DSH/Cordis are host-provided optional
+dependency is pinned Schemastery `3.18.5`; DSH/Cordis are host-provided optional
 peers, not additional runtime installations. There are no installation lifecycle
 scripts. See [Store review](STORE-REVIEW.md) for dependency, permission and
 failure boundaries. Independent supply-chain review and Store automatic

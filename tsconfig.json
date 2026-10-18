@@ -12,7 +12,7 @@
     "outDir": "lib",
     "rootDir": "src",
     "jsx": "react-jsx",
-    "types": ["node"]
+    "types": ["node", "@webgpu/types"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -1,5 +1,13 @@
 # DSH Store review / 商店审查说明
 
+2026-10-18 未发布源码补充：当前适配 DSH `0.2.1-rc.2` / Cordis `4.0.5`，
+运行时 Schemastery 锁定 `3.18.5`。`@webgpu/types@0.1.74` 仅用于开发类型检查，
+不增加运行依赖。WebGPU 在浏览器中生成光学贴图，SVG backdrop 在浏览器合成器中
+采样实时背景；不请求屏幕捕获权限，不读取页面像素到 JavaScript，不上传图像。
+GPU 贴图的 PNG 数据 URL 只含几何/光学数值，按尺寸更新，停用时释放 device/buffer。
+不支持 WebGPU 或设备失效时保留原 SVG 效果，未支持的 backdrop 引擎保留毛玻璃。
+无新增 Host 路由、外部请求或商店批准声明。以下固定提交审核与发布版说明保留其历史边界。
+
 2026-10-17 补充：针对 #1195 维护者 10 月 15 日要求，已对已发布固定提交
 `5173509ca8249141f6a64e2449d2b46bf813f8d1` 编制
 [运行依赖供应链审核](docs/reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) 和

@@ -1,11 +1,10 @@
 # Liquid Glass development implementation
 
-These development changes remain unreleased. Package version and published
-installation commands remain `3.2.2`; the existing release artifacts are unchanged.
-The new optics are available by building the current source. This is a Web approximation of
+Version `3.3.0` includes these optics and the DSH `0.2.1-rc.2` adaptation.
+Install the prebuilt GitHub Release asset or build the fixed source tag. This is a Web approximation of
 rounded glass, not Apple's native Liquid Glass material.
 
-## WebGPU optics (2026-10-18, unreleased)
+## WebGPU optics (2026-10-18, included in 3.3.0)
 
 The visual targets come from Apple's [Meet Liquid Glass](https://developer.apple.com/videos/play/wwdc2025/219/):
 curved lensing, geometry-dependent highlights, separation from underlying content,
@@ -170,8 +169,8 @@ a Chromium user-agent gate plus that check, not a cross-browser promise.
 
 ## Verification boundary
 
-See the current development check in [COMPATIBILITY.md](COMPATIBILITY.md).
+See the 0.2.1-rc.2 integration check in [COMPATIBILITY.md](COMPATIBILITY.md).
 Browser screenshots are stored outside the repository; the published README
-preview still shows released `3.2.2`. GPU cost and optical appearance depend on
+preview remains the historical `3.2.2` screenshot. GPU cost and optical appearance depend on
 viewport, wallpaper opacity/blur and browser compositing. No Apple material
 equivalence or measured frame-rate improvement is claimed.

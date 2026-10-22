@@ -16,27 +16,26 @@ time of day.
 
 ## Compatibility
 
-- DSH (unreleased checkout): `0.2.1-rc.2`
+- DSH: `0.2.1-rc.2`
 - Cordis: `4.0.5`
 - Node.js: `>=20`
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-The current source adapts to DSH `0.2.1-rc.2` and adds WebGPU optics; build it
-locally to try these unreleased changes. The published `3.2.2` assets still
-target DSH `0.2.0-rc.2`. Their glass surfaces and high-opacity
-wallpaper behavior were checked in an isolated Windows DSH Web profile using
-the Codex in-app browser. On 2026-10-01, the user also confirmed normal state
-testing and real model streaming in WSL Ubuntu for the current version. See
-[COMPATIBILITY.md](docs/COMPATIBILITY.md) for the current checks and limits.
+Version `3.3.0` targets DSH `0.2.1-rc.2` and includes WebGPU optics. Its glass
+surfaces, scene switching and sidebar/menu behavior were checked in an isolated
+Windows DSH Web profile using the Codex in-app browser. Ubuntu/WSL and real model
+streaming have not been rechecked for this baseline; the user's 2026-10-01 WSL
+confirmation belongs to `3.2.2` / DSH `0.2.0-rc.2`. See
+[COMPATIBILITY.md](docs/COMPATIBILITY.md) for evidence and limits.
 
 ## Install
 
 ### GitHub Release
 
-Install the prebuilt `3.2.2` Release asset:
+Install the prebuilt `3.3.0` Release asset:
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.2/dsh-asuka-school-theme-3.2.2.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
 ```
 
 This project is not published to npm. The Release asset contains the prebuilt
@@ -51,17 +50,17 @@ In the repository root, run:
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.2.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
 ```
 
 The package filename should match the `.tgz` emitted by `npm pack`.
 
 ### GitHub source tag
 
-Install from the fixed `v3.2.2` source tag:
+Install from the fixed `v3.3.0` source tag:
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.0
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -69,7 +68,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 
 ## Use
 
-This unreleased checkout uses WebGPU to render rounded lens refraction maps,
+Version 3.3.0 uses WebGPU to render rounded lens refraction maps,
 Fresnel/specular light and a restrained caustic rim. SVG backdrop filters then
 sample the live page behind each surface, including DOM text; no wallpaper
 copy, screen recording or DOM rasterization library is used. The GPU canvas

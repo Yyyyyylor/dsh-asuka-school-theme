@@ -1,20 +1,50 @@
 # Compatibility
 
-Current version baseline: plugin `3.2.2`, DSH
+Current version baseline: plugin `3.3.0`, DSH
 `0.2.1-rc.2`, Cordis `4.0.5`, Schemastery `3.18.5`, Node.js `>=20` and
 pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
 only the audited `0.2.1-rc.2`. This interface-compatibility declaration is not
 evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
 
-## 0.2.1-rc.2 interface audit (2026-10-18, unreleased)
+## 3.3.0 release verification (2026-10-22)
+
+The release retains the runtime source and normalized built JS from `793371b`;
+the later, withdrawn material refactor is excluded. Version, installation links,
+release notes and current Store evidence were updated together. DSH compatibility
+remains exactly `0.2.1-rc.2`, without claiming other versions.
+
+- Build, 18 suites / 92 tests, TypeScript, asset, contrast and package-boundary
+  checks passed; the package dry-run contains 66 files and only the three public
+  wallpapers. The runtime dependency versions and lockfile were unchanged.
+- pnpm 11.19.0 reported that its cached layout differed from the default
+  `enableGlobalVirtualStore` setting. Checks used the existing installed graph
+  with process-local `pnpm_config_verify_deps_before_run=warn`; a separate
+  `pnpm install --frozen-lockfile --store-dir .pnpm-store --ignore-scripts --offline`
+  completed without resolution changes. No global pnpm setting was modified.
+- The current [Store evidence](reviews/store-1195-20261022/README.md) verifies
+  the three actual runtime artifacts, 40 file digests and five npm registry
+  signatures. The recommended structural preflight returns `direct` /
+  `READY_FOR_CATALOG_ENTRY`; no Store approval or independent provenance verdict
+  is inferred from either result.
+- The actual Windows DSH Web/browser evidence below applies to this retained
+  runtime. Ubuntu/WSL, real model streaming, title IME and OS reduced-motion
+  emulation were not repeated for the version-only release work.
+- A fresh `%TEMP%/asuka-release330-20261022` home installed the local 3.3.0
+  tarball through the real DSH CLI (`plugin --profile web add`). The installed
+  manifest reported 3.3.0; its full Web profile started on loopback and returned
+  HTTP 200 for the app and all three HEAD wallpaper routes, with `image/webp`
+  and `nosniff`. No model credentials, user profile or global DSH files were
+  changed. This is package/Host smoke evidence, separate from browser rendering.
+
+## 0.2.1-rc.2 interface audit (2026-10-18, included in 3.3.0)
 
 Primary evidence is the actual npm installation at
 `C:/Users/25861/AppData/Roaming/npm/node_modules/@deepseek-ai/dsh/`:
 the CLI package is `0.2.1-rc.2`, with Cordis `4.0.5` and Schemastery
 `3.18.5`. Its nested package declarations, runtime bundles, manifests and
 built Web frontend were read. No installed DSH files or official profile
-were modified. The plugin version remains `3.2.2`; its published Release
-artifacts do not contain this development adaptation.
+were modified. This adaptation is included in plugin `3.3.0`; the historical
+`3.2.2` Release artifacts remain unchanged.
 
 | Area | Actual target contract and adaptation |
 | --- | --- |
@@ -36,7 +66,7 @@ persistence or UI rendering. Full-build and real-browser evidence for this
 development change must be recorded separately; all older runs below retain
 their original version and platform boundaries.
 
-## WebGPU integration check (2026-10-18, unreleased)
+## WebGPU integration check (2026-10-18, included in 3.3.0)
 
 - `pnpm build`, all 18 suites / 92 tests, `pnpm check` and `pnpm pack:check`
   passed. The first sandbox Vitest invocation failed before executing tests due

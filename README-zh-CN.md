@@ -12,21 +12,21 @@
 
 ## 兼容性
 
-- DSH（未发布源码）：`0.2.1-rc.2`
+- DSH：`0.2.1-rc.2`
 - Cordis：`4.0.5`
 - 开发环境：Node.js `>=20`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-当前源码适配 DSH `0.2.1-rc.2` 并增加 WebGPU 光学计算，需要本地构建体验，尚未发布。已发布的 `3.2.2` 安装资产仍面向 DSH `0.2.0-rc.2`，曾使用 Codex 内置浏览器在隔离 Windows profile 中检查玻璃表面与高透明度壁纸效果；用户于 2026-10-01 确认该发布版在 WSL Ubuntu 的状态测试与真实模型流式回复正常。新开发版的核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+`3.3.0` 适配 DSH `0.2.1-rc.2` 并包含 WebGPU 光学计算，已使用 Codex 内置浏览器在隔离 Windows DSH Web profile 中检查玻璃表面、场景切换及侧栏/菜单行为。该基线尚未复测 Ubuntu/WSL 和真实模型流式回复；用户于 2026-10-01 的 WSL 确认属于 `3.2.2` / DSH `0.2.0-rc.2`。核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
 ### GitHub Release
 
-安装 `3.2.2` Release 中的预构建包：
+安装 `3.3.0` Release 中的预构建包：
 
 ```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.2.2/dsh-asuka-school-theme-3.2.2.tgz
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
 ```
 
 本项目暂未发布到 npm。Release 安装包包含预构建的 Host/Client 代码和三张公开壁纸。安装、更新或移除插件后，请重启 DSH Web profile。
@@ -39,17 +39,17 @@ dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.2.2.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
 
 ### GitHub 源码标签
 
-从固定的 `v3.2.2` 源码标签安装：
+从固定的 `v3.3.0` 源码标签安装：
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.0
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -58,7 +58,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.2.2
 
 当前源码使用 WebGPU shader 渲染圆角透镜折射贴图、Fresnel/镜面光及轻微焦散边缘，再由 SVG backdrop 滤镜采样表面背后的实时页面（包括 DOM 文字）。GPU canvas 只含光学数据；没有复制壁纸、录屏或引入 DOM 截图库。贴图随尺寸变化更新，没有常驻逐帧循环。WebGPU 不可用、初始化失败或 device lost 时沿用已有 SVG 光学效果；不支持 backdrop 路径的浏览器保留毛玻璃。WebGPU 需要安全上下文（HTTPS 或 localhost）。
 
-当前未发布的开发版本为输入框、侧栏、顶栏、菜单和 Settings 增加了 Chromium 背景折射、圆角透镜边缘高光和紧凑控件的轻微色散。Settings 使用更强的 48px 背景模糊，同时保留通透底色和边缘高光。窄窗口下，右侧边栏与主内容分配可用宽度，不再自动覆盖主内容，仍可通过按钮手动全屏。鼠标靠近边缘时，高光柔和响应，离开后原地淡出。其他浏览器保留毛玻璃回退；插件与系统的减少动画偏好都会停止跟随指针的高光。这是受 Liquid Glass 启发的网页效果，没有使用 Apple 原生材质。实现与验证边界见 [LIQUID-GLASS.md](docs/LIQUID-GLASS.md)。
+3.3.0 为输入框、侧栏、顶栏、菜单和 Settings 增加了 Chromium 背景折射、圆角透镜边缘高光和紧凑控件的轻微色散。Settings 使用更强的 48px 背景模糊，同时保留通透底色和边缘高光。窄窗口下，右侧边栏与主内容分配可用宽度，不再自动覆盖主内容，仍可通过按钮手动全屏。鼠标靠近边缘时，高光柔和响应，离开后原地淡出。其他浏览器保留毛玻璃回退；插件与系统的减少动画偏好都会停止跟随指针的高光。这是受 Liquid Glass 启发的网页效果，没有使用 Apple 原生材质。实现与验证边界见 [LIQUID-GLASS.md](docs/LIQUID-GLASS.md)。
 
 窄窗口右栏的全屏按钮图标、悬浮提示和快捷键跟随实际布局；退出全屏后恢复与主内容并排，右栏保持打开。
 进入与退出全屏时，右栏与主区域同步过渡；全屏保留单层玻璃边缘，过渡中对话内容不会被挤成竖排。

@@ -1,0 +1,424 @@
+{
+  "date": "2026-10-22",
+  "plugin": {
+    "name": "dsh-asuka-school-theme",
+    "version": "3.3.0",
+    "functionalBaseline": "793371b",
+    "releaseRef": "v3.3.0"
+  },
+  "scope": "author artifact verification; not independent Store approval",
+  "resolution": {
+    "command": "npm install --package-lock-only --ignore-scripts --omit=dev --omit=optional --legacy-peer-deps --no-audit --no-fund",
+    "packageLockSha256": "6e8862b64f3fa6ef53bcebd19e4ec4e826f138335296b991caad9099819bfd6e",
+    "rootDependencies": {
+      "@deepseek-ai/schemastery": "3.18.5"
+    },
+    "peers": "excluded; supplied by DSH; not supply-chain certified"
+  },
+  "registryKeys": [
+    {
+      "expires": "2025-01-29T00:00:00.000Z",
+      "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+      "keytype": "ecdsa-sha2-nistp256",
+      "scheme": "ecdsa-sha2-nistp256",
+      "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1Olb3zMAFFxXKHiIkQO5cJ3Yhl5i6UPp+IhuteBJbuHcA5UogKo0EWtlWwW6KSaKoTNEYL7JlCQiVnkhBktUgg=="
+    },
+    {
+      "expires": null,
+      "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+      "keytype": "ecdsa-sha2-nistp256",
+      "scheme": "ecdsa-sha2-nistp256",
+      "key": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEY6Ya7W++7aUPzvMTrezH6Ycx3c+HOKYCcNGybJZSCJq/fd7Qa8uuAKtdIkUQtQiEKERhAmE5lMMJhP8OkDOa2g=="
+    }
+  ],
+  "packages": [
+    {
+      "name": "@deepseek-ai/cosmokit",
+      "version": "1.8.6",
+      "dependencies": {},
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "vendor/cosmokit"
+      },
+      "tarball": "https://registry.npmjs.org/@deepseek-ai/cosmokit/-/cosmokit-1.8.6.tgz",
+      "integrity": "sha512-ZSD/fN52L498LBIOYwjIOlaLv5veY6ZEwI2yzvZUKQtctn0QAPqu8tKdJ+OF5+Tv6NBq1U+wJWH+QI6OGy5EvQ==",
+      "sha1": "57e5b927a99507d79092d154ef3b83832ec59902",
+      "sha256": "02332c246aafba7f5f96246956e25e9693db91238a5105fde6d4e00c74036e78",
+      "signatures": [
+        {
+          "sig": "MEYCIQCnxlDG8euNudtGC2yhkNsOwuaZucTfhH9xvgzMbmzaRwIhAKRAR06nE4DuCAQUrTuU052PAE2dbS3Oi0vXWbog9QSP",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        },
+        {
+          "sig": "MEUCIEsJTHlA36z7QxSF3TMKdsd5Nd2vwxEUjak6M580pHyrAiEAktnh3YeDQ4Q/FVwfP8rexsHsWqSv2DQhOJ4HvU6gAV8=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "gitHead": null,
+      "attestations": null,
+      "installLifecycleScripts": {},
+      "bin": null,
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 1071,
+          "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+        },
+        {
+          "path": "lib/index.js",
+          "bytes": 17160,
+          "sha256": "ba44c0871656e4c7cac2c3c8a2ff644e0d2eb9d6bda7f6355866d686d513268e"
+        },
+        {
+          "path": "package.json",
+          "bytes": 739,
+          "sha256": "70ef4acbb6f4186b9fd24d1e7f32457112179767cf42de849bf00ef7f63b0467"
+        },
+        {
+          "path": "lib/types/array.d.ts.map",
+          "bytes": 788,
+          "sha256": "76e7996107ba6d4ea97eebe33c825e85f53392fd9b21e87248d0030903f5cdf1"
+        },
+        {
+          "path": "lib/types/index.d.ts.map",
+          "bytes": 309,
+          "sha256": "cc8b19e444b8d7a04697460273e5ace19f1ea4ca51bbc987b3397c0e261d5e5c"
+        },
+        {
+          "path": "lib/types/misc.d.ts.map",
+          "bytes": 2706,
+          "sha256": "7fd470887c2b1a2c86c5b149fdfddc90d7a00bea047547391ad6d169d1bc468f"
+        },
+        {
+          "path": "lib/types/string.d.ts.map",
+          "bytes": 2772,
+          "sha256": "6f10c183f6f0c7aac796f6fd0ae3b16b30d455a86d7d2018ecf3641093adeeac"
+        },
+        {
+          "path": "lib/types/time.d.ts.map",
+          "bytes": 753,
+          "sha256": "afad91a505bd82c857a69ad72718e59d4a08f05c35493854ac000ace760a3a51"
+        },
+        {
+          "path": "lib/types/types.d.ts.map",
+          "bytes": 1552,
+          "sha256": "6da6f71fd5de4144c9f2862aad0951c5586e7b03e95a9624c4ec5730c39cd368"
+        },
+        {
+          "path": "lib/types/volatile.d.ts.map",
+          "bytes": 840,
+          "sha256": "7f41de53d13986b169df89edba078f017f0acdaff8338d00ddc45596a19fefa4"
+        },
+        {
+          "path": "README.md",
+          "bytes": 1418,
+          "sha256": "fa0a17f50f83cda52ce623c9d42afb4eec1b33689285a0b9d2f655acbca13286"
+        },
+        {
+          "path": "lib/types/array.d.ts",
+          "bytes": 1069,
+          "sha256": "f63b6a79179ea0f70902e1c9d8c98b3fd457b124c7c5dcb3adccc4fae5a8c5b6"
+        },
+        {
+          "path": "src/array.ts",
+          "bytes": 1453,
+          "sha256": "cf4de899ecffd66a90d8cef6f4c7d127d31f77f776d8e173d41c30d2d7632cf7"
+        },
+        {
+          "path": "lib/types/index.d.ts",
+          "bytes": 547,
+          "sha256": "850b1bde1c4b0dd26069a365e3837180890205f243f962838c4b769302aa583b"
+        },
+        {
+          "path": "src/index.ts",
+          "bytes": 506,
+          "sha256": "1087da74b9c461984e547d524ee766eebcf329a78e4720bff5b60a004ccf6e8c"
+        },
+        {
+          "path": "lib/types/misc.d.ts",
+          "bytes": 2901,
+          "sha256": "b3ffb1d306130b143d309b7621dc0f94446bf0d0721a5aeaae92f1112c3a852c"
+        },
+        {
+          "path": "src/misc.ts",
+          "bytes": 3865,
+          "sha256": "117617943074ea57c15f216905dacd2f6d1c4c2ff16586f97a7a7a87dbf2141f"
+        },
+        {
+          "path": "lib/types/string.d.ts",
+          "bytes": 2790,
+          "sha256": "018925218746fd81518276960ee5eaaf7664f7ac0a1bc01d6604903254186ced"
+        },
+        {
+          "path": "src/string.ts",
+          "bytes": 3928,
+          "sha256": "5564272b3e15e49235cbe3a8b453f27306baf282d23a893982841670f65d3c04"
+        },
+        {
+          "path": "lib/types/time.d.ts",
+          "bytes": 773,
+          "sha256": "2fb4faf4cb90b96c83a3282f6cad6eafd3395a251ae2d193a0a27c63cf4dfc78"
+        },
+        {
+          "path": "src/time.ts",
+          "bytes": 3054,
+          "sha256": "49957c4608465a1fbd738186a92c47fffcd1fc4ba59dbf89524f8a773fe16fe2"
+        },
+        {
+          "path": "lib/types/types.d.ts",
+          "bytes": 2421,
+          "sha256": "ecec322706391b1eed65497f97bb2ba53dfee289d276c35b91ad83550b61a2fa"
+        },
+        {
+          "path": "src/types.ts",
+          "bytes": 7038,
+          "sha256": "cc49c12e4a637f7b0754ff78a8299e9c42fa40ee8c678550af0c538a80146a92"
+        },
+        {
+          "path": "lib/types/volatile.d.ts",
+          "bytes": 1852,
+          "sha256": "9733d9ecf59e8b86a6e5605c830e2efacbd93e527c3fd8388aaf0d09649fef0c"
+        },
+        {
+          "path": "src/volatile.ts",
+          "bytes": 3637,
+          "sha256": "937433215595f89da249ec7cabb89e331ff4135a40c6686a95666d2095315e55"
+        }
+      ],
+      "sourceComparison": [
+        {
+          "path": "src/array.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/array.ts",
+          "identical": true
+        },
+        {
+          "path": "src/index.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/index.ts",
+          "identical": true
+        },
+        {
+          "path": "src/misc.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/misc.ts",
+          "identical": true
+        },
+        {
+          "path": "src/string.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/string.ts",
+          "identical": true
+        },
+        {
+          "path": "src/time.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/time.ts",
+          "identical": true
+        },
+        {
+          "path": "src/types.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/types.ts",
+          "identical": true
+        },
+        {
+          "path": "src/volatile.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/cosmokit/src/volatile.ts",
+          "identical": true
+        }
+      ],
+      "codeEvaluationSignals": [],
+      "signatureChecks": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "verified": true
+        },
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "name": "@deepseek-ai/schemastery",
+      "version": "3.18.5",
+      "dependencies": {
+        "@standard-schema/spec": "^1.1.0",
+        "@deepseek-ai/cosmokit": "~1.8.6"
+      },
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "vendor/schemastery"
+      },
+      "tarball": "https://registry.npmjs.org/@deepseek-ai/schemastery/-/schemastery-3.18.5.tgz",
+      "integrity": "sha512-Mnobvqf9rHsZYv4g5edj5ddxS1oF1kIdSlz0DunUgnY3LWG5F26MqvH3YOOsSaodCgyzJ16OMN9O99/s5Crtdw==",
+      "sha1": "2f9e0da1e08453c34aaa70223de421cf747aa5d6",
+      "sha256": "607d635582d0bdd87ff4b48a36fd0cc6de06786cd62ce69cda3f5604554f523e",
+      "signatures": [
+        {
+          "sig": "MEUCIQCwYxpclEUngh0fXkavsRpYpwZ86cGJPK7Fqaor4gqJiAIgAOJiGZ5T0S8TeX8QVTmcIV4Di5M4wHYGsBsC2d6BmwI=",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        },
+        {
+          "sig": "MEYCIQC1V2PWszBpRg+5c7auF8BgYJ/acFeN2Q32MYUpp8WCNAIhAM1D8LrlCDXCU/kVunXYPERHKWT3V0mIoPNkRzXGdNkA",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "gitHead": null,
+      "attestations": null,
+      "installLifecycleScripts": {},
+      "bin": null,
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 1071,
+          "sha256": "034fb52b1d57360ecbae6cb1632a88f86fd7c3d3f5631a5f082710203dda0be7"
+        },
+        {
+          "path": "lib/index.cjs",
+          "bytes": 23821,
+          "sha256": "aca1c1a47c7b6034feee01501aefca3e6dd97a0bac4fe334fd30647ae5a9e480"
+        },
+        {
+          "path": "package.json",
+          "bytes": 932,
+          "sha256": "3e7deee09015c7f7aa17ae6cecfb928985520baec66aa676dc3f4ed67d4231f0"
+        },
+        {
+          "path": "lib/types/index.d.ts.map",
+          "bytes": 10848,
+          "sha256": "ee91a9f4c24c9bc82b5a37e8c84f690f5ec6e2385795902683557b0a08812e47"
+        },
+        {
+          "path": "README.md",
+          "bytes": 9687,
+          "sha256": "cdd54eece79b14c3672dfe94abb38b8d01c6ced57fb9975c4147fa17f81512d4"
+        },
+        {
+          "path": "lib/index.mjs",
+          "bytes": 22988,
+          "sha256": "cfcbe46c7416bdb35ce891c252152bbf519e08199bede5930dd7cb880c65f1ef"
+        },
+        {
+          "path": "lib/types/index.d.ts",
+          "bytes": 12506,
+          "sha256": "fca846c1420a192b7ae749da96afa0c9b5c57b2e7dff418153674f90200f4e27"
+        },
+        {
+          "path": "src/index.ts",
+          "bytes": 36623,
+          "sha256": "a6647b515659cf439b701fa9f9574c9c310ce3872d26a13a81e9fa4d02ba10ad"
+        }
+      ],
+      "sourceComparison": [
+        {
+          "path": "src/index.ts",
+          "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-harness/687f282e8625c6b8d11ff58211a90524be2e4317/vendor/schemastery/src/index.ts",
+          "identical": true
+        }
+      ],
+      "codeEvaluationSignals": [
+        {
+          "file": "lib/index.cjs",
+          "line": 42,
+          "kind": "code-evaluation"
+        },
+        {
+          "file": "lib/index.mjs",
+          "line": 42,
+          "kind": "code-evaluation"
+        },
+        {
+          "file": "src/index.ts",
+          "line": 276,
+          "kind": "code-evaluation"
+        }
+      ],
+      "signatureChecks": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "verified": true
+        },
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "name": "@standard-schema/spec",
+      "version": "1.1.0",
+      "dependencies": {},
+      "license": "MIT",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/standard-schema/standard-schema"
+      },
+      "tarball": "https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz",
+      "integrity": "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==",
+      "sha1": "a79b55dbaf8604812f52d140b2c9ab41bc150bb8",
+      "sha256": "a7cb7268be280ab518d450f8c3b07c86f23417225c0ab53691ed59b3067cceaf",
+      "signatures": [
+        {
+          "sig": "MEQCIGdCUE4g1c6RO81SGehjWNra28GX4mcyQ77hk1CGKESMAiBiyPqcj8S2TGWwYdiiDGoeurLutzxBTPQRNVt0c/IfUQ==",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "gitHead": null,
+      "attestations": {
+        "url": "https://registry.npmjs.org/-/npm/v1/attestations/@standard-schema%2fspec@1.1.0",
+        "provenance": {
+          "predicateType": "https://slsa.dev/provenance/v1"
+        }
+      },
+      "installLifecycleScripts": {},
+      "bin": null,
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 1071,
+          "sha256": "653b779005a3a4d64a7288c940f7b9a0e8f0b1e0375f6aa6af9473caf131e564"
+        },
+        {
+          "path": "dist/index.cjs",
+          "bytes": 754,
+          "sha256": "68eba92bc1637688388d7adc1fe5aa748b27c7101ad40123e64135bb5e9ed8e7"
+        },
+        {
+          "path": "dist/index.d.cts",
+          "bytes": 6056,
+          "sha256": "bdd14f07b4eca0b4b5203b85b8dbc4d084c749fa590bee5ea613e1641dcd3b29"
+        },
+        {
+          "path": "dist/index.js",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "package.json",
+          "bytes": 1146,
+          "sha256": "58e5bd75ddd0684c88b07cd799585cc72a37fd6efb8ab0c936d49e230d5164fb"
+        },
+        {
+          "path": "README.md",
+          "bytes": 7551,
+          "sha256": "1abba96482ed100b7b4e61277e7700aa7d1b4e06e433626f39d89cd620e0efa7"
+        },
+        {
+          "path": "dist/index.d.ts",
+          "bytes": 6056,
+          "sha256": "bdd14f07b4eca0b4b5203b85b8dbc4d084c749fa590bee5ea613e1641dcd3b29"
+        }
+      ],
+      "sourceComparison": [],
+      "codeEvaluationSignals": [],
+      "signatureChecks": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "storeApproval": false,
+  "provenanceVerification": "No independent rebuild or provenance certificate/transparency-log verification"
+}

@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。包版本为 `3.2.2`；当前未发布源码的兼容基线为 DeepSeek Harness `0.2.1-rc.2` / Cordis `4.0.5`。已发布的 `3.2.2` 资产不包含本次适配与 WebGPU 改动。
+本页是 `dsh-asuka-school-theme` 的维护入口。包版本为 `3.3.0`，兼容基线为 DeepSeek Harness `0.2.1-rc.2` / Cordis `4.0.5`，包含 WebGPU 光学计算与网页折射效果。
 
 ## 从这里开始
 
@@ -53,10 +53,11 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | --- | --- | --- |
 | [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.1-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
+| [#1195 3.3.0 复检材料](reviews/store-1195-20261022/README.md) | 当前运行依赖树、制品完整性和能力说明；等待 Store 独立裁定 | 当前固定源复检时 |
 | [#1195 供应链审核](reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) / [能力审核](reviews/store-1195-20261017/CAPABILITY-REVIEW.md) | 已发布 3.2.2 固定提交的两项审核证据、实际解析差异和未获商城批准的边界 | 维护者正式审阅登记或后续固定源复核时 |
 | [ARCHITECTURE-AUDIT.md](ARCHITECTURE-AUDIT.md) | Host/Client 数据流、生命周期、外观隔离和资源安全 | 改入口、控制器、slot、主题投影或路由时 |
 | [theme-token-map.md](theme-token-map.md) | DSH/Shiki token 覆盖范围 | 改主题颜色、按钮、sidebar、composer 或代码块时 |
-| [LIQUID-GLASS.md](LIQUID-GLASS.md) | 未发布的网页折射实现、Desktop 能力核对和验证边界 | 改透镜、滤镜、材质或浏览器回退时 |
+| [LIQUID-GLASS.md](LIQUID-GLASS.md) | 3.3.0 网页折射实现、Desktop 能力核对和验证边界 | 改透镜、滤镜、材质或浏览器回退时 |
 | [ASSETS.md](ASSETS.md) | 三张公开壁纸的构图、预算与目录规则 | 替换、重编码或新增壁纸时 |
 | [ASSET-CANDIDATES.md](ASSET-CANDIDATES.md) | 壁纸来源与再分发决策 | 评估任何新图像素材时 |
 | [RESEARCH.md](RESEARCH.md) | 初始 DSH 0.1.1-rc.2 调研历史及当前审计入口 | 追溯旧设计决策时；当前接口以兼容性文档为准 |
@@ -79,7 +80,7 @@ git diff --check
 - `pnpm check` 执行 TypeScript、资源、对比度和包结构检查。
 - `pnpm pack:check` 只检查 npm pack 内容，不代表已经发布，也不代表真实 DSH Web 已加载成功。
 
-涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。0.2.0-rc.2 已在隔离的 Windows DSH Web 中复测场景切换、100% 壁纸下的侧栏，以及关闭态设置行。用户于 2026-10-01 确认当前 `3.2.2` 状态在 WSL Ubuntu 的状态测试与真实模型流式回复均正常；具体证据与各轮验证边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
+涉及视觉或交互的改动还应在真实 DSH Web 中验证。重点覆盖早/午/晚、浅/深、Settings、sidebar、composer、菜单、代码块 sticky/滚动、窄窗口和 `reduceMotion`。0.2.0-rc.2 已在隔离的 Windows DSH Web 中复测场景切换、100% 壁纸下的侧栏，以及关闭态设置行。用户于 2026-10-01 确认当时 `3.2.2` 状态在 WSL Ubuntu 的状态测试与真实模型流式回复均正常；具体证据与各轮验证边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
 
 ## 发布内容边界
 

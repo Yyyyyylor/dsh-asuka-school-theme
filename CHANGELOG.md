@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-10-22
+
 ### Changed
 
-- Adapted the unreleased checkout to DSH `0.2.1-rc.2`, Cordis `4.0.5` and Schemastery `3.18.5`; retained the existing Host/Client APIs, settings IDs and additive slots. Published `3.2.2` assets are unchanged.
+- Adapted to DSH `0.2.1-rc.2`, Cordis `4.0.5` and Schemastery `3.18.5`; retained the existing Host/Client APIs, settings IDs and additive slots.
 - Added WebGPU/WGSL lens-map rendering with refraction, Fresnel/specular light and a restrained caustic rim. SVG backdrop composition samples the live page, without copying the wallpaper or capturing DOM pixels into JavaScript. Geometry-driven snapshots, bounded DPR, device-loss fallback and lifecycle cleanup preserve the previous SVG/frosted paths; no perpetual GPU frame loop or new preference is added.
 - Added a 180ms fade and subtle rise for native menu labels/icons and group headings, including the add, workspace, preset, permission, model and Settings dropdown menus. Glass layers and hit targets stay fixed; both reduced-motion preferences disable the entrance. DSH still unmounts menus immediately on close, so no exit animation is added.
 - Added Chromium background refraction to composer, sidebar, header, dock panes, native translucent menus and Settings. Size-aware rounded lens maps bend the rim while keeping the center flat; compact controls use restrained color dispersion and pointer-following edge light. Reply and code materials retain their existing readable treatment.
@@ -27,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stabilized the Settings entrance material before and after lens decoding, keeping its blur on one background layer. Content still fades in, while entrance scaling no longer changes lens raster dimensions or triggers an unnecessary fallback.
 - Kept the right sidebar beside the main content on narrow windows while the theme is active, rather than covering it automatically. Opening reserves room and closing restores it; manual fullscreen and reduced motion remain available.
 - Increased Settings background blur to 48px while retaining the translucent scene tint, original modal mask, rounded rim highlights and refraction. Background details soften without making the glass opaque or blurring settings controls.
+
+### Review evidence
+
+- Updated DSH Store #1195 materials for the 3.3.0 runtime graph and capability boundaries, including registry artifact integrity, file inventories and the remaining Schemastery callback/provenance review limits. Author evidence does not imply Store approval.
 
 ## [3.2.2] - 2026-10-01
 

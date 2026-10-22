@@ -1,0 +1,338 @@
+{
+  "release": "v3.3.0",
+  "filename": "dsh-asuka-school-theme-3.3.0.tgz",
+  "bytes": 541533,
+  "sha256": "b8e9e13813886c4b7298c27306564e3bfe44704d92df376229263f6018ab241b",
+  "files": [
+    {
+      "path": "LICENSE",
+      "bytes": 1084,
+      "sha256": "8376f38cf238579ef5b049a2f5f6ba3bb30e098358ac5d697cc32fa4d0ee5b00"
+    },
+    {
+      "path": "lib/client.js",
+      "bytes": 169929,
+      "sha256": "bcf0d82e5dac26b76ac7d3e686f57a1011b51f232a633447025593c2c011b0f7"
+    },
+    {
+      "path": "lib/index.js",
+      "bytes": 4554,
+      "sha256": "b13c0e0fb7fb261666e8081c6828cefc162936e87cfd1c497eb5b8378df1b2b6"
+    },
+    {
+      "path": "package.json",
+      "bytes": 5205,
+      "sha256": "55cb52b73461813d8960c8f771777b3c6ca4ef1dfae73d13f32dcb2be20ff49e"
+    },
+    {
+      "path": "lib/client/settings/AsukaQuickRow.d.ts.map",
+      "bytes": 675,
+      "sha256": "53b48818f951f537153a40a476da665564df48709c6f2e8cdbf905ae6b51af19"
+    },
+    {
+      "path": "lib/client/settings/AsukaSection.d.ts.map",
+      "bytes": 1578,
+      "sha256": "bf1facb82b75621fe3b59c70c3158f4292e654e7c2a1d39f6267bac3ed41ebb7"
+    },
+    {
+      "path": "lib/client/themes/colors.d.ts.map",
+      "bytes": 174,
+      "sha256": "7b108b00e65426b6b62a1fbc040676ed19f25a7524bcaf5d0cb9be17e153e058"
+    },
+    {
+      "path": "lib/client/command-menu.d.ts.map",
+      "bytes": 189,
+      "sha256": "5f899297dc6fc32e02d34ae00918f8fb88b1f67888eba37f71ccc3c6d225420a"
+    },
+    {
+      "path": "lib/client/controller.d.ts.map",
+      "bytes": 1060,
+      "sha256": "6778883514fadd4617b745d550aa3eb2a086dd7043c4865dfa4c05d2ffcb86cc"
+    },
+    {
+      "path": "lib/client/themes/dark.d.ts.map",
+      "bytes": 206,
+      "sha256": "20545dcc95651a556b106ebc42b9a2edba7c0369b7318c3cc3bb24abb1ab554f"
+    },
+    {
+      "path": "lib/client/dock-motion.d.ts.map",
+      "bytes": 188,
+      "sha256": "9f78b748d66d2b7cfe375e970249d6ddc2657020ea2e16395ce973fa4f4d1db4"
+    },
+    {
+      "path": "lib/client/index.d.ts.map",
+      "bytes": 248,
+      "sha256": "c972356dc87be8a8302a094cd81ec23a283252c9009a2c36156e8bea701b884f"
+    },
+    {
+      "path": "lib/client/themes/index.d.ts.map",
+      "bytes": 226,
+      "sha256": "8e594ae47b421f6a88fdd5d62c5b52e7af5765e3d731e657a1b568bb2920d6e4"
+    },
+    {
+      "path": "lib/index.d.ts.map",
+      "bytes": 613,
+      "sha256": "1a545c03d663d8391d0cc3c51ca0b82f92de02e203b9159975d3167ce677d1c0"
+    },
+    {
+      "path": "lib/client/themes/light.d.ts.map",
+      "bytes": 318,
+      "sha256": "8326ab22650596477e6495cfa4c0438484890885bf97d249a83063318a706eb0"
+    },
+    {
+      "path": "lib/client/liquid-glass-gpu.d.ts.map",
+      "bytes": 625,
+      "sha256": "91c42ae6d055cd6dc5228d74e77384114f65fddfaceecff2ecf030e9567a04e4"
+    },
+    {
+      "path": "lib/client/liquid-glass-styles.d.ts.map",
+      "bytes": 188,
+      "sha256": "1620f9f774d6bef89bccbcfe7fedef4ecc085fa3fa89acef7988735ac201202c"
+    },
+    {
+      "path": "lib/client/liquid-glass.d.ts.map",
+      "bytes": 532,
+      "sha256": "473e3d60b6491afb439f6e6dc528995a61f3d5f1fe65f349fa886ecbb2a4ced4"
+    },
+    {
+      "path": "lib/client/locales.d.ts.map",
+      "bytes": 937,
+      "sha256": "5d2df326651a5cf8ddc1ced710848cf1952d4ed6b329995bb02d4671a54af5d8"
+    },
+    {
+      "path": "lib/client/presentation.d.ts.map",
+      "bytes": 489,
+      "sha256": "5133b58eec55d0ee2ddfec5a98e749ecbf78a9e815a188614823bf557bdcc6a7"
+    },
+    {
+      "path": "lib/client/settings/range-draft.d.ts.map",
+      "bytes": 325,
+      "sha256": "498a36fc0e7863b9f090e4f2dc25a22e48f5da013dee34d2061d393718ada8b9"
+    },
+    {
+      "path": "lib/client/session-title/rename.d.ts.map",
+      "bytes": 351,
+      "sha256": "214234111c5c20c5bc0f467c433b4cbc7a342e3e65911ad39116f7552f822d6e"
+    },
+    {
+      "path": "lib/client/rightbar-layout.d.ts.map",
+      "bytes": 376,
+      "sha256": "68289aac728f36db7b109527f1c3a6b66882b32cae5303d877517b5415e8ceac"
+    },
+    {
+      "path": "lib/client/wallpaper/runtime.d.ts.map",
+      "bytes": 436,
+      "sha256": "0da3c23c051548c5567f7a3ca764d8a8693270e2dd15ff45f4b035723460bd11"
+    },
+    {
+      "path": "lib/client/session-title/SessionTitleEditor.d.ts.map",
+      "bytes": 484,
+      "sha256": "459b6798ca81f989c54f16a3f57b4e57a2254f112d38a72cd6a28c6c15dc71d5"
+    },
+    {
+      "path": "lib/client/settings/settings-store.d.ts.map",
+      "bytes": 456,
+      "sha256": "5aff2188eec8a3c570acf5728a5790a09580b350d29ca9dcdfa3ef6532c61e2a"
+    },
+    {
+      "path": "lib/settings.d.ts.map",
+      "bytes": 248,
+      "sha256": "b7f606efbf9c2e57ea6a666d97ad061438392d14568a55db0bc0f18ed32f0443"
+    },
+    {
+      "path": "lib/shared/settings.d.ts.map",
+      "bytes": 1424,
+      "sha256": "895890c3bf8a05b61c3692f26a6750c0c6c5830d0ce14d31a85d4bbc53641ec0"
+    },
+    {
+      "path": "lib/client/styles.d.ts.map",
+      "bytes": 188,
+      "sha256": "354ab2b01b4cba7f262e6873e7a440cc5c784194a84ea6ed46925d55af921794"
+    },
+    {
+      "path": "lib/shared/wallpapers.d.ts.map",
+      "bytes": 739,
+      "sha256": "e217a10b0ffa145a36c6f061fa6fe7f8bc8dbdfc1a321af37df0de0b79264eca"
+    },
+    {
+      "path": "lib/client/workspace-picker.d.ts.map",
+      "bytes": 196,
+      "sha256": "52391842375d29497083da9f7bc2da71e745fdfd89e398a11ca87a3e93587cdb"
+    },
+    {
+      "path": "assets/LICENSE.md",
+      "bytes": 583,
+      "sha256": "e6165b3d19db47e47e8cc99471406ec2d0824d7559147993f58bd286c1324a10"
+    },
+    {
+      "path": "README-zh-CN.md",
+      "bytes": 7888,
+      "sha256": "e0f37b665b40f66dd4c9694400791c0fb09870c503a6ae576cf0efb6653dbb5f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8562,
+      "sha256": "c93afbbbd3c5c89c81f7fb6e3c009ce40452872b535ccc31700531573d805523"
+    },
+    {
+      "path": "STORE-REVIEW.md",
+      "bytes": 12355,
+      "sha256": "b4d3d6470341f2c275a0e01b7ae4bde4ffdfefff2a3a5179d80251087fdabf9d"
+    },
+    {
+      "path": "lib/client/settings/AsukaQuickRow.d.ts",
+      "bytes": 734,
+      "sha256": "b39410dbb1bcc3d8d23ff49240c1cb005b70101696297d1ee0f14629d0379a88"
+    },
+    {
+      "path": "lib/client/settings/AsukaSection.d.ts",
+      "bytes": 1596,
+      "sha256": "c68c9ba0fc81811c61850cd9f2bfceb47aaf860581b7fd637abcd147fca90c7c"
+    },
+    {
+      "path": "lib/client/themes/colors.d.ts",
+      "bytes": 726,
+      "sha256": "dd40d7060a09f7f66621ea0316bfb66099752f6dad249c7f4c75eef6ca1d6405"
+    },
+    {
+      "path": "lib/client/command-menu.d.ts",
+      "bytes": 126,
+      "sha256": "e9a644c7924f75365027778ea55de548e78ad170c14a3a3840a065c80242b46d"
+    },
+    {
+      "path": "lib/client/controller.d.ts",
+      "bytes": 1208,
+      "sha256": "e030caacec9416d6ec92fd40afa7d575f1c86a5e68596878d21547ff591ffbff"
+    },
+    {
+      "path": "lib/client/themes/dark.d.ts",
+      "bytes": 168,
+      "sha256": "20373dfbfe416d559568e723182e9583894430e567eb08e8fb8070e87b81e2fe"
+    },
+    {
+      "path": "lib/client/dock-motion.d.ts",
+      "bytes": 118,
+      "sha256": "9400563dda0e0b6ee98010f8d8ceec3b623c36e5712a9b85f36a8b3cef130fa0"
+    },
+    {
+      "path": "lib/client/index.d.ts",
+      "bytes": 177,
+      "sha256": "c3a796dc930ad980ce217021fba7fa122baeb62b82511c2f73047b6fecd5eb20"
+    },
+    {
+      "path": "lib/client/themes/index.d.ts",
+      "bytes": 160,
+      "sha256": "13f35787af450ef214b2b35344cd4e29e3fba15e4da26bba7e5a2d529df95bd8"
+    },
+    {
+      "path": "lib/index.d.ts",
+      "bytes": 2722,
+      "sha256": "834ae5096f369b60d9bc070b8b1dfdd07f8d3e59bbcff013d5e242ccc2a2edfb"
+    },
+    {
+      "path": "lib/client/themes/light.d.ts",
+      "bytes": 508,
+      "sha256": "e7ea5f1d3a0e078dc0ddc8253a2a481347e98b44878338d4b1d1009902055d60"
+    },
+    {
+      "path": "lib/client/liquid-glass-gpu.d.ts",
+      "bytes": 2547,
+      "sha256": "196ea99953c69ae9d7925591580a8b5f9081b4b3261423610505525a65fed71a"
+    },
+    {
+      "path": "lib/client/liquid-glass-styles.d.ts",
+      "bytes": 258,
+      "sha256": "233aef5721c8df45357ed2e8807547824aac11ec7b89c06c78bd20f461b3db98"
+    },
+    {
+      "path": "lib/client/liquid-glass.d.ts",
+      "bytes": 933,
+      "sha256": "45610feb5cd00e6c23dd1d09afc446767fa651c3c158c4e88243761974ac2579"
+    },
+    {
+      "path": "lib/client/locales.d.ts",
+      "bytes": 1391,
+      "sha256": "d761a41c42b1b040394c88835cc0caf283f887ad86ab6c6e5e73a69c35306c22"
+    },
+    {
+      "path": "lib/client/presentation.d.ts",
+      "bytes": 1046,
+      "sha256": "3eef543dfd814979b64911ff8549d9f2f3411c50e8689619cd2d35a94b114bfc"
+    },
+    {
+      "path": "lib/client/settings/range-draft.d.ts",
+      "bytes": 326,
+      "sha256": "f455bfa0c27e66f40ff0108efcf6fe56945c36a5fedf6effb0125f3e4b76bf15"
+    },
+    {
+      "path": "lib/client/session-title/rename.d.ts",
+      "bytes": 381,
+      "sha256": "498a2b780d79bcee2f0d2a1593089cbe34a5e1af42c09a02e6859193dc99e6b1"
+    },
+    {
+      "path": "lib/client/rightbar-layout.d.ts",
+      "bytes": 666,
+      "sha256": "ebd8f9e9ffcca1244a638745acb41485d18d7e9a0959f457e55d39e46e755331"
+    },
+    {
+      "path": "lib/client/wallpaper/runtime.d.ts",
+      "bytes": 636,
+      "sha256": "2a3a066d6b1de4b8652970d051146654c7f6949386fbc4ad91b35ca47eafd8f5"
+    },
+    {
+      "path": "lib/client/session-title/SessionTitleEditor.d.ts",
+      "bytes": 528,
+      "sha256": "fc8d4eff3137c0bc77fb633292b7d4eb2b804afc492bef822ad4e20a258436f4"
+    },
+    {
+      "path": "lib/client/settings/settings-store.d.ts",
+      "bytes": 553,
+      "sha256": "9f736f445ffe595d144803aba20a257f5fb1dc1bf3aca42a997241431784d143"
+    },
+    {
+      "path": "lib/settings.d.ts",
+      "bytes": 1275,
+      "sha256": "76a9642c71492f38bf22a42349b6253f6214e677b5e5f1ecf5a8fcbc1de9f97d"
+    },
+    {
+      "path": "lib/shared/settings.d.ts",
+      "bytes": 2212,
+      "sha256": "d990dfc7a47bc4958e7a76c7d3ecfd8b79b853dc3e0ec5ccf730136999a94565"
+    },
+    {
+      "path": "lib/client/styles.d.ts",
+      "bytes": 137,
+      "sha256": "e61305eaab22bf61a2ea4cea41ec969dcbcdf7fd8a8621cd76beb90086ae725e"
+    },
+    {
+      "path": "lib/shared/wallpapers.d.ts",
+      "bytes": 992,
+      "sha256": "23bc3484f03e89b7343a6a3c7daea9ed20616c11a9f16c98907ccc960c0970ae"
+    },
+    {
+      "path": "lib/client/workspace-picker.d.ts",
+      "bytes": 134,
+      "sha256": "bb07465610ba4915aa2034afa3906057425a2c03131b9cf4b668a18c65fbf2aa"
+    },
+    {
+      "path": "assets/public/asuka-after-class.webp",
+      "bytes": 289670,
+      "sha256": "94a6ce3d7dac8832642321b6cbe470d5d13a8f8036861540b03cf760ffdb7b56"
+    },
+    {
+      "path": "assets/public/asuka-noon.webp",
+      "bytes": 122354,
+      "sha256": "783e8232563f99e7d09b202072e5dd56e261f9cba780594139d69889ed3340eb"
+    },
+    {
+      "path": "assets/public/asuka-tokyo3-night.webp",
+      "bytes": 63076,
+      "sha256": "1b8cea0a69416e468ef7a795d91bea80a9c35d5000d97fe920a41e20e005105b"
+    },
+    {
+      "path": "cordis.patch.yml",
+      "bytes": 79,
+      "sha256": "0742ad52fa9159d9f4ea7dc66e42f30871d3d854957f195e17ba7338ecc16166"
+    }
+  ]
+}

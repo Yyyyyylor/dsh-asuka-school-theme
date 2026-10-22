@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "root": ".",
+  "status": "READY_FOR_CATALOG_ENTRY",
+  "route": "direct",
+  "manifestPath": "package.json",
+  "package": {
+    "name": "dsh-asuka-school-theme",
+    "version": "3.3.0",
+    "license": "MIT"
+  },
+  "entryIds": [
+    "asuka-school-theme"
+  ],
+  "lifecycleScripts": [],
+  "dshReleaseWindow": {
+    "packageName": "@deepseek-ai/dsh",
+    "registryUrl": "https://registry.npmjs.org/@deepseek-ai%2Fdsh",
+    "authority": "official-github-releases-and-npm-published-versions",
+    "releasesUrl": "https://api.github.com/repos/deepseek-ai/deepseek-harness/releases?per_page=100",
+    "npmVersion": "0.2.1-rc.2",
+    "npmAvailable": true,
+    "stableVersion": "0.2.1-rc.2",
+    "latestVersion": "0.2.1-rc.2",
+    "releaseTag": "latest",
+    "releaseChannel": "preview",
+    "releases": [
+      "0.2.1-alpha.5",
+      "0.2.1-rc.1",
+      "0.2.1-rc.2"
+    ],
+    "releaseCount": 3,
+    "channels": [
+      {
+        "tag": "latest",
+        "kind": "preview",
+        "version": "0.2.1-rc.2"
+      },
+      {
+        "tag": "next",
+        "kind": "preview",
+        "version": "0.2.1-rc.2"
+      },
+      {
+        "tag": "alpha",
+        "kind": "preview",
+        "version": "0.2.1-alpha.5"
+      }
+    ]
+  },
+  "blockers": [],
+  "errors": [],
+  "warnings": [],
+  "candidate": {
+    "packageName": "dsh-asuka-school-theme",
+    "version": "3.3.0",
+    "license": "MIT",
+    "repositoryUrl": "https://github.com/Yyyyyylor/dsh-asuka-school-theme",
+    "manifestPath": "package.json",
+    "installPath": null,
+    "entryIds": [
+      "asuka-school-theme"
+    ],
+    "installScripts": []
+  },
+  "nextGate": "Create a catalog entry from the candidate, add a full immutable Commit and current Registry categories, then rerun with --entry and --registry.",
+  "note": "This read-only preflight does not prove the pinned GitHub source, Registry CI, merged catalog, public marketplace, or DSH runtime.",
+  "toolCommit": "153ac8c77a492c7a69f280325b68f35004b79640",
+  "checkedAt": "2026-10-22"
+}

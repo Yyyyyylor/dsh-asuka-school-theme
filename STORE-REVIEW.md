@@ -1,19 +1,45 @@
 # DSH Store review / 商店审查说明
 
-2026-10-18 未发布源码补充：当前适配 DSH `0.2.1-rc.2` / Cordis `4.0.5`，
-运行时 Schemastery 锁定 `3.18.5`。`@webgpu/types@0.1.74` 仅用于开发类型检查，
-不增加运行依赖。WebGPU 在浏览器中生成光学贴图，SVG backdrop 在浏览器合成器中
-采样实时背景；不请求屏幕捕获权限，不读取页面像素到 JavaScript，不上传图像。
-GPU 贴图的 PNG 数据 URL 只含几何/光学数值，按尺寸更新，停用时释放 device/buffer。
-不支持 WebGPU 或设备失效时保留原 SVG 效果，未支持的 backdrop 引擎保留毛玻璃。
-无新增 Host 路由、外部请求或商店批准声明。以下固定提交审核与发布版说明保留其历史边界。
+## Current disclosure: 3.3.0 / 当前版本说明
 
-2026-10-17 补充：针对 #1195 维护者 10 月 15 日要求，已对已发布固定提交
-`5173509ca8249141f6a64e2449d2b46bf813f8d1` 编制
-[运行依赖供应链审核](docs/reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) 和
-[文件/同源资源路由能力审核](docs/reviews/store-1195-20261017/CAPABILITY-REVIEW.md)。
-这是作者委托的证据审阅，不是商城已批准。制品完整性已核对；供应链代码求值、
-解析和来源边界仍需维护者裁定，商城 block 未解除。以下 2026-10-01 披露保留为历史材料。
+2026-10-22，插件 `3.3.0`，目标 DSH `0.2.1-rc.2` / Cordis `4.0.5`。
+Canonical repository 为 `https://github.com/Yyyyyylor/dsh-asuka-school-theme`；
+Host entry `asuka-school-theme` 和 Client factory `dsh-asuka-school-theme` 不变。
+无 preinstall/install/postinstall/prepare；Release 包含预构建 Host/Client 和三张公开 WebP。
+
+直接运行依赖是 `@deepseek-ai/schemastery@3.18.5`；传递声明为
+`@deepseek-ai/cosmokit@~1.8.6` 和 `@standard-schema/spec@^1.1.0`，当前 lockfile
+与隔离 npm 解析均选择 `1.8.6` / `1.1.0`。DSH/Cordis peers 由宿主提供，
+`@webgpu/types@0.1.74` 仅用于开发类型检查。Client 保持 React 与 DeepSeek 包 external。
+传递范围仍可能被安装器重新解析，精确版本和 lockfile 不等于独立供应链批准。
+
+针对 [DSH Store #1195](https://github.com/AI-Scarlett/DSH-Store/issues/1195) 的
+[3.3.0 复检材料](docs/reviews/store-1195-20261022/README.md) 提供实际依赖树、
+三个 tarball 和 40 个归档文件摘要、5 个已验证的 npm 注册表签名、官方固定源的逐文件比较，
+以及当前文件/同源资源路由能力记录。Schemastery 的字符串 callback 代码求值仍需维护者裁定；
+未独立重建或完成 provenance 证书/透明日志验证，不签发虚假全静态供应链通过记录。
+
+files 仅用于只读包内三张固定 allowlist 壁纸；network 仅通过 DSH WebServer 注册三条 exact
+同源 GET/HEAD 路由，其他方法 405，带 WebP MIME、immutable cache、nosniff。
+插件不另开监听端口，暴露范围继承 DSH 服务器配置。设置写入通过 ConfigForms，当前会话标题
+仅在用户确认后经 Session API 修改；不连接第三方服务、不上传数据/遥测、不读取凭据或启动子进程。
+这些是真实能力，不能声明为 none；持久状态写入的汇总权限保守为 high。
+
+WebGPU 在浏览器中生成几何光学贴图，SVG backdrop 在合成器中采样背景；不请求屏幕捕获权限，
+不读取页面像素到 JavaScript 或上传图像。PNG 数据 URL 只含几何/光学数值，按尺寸更新，
+停用时释放 device/buffer。初始化/设备失效保留 CPU/SVG 回退，不支持 backdrop 的引擎保留毛玻璃。
+没有新增 Host 路由或外部请求。
+
+作者材料、结构预检、自动测试、真实 DSH 运行与商城专项批准是分别核验的事项。
+本版本材料供维护者对 `v3.3.0` 的最终固定 Commit 复检；Store block 可能继续保留。
+维护者 2026-10-15 指出的剩余门禁没有因本地检查自动消失。
+
+## Historical 3.2.2 disclosure / 历史版本披露
+
+2026-10-17 针对已发布固定提交 `5173509ca8249141f6a64e2449d2b46bf813f8d1` 的
+[供应链审核](docs/reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) 和
+[能力审核](docs/reviews/store-1195-20261017/CAPABILITY-REVIEW.md) 保留原适用范围。
+以下 2026-10-01 说明不表示当前依赖仍为 3.18.4，也不能自动批准 3.3.0。
 
 Author disclosure for plugin `3.2.2` (DSH `0.2.0-rc.2`),
 2026-10-01. This is a bounded source/dependency review, not an independent
@@ -99,10 +125,10 @@ files/network 信号是真实能力，不能声明为 none。考虑到 DSH 设�
   been rerun for this 0.2.0-rc.2 release baseline.
 - Local checks do not prove the default branch's fixed Commit, Store source
   review, dependency supply-chain approval, Registry CI, or public listing.
-  No Store catalog, issue comment or real user profile is modified by this task.
+  This historical source-review task did not modify the Store catalog or real user profile.
 - Once these changes reach the canonical default branch, Store automation can
   inspect the new fixed Commit. Capability/dependency gates may still require
   `user-reviewed` or retain `blocked`. Declarations alone cannot promise approval.
 
-源码、自动测试、隔离 Host 和商店复检分别验收。当前工作只在本地提交，没有推送；
-商店尚不能读取本次提交，也没有本次安装、卸载或精确回滚的完整多版本验收证据。
+源码、自动测试、隔离 Host 和商店复检分别验收。该历史记录编制时只在本地提交；其后已发布的提交以 Git 历史和 issue 链接为准。
+该记录本身没有完整安装、卸载或精确回滚的多版本验收证据。

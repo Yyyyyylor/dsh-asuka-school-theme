@@ -98,7 +98,7 @@ by the host; the adapter restores only label values it still owns.
 
 ## Appearance isolation
 
-The unreleased rounded-refraction enhancement is a separate Cordis effect in
+The 3.3.0 rounded-refraction enhancement is a separate Cordis effect in
 `liquid-glass.ts`. It observes activation from the existing presenter, discovers
 major paint surfaces, and owns per-surface SVG lens resources and passive
 pointer highlights. It adds no settings synchronizer or Host/API service.

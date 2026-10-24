@@ -86,5 +86,5 @@ git diff --check
 
 `package.json#files` 仅允许发布预构建 `lib/`、`assets/public/`、资源许可、Cordis patch、双语 README、商店审查说明和 LICENSE。`assets/private/`、本地 `.tgz`、`/tgz/`、测试与其余内部文档不会进入安装包。
 
-项目未发布到 npm。GitHub Release 的版本化 `.tgz` 是首选安装产物；发布步骤只有在明确授权时执行。
+推荐通过 DSH 插件安装页面填写 npm 包名 `dsh-asuka-school-theme`，或通过 CLI 安装固定版本的 npm 包；GitHub Release 的版本化 `.tgz` 和固定 Git tag 的 GitHub 源作为备选。具体步骤见双语 README；发布步骤只有在明确授权时执行。
 

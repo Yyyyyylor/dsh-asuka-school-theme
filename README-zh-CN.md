@@ -21,7 +21,27 @@
 
 ## 安装
 
-### GitHub Release
+### npm（推荐）
+
+推荐通过 DSH 插件安装页面或命令行安装 [npm 包](https://www.npmjs.com/package/dsh-asuka-school-theme)。两种方式均包含预构建的 Host/Client 代码和三张公开壁纸。
+
+**DSH 插件安装页面：** 打开插件安装页面，直接填写以下 npm 包名并执行安装：
+
+```text
+dsh-asuka-school-theme
+```
+
+直接填写包名会安装最新版本；如需固定到当前版本，可填写 `dsh-asuka-school-theme@3.3.0`。
+
+**命令行：** 在已安装 DSH 的主机上执行（PowerShell 或 Unix shell 均可）：
+
+```bash
+dsh plugin --profile web add dsh-asuka-school-theme@3.3.0
+```
+
+安装、更新或移除插件后，请重启 DSH Web profile。
+
+### GitHub Release（备选）
 
 安装 `3.3.0` Release 中的预构建包：
 
@@ -29,7 +49,7 @@
 dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
 ```
 
-本项目暂未发布到 npm。Release 安装包包含预构建的 Host/Client 代码和三张公开壁纸。安装、更新或移除插件后，请重启 DSH Web profile。
+Release 安装包同样包含预构建的 Host/Client 代码和三张公开壁纸。
 
 ### 从本地项目安装
 
@@ -44,7 +64,7 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
 
-### GitHub 源码标签
+### GitHub 源码标签（备选）
 
 从固定的 `v3.3.0` 源码标签安装：
 

@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Documentation
+
+- Recommended npm installation through either the DSH plugin installation page (using the package name) or the CLI, keeping GitHub installation methods as alternatives in both READMEs.
+
 ## [3.3.0] - 2026-10-22
+
+### Distribution
+
+- Published `3.3.0` to npm on 2026-10-24 with prebuilt Host/Client code and all three public wallpapers; added version-pinned npm installation instructions to both READMEs.
 
 ### Changed
 

@@ -30,7 +30,27 @@ confirmation belongs to `3.2.2` / DSH `0.2.0-rc.2`. See
 
 ## Install
 
-### GitHub Release
+### npm (recommended)
+
+Install the [npm package](https://www.npmjs.com/package/dsh-asuka-school-theme) using either the DSH plugin installation page or the command line. Both methods install prebuilt Host/Client code and all three public wallpapers.
+
+**DSH plugin installation page:** open the plugin installation page, enter the npm package name below, and install:
+
+```text
+dsh-asuka-school-theme
+```
+
+The package name installs the latest version. To install this specific release, enter `dsh-asuka-school-theme@3.3.0` instead.
+
+**Command line:** run on the host where DSH is installed (PowerShell or a Unix shell):
+
+```bash
+dsh plugin --profile web add dsh-asuka-school-theme@3.3.0
+```
+
+Restart the DSH Web profile after installing, updating or removing the plugin.
+
+### GitHub Release (alternative)
 
 Install the prebuilt `3.3.0` Release asset:
 
@@ -38,9 +58,7 @@ Install the prebuilt `3.3.0` Release asset:
 dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
 ```
 
-This project is not published to npm. The Release asset contains the prebuilt
-Host/Client code and all three public wallpapers. Restart the DSH Web profile
-after installing, updating or removing the plugin.
+The Release asset contains the same prebuilt Host/Client code and all three public wallpapers.
 
 ### From a local checkout
 
@@ -55,7 +73,7 @@ dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
 
 The package filename should match the `.tgz` emitted by `npm pack`.
 
-### GitHub source tag
+### GitHub source tag (alternative)
 
 Install from the fixed `v3.3.0` source tag:
 

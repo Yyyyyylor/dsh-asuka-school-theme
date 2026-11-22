@@ -12,44 +12,33 @@
 
 ## 兼容性
 
-- DSH：`0.2.1-rc.2`
-- Cordis：`4.0.5`
-- 开发环境：Node.js `>=20`
+- DSH：插件 `3.3.1` 适配 `0.2.2-rc.5`，插件 `3.3.0` 适配 `0.2.1-rc.2`
+- Cordis：插件 `3.3.1` 使用 `4.1.0`
+- Node.js：运行 DSH `0.2.2-rc.5` CLI 需 `>=24.9.0`
 - 目标平台：Ubuntu / WSL2 Ubuntu，使用 DSH Web 和 Linux Chrome
 
-`3.3.0` 适配 DSH `0.2.1-rc.2` 并包含 WebGPU 光学计算，已使用 Codex 内置浏览器在隔离 Windows DSH Web profile 中检查玻璃表面、场景切换及侧栏/菜单行为。该基线尚未复测 Ubuntu/WSL 和真实模型流式回复；用户于 2026-10-01 的 WSL 确认属于 `3.2.2` / DSH `0.2.0-rc.2`。核验与边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
+`3.3.1` 的运行效果已在隔离的 Windows DSH Web profile 中验证，浏览器覆盖范围与平台边界见 [COMPATIBILITY.md](docs/COMPATIBILITY.md)。
 
 ## 安装
 
-### npm（推荐）
+### DSH `0.2.2-rc.5` 使用 GitHub Release
 
-推荐通过 DSH 插件安装页面或命令行安装 [npm 包](https://www.npmjs.com/package/dsh-asuka-school-theme)。两种方式均包含预构建的 Host/Client 代码和三张公开壁纸。
-
-**DSH 插件安装页面：** 打开插件安装页面，直接填写以下 npm 包名并执行安装：
-
-```text
-dsh-asuka-school-theme
+```bash
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.1/dsh-asuka-school-theme-3.3.1.tgz
 ```
 
-直接填写包名会安装最新版本；如需固定到当前版本，可填写 `dsh-asuka-school-theme@3.3.0`。
+在 DSH 所在主机执行命令后重启 Web profile。首次安装也可以在 Web 端的
+**插件 → 添加插件**中粘贴同一个 `.tgz` 链接。安装包包含预构建的 Host/Client
+代码和三张公开壁纸。
 
-**命令行：** 在已安装 DSH 的主机上执行（PowerShell 或 Unix shell 均可）：
+### DSH `0.2.1-rc.2` 使用 npm
+
+此 DSH 版本可在 **插件 → 添加插件**中填写 `dsh-asuka-school-theme@3.3.0`，
+也可以使用命令行。[npm 包](https://www.npmjs.com/package/dsh-asuka-school-theme)
 
 ```bash
 dsh plugin --profile web add dsh-asuka-school-theme@3.3.0
 ```
-
-安装、更新或移除插件后，请重启 DSH Web profile。
-
-### GitHub Release（备选）
-
-安装 `3.3.0` Release 中的预构建包：
-
-```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
-```
-
-Release 安装包同样包含预构建的 Host/Client 代码和三张公开壁纸。
 
 ### 从本地项目安装
 
@@ -59,17 +48,17 @@ Release 安装包同样包含预构建的 Host/Client 代码和三张公开壁�
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.1.tgz
 ```
 
 最后一条命令中的文件名应与 `npm pack` 实际输出的 `.tgz` 一致。
 
 ### GitHub 源码标签（备选）
 
-从固定的 `v3.3.0` 源码标签安装：
+从固定的 `v3.3.1` 源码标签安装：
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.1
 ```
 
 该方式要求主机已安装 Git。请固定到标签而非 `main`，避免后续更新带来不可预期的变动。
@@ -117,7 +106,7 @@ dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.0
 
 公开壁纸位于 `assets/public/`；相关使用说明见 [assets/LICENSE.md](assets/LICENSE.md) 与 [docs/ASSETS.md](docs/ASSETS.md)。请勿将私有开发素材放入发布包。
 
-Host 只读取包内三张壁纸，通过现有 DSH Web server 提供固定 GET/HEAD 路由。浏览器通过 DSH 同源传输访问图片、设置和用户主动编辑的会话标题；不连接第三方服务、不上传数据、不收集遥测、不读取凭据、不启动子进程。运行依赖锁定为 Schemastery `3.18.5`，DSH/Cordis 由宿主提供为 optional peers，不另装运行组件；没有安装期生命周期脚本。依赖、权限与失败边界见[商店审查说明](STORE-REVIEW.md)。独立供应链审查和商店自动复检仍待完成，声明完整不保证自动获批。
+Host 只读取包内三张壁纸，通过现有 DSH Web server 提供固定 GET/HEAD 路由。浏览器通过 DSH 同源传输访问图片、设置和用户主动编辑的会话标题；不连接第三方服务、不上传数据、不收集遥测、不读取凭据、不启动子进程。运行依赖锁定为 Schemastery `3.19.0`，DSH/Cordis 由宿主提供为 optional peers，不另装运行组件；没有安装期生命周期脚本。依赖、权限与失败边界见[商店审查说明](STORE-REVIEW.md)。独立供应链审查和商店自动复检仍待完成，声明完整不保证自动获批。
 
 ## 开发与验证
 

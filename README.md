@@ -16,49 +16,35 @@ time of day.
 
 ## Compatibility
 
-- DSH: `0.2.1-rc.2`
-- Cordis: `4.0.5`
-- Node.js: `>=20`
+- DSH: `0.2.2-rc.5` for plugin `3.3.1`; `0.2.1-rc.2` for plugin `3.3.0`
+- Cordis: `4.1.0` for plugin `3.3.1`
+- Node.js: `>=24.9.0` to run the DSH `0.2.2-rc.5` CLI
 - Target: Ubuntu / WSL2 Ubuntu with DSH Web and Linux Chrome
 
-Version `3.3.0` targets DSH `0.2.1-rc.2` and includes WebGPU optics. Its glass
-surfaces, scene switching and sidebar/menu behavior were checked in an isolated
-Windows DSH Web profile using the Codex in-app browser. Ubuntu/WSL and real model
-streaming have not been rechecked for this baseline; the user's 2026-10-01 WSL
-confirmation belongs to `3.2.2` / DSH `0.2.0-rc.2`. See
-[COMPATIBILITY.md](docs/COMPATIBILITY.md) for evidence and limits.
+The `3.3.1` runtime was tested in an isolated Windows DSH Web profile.
+See [COMPATIBILITY.md](docs/COMPATIBILITY.md) for the browser coverage and platform limits.
 
 ## Install
 
-### npm (recommended)
+### GitHub Release for DSH `0.2.2-rc.5`
 
-Install the [npm package](https://www.npmjs.com/package/dsh-asuka-school-theme) using either the DSH plugin installation page or the command line. Both methods install prebuilt Host/Client code and all three public wallpapers.
-
-**DSH plugin installation page:** open the plugin installation page, enter the npm package name below, and install:
-
-```text
-dsh-asuka-school-theme
+```bash
+dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.1/dsh-asuka-school-theme-3.3.1.tgz
 ```
 
-The package name installs the latest version. To install this specific release, enter `dsh-asuka-school-theme@3.3.0` instead.
+Run the command on the DSH host and restart the Web profile. For a fresh
+installation from the Web interface, paste the same tarball URL into
+**Plugins → Add plugin**. The package includes prebuilt Host/Client code and
+all three public wallpapers.
 
-**Command line:** run on the host where DSH is installed (PowerShell or a Unix shell):
+### npm for DSH `0.2.1-rc.2`
+
+For this DSH version, enter `dsh-asuka-school-theme@3.3.0` in **Plugins →
+Add plugin**, or use the CLI. [npm package](https://www.npmjs.com/package/dsh-asuka-school-theme)
 
 ```bash
 dsh plugin --profile web add dsh-asuka-school-theme@3.3.0
 ```
-
-Restart the DSH Web profile after installing, updating or removing the plugin.
-
-### GitHub Release (alternative)
-
-Install the prebuilt `3.3.0` Release asset:
-
-```bash
-dsh plugin --profile web add https://github.com/Yyyyyylor/dsh-asuka-school-theme/releases/download/v3.3.0/dsh-asuka-school-theme-3.3.0.tgz
-```
-
-The Release asset contains the same prebuilt Host/Client code and all three public wallpapers.
 
 ### From a local checkout
 
@@ -68,17 +54,17 @@ In the repository root, run:
 pnpm install
 pnpm build
 npm pack
-dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.0.tgz
+dsh plugin --profile web add ./dsh-asuka-school-theme-3.3.1.tgz
 ```
 
 The package filename should match the `.tgz` emitted by `npm pack`.
 
 ### GitHub source tag (alternative)
 
-Install from the fixed `v3.3.0` source tag:
+Install from the fixed `v3.3.1` source tag:
 
 ```bash
-dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.0
+dsh plugin --profile web add github:Yyyyyylor/dsh-asuka-school-theme#v3.3.1
 ```
 
 This requires Git to be available on the host. Pin the tag instead of using
@@ -86,7 +72,7 @@ This requires Git to be available on the host. Pin the tag instead of using
 
 ## Use
 
-Version 3.3.0 uses WebGPU to render rounded lens refraction maps,
+The plugin uses WebGPU to render rounded lens refraction maps,
 Fresnel/specular light and a restrained caustic rim. SVG backdrop filters then
 sample the live page behind each surface, including DOM text; no wallpaper
 copy, screen recording or DOM rasterization library is used. The GPU canvas
@@ -173,7 +159,7 @@ The Host reads only the three package-owned images and serves fixed GET/HEAD
 routes on the existing DSH Web server. The browser uses same-origin DSH
 transport for images, settings and explicit session-title edits. No third-party
 service, data upload, telemetry, credentials or subprocess is used. The runtime
-dependency is pinned Schemastery `3.18.5`; DSH/Cordis are host-provided optional
+dependency is pinned Schemastery `3.19.0`; DSH/Cordis are host-provided optional
 peers, not additional runtime installations. There are no installation lifecycle
 scripts. See [Store review](STORE-REVIEW.md) for dependency, permission and
 failure boundaries. Independent supply-chain review and Store automatic

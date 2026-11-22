@@ -140,20 +140,25 @@ a Chromium user-agent gate plus that check, not a cross-browser promise.
   two-pixel `::after` rim, so the border no longer adds a full-panel tint. The
   non-inherited paint properties are assigned to their owning pseudo-elements;
   scene transitions and both reduced-motion preferences cover those layers.
-- A passive pointer listener coalesces highlight coordinates to one animation
-  frame. A local 110px reflection responds within 64px of the rim, eases its
+- A passive pointer listener reads the surface bounds and applies the latest
+  highlight coordinates once per animation frame. A local 110px reflection
+  responds within 64px of the rim, eases its
   position for 140ms and fades for 180ms. Leaving keeps its last position while
   strength decays to zero. Only the pseudo-element's non-inherited paint
   properties transition; there is no continuous render loop or change to hit
   targets. Both reduced-motion preferences clear the moving highlight;
   decorative-details Off dims the rim. Static refraction remains available.
-- Native resizing keeps the decoded glass material attached and stretches its
-  existing map to the current layout box. Once dimensions settle for 100ms, a
+- Native resizing keeps the decoded glass material attached. The SVG image
+  fills the filter region as the layout box changes, using the [default filter
+  primitive subregion](https://www.w3.org/TR/filter-effects/#FilterPrimitiveSubRegion).
+  Once dimensions settle for 100ms, a
   replacement map is built offscreen, decoded and installed atomically without
   changing the filter URL or blur/tint rules. Replacement failures retain the
   decoded map; initial failures retain frosted glass. Maps use untransformed
   layout dimensions. Structural surface changes are observed;
   streamed text and the plugin's own SVG primitives do not cause rescans.
+  Scene and reduced-motion updates reuse decoded optics when dimensions,
+  radius, device pixel ratio, renderer and optical strength agree.
 - Non-Chromium engines, missing capabilities/canvas, encoder failure or data
   image decode rejection retain frosted glass. Decode is verified before
   activation; late results are fenced by surface identity, dimensions, theme
@@ -169,7 +174,7 @@ a Chromium user-agent gate plus that check, not a cross-browser promise.
 
 ## Verification boundary
 
-See the 0.2.1-rc.2 integration check in [COMPATIBILITY.md](COMPATIBILITY.md).
+See the browser checks in [COMPATIBILITY.md](COMPATIBILITY.md).
 Browser screenshots are stored outside the repository; the published README
 preview remains the historical `3.2.2` screenshot. GPU cost and optical appearance depend on
 viewport, wallpaper opacity/blur and browser compositing. No Apple material

@@ -5,11 +5,27 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.3.1] - 2026-11-22
+
+### Distribution
+
+- Published prebuilt Host/Client code and all three public wallpapers as a GitHub Release tarball with a SHA-256 checksum.
+
+### Changed
+
+- Adapted to DSH `0.2.2-rc.5`, Cordis `4.1.0` and Schemastery `3.19.0`. The workspace picker now uses the host's native toggle, and the composer add-menu guard honors the host's IME marker.
+- Limited dock split measurements to outer layout changes, coalesced pointer layout reads to one per frame, and reused settled glass maps across scene and reduced-motion changes when their optical inputs match.
+- Kept the new-session header and composer above the wallpaper with DSH's isolated hero layout.
+
+### Fixed
+
+- Removed the solid-fill fade at the bottom of the translucent left sidebar, shared one border across the file sidebar's Open With buttons, and kept the chat rows and header labels above their decorative layers.
+- Let SVG fit the decoded refraction map to each surface as the right sidebar slides, avoiding filter size writes during the transition.
+- Kept the message-card separation inside the card border and matched the sticky code mask to the banner fill, removing clipped shadows below the header and light corners on code blocks.
 
 ### Documentation
 
-- Recommended npm installation through either the DSH plugin installation page (using the package name) or the CLI, keeping GitHub installation methods as alternatives in both READMEs.
+- Documented the GitHub Release installation for DSH `0.2.2-rc.5` and the npm installation for the older DSH baseline.
 
 ## [3.3.0] - 2026-10-22
 
@@ -235,6 +251,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Kept the color preset synchronized with automatic wallpaper timing after restarting DSH.
 - Improved daytime code-block title readability and preserved sidebar visibility at full wallpaper opacity.
 
+[3.3.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.3.0...v3.3.1
+[3.3.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.2...v3.3.0
 [3.2.2]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/Yyyyyylor/dsh-asuka-school-theme/compare/v3.1.0...v3.2.0

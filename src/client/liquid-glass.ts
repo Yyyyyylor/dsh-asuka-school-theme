@@ -95,7 +95,7 @@ export function installLiquidGlass(root: Document = document): () => void {
   let gpuState: 'idle' | 'pending' | 'ready' | 'fallback' = 'idle'
   let gpuEpoch = 0
   let light: HTMLElement | undefined
-  let pointer: { element: HTMLElement, x: number, y: number, strength: number } | undefined
+  let pointer: { element: HTMLElement, x: number, y: number } | undefined
   const active = () => root.body.hasAttribute('data-asuka-school-theme')
   const motion = () => active() && !reduced.matches && root.body.dataset.asukaSchoolReduceMotion !== 'true'
   const invalidate = () => { for (const lens of lenses.values()) lens.size = '' }
@@ -170,9 +170,10 @@ export function installLiquidGlass(root: Document = document): () => void {
     const epoch = gpuEpoch
     const renderer = gpu
     const dpr = view.devicePixelRatio || 1
-    const size = `${width}:${height}:${radius}:${dpr}:${epoch}:${!!renderer}`
+    const strength = renderer ? (root.body.dataset.asukaSchoolDetails === 'false' ? '0.04' : '0.14') : ''
+    const size = `${width}:${height}:${radius}:${dpr}:${epoch}:${strength}`
     if (lens.size === size) {
-      if (lens.ready) element.setAttribute('data-asuka-liquid-glass', 'true')
+      if (lens.ready && !element.hasAttribute('data-asuka-liquid-glass')) element.setAttribute('data-asuka-liquid-glass', 'true')
       return
     }
     lens.size = size
@@ -195,10 +196,9 @@ export function installLiquidGlass(root: Document = document): () => void {
         scale = map.scale
       }
       if (disposed || epoch !== gpuEpoch || lens.size !== size || lenses.get(element) !== lens) return
-      const parts: SVGElement[] = [primitive('feImage', {
-        href, x: '0', y: '0', width: String(width), height: String(height),
-        preserveAspectRatio: 'none', result: 'lens',
-      })]
+      // feImage defaults to the filter region. The browser stretches the
+      // decoded map during room motion without per-frame SVG attribute writes.
+      const parts: SVGElement[] = [primitive('feImage', { href, preserveAspectRatio: 'none', result: 'lens' })]
       const displace = (result: string, scale: number) => primitive('feDisplacementMap', {
         in: 'SourceGraphic', in2: 'lens', scale: String(scale), xChannelSelector: 'R', yChannelSelector: 'G', result,
       })
@@ -220,7 +220,6 @@ export function installLiquidGlass(root: Document = document): () => void {
         // B stores GPU Fresnel/specular/caustic light; R/G still displace the
         // browser's actual backdrop. No page pixels are read into JavaScript.
         parts[parts.length - 1]!.setAttribute('result', 'optical-background')
-        const strength = root.body.dataset.asukaSchoolDetails === 'false' ? '0.04' : '0.14'
         parts.push(primitive('feColorMatrix', { in: 'lens', type: 'matrix',
           values: `0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 ${strength} 0 0`, result: 'optical-light' }),
         primitive('feBlend', { in: 'optical-light', in2: 'optical-background', mode: 'screen' }))
@@ -231,10 +230,6 @@ export function installLiquidGlass(root: Document = document): () => void {
       image.src = href
       void image.decode().then(() => {
         if (disposed || root.hidden || !active() || epoch !== gpuEpoch || lenses.get(element) !== lens || lens.size !== size) return
-        // Room motion may have continued while decoding. Match its current
-        // box immediately; the debounced update will refine the map geometry.
-        parts[0]!.setAttribute('width', String(element.offsetWidth))
-        parts[0]!.setAttribute('height', String(element.offsetHeight))
         lens.filter.replaceChildren(...parts)
         lens.ready = true
         element.style.setProperty('--asuka-liquid-filter', `url("#${lens.filter.id}")`)
@@ -288,20 +283,7 @@ export function installLiquidGlass(root: Document = document): () => void {
     if (timer) view.clearTimeout(timer)
     timer = view.setTimeout(sync, 100)
   }
-  const resize = new view.ResizeObserver(entries => {
-    // Stretch the decoded map through native room motion; keep material/blur
-    // attached and rasterize a fresh map only after dimensions settle.
-    for (const entry of entries) {
-      const element = entry.target as HTMLElement
-      const lens = lenses.get(element)
-      const image = lens?.filter.querySelector('feImage')
-      if (image && element.offsetWidth > 0 && element.offsetHeight > 0) {
-        if (image.getAttribute('width') !== String(element.offsetWidth)) image.setAttribute('width', String(element.offsetWidth))
-        if (image.getAttribute('height') !== String(element.offsetHeight)) image.setAttribute('height', String(element.offsetHeight))
-      }
-    }
-    schedule()
-  })
+  const resize = new view.ResizeObserver(schedule)
   const tree = new view.MutationObserver(records => {
     // Ignore streamed text and our own SVG primitives. Discover only structural
     // surface additions/removals, rather than rescanning the page per token.
@@ -316,7 +298,8 @@ export function installLiquidGlass(root: Document = document): () => void {
   const appearance = new view.MutationObserver(() => {
     if (!active()) for (const [element, lens] of lenses) release(element, lens)
     if (!active() && gpuState !== 'idle') stopGPU()
-    invalidate()
+    // Scene and motion markers do not change the optical raster. Recheck the
+    // dimensions, radius and detail strength without discarding a valid map.
     if (!motion()) resetLight()
     schedule()
   })
@@ -332,15 +315,17 @@ export function installLiquidGlass(root: Document = document): () => void {
     const element = event.target instanceof view.Element ? event.target.closest<HTMLElement>(SURFACES) : null
     if (!element || !lenses.has(element)) { clearLight(); return }
     if (light !== element) { clearLight(); light = element }
-    const rect = element.getBoundingClientRect()
-    pointer = { element, ...glassHighlight(rect.width, rect.height, event.clientX - rect.left, event.clientY - rect.top) }
+    pointer = { element, x: event.clientX, y: event.clientY }
     if (frame) return
     frame = view.requestAnimationFrame(() => {
       frame = 0
       if (!pointer || !motion()) return
-      pointer.element.style.setProperty('--asuka-liquid-pointer-x', `${pointer.x.toFixed(1)}%`)
-      pointer.element.style.setProperty('--asuka-liquid-pointer-y', `${pointer.y.toFixed(1)}%`)
-      pointer.element.style.setProperty('--asuka-liquid-pointer-strength', pointer.strength.toFixed(3))
+      const { element, x, y } = pointer
+      const rect = element.getBoundingClientRect()
+      const highlight = glassHighlight(rect.width, rect.height, x - rect.left, y - rect.top)
+      element.style.setProperty('--asuka-liquid-pointer-x', `${highlight.x.toFixed(1)}%`)
+      element.style.setProperty('--asuka-liquid-pointer-y', `${highlight.y.toFixed(1)}%`)
+      element.style.setProperty('--asuka-liquid-pointer-strength', highlight.strength.toFixed(3))
     })
   }
   root.addEventListener('pointermove', move, { passive: true })

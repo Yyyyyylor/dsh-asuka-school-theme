@@ -1,10 +1,83 @@
 # Compatibility
 
-Current version baseline: plugin `3.3.0`, DSH
-`0.2.1-rc.2`, Cordis `4.0.5`, Schemastery `3.18.5`, Node.js `>=20` and
-pnpm `11.19.0`. Exact DSH peers and `dsh.compatibility.dshReleases` declare
-only the audited `0.2.1-rc.2`. This interface-compatibility declaration is not
-evidence of complete Web UI behavior, an Ubuntu/WSL run, or DSH Store approval.
+Plugin `3.3.1` targets DSH `0.2.2-rc.5` with Cordis `4.1.0` and
+Schemastery `3.19.0`. The DSH CLI requires Node.js `>=24.9.0`. The workspace uses
+pnpm `11.19.0`. The published plugin `3.3.0` targets DSH `0.2.1-rc.2`.
+
+## 0.2.2-rc.5 compatibility and performance (2026-11-20, included in 3.3.1)
+
+- The installed Windows npm CLI, nested packages and built frontend confirm
+  that volatile Config, `settings.configure`, `configForms.get/mutate`, the
+  three additive slots, session rename and exact WebServer routes still apply.
+  The lazy-CJS loader and its React, JSX, store and slots seeds support the
+  existing Client injection graph. The manifest and build dependencies target
+  the exact rc.5 release.
+- WorkspacePicker's native Menu now receives the trigger as its anchor.
+  The add-menu guard still uses native Escape arbitration, with the host's
+  presence-based IME marker. rc.5 isolates the new-session hero in a stacking
+  context. The plugin places it above the wallpaper while keeping its root
+  transparent, so the header and composer stay visible at 100% opacity.
+- A local tarball installed through the rc.5 CLI in an isolated Windows profile.
+  All three wallpaper routes returned HTTP 200 for HEAD with WebP MIME,
+  immutable cache control and `nosniff`.
+- A real Chromium run checked all three scenes at 100% wallpaper opacity,
+  WebGPU optics on the primary surfaces, the Settings 48px blur, both menu
+  toggles, right-dock split and close, and the narrow 735px fullscreen round
+  trip. The closed split animated the remaining dock from 278px to 556px
+  over 300ms. The plugin's reduced-motion preference retained static optics.
+  Off removed the active maps and persisted after reload.
+
+The same Windows host and Chromium viewport were used for the bounded
+performance probe. The baseline used the older Client logic with the new
+dependencies so that both packages could load in rc.5.
+
+| Browser probe | Before | After |
+| --- | ---: | ---: |
+| 360 test row insertions/removals inside an open dock, including fixture mount/unmount | 362 dock discovery searches, 32 pane searches, 64 dock bounds reads | 0 discovery searches, 0 pane searches, 0 dock bounds reads |
+| 480 synthetic pointer events in 12 bursts over the composer | 480 bounds reads | 12 bounds reads |
+| Morning → Noon → Night via quick settings | 15 canvas map snapshots | 5 canvas map snapshots |
+
+The browser instrumentation counts operations. Frame times and hardware GPU
+performance were outside the probe. The real-browser coverage also excludes
+Ubuntu/WSL, streamed model responses, code-block interactions, title editing,
+system reduced motion and legacy settings migration. The existing automated
+regression suites cover the used contracts, including settings and wallpaper
+fallbacks. The tested runtime is included in the GitHub Release for `3.3.1`.
+
+### Sidebar and conversation follow-up (2026-11-21)
+
+The rc.5 sidebar scroll fade painted the host's solid fill over the translucent
+panel. The theme suppresses that overlay while leaving the native scrollport in
+place. The file sidebar's compact Open With control uses a single frame and its
+original divider, keyboard focus, and menu. The header rim sits behind the title
+and tabs, and chat messages paint above the wallpaper through their actual row
+boxes inside the `display: contents` slot. A real Windows Chromium session with
+offline transcript data verified the fixes at 100% wallpaper opacity, sticky code
+headers and their copy controls, the Open With menu, and the 735px layout.
+
+At 1440 × 900 with an active WebGPU lens, fitting the SVG image to the filter
+region reduced width/height attribute changes during right-dock opening from
+15–17 to zero across six warm runs. The median animation-frame interval remained
+about 40ms. Diagnostic runs with SVG refraction removed from the right pane
+alone reached about 15ms while retaining CSS blur, identifying live SVG
+composition as the main remaining cost in this setup. The current package
+retains live refraction, blur, highlights and the native slide.
+
+### Transcript edges and mouse timing (2026-11-22)
+
+The transcript card now uses its border and inset highlights for separation.
+Removing its outer shadow prevents a dark strip where the scrollport clips the
+card beneath the header. The opaque sticky code mask uses the scene banner
+color, so it still hides scrolling code and no longer shows light corners.
+
+In foreground Windows Chromium, four openings on the same 1440 × 900
+new-session page produced median animation-frame intervals of about 40ms for
+both programmatic clicks and browser mouse input. Browser mouse input in the
+offline transcript measured about 35–45ms at 1440 × 900 and about 35ms at
+1920 × 1080. In a separate four-click run on the updated build, all four
+median intervals were about 35ms. The longest interval was 100ms on the first
+opening and 35–45ms on the following three. These are browser animation-frame
+intervals. The live SVG refraction remains active during the transition.
 
 ## 3.3.0 release verification (2026-10-22)
 

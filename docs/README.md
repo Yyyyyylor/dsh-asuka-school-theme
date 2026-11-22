@@ -1,6 +1,6 @@
 # 项目索引
 
-本页是 `dsh-asuka-school-theme` 的维护入口。包版本为 `3.3.0`，兼容基线为 DeepSeek Harness `0.2.1-rc.2` / Cordis `4.0.5`，包含 WebGPU 光学计算与网页折射效果。
+本页是 `dsh-asuka-school-theme` 的维护入口。插件 `3.3.1` 适配 DeepSeek Harness `0.2.2-rc.5` / Cordis `4.1.0`，包含 WebGPU 光学计算与网页折射效果。插件 `3.3.0` 对应 DSH `0.2.1-rc.2`。
 
 ## 从这里开始
 
@@ -35,7 +35,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 | Host 设置与资源路由 | `src/index.ts`、`src/settings.ts` | `tests/dsh-contract.test.ts`、`tests/asset-route.test.ts` |
 | 设置默认值、时段与校验 | `src/shared/settings.ts` | `tests/settings.test.ts` |
 | Client 注册与生命周期 | `src/client/index.ts` | `tests/dsh-contract.test.ts` |
-| 工作区菜单二次点击兼容 | `src/client/workspace-picker.ts` | `tests/workspace-picker.test.ts`，外加真实浏览器交互回归 |
+| 输入框加号菜单二次点击兼容 | `src/client/command-menu.ts` | `tests/command-menu.test.ts`，外加真实浏览器交互回归 |
 | 关闭分栏动画与尺寸跟踪 | `src/client/dock-motion.ts` | `tests/dock-motion.test.ts`，外加真实 DSH 尺寸与分栏按钮验证 |
 | 窄窗口右栏并排布局 | `src/client/rightbar-layout.ts`、`src/client/styles.ts` | `tests/rightbar-layout.test.ts`，外加真实 DSH 开关、全屏和窗口尺寸验证 |
 | 场景与设置协调 | `src/client/controller.ts` | `tests/controller.test.ts` |
@@ -51,7 +51,7 @@ Host 入口为 `src/index.ts`，Client 入口为 `src/client/index.ts`。两端�
 
 | 文档 | 用途 | 何时阅读或更新 |
 | --- | --- | --- |
-| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.1-rc.2 接口核对、旧版证据和验证边界 | DSH/Cordis 升级、注入图或宿主接口变化时 |
+| [COMPATIBILITY.md](COMPATIBILITY.md) | DSH 0.2.2-rc.5 接口核对、实测记录和历史验证 | DSH/Cordis 升级、注入图或宿主接口变化时 |
 | [STORE-REVIEW.md](../STORE-REVIEW.md) | 商店身份、依赖、files/network 能力与失败边界 | manifest、能力、依赖或商店审查变化时 |
 | [#1195 3.3.0 复检材料](reviews/store-1195-20261022/README.md) | 当前运行依赖树、制品完整性和能力说明；等待 Store 独立裁定 | 当前固定源复检时 |
 | [#1195 供应链审核](reviews/store-1195-20261017/SUPPLY-CHAIN-REVIEW.md) / [能力审核](reviews/store-1195-20261017/CAPABILITY-REVIEW.md) | 已发布 3.2.2 固定提交的两项审核证据、实际解析差异和未获商城批准的边界 | 维护者正式审阅登记或后续固定源复核时 |
@@ -86,5 +86,5 @@ git diff --check
 
 `package.json#files` 仅允许发布预构建 `lib/`、`assets/public/`、资源许可、Cordis patch、双语 README、商店审查说明和 LICENSE。`assets/private/`、本地 `.tgz`、`/tgz/`、测试与其余内部文档不会进入安装包。
 
-推荐通过 DSH 插件安装页面填写 npm 包名 `dsh-asuka-school-theme`，或通过 CLI 安装固定版本的 npm 包；GitHub Release 的版本化 `.tgz` 和固定 Git tag 的 GitHub 源作为备选。具体步骤见双语 README；发布步骤只有在明确授权时执行。
+DSH `0.2.2-rc.5` 使用 GitHub Release 的 `3.3.1` 安装包或固定 Git tag。DSH `0.2.1-rc.2` 可通过 Web 插件安装页面或 CLI 安装 npm 上的 `3.3.0`。具体步骤见双语 README。
 

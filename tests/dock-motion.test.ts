@@ -7,6 +7,7 @@ function fixture() {
   let split = true
   let mutation: MutationCallback
   let resized: ResizeObserverCallback
+  const measure = vi.fn()
   class Element {
     isConnected = true
     parentElement?: Element
@@ -14,10 +15,11 @@ function fixture() {
     width = 560
     left = 10
     firstElementChild?: Element
-    getBoundingClientRect() { return { width: this.width, left: this.left } }
+    getBoundingClientRect() { measure(); return { width: this.width, left: this.left } }
     closest(selector: string): Element | null {
-      if (selector === '[hidden]') return null
-      return selector === '[data-sidebar-right-open]' ? parent : surface
+      if (selector === '[data-sidebar-right-open]') return parent
+      if (selector === '[data-sidebar-right-panel] [data-dockkit-surface]') return surface
+      return null
     }
     hasAttribute() { return split }
     querySelector() { return panes[0] }
@@ -53,7 +55,12 @@ function fixture() {
     },
   }
   return {
-    root: root as unknown as Document, resize, mutations, animate, animation, media, body, removedMedia,
+    root: root as unknown as Document, resize, mutations, animate, animation, media, body, removedMedia, measure,
+    updatePaneContent() {
+      const target = new Element()
+      target.parentElement = left
+      mutation!([{ type: 'childList', target, addedNodes: [new Element()] } as unknown as MutationRecord], {} as MutationObserver)
+    },
     collapse(side: 'left' | 'right') {
       split = false
       panes = [side === 'left' ? left : right]
@@ -90,6 +97,17 @@ describe('dock close motion', () => {
     f.collapse('right')
     f.resizeParent()
     expect(f.animation.cancel).toHaveBeenCalledOnce()
+    dispose()
+  })
+
+  it('ignores content mutations while keeping the split bounds for closure', () => {
+    const f = fixture()
+    const dispose = installDockCloseMotion(f.root)
+    f.measure.mockClear()
+    f.updatePaneContent()
+    expect(f.measure).not.toHaveBeenCalled()
+    f.collapse('right')
+    expect(f.animate).toHaveBeenCalledOnce()
     dispose()
   })
 

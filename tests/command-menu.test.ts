@@ -21,7 +21,7 @@ describe('command menu toggle compatibility', () => {
     vi.stubGlobal('KeyboardEvent', Event)
     const root = new EventTarget()
     const dispose = installCommandMenuToggleGuard(root as unknown as Document)
-    const editor = { getAttribute: vi.fn((): string | null => null), dispatchEvent: vi.fn((event: Event) => event.preventDefault()) }
+    const editor = { hasAttribute: vi.fn(() => false), dispatchEvent: vi.fn((event: Event) => event.preventDefault()) }
     const card = { querySelector: vi.fn((selector: string) => selector === '[data-composer-input]' ? editor : {}) }
     const target = new TriggerTarget()
     target.closest.mockReturnValue({ closest: () => card })
@@ -37,7 +37,7 @@ describe('command menu toggle compatibility', () => {
       expect(unconsumed.defaultPrevented).toBe(false)
 
       editor.dispatchEvent.mockClear()
-      editor.getAttribute.mockReturnValue('true')
+      editor.hasAttribute.mockImplementation(name => name === 'data-composer-composing')
       const composing = click(target)
       root.dispatchEvent(composing)
       expect(editor.dispatchEvent).not.toHaveBeenCalled()

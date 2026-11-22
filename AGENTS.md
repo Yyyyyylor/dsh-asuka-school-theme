@@ -4,10 +4,10 @@
 
 ## 项目基线
 
-- 当前版本：`3.3.0`。
-- 兼容基线：DeepSeek Harness `0.2.1-rc.2`、Cordis `4.0.5`、Schemastery `3.18.5`、Node.js `>=20`、pnpm `11.19.0`。
-- 目标环境：DSH Web；主要目标平台为 Ubuntu / WSL2 Ubuntu。旧版 0.2.0-rc.2 及更早的运行验证不能代表本次 0.2.1-rc.2 的真实浏览器结果；边界见 COMPATIBILITY。
-- 推荐通过 DSH 插件安装页面填写 npm 包名 `dsh-asuka-school-theme`，或通过 CLI 安装固定版本的 npm 包；GitHub Release 中的预构建 `.tgz` 和固定 Git tag 的 GitHub 源作为备选。
+- 当前版本：`3.3.1`。
+- 当前源码兼容基线为 DeepSeek Harness `0.2.2-rc.5`、Cordis `4.1.0`、Schemastery `3.19.0`、pnpm `11.19.0`。运行该 DSH CLI 需要 Node.js `>=24.9.0`。
+- 目标环境为 DSH Web，主要目标平台为 Ubuntu / WSL2 Ubuntu。各版本的实测范围见 COMPATIBILITY。
+- DSH `0.2.2-rc.5` 推荐使用 GitHub Release 的 `3.3.1` 预构建 `.tgz`，也可使用固定 Git tag。npm 的 `3.3.0` 对应 DSH `0.2.1-rc.2`。
 - 开始修改前先阅读 [项目索引](docs/README.md)，再按任务进入对应源码与专项文档。
 
 ## 仓库地图

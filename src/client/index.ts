@@ -16,7 +16,6 @@ import { createAsukaSettingsStore } from './settings/settings-store.js'
 import { SessionTitleEditor } from './session-title/SessionTitleEditor.js'
 import { renameSessionTitle } from './session-title/rename.js'
 import { installAsukaStyles } from './styles.js'
-import { installWorkspacePickerToggleGuard } from './workspace-picker.js'
 import { installCommandMenuToggleGuard } from './command-menu.js'
 import { installDockCloseMotion } from './dock-motion.js'
 import { installLiquidGlass } from './liquid-glass.js'
@@ -27,7 +26,6 @@ export const inject = ['slots', 'locale', 'sessions', 'configForms']
 export function apply(ctx: Context): void {
   ctx.effect(() => installAsukaStyles(), 'asuka-school-theme: owned styles')
   ctx.effect(() => installLiquidGlass(), 'asuka-school-theme: liquid glass optics')
-  ctx.effect(() => installWorkspacePickerToggleGuard(), 'asuka-school-theme: workspace picker toggle compatibility')
   ctx.effect(() => installCommandMenuToggleGuard(), 'asuka-school-theme: command menu toggle compatibility')
   ctx.effect(() => installDockCloseMotion(), 'asuka-school-theme: dock close motion')
   ctx.effect(() => installNarrowRightbarLayout(), 'asuka-school-theme: narrow rightbar layout')

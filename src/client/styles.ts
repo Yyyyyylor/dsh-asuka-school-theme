@@ -45,6 +45,12 @@ body[data-asuka-school-theme]:not([data-asuka-school-reduce-motion='true']) :is(
   transition: opacity 560ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .asuka-school-wallpaper-layer[data-active='true'] { opacity: 1; }
+/* DSH isolates the hero's decorations and controls in their own stacking
+   context. Raise that context above the wallpaper and let the image show through. */
+body[data-asuka-school-theme][data-asuka-school-wallpaper='true'] [data-slot='main.conversation'] > [data-phase='hero'] {
+  z-index: 2;
+  background: transparent;
+}
 body[data-asuka-school-reduce-motion='true'] #asuka-school-wallpaper-root,
 body[data-asuka-school-reduce-motion='true'] .asuka-school-wallpaper-layer,
 body[data-asuka-school-reduce-motion='true'][data-asuka-school-theme] { transition: none; }
@@ -390,10 +396,10 @@ body[data-asuka-school-theme] :is([data-composer-card], [class*='_bubble']:not([
   position: relative;
   z-index: 2;
 }
-/* DSH paints assistant, process and tool nodes without a user-style bubble.
-   Raise the column-bounded flow items, including process groups and live rows;
-   leave the full-width scrollport and its gutter resize handles untouched. */
-body[data-asuka-school-theme] [data-chat-flow] > * {
+/* The chat flow slot is display: contents in rc.5. Raise the actual message
+   boxes above the wallpaper while keeping the native scrollport and handles. */
+body[data-asuka-school-theme] [data-chat-flow] > *,
+body[data-asuka-school-theme] [data-chat-flow] > [data-slot='conversation.chat.flow'] > [data-chat-flow-key] {
   position: relative;
   z-index: 2;
 }
@@ -418,8 +424,7 @@ body[data-asuka-school-theme] [data-chat-flow-kind]:is(
   background: transparent;
   box-shadow:
     inset 0 1px 0 var(--asuka-glass-highlight),
-    inset 0 0 0 1px rgb(255 255 255 / 0.04),
-    0 12px 36px var(--asuka-glass-shadow);
+    inset 0 0 0 1px rgb(255 255 255 / 0.04);
 }
 body[data-asuka-school-theme] [data-chat-flow-kind]:is(
   [data-chat-flow-kind='assistant-step'],
@@ -729,9 +734,9 @@ body[data-asuka-school-theme] [data-composer-card] button[class*='_add'] {
   backdrop-filter: blur(12px) saturate(1.35);
   box-shadow: inset 0 1px 0 var(--asuka-glass-highlight), inset 0 0 0 1px var(--asuka-glass-edge-soft), 0 2px 8px rgb(20 32 40 / 0.1);
 }
-/* The host scroll fade ends in an opaque shell color and appears as a white
-   strip over the translucent sidebar, even when there is nothing to scroll. */
-body[data-asuka-school-theme] [data-slot='sidebar'] [class*='_fade'] {
+/* The host paints this overlay in its solid sidebar color, even when there
+   is nothing to scroll. Keep the scrollport and its native overflow intact. */
+body[data-asuka-school-theme] [data-slot='sidebar'] [data-sidebar-scrollport] + span[aria-hidden='true'] {
   background: none;
 }
 /* Stable semantic details: the palette is applied by presentation.ts, while these make its school motif tangible. */
@@ -809,29 +814,29 @@ body[data-asuka-school-theme] [data-presented-file] > button:first-child:focus-v
 }
 /* The native split action owns one outer frame. Independent button radii and
    detail shadows would draw two overlapping capsules inside that frame. */
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] {
   border-color: var(--asuka-glass-edge-soft);
   border-radius: 8px;
   background: var(--asuka-glass-surface-soft);
 }
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] > button {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button + button {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] > button + button {
   border-left-color: var(--asuka-glass-edge-soft);
 }
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button:not(:disabled):is(:hover, [aria-expanded='true']) {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] > button:not(:disabled):is(:hover, [aria-expanded='true']) {
   background: var(--asuka-glass-surface-medium);
   box-shadow: none;
 }
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button:focus-visible {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] > button:focus-visible {
   outline: none;
   background: var(--asuka-glass-surface-medium);
   box-shadow: none;
 }
-body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact']:has(> button:focus-visible) {
+body[data-asuka-school-theme] :is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact']:has(> button:focus-visible) {
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 2px;
 }
@@ -944,10 +949,11 @@ body[data-asuka-school-theme] .md-code-block [data-code-block-banner='true'] {
   background: var(--asuka-glass-code-banner);
   box-shadow: inset 0 -1px 0 var(--asuka-code-banner-edge);
 }
-/* Keep the existing sticky mask and clipping geometry. */
+/* Keep the sticky mask opaque so scrolling code stays behind the banner.
+   Match the banner fill so the mask cannot show through its rounded corners. */
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {
   border-radius: 0;
-  background: var(--dsw-alias-bg-base);
+  background: var(--asuka-glass-code-banner);
 }
 body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child > :first-child {
   border-top-left-radius: 10px;

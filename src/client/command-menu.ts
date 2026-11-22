@@ -8,7 +8,7 @@ export function installCommandMenuToggleGuard(root: Document = document): () => 
     const card = trigger?.closest('[data-composer-card]')
     if (!card?.querySelector("[data-trigger-menu] :is([role='option'][id^='dsh-slash-option-command-'], [role='status'][data-source='command'])")) return
     const editor = card.querySelector<HTMLElement>('[data-composer-input]')
-    if (!editor || editor.getAttribute('data-composer-composing') === 'true') return
+    if (!editor || editor.hasAttribute('data-composer-composing')) return
     const escape = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', bubbles: true, cancelable: true })
     editor.dispatchEvent(escape)
     // Only suppress the reopening click if the native editor consumed Escape.

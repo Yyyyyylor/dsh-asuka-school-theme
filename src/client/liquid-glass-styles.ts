@@ -76,6 +76,10 @@ body[data-asuka-school-theme][data-asuka-liquid-engine='true'] [data-trigger-men
   opacity: 0.82;
   transition: --asuka-liquid-light-x 140ms ease-out, --asuka-liquid-light-y 140ms ease-out, --asuka-liquid-light-strength 180ms ease-out;
 }
+/* Paint the header rim over its glass fill and below its title and tab row. */
+body[data-asuka-school-theme] header[data-asuka-liquid-glass='true']:has(> [data-conversation-header-leading])::after {
+  z-index: -1;
+}
 body[data-asuka-school-theme] [data-composer-card][data-asuka-liquid-glass='true']:focus-within {
   box-shadow: inset 0 1px 0 var(--asuka-glass-highlight),
     0 0 0 2px color-mix(in srgb, var(--dsw-alias-brand-primary) 18%, transparent),

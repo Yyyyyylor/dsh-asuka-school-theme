@@ -1,5 +1,7 @@
+const RIGHTBAR = '[data-rightbar-col], [data-sidebar-right-panel]'
 const SURFACE = '[data-sidebar-right-panel] [data-dockkit-surface]'
-const PANES = "[data-dockkit-host='dock']:not([hidden]) > [data-dockkit-pane]"
+const HOST = '[data-dockkit-host]'
+const PANES = ":scope > [data-dockkit-host='dock']:not([hidden]) > [data-dockkit-pane]"
 
 interface PaneBounds { width: number; left: number }
 interface DockSurface {
@@ -28,8 +30,9 @@ export function installDockCloseMotion(root: Document = document): () => void {
   }
   const cancelAll = () => surfaces.forEach(cancel)
   const sample = (state: DockSurface) => {
-    const left = state.element.getBoundingClientRect().left
     state.bounds.clear()
+    if (!state.split) return
+    const left = state.element.getBoundingClientRect().left
     for (const pane of state.panes) {
       if (!pane.isConnected || pane.closest('[hidden]')) continue
       const rect = pane.getBoundingClientRect()
@@ -79,7 +82,7 @@ export function installDockCloseMotion(root: Document = document): () => void {
       cancel(state)
     }
     state.split = split
-    const panes = new Set(state.element.querySelectorAll<HTMLElement>(PANES))
+    const panes = new Set(split ? grid?.querySelectorAll<HTMLElement>(PANES) : undefined)
     for (const pane of state.panes) if (!panes.has(pane)) resize.unobserve(pane)
     for (const pane of panes) if (!state.panes.has(pane)) resize.observe(pane)
     state.panes = panes
@@ -101,14 +104,22 @@ export function installDockCloseMotion(root: Document = document): () => void {
     for (const record of records) {
       if (record.type === 'attributes' && record.target === root.body) cancelAll()
       if (record.attributeName === 'data-dragging' || record.attributeName === 'data-dockkit-pointer') cancelAll()
-      if (record.target instanceof view.Element) {
-        const surface = record.target.closest<HTMLElement>(SURFACE)
-        if (surface) touched.add(surface)
+      const target = record.target
+      if (!(target instanceof view.HTMLElement)) continue
+      const surface = target.closest<HTMLElement>(SURFACE)
+      if (surface) {
+        const grid = surface.firstElementChild
+        // Only the outer grid and its immediate tab hosts can change the
+        // split or its measured panes. Ignore mutations inside pane content.
+        if (target === surface || target === grid || (target.parentElement === grid && target.matches(HOST))) touched.add(surface)
+        continue
       }
       for (const node of record.addedNodes) {
         if (!(node instanceof view.HTMLElement)) continue
         if (node.matches(SURFACE)) attach(node)
-        node.querySelectorAll<HTMLElement>(SURFACE).forEach(attach)
+        else if (node.firstElementChild && (target.closest(RIGHTBAR) || node.matches(RIGHTBAR) || node.querySelector(RIGHTBAR))) {
+          node.querySelectorAll<HTMLElement>(SURFACE).forEach(attach)
+        }
       }
     }
     for (const [element, state] of surfaces) {
@@ -124,7 +135,7 @@ export function installDockCloseMotion(root: Document = document): () => void {
   root.querySelectorAll<HTMLElement>(SURFACE).forEach(attach)
   mutations.observe(root.documentElement, {
     childList: true, subtree: true, attributes: true,
-    attributeFilter: ['data-dockkit-split', 'data-dockkit-pointer', 'data-dragging', 'data-asuka-school-theme', 'data-asuka-school-reduce-motion'],
+    attributeFilter: ['data-dockkit-split', 'hidden', 'data-dockkit-pointer', 'data-dragging', 'data-asuka-school-theme', 'data-asuka-school-reduce-motion'],
   })
   reduced.addEventListener('change', cancelAll)
   return () => {

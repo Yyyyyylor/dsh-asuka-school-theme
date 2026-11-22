@@ -36,16 +36,11 @@ registration are owned by Cordis effects. Slot contributions wait for their
 declared slots with `ctx.slots.inject`, so they are removed with their
 contributor and never claim a shell-owned seat.
 
-`workspace-picker.ts` owns one document capture listener through a Cordis effect.
-DSH 0.2 positions WorkspacePicker's Menu with `anchor=null`, so the separate
-Hero chip otherwise closes it on pointerdown and reopens it on click. The guard
-stops propagation only for a primary pointer on that expanded chip; focus,
-native click/keyboard toggling, menu selection and outside dismissal remain native.
-It does not register into the host's single workspace slot or replace its component.
-The compatibility guard remains active while the plugin is loaded, including
-scene Off, and its effect removes the listener on disposal.
+DSH `0.2.2-rc.5` passes the workspace button as an anchor to its own Menu.
+The native outside-pointer handler recognizes that anchor, so the button's
+second click closes the menu through the host's normal toggle path.
 
-`command-menu.ts` owns a separate capture-click compatibility guard for the
+`command-menu.ts` owns a capture-click compatibility guard for the
 composer's add button. DSH 0.2's draft-focus tracking can clear the programmatic
 launcher without closing its menu. A visible command menu, including pending
 command candidates, is closed through the same editor's native Escape arbitration;
@@ -55,8 +50,9 @@ The guard does not access private React/editor state or add service dependencies
 Cordis disposal removes its listener.
 
 `dock-motion.ts` is also owned by a Cordis effect. A MutationObserver discovers
-right-side dock surfaces and detects the native split-to-single change; a
-ResizeObserver records visible pane bounds and container resizing. Only the
+right-side dock surfaces and follows the outer grid and its immediate tab
+hosts. A ResizeObserver records visible pane bounds while split and monitors
+container resizing. Only the
 observed outer dock surface receives a temporary width/margin animation, from the
 surviving pane's prior bounds to the full width. Flex growth/shrink is disabled
 only during that animation. DockKit's own observer then refreshes room through the

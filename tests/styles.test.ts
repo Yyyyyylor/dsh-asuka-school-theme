@@ -28,6 +28,7 @@ describe('wallpaper compositing styles', () => {
 
   it('keeps the wallpaper visible above the app shell and keeps each crossfading layer self-contained', () => {
     expect(ASUKA_STYLES).toContain('#asuka-school-wallpaper-root {\n  position: fixed;\n  inset: 0;\n  z-index: 1;')
+    expect(ASUKA_STYLES).toMatch(/body\[data-asuka-school-theme\]\[data-asuka-school-wallpaper='true'\] \[data-slot='main\.conversation'\] > \[data-phase='hero'\] \{\s*z-index: 2;\s*background: transparent;/)
     expect(ASUKA_STYLES).not.toContain('body > :not(#asuka-school-wallpaper-root)')
     expect(ASUKA_STYLES).toContain('var(--asuka-wallpaper-mask-start)')
     expect(ASUKA_STYLES).toContain('opacity 560ms cubic-bezier')
@@ -195,7 +196,7 @@ describe('wallpaper compositing styles', () => {
     const fileShell = ASUKA_STYLES.match(/\[data-presented-file\] \{([^}]+)\}/)?.[1]
     expect(fileShell).toContain('background-color: var(--asuka-glass-surface-medium);')
     expect(fileShell).not.toMatch(/backdrop-filter|overflow|transform/)
-    expect(ASUKA_STYLES).toContain(":is([data-slot='conversation.session.header.utilities'], [data-presented-file]) [data-open-target][data-size='compact'] > button {\n  border-radius: 0;")
+    expect(ASUKA_STYLES).toContain(":is([data-slot='conversation.session.header.utilities'], [data-presented-file], [data-slot='sidebar.right.tab.files.actions']) [data-open-target][data-size='compact'] > button {\n  border-radius: 0;")
     expect(ASUKA_STYLES).toContain("[data-size='compact']:has(> button:focus-visible)")
   })
 
@@ -220,11 +221,11 @@ describe('wallpaper compositing styles', () => {
     expect(ASUKA_STYLES).toContain(`${firstPaint}:not([data-trigger-menu])::after,`)
   })
 
-  it('masks DSH sticky code banners with the Phase-1 solid theme surface', () => {
+  it('paints the sticky code mask and banner with the same scene fill', () => {
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block {")
     expect(ASUKA_STYLES).toContain('overflow: clip;')
     expect(ASUKA_STYLES).toContain("body[data-asuka-school-theme][data-asuka-school-details='true'] .md-code-block > :first-child {")
-    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--dsw-alias-bg-base);')
+    expect(ASUKA_STYLES).toContain('border-radius: 0;\n  background: var(--asuka-glass-code-banner);')
     expect(ASUKA_STYLES).not.toContain(".md-code-block > :first-child::before {")
     expect(ASUKA_STYLES).not.toContain('radial-gradient(circle at 100% 100%')
     expect(ASUKA_STYLES).not.toContain('radial-gradient(circle at 0 100%')

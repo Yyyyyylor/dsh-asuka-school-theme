@@ -1,6 +1,14 @@
 # DSH Store review / 商店审查说明
 
-## Current disclosure: 3.3.0 / 当前版本说明
+## 3.3.1 release / 3.3.1 版本说明
+
+`3.3.1` 的目标是 DSH `0.2.2-rc.5` / Cordis `4.1.0`。唯一直接运行依赖为
+`@deepseek-ai/schemastery@3.19.0`，传递声明为 `@deepseek-ai/cosmokit@~1.9.0`
+和 `@standard-schema/spec@^1.1.0`，lockfile 解析为 `1.9.0` / `1.1.0`。
+下方的 Store #1195 制品与签名记录对应已发布的 `3.3.0`。Host entry、Client factory、
+同源资源路由与文件/网络权限均沿用该版本。
+
+## Published 3.3.0 disclosure / 已发布版本说明
 
 2026-10-22，插件 `3.3.0`，目标 DSH `0.2.1-rc.2` / Cordis `4.0.5`。
 Canonical repository 为 `https://github.com/Yyyyyylor/dsh-asuka-school-theme`；
